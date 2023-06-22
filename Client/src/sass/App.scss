@@ -1,0 +1,35 @@
+@import "./components.scss";
+@import "./reset.scss";
+
+.banner {
+  width: 100%;
+  background-color: #a599e5dd;
+  display: block;
+  padding: 2em;
+  text-align: center;
+  height: 200px;
+	z-index: -1;
+	position: absolute;
+
+	h1 {
+		font-size: 100px;
+		color: white
+	}
+}
+
+.columns {
+  display: flex;
+  justify-content: space-evenly;
+	position: absolute;
+	z-index: 999;
+	top: 170px;
+}
+
+.rows {
+	margin-top: 8em;
+  display: flex;
+  flex-direction: column;
+  // justify-content: space-evenly;
+	// background-color: white;
+  height: 100vh;
+}

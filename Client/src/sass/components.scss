@@ -1,0 +1,55 @@
+input,
+select {
+  margin-left: 1em;
+  border: 0.5px solid #393939;
+  padding: 0.25em 0.5em;
+  cursor: pointer;
+  background-color: #e8e7e7;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  label,
+  .desc {
+    padding-bottom: 2em;
+  }
+}
+
+table {
+  background-color: white;
+  border-collapse: collapse;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  display: block;
+  padding-bottom: 2em;
+	// overflow-y: scroll;
+
+  border: 1px solid #e6e6e6;
+
+  th,
+  td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #e6e6e6;
+  }
+
+  th {
+    background-color: #dddddd;
+    font-weight: bold;
+    justify-content: center;
+    font-weight: bold;
+    text-align: center;
+  }
+  thead {
+    td {
+      font-weight: bold;
+      color: rgb(0, 0, 0);
+			
+      // td {
+        text-align: center;
+      // }
+      position: sticky;
+    }
+  }
+}

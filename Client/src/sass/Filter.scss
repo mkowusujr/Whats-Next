@@ -1,0 +1,14 @@
+.filter {
+	// max-width: fit-content;
+	display: block;
+	padding: 2em;
+  // background-color: #875555;
+  // width: 100%;
+	form {
+		display: flex;
+		flex-direction: column;
+		label, .desc {
+			padding-bottom: 2em;
+		}
+	}
+}
