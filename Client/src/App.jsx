@@ -4,6 +4,7 @@ import MediaTable from "./components/MediaTable";
 import { listMedia } from "./services/media.service";
 import Filter from "./components/Filter";
 import "./sass/App.scss";
+import { usePalette } from "react-palette";
 
 function App() {
   const [mediaList, setMediaListTo] = useState([]);
@@ -12,6 +13,10 @@ function App() {
     mediaType: "",
     watchStatus: "",
   });
+  
+  const [imgUrl, setImgUrl] = useState("")
+  const imgUrlUtils = {imgUrl: imgUrl, setImgUrl: setImgUrl}
+  const { data, loading, error } = usePalette(imgUrl);
 
   const filterProps = { filters, setFilters };
 
@@ -26,8 +31,14 @@ function App() {
 
   return (
     <>
-      <div className="banner">
-        <h1>Watch Next</h1>
+      {/* <div className="banner" style={{ backgroundColor: data.vibrant }}> */}
+      <div
+        className="banner"
+        style={{
+          background: `linear-gradient(${data.vibrant}, rgb(255, 255, 255)`,
+        }}
+      >
+        <h1>Watch Next?</h1>
       </div>
       <div className="columns">
         <div className="rows">
@@ -38,6 +49,7 @@ function App() {
           mediaList={mediaList}
           updateMediaList={updateMediaList}
           show={filters.watchStatus}
+          imgUrlUtils={imgUrlUtils}
         />
       </div>
     </>

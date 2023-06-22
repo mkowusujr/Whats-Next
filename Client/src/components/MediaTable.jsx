@@ -19,6 +19,7 @@ export default function MediaTable(props) {
               key={index}
               media={media}
               updateMediaList={props.updateMediaList}
+              imgUrlUtils={props.imgUrlUtils}
             />
           ))}
         </tbody>

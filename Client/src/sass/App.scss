@@ -3,17 +3,18 @@
 
 .banner {
   width: 100%;
-  background-color: #a599e5dd;
   display: block;
   padding: 2em;
-  text-align: center;
-  height: 200px;
+  height: 220px;
 	z-index: -1;
 	position: absolute;
+  transition: 0.5s;
 
 	h1 {
 		font-size: 100px;
-		color: white
+		color: white;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-weight: 400;
 	}
 }
 

@@ -47,7 +47,13 @@ export default function MediaRow(props) {
 
   return (
     <>
-      <tr className="media-row" key={index}>
+      <tr
+        className="media-row"
+        key={index}
+        onMouseEnter={() => {
+          props.imgUrlUtils.setImgUrl(media.posterImageUrl);
+        }}
+      >
         <td>
           <img className="poster-image" src={media.posterImageUrl} />
         </td>
