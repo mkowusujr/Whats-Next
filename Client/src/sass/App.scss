@@ -28,10 +28,15 @@
 }
 
 .main-content {
+  display: flex;
+  flex-direction: column;
   position: relative;
-  top: 2.3em;
+  top: 5em;
   margin-left: 5em;
+  width: 741px;
+  height: 105vh;
 }
+
 
 footer {
   margin-top: 1em;

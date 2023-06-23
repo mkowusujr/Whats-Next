@@ -25,12 +25,14 @@ table {
   display: block;
   padding-bottom: 2em;
   border: 2px solid ;
-
+tr{
+  border-bottom: 1px solid #e6e6e6;
+}
   th,
   td {
     padding: 8px;
     text-align: left;
-    border-bottom: 1px solid #e6e6e6;
+    
   }
   tbody  td {
     vertical-align: middle;

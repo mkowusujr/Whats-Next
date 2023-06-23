@@ -34,95 +34,66 @@ export default function AddMediaForm(props) {
   return (
     <div className="add-media-form">
       <form onSubmit={submitEntry}>
-        <table>
-          <thead>
-            <tr>
-              <td colSpan={2}>Add Media</td>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>
-                <label>Name</label>
-              </td>
-              <td>
-                <input
-                  type="text"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  required
-                />
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <label>Watch Status</label>
-              </td>
-              <td>
-                <select
-                  value={watchStatus}
-                  onChange={(e) => setWatchStatus(e.target.value)}
-                  required
-                >
-                  <option value="" disabled>
-                    Select Watch Status
+        <div className="quick-add">
+          <input
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="Add Media Name & Year"
+            required
+          />
+          <select
+            value={watchStatus}
+            onChange={(e) => setWatchStatus(e.target.value)}
+            required
+          >
+            <option value="" disabled>
+              Select Watch Status
+            </option>
+            {watchStatuses.map((status, index) => (
+              <option key={index} value={status}>
+                {status}
+              </option>
+            ))}
+          </select>
+          <input type="submit" value="Add Media" />
+        </div>
+        <details>
+          <summary>Expand</summary>
+          <div className="expanded-options">
+            <label>
+              Personal Rating
+              <select
+                value={personalRating}
+                onChange={(e) => setPersonalRating(e.target.value)}
+              >
+                {ratings.map((rating, index) => (
+                  <option key={index} value={rating}>
+                    {rating}
                   </option>
-                  {watchStatuses.map((status, index) => (
-                    <option key={index} value={status}>
-                      {status}
-                    </option>
-                  ))}
-                </select>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <label>Personal Rating</label>
-              </td>
-              <td>
-                <select
-                  value={personalRating}
-                  onChange={(e) => setPersonalRating(e.target.value)}
-                >
-                  {ratings.map((rating, index) => (
-                    <option key={index} value={rating}>
-                      {rating}
-                    </option>
-                  ))}
-                </select>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <label>Date Started</label>
-              </td>
-              <td>
+                ))}
+              </select>
+            </label>
+            <div className="expanded-dates">
+              <label>
+                Date Started
                 <input
                   type="date"
                   value={dateStarted}
                   onChange={(e) => setDateStarted(e.target.value)}
                 />
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <label>Date Completed</label>
-              </td>
-              <td>
+              </label>
+              <label>
+                Date Completed
                 <input
                   type="date"
                   value={dateCompleted}
                   onChange={(e) => setDateCompleted(e.target.value)}
                 />
-              </td>
-            </tr>
-            <tr>
-              <td colSpan={2}>
-                <input type="submit" value="Add Media" />
-              </td>
-            </tr>
-          </tbody>
-        </table>
+              </label>
+            </div>
+          </div>
+        </details>
       </form>
     </div>
   );
