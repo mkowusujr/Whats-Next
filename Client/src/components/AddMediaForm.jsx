@@ -20,7 +20,14 @@ export default function AddMediaForm(props) {
       dateCompleted: dateCompleted,
     };
     addMedia(media)
-      .then(() => props.updateMediaList())
+      .then(() => {
+        props.updateMediaList();
+        setName("");
+        setWatchStatus("");
+        setPersonalRating(ratings[0]);
+        setDateStarted("");
+        setDateCompleted("");
+      })
       .catch((err) => console.error(err));
   };
 
@@ -53,7 +60,7 @@ export default function AddMediaForm(props) {
               </td>
               <td>
                 <select
-                  value=""
+                  value={watchStatus}
                   onChange={(e) => setWatchStatus(e.target.value)}
                   required
                 >

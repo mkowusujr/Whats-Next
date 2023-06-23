@@ -38,10 +38,6 @@ const applyFilters = (mediaList, filters) => {
     mediaList = [...sortedMediaList, ...nullMedia];
   }
 
-  // if (filters.limit) {
-  //   mediaList = mediaList.slice(0, filters.limit);
-  // }
-
   return mediaList;
 };
 

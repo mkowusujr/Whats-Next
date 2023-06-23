@@ -3,3 +3,14 @@
   width:100px
 }
 }
+
+.media-options {
+	display: flex;
+	flex-direction: column;
+	height: inherit;
+	justify-content: space-evenly;
+}
+
+.start-date {
+	margin-right: 2.3333em;
+}

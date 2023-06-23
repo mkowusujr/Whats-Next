@@ -15,7 +15,6 @@ export default function Filter(props) {
       sortBy: { prop: sortByProp, desc: sortByDesc },
       mediaType: mediaType,
       watchStatus: watchStatus,
-      // limit: limit,
     };
 
     setFilters(updatedFilters);
@@ -38,7 +37,7 @@ export default function Filter(props) {
             <td>
               <label>Sort By Property</label>
             </td>
-            <td>
+            <td style={{width: `auto`}}>
               <div className="sorting">
                 <select
                   value={sortByProp}
@@ -50,22 +49,22 @@ export default function Filter(props) {
                     </option>
                   ))}
                 </select>
-                  <label>
-                    <input
-                      type="checkbox"
-                      checked={sortByDesc == false}
-                      onChange={() => setSortByDesc(false)}
-                      />
-                      ASC
-                  </label>
-                  <label>
-                    <input
-                      type="checkbox"
-                      checked={sortByDesc == true}
-                      onChange={() => setSortByDesc(true)}
-                      />
-                      DESC
-                  </label>
+                <label>
+                  <input
+                    type="checkbox"
+                    checked={sortByDesc == false}
+                    onChange={() => setSortByDesc(false)}
+                  />
+                  ASC
+                </label>
+                <label>
+                  <input
+                    type="checkbox"
+                    checked={sortByDesc == true}
+                    onChange={() => setSortByDesc(true)}
+                  />
+                  DESC
+                </label>
               </div>
             </td>
           </tr>

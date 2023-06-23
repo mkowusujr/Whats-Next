@@ -1,14 +1,22 @@
 .filter {
-	// max-width: fit-content;
 	display: block;
-	padding: 2em;
-  // background-color: #875555;
-  // width: 100%;
-	form {
-		display: flex;
-		flex-direction: column;
-		label, .desc {
-			padding-bottom: 2em;
-		}
-	}
+  padding: 2em;
+	padding-bottom: 0;
+	width: 711.317px;
+	height: 102px;
+	margin-bottom: 1em;
+  table {
+		height: inherit;
+		width: inherit;
+		border-radius: 0.5em;
+    tbody {
+      display: flex;
+      flex-direction: row;
+      td {
+        height: 48.3px;
+        width: min-content;
+				border-bottom: none;
+      }
+    }
+  }
 }

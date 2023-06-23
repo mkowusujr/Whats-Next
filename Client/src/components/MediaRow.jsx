@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { watchStatuses, ratings } from "./FormFields";
 import { deleteMedia, updateMedia } from "../services/media.service";
 import "../sass/MediaRow.scss";
+import Notes from "./Notes";
 
 export default function MediaRow(props) {
   const media = props.media;
@@ -78,7 +79,7 @@ export default function MediaRow(props) {
               </select>
             </label>
             <div className="media-dates">
-              <label>
+              <label className="start-date">
                 Started:
                 <input
                   type="date"
@@ -111,8 +112,12 @@ export default function MediaRow(props) {
             </label>
           </div>
         </td>
-        <td>
-          <input type="button" onClick={deleteRow} value="Deleted" />
+        <td >
+          <div className="media-options">
+
+          <Notes />
+          <input type="button" onClick={deleteRow} value="Delete" />
+          </div>
         </td>
       </tr>
     </>

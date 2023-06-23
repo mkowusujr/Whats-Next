@@ -1,17 +1,22 @@
 .media-table {
+  display: block;
+  padding: 1em;
+  border: 1px solid gray;
+  background-color: white;
+  margin-left: 2em;
+  margin-right: 2em;
+  border-radius: 0.5em;
+  width: 676.3px;
   table {
-    // width: 1000px;
     display: block;
-    height: calc(100vh - 190px);
+    height: 710px;
+    // width: 658.783px;
     overflow-y: scroll;
 
     tr, thead, tbody {
-      // width: 100%;
-      // display: inline-block;
     }
     thead {
       .sort-by-prop {
-        background-color: #8172bb;
         td {
           color: white !important;
         }
@@ -19,6 +24,10 @@
     }
 
     tbody {
+      td {
+    height: 190.3px;
+
+  }
       .media-name {
         font-weight: bold;
       }

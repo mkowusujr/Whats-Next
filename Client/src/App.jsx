@@ -13,9 +13,9 @@ function App() {
     mediaType: "",
     watchStatus: "",
   });
-  
-  const [imgUrl, setImgUrl] = useState("")
-  const imgUrlUtils = {imgUrl: imgUrl, setImgUrl: setImgUrl}
+
+  const [imgUrl, setImgUrl] = useState("");
+  const imgUrlUtils = { imgUrl: imgUrl, setImgUrl: setImgUrl };
   const { data, loading, error } = usePalette(imgUrl);
 
   const filterProps = { filters, setFilters };
@@ -31,7 +31,6 @@ function App() {
 
   return (
     <>
-      {/* <div className="banner" style={{ backgroundColor: data.vibrant }}> */}
       <div
         className="banner"
         style={{
@@ -40,17 +39,22 @@ function App() {
       >
         <h1>Watch Next?</h1>
       </div>
-      <div className="columns">
-        <div className="rows">
-          <Filter filterProps={filterProps} />
-          <AddMediaForm updateMediaList={updateMediaList} />
-        </div>
+      <div className="main-content">
+        <AddMediaForm updateMediaList={updateMediaList} />
+        <Filter filterProps={filterProps} />
         <MediaTable
           mediaList={mediaList}
           updateMediaList={updateMediaList}
           show={filters.watchStatus}
           imgUrlUtils={imgUrlUtils}
         />
+        {/* <footer
+          style={{
+            color: data.vibrant,
+          }}
+        >
+          Created by Mathew Owusu Jr
+        </footer> */}
       </div>
     </>
   );

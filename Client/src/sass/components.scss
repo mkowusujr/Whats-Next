@@ -1,10 +1,11 @@
 input,
-select {
+select, button {
   margin-left: 1em;
   border: 0.5px solid #393939;
   padding: 0.25em 0.5em;
   cursor: pointer;
   background-color: #e8e7e7;
+  border-radius: 0.25em;
 }
 
 form {
@@ -23,15 +24,18 @@ table {
   font-size: 14px;
   display: block;
   padding-bottom: 2em;
-	// overflow-y: scroll;
-
-  border: 1px solid #e6e6e6;
+  border: 2px solid ;
 
   th,
   td {
     padding: 8px;
     text-align: left;
     border-bottom: 1px solid #e6e6e6;
+  }
+  tbody  td {
+    vertical-align: middle;
+    height: max-content;
+
   }
 
   th {
@@ -46,9 +50,7 @@ table {
       font-weight: bold;
       color: rgb(0, 0, 0);
 			
-      // td {
         text-align: center;
-      // }
       position: sticky;
     }
   }

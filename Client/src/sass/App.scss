@@ -5,32 +5,36 @@
   width: 100%;
   display: block;
   padding: 2em;
-  height: 220px;
+  height: 80vh;
 	z-index: -1;
 	position: absolute;
   transition: 0.5s;
 
 	h1 {
-		font-size: 100px;
+    top: -0.5em;
+    position: relative;
+		font-size: 40px;
 		color: white;
     font-family: 'Roboto Condensed', sans-serif;
     font-weight: 400;
 	}
 }
 
-.columns {
-  display: flex;
-  justify-content: space-evenly;
-	position: absolute;
-	z-index: 999;
-	top: 170px;
-}
-
 .rows {
-	margin-top: 8em;
+	margin-top: 3em;
   display: flex;
   flex-direction: column;
-  // justify-content: space-evenly;
-	// background-color: white;
   height: 100vh;
+}
+
+.main-content {
+  position: relative;
+  top: 2.3em;
+  margin-left: 5em;
+}
+
+footer {
+  margin-top: 1em;
+  display: flex;
+  justify-content: center;
 }
