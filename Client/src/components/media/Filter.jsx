@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { sortByOptions, watchStatuses, mediaTypes } from "./FormFields";
-import "../sass/Filter.scss";
+import "../../sass/media/Filter.scss";
 
 export default function Filter(props) {
   const { filters, setFilters } = props.filterProps;

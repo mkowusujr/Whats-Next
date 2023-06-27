@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { watchStatuses, ratings } from "./FormFields";
-import { deleteMedia, updateMedia } from "../services/media.service";
-import "../sass/MediaRow.scss";
-import Notes from "./Notes";
+import { deleteMedia, updateMedia } from "../../services/media.service";
+import "../../sass/media/MediaRow.scss";
+import Notes from "../notes/Notes";
 
 export default function MediaRow(props) {
   const media = props.media;
@@ -27,6 +27,7 @@ export default function MediaRow(props) {
   };
 
   const updateRow = () => {
+    // e.preventDefault();
     const updatedMedia = {
       id: media.id,
       watchStatus: watchStatus,
@@ -53,6 +54,7 @@ export default function MediaRow(props) {
         key={index}
         onMouseEnter={() => {
           props.imgUrlUtils.setImgUrl(media.posterImageUrl);
+          props.setSelectedMedia(media);
         }}
       >
         <td>
@@ -68,7 +70,7 @@ export default function MediaRow(props) {
             <label>
               Watch Status:
               <select
-                value={media.watchStatus}
+                value={watchStatus}
                 onChange={(e) => setWatchStatus(e.target.value)}
               >
                 {watchStatuses.map((status, index) => (
@@ -83,7 +85,7 @@ export default function MediaRow(props) {
                 Started:
                 <input
                   type="date"
-                  value={media.dateStarted}
+                  value={dateStarted}
                   onChange={(e) => setDateStarted(e.target.value)}
                 />
               </label>
@@ -91,7 +93,7 @@ export default function MediaRow(props) {
                 Finished:
                 <input
                   type="date"
-                  value={media.dateCompleted}
+                  value={dateCompleted}
                   onChange={(e) => setDateCompleted(e.target.value)}
                 />
               </label>
@@ -100,7 +102,7 @@ export default function MediaRow(props) {
             <label>
               Personal Rating:
               <select
-                value={media.personalRating}
+                value={personalRating}
                 onChange={(e) => setPersonalRating(e.target.value)}
               >
                 {ratings.map((rating, index) => (
@@ -115,7 +117,8 @@ export default function MediaRow(props) {
         <td >
           <div className="media-options">
 
-          <Notes />
+            <Notes mediaID={media.id} />
+            {/* <input type="button" value="Update" onClick={updateRow} /> */}
           <input type="button" onClick={deleteRow} value="Delete" />
           </div>
         </td>

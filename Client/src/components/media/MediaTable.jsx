@@ -1,16 +1,16 @@
 import MediaRow from "./MediaRow";
-import "../sass/MediaTable.scss";
+import "../../sass/media/MediaTable.scss";
 import { usePalette } from "react-palette";
 
 export default function MediaTable(props) {
   const mediaList = props.mediaList;
   const show = props.show == null || props.show == "" ? "Show All" : props.show;
-const { data, loading, error } = usePalette(props.imgUrlUtils.imgUrl);
+  const { data, loading, error } = usePalette(props.imgUrlUtils.imgUrl);
   return (
     <div className="media-table">
       <table
         style={{
-          borderColor: data.darkMuted
+          borderColor: data.darkMuted,
         }}
       >
         <thead
@@ -23,12 +23,13 @@ const { data, loading, error } = usePalette(props.imgUrlUtils.imgUrl);
           </tr>
         </thead>
         <tbody>
-          {mediaList.map((media, index) => (
+          {mediaList.map((media) => (
             <MediaRow
-              key={index}
+              key={media.id}
               media={media}
               updateMediaList={props.updateMediaList}
               imgUrlUtils={props.imgUrlUtils}
+              setSelectedMedia={props.setSelectedMedia}
             />
           ))}
         </tbody>

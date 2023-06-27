@@ -1,4 +1,10 @@
-import { ratings, sortByOptions } from "../components/FormFields";
+import { sortByOptions } from "../components/media/FormFields";
+import {
+  deleteRequest,
+  getRequest,
+  postRequest,
+  updateRquest,
+} from "./api-base.service";
 
 const baseUrl = "http://localhost:3000/media";
 
@@ -43,63 +49,22 @@ const applyFilters = (mediaList, filters) => {
 
 export const addMedia = (media) => {
   const apiUrl = `${baseUrl}`;
-  return fetch(apiUrl, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(media),
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      return data;
-    })
-    .catch((error) => {
-      console.error("Error:", error);
-    });
+  return postRequest(apiUrl, media);
 };
 
 export const listMedia = (filters) => {
   const apiUrl = `${baseUrl}`;
-
-  return fetch(apiUrl)
-    .then((response) => response.json())
-    .then((mediaList) => {
-      return applyFilters(mediaList, filters);
-    })
-    .catch((error) => {
-      console.error("Error:", error);
-    });
+  return getRequest(apiUrl).then((mediaList) =>
+    applyFilters(mediaList, filters)
+  );
 };
 
 export const updateMedia = (media) => {
   const apiUrl = `${baseUrl}`;
-  return fetch(apiUrl, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(media),
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      return data;
-    })
-    .catch((error) => {
-      console.error("Error:", error);
-    });
+  return updateRquest(apiUrl, media);
 };
 
 export const deleteMedia = (media) => {
   const apiUrl = `${baseUrl}/${media.id}`;
-  return fetch(apiUrl, {
-    method: "DELETE",
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      return data;
-    })
-    .catch((error) => {
-      console.error("Error:", error);
-    });
+  return deleteRequest(apiUrl);
 };

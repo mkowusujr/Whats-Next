@@ -9,8 +9,7 @@ router.post("", async (req, res) => {
 });
 
 router.get("", async (req, res) => {
-  // const filters = req.body;
-  const result = await mediaService.list({});
+  const result = await mediaService.list();
   res.json(result);
 });
 

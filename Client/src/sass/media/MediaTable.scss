@@ -1,16 +1,15 @@
 .media-table {
   display: block;
   padding: 1em;
-  border: 1px solid gray;
+  // border: 1px solid gray;
   background-color: white;
-  margin-right: 2em;
-  border-radius: 0.5em;
+  border-bottom-left-radius: 0.5em;
+  border-bottom-right-radius: 0.5em;
   margin-bottom: 1.5em;
   table {
-    display: block;
-    height: 710px;
-    // width: 658.783px;
+    max-height: 710px;
     overflow-y: scroll;
+    padding-bottom: 0;
 
     tr, thead, tbody {
     }
