@@ -1,18 +1,14 @@
 .media-table {
   display: block;
   padding: 1em;
-  // border: 1px solid gray;
   background-color: white;
-  border-bottom-left-radius: 0.5em;
-  border-bottom-right-radius: 0.5em;
+  border-radius: 0.25em;
+  max-height: 1225.22;
   margin-bottom: 1.5em;
   table {
-    max-height: 710px;
     overflow-y: scroll;
     padding-bottom: 0;
 
-    tr, thead, tbody {
-    }
     thead {
       .sort-by-prop {
         td {

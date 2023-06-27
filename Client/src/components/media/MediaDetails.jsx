@@ -10,9 +10,11 @@ export default function MediaDetails(props) {
     <div className="media-details">
       <img src={media.posterImageUrl} />
       <div className="offical-info">
-        <label>{media.plot}</label>
-        <label>Runtime: {media.runtime}</label>
-        <label>IMDB Rating: {media.imdbRating}</label>
+        <div className="imdb-stats">
+          <label>IMDB Rating: {media.imdbRating}</label>
+          <label>Runtime: {media.runtime}</label>
+        </div>
+        <p>{media.plot}</p>
         <label>
           Directors:{" "}
           {JSON.parse(media.directors)
@@ -26,8 +28,7 @@ export default function MediaDetails(props) {
             .toString()}
         </label>
         <label>
-          Cast:
-          {castList.slice(0, 9)}
+          Cast: {castList.slice(0, 9)}
           <details>
             <summary>Show More</summary>
             {castList.slice(9, castList.length - 1)}

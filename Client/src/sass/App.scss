@@ -2,10 +2,10 @@
 @import "./reset.scss";
 
 .banner {
-  width: 100%;
+  width: 100vw;
   display: block;
   padding: 2em;
-  height: 80vh;
+  height: 140vh;
 	z-index: -1;
 	position: absolute;
   transition: 0.5s;
@@ -19,13 +19,6 @@
     font-weight: 400;
 	}
 }
-
-// .rows {
-// 	margin-top: 3em;
-//   display: flex;
-//   flex-direction: column;
-//   height: 100vh;
-// }
 
 footer {
   margin-top: 1em;

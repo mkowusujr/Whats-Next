@@ -29,11 +29,13 @@ export default function AddNoteForm(props) {
                 placeholder="Enter Title"
                 onChange={(e) => setTitle(e.target.value)}
                 autoFocus={true}
+                required
               />
               <textarea
                 value={content}
                 onChange={(e) => setContent(e.target.value)}
                 placeholder="Enter notes"
+                required
               ></textarea>
               <input type="submit" value="Post" />
             </form>
