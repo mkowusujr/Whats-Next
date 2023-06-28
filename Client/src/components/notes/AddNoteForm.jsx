@@ -14,6 +14,7 @@ export default function AddNoteForm(props) {
       setTitle("");
       setContent("");
     });
+    props.updateNoteList();
   };
 
   return (

@@ -7,6 +7,5 @@ type DialogContextType = {
 
 export const DialogContext = createContext<DialogContextType>({
   dialogState: false,
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
   setDialogState: () => {},
 });

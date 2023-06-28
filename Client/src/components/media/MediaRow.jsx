@@ -27,7 +27,6 @@ export default function MediaRow(props) {
   };
 
   const updateRow = () => {
-    // e.preventDefault();
     const updatedMedia = {
       id: media.id,
       watchStatus: watchStatus,
@@ -114,12 +113,10 @@ export default function MediaRow(props) {
             </label>
           </div>
         </td>
-        <td >
+        <td>
           <div className="media-options">
-
             <Notes mediaID={media.id} />
-            {/* <input type="button" value="Update" onClick={updateRow} /> */}
-          <input type="button" onClick={deleteRow} value="Delete" />
+            <input type="button" onClick={deleteRow} value="Delete" />
           </div>
         </td>
       </tr>
