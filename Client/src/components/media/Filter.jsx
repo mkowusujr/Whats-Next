@@ -10,6 +10,10 @@ export default function Filter(props) {
   const [mediaType, setMediaType] = useState(filters.mediaType);
   const [watchStatus, setWatchStatus] = useState(filters.watchStatus);
 
+  const saveFilterSettings = (filters) => {
+    localStorage.setItem("filters", JSON.stringify(filters))
+  };
+
   const updateFilters = () => {
     const updatedFilters = {
       sortBy: { prop: sortByProp, desc: sortByDesc },
@@ -18,6 +22,7 @@ export default function Filter(props) {
     };
 
     setFilters(updatedFilters);
+    saveFilterSettings(updatedFilters);
   };
 
   useEffect(() => {
@@ -37,7 +42,7 @@ export default function Filter(props) {
             <td>
               <label>Sort By Property</label>
             </td>
-            <td style={{width: `auto`}}>
+            <td style={{ width: `auto` }}>
               <div className="sorting">
                 <select
                   value={sortByProp}

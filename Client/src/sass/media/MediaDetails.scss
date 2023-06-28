@@ -10,7 +10,7 @@
 
 	img {
 		width: 570px;
-		height: fit-content;
+		height: 814px;
 		margin-right: 1em;
 		margin-bottom: 0.5em;
 	}
@@ -28,6 +28,10 @@
 	width: 570px;
 	display: flex;
 	flex-direction: column;
+	details {
+		height: 160px;
+		overflow-y: scroll;
+	}
 }
 .imdb-stats{
 	display: flex;

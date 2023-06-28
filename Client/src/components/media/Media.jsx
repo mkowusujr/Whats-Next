@@ -8,11 +8,16 @@ import MediaDetails from "./MediaDetails";
 
 export default function Media(props) {
   const [mediaList, setMediaListTo] = useState([]);
-  const [filters, setFilters] = useState({
-    sortBy: { prop: "Personal Rating", desc: true },
-    mediaType: "",
-    watchStatus: "",
-  });
+  const [filters, setFilters] = useState(
+    JSON.parse(localStorage.getItem("filters")) ?? {
+      sortBy: {
+        prop: "Personal Rating",
+        desc: true,
+      },
+      mediaType: "",
+      watchStatus: "",
+    }
+  );
   const [selectedMedia, setSelectedMedia] = useState(null);
 
   const imgUrlUtils = props.imgUrlUtils;

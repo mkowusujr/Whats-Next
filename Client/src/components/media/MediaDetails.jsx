@@ -11,6 +11,7 @@ export default function MediaDetails(props) {
       <img src={media.posterImageUrl} />
       <div className="offical-info">
         <div className="imdb-stats">
+          <label>Release Date: { new Date(media.releaseDate).toDateString()}</label>
           <label>IMDB Rating: {media.imdbRating}</label>
           <label>Runtime: {media.runtime}</label>
         </div>

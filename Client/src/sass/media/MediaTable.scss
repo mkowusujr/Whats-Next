@@ -3,10 +3,9 @@
   padding: 1em;
   background-color: white;
   border-radius: 0.25em;
-  max-height: 1225.22;
   margin-bottom: 1.5em;
+  overflow-y: scroll;
   table {
-    overflow-y: scroll;
     padding-bottom: 0;
 
     thead {

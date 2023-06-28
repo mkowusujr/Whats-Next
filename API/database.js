@@ -1,6 +1,10 @@
 const sqlite3 = require("sqlite3").verbose();
 const db = new sqlite3.Database("./watchnext.db");
 
+runScripts = () => {
+	// db.run()
+}
+
 exports.setupDb = () =>
   db.serialize(() => {
 		db.run(
@@ -40,5 +44,7 @@ exports.setupDb = () =>
 				FOREIGN KEY (mediaID) REFERENCES media(id)
 			)
 			`
-    );
+		);
+		
+		runScripts()
   });
