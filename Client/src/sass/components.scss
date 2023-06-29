@@ -1,5 +1,7 @@
 input,
-select, button, textarea {
+select,
+button,
+textarea {
   margin-left: 1em;
   border: 0.5px solid #393939;
   padding: 0.25em 0.5em;
@@ -23,21 +25,19 @@ table {
   font-family: Arial, sans-serif;
   font-size: 14px;
   padding-bottom: 2em;
-  border: 2px solid ;
+  border: 2px solid;
   width: 100%;
-tr{
-  border-bottom: 1px solid #e6e6e6;
-}
+  tr {
+    border-bottom: 1px solid #e6e6e6;
+  }
   th,
   td {
     padding: 8px;
     text-align: left;
-    
   }
-  tbody  td {
+  tbody td {
     vertical-align: middle;
     height: max-content;
-
   }
 
   th {
@@ -51,8 +51,8 @@ tr{
     td {
       font-weight: bold;
       color: rgb(0, 0, 0);
-			
-        text-align: center;
+
+      text-align: center;
       position: sticky;
     }
   }
@@ -71,12 +71,14 @@ dialog {
   box-shadow: 0 0 1em black;
   font-size: x-large;
   width: 546px;
-  input, textarea, button {
+  input,
+  textarea,
+  button {
     margin: 0;
     margin-top: 1em;
   }
-  textarea{
+  textarea {
     height: 151px;
-     resize: vertical;
+    resize: vertical;
   }
 }

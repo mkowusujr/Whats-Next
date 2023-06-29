@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
-import { watchStatuses, ratings } from "./FormFields";
-import { deleteMedia, updateMedia } from "../../services/media.service";
-import "../../sass/media/MediaRow.scss";
-import Notes from "../notes/Notes";
+import { useEffect, useState } from 'react';
+import { watchStatuses, ratings } from './FormFields';
+import { deleteMedia, updateMedia } from '../../services/media.service';
+import '../../sass/media/MediaRow.scss';
+import Notes from '../notes/Notes';
 
 export default function MediaRow(props) {
   const media = props.media;
@@ -17,11 +17,11 @@ export default function MediaRow(props) {
     updateRow();
   }, [personalRating, watchStatus, dateStarted, dateCompleted]);
 
-  const titleCase = (name) => {
+  const titleCase = name => {
     return name.charAt(0).toUpperCase() + name.slice(1);
   };
 
-  const toYear = (timestamp) => {
+  const toYear = timestamp => {
     const date = new Date(timestamp);
     return date.getFullYear();
   };
@@ -32,18 +32,18 @@ export default function MediaRow(props) {
       watchStatus: watchStatus,
       personalRating: personalRating,
       dateStarted: dateStarted,
-      dateCompleted: dateCompleted,
+      dateCompleted: dateCompleted
     };
 
     updateMedia(updatedMedia)
       .then(() => props.updateMediaList())
-      .catch((err) => console.error(err));
+      .catch(err => console.error(err));
   };
 
   const deleteRow = () => {
     deleteMedia(media)
       .then(() => props.updateMediaList())
-      .catch((err) => console.error(err));
+      .catch(err => console.error(err));
   };
 
   return (
@@ -62,15 +62,15 @@ export default function MediaRow(props) {
         <td className="media-info">
           <div className="media-name">{media.name}</div>
           <div className="media-info-info">
-            {titleCase(media.mediaType)} | {toYear(media.releaseDate)} |{" "}
-            {media.genres.replaceAll(",", ", ")}
+            {titleCase(media.mediaType)} | {toYear(media.releaseDate)} |{' '}
+            {media.genres.replaceAll(',', ', ')}
           </div>
           <div className="media-user-info">
             <label>
               Watch Status:
               <select
                 value={watchStatus}
-                onChange={(e) => setWatchStatus(e.target.value)}
+                onChange={e => setWatchStatus(e.target.value)}
               >
                 {watchStatuses.map((status, index) => (
                   <option key={index} value={status}>
@@ -85,7 +85,7 @@ export default function MediaRow(props) {
                 <input
                   type="date"
                   value={dateStarted}
-                  onChange={(e) => setDateStarted(e.target.value)}
+                  onChange={e => setDateStarted(e.target.value)}
                 />
               </label>
               <label>
@@ -93,7 +93,7 @@ export default function MediaRow(props) {
                 <input
                   type="date"
                   value={dateCompleted}
-                  onChange={(e) => setDateCompleted(e.target.value)}
+                  onChange={e => setDateCompleted(e.target.value)}
                 />
               </label>
             </div>
@@ -102,7 +102,7 @@ export default function MediaRow(props) {
               Personal Rating:
               <select
                 value={personalRating}
-                onChange={(e) => setPersonalRating(e.target.value)}
+                onChange={e => setPersonalRating(e.target.value)}
               >
                 {ratings.map((rating, index) => (
                   <option key={index} value={rating}>

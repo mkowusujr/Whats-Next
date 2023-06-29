@@ -1,18 +1,18 @@
-import { useState } from "react";
-import { addNote } from "../../services/notes.service";
-import "../../sass/notes/AddNoteForm.scss";
-import DialogComponent from "../utils/DialogComponent";
+import { useState } from 'react';
+import { addNote } from '../../services/notes.service';
+import '../../sass/notes/AddNoteForm.scss';
+import DialogComponent from '../utils/DialogComponent';
 export default function AddNoteForm(props) {
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
+  const [title, setTitle] = useState('');
+  const [content, setContent] = useState('');
   const mediaID = props.mediaID;
 
-  const postNote = (e) => {
+  const postNote = e => {
     e.preventDefault();
     const note = { title: title, content: content, mediaID: mediaID };
     addNote(note).then(() => {
-      setTitle("");
-      setContent("");
+      setTitle('');
+      setContent('');
     });
     props.updateNoteList();
   };
@@ -28,13 +28,13 @@ export default function AddNoteForm(props) {
                 type="text"
                 value={title}
                 placeholder="Enter Title"
-                onChange={(e) => setTitle(e.target.value)}
+                onChange={e => setTitle(e.target.value)}
                 autoFocus={true}
                 required
               />
               <textarea
                 value={content}
-                onChange={(e) => setContent(e.target.value)}
+                onChange={e => setContent(e.target.value)}
                 placeholder="Enter notes"
                 required
               ></textarea>

@@ -1,12 +1,12 @@
 .filter {
-	display: block;
-	width: 709px;
-	height: 102px;
-	margin-bottom: 1.5em;
+  display: block;
+  width: 709px;
+  height: 102px;
+  margin-bottom: 1.5em;
   table {
     border-radius: 0.25em;
-		height: inherit;
-		width: inherit;
+    height: inherit;
+    width: inherit;
     border: none;
     tbody {
       display: flex;
@@ -14,7 +14,7 @@
       td {
         height: 48.3px;
         width: min-content;
-				border-bottom: none;
+        border-bottom: none;
       }
     }
   }

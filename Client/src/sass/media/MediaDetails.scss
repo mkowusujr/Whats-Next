@@ -1,39 +1,40 @@
 .media-details {
-	display: flex;
-	flex-direction: column;
-	position: relative;
+  display: flex;
+  flex-direction: column;
+  position: relative;
   top: 5em;
-	margin-left: 2em;
-	margin-right: 1em;
+  margin-left: 2em;
+  margin-right: 1em;
   width: 741px;
-	line-height: 1.5;
+  line-height: 1.5;
 
-	img {
-		width: 570px;
-		height: 814px;
-		margin-right: 1em;
-		margin-bottom: 0.5em;
-	}
+  img {
+    width: 570px;
+    height: 814px;
+    margin-right: 1em;
+    margin-bottom: 0.5em;
+  }
 
-	label, p {
-		display: block;
-		padding: 0.5em;
-		background-color: #ffffff;
-		border-radius: 0.25em;
-		margin-bottom: 0.5em;
-	}
+  label,
+  p {
+    display: block;
+    padding: 0.5em;
+    background-color: #ffffff;
+    border-radius: 0.25em;
+    margin-bottom: 0.5em;
+  }
 }
 
 .offical-info {
-	width: 570px;
-	display: flex;
-	flex-direction: column;
-	details {
-		max-height: 160px;
-		overflow-y: scroll;
-	}
+  width: 570px;
+  display: flex;
+  flex-direction: column;
+  details {
+    max-height: 160px;
+    overflow-y: scroll;
+  }
 }
-.imdb-stats{
-	display: flex;
-	justify-content: space-between;
+.imdb-stats {
+  display: flex;
+  justify-content: space-between;
 }

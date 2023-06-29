@@ -1,34 +1,34 @@
-import { useState } from "react";
-import { addMedia } from "../../services/media.service";
-import { watchStatuses, ratings } from "./FormFields";
-import "../../sass/media/AddMediaForm.scss";
+import { useState } from 'react';
+import { addMedia } from '../../services/media.service';
+import { watchStatuses, ratings } from './FormFields';
+import '../../sass/media/AddMediaForm.scss';
 
 export default function AddMediaForm(props) {
-  const [name, setName] = useState("");
-  const [watchStatus, setWatchStatus] = useState("");
+  const [name, setName] = useState('');
+  const [watchStatus, setWatchStatus] = useState('');
   const [personalRating, setPersonalRating] = useState(ratings[0]);
-  const [dateStarted, setDateStarted] = useState("");
-  const [dateCompleted, setDateCompleted] = useState("");
+  const [dateStarted, setDateStarted] = useState('');
+  const [dateCompleted, setDateCompleted] = useState('');
 
-  const submitEntry = (e) => {
+  const submitEntry = e => {
     e.preventDefault();
     const media = {
       name: name,
       watchStatus: watchStatus,
       personalRating: personalRating,
       dateStarted: dateStarted,
-      dateCompleted: dateCompleted,
+      dateCompleted: dateCompleted
     };
     addMedia(media)
       .then(() => {
         props.updateMediaList();
-        setName("");
-        setWatchStatus("");
+        setName('');
+        setWatchStatus('');
         setPersonalRating(ratings[0]);
-        setDateStarted("");
-        setDateCompleted("");
+        setDateStarted('');
+        setDateCompleted('');
       })
-      .catch((err) => console.error(err));
+      .catch(err => console.error(err));
   };
 
   return (
@@ -38,13 +38,13 @@ export default function AddMediaForm(props) {
           <input
             type="text"
             value={name}
-            onChange={(e) => setName(e.target.value)}
+            onChange={e => setName(e.target.value)}
             placeholder="Add Media Name & Year"
             required
           />
           <select
             value={watchStatus}
-            onChange={(e) => setWatchStatus(e.target.value)}
+            onChange={e => setWatchStatus(e.target.value)}
             required
           >
             <option value="" disabled>
@@ -65,7 +65,7 @@ export default function AddMediaForm(props) {
               Personal Rating
               <select
                 value={personalRating}
-                onChange={(e) => setPersonalRating(e.target.value)}
+                onChange={e => setPersonalRating(e.target.value)}
               >
                 {ratings.map((rating, index) => (
                   <option key={index} value={rating}>
@@ -80,7 +80,7 @@ export default function AddMediaForm(props) {
                 <input
                   type="date"
                   value={dateStarted}
-                  onChange={(e) => setDateStarted(e.target.value)}
+                  onChange={e => setDateStarted(e.target.value)}
                 />
               </label>
               <label>
@@ -88,7 +88,7 @@ export default function AddMediaForm(props) {
                 <input
                   type="date"
                   value={dateCompleted}
-                  onChange={(e) => setDateCompleted(e.target.value)}
+                  onChange={e => setDateCompleted(e.target.value)}
                 />
               </label>
             </div>

@@ -1,42 +1,43 @@
 .add-media-form {
-	display: block;
-	padding: 1em;
-	background-color: white;
-	border-radius: 0.25em;
-	width: 676px;
-	margin-bottom: 1.5em;
+  display: block;
+  padding: 1em;
+  background-color: white;
+  border-radius: 0.25em;
+  width: 676px;
+  margin-bottom: 1.5em;
 }
 
 .quick-add {
-	width: -moz-available;
-	display: flex;
-	justify-content: space-between;
-	margin-bottom: 0.5em;
-	input, select {
-		margin: 0;
-	}
-	input[type=text] {
-		flex-grow: 0.875;
-	}
+  width: -moz-available;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5em;
+  input,
+  select {
+    margin: 0;
+  }
+  input[type='text'] {
+    flex-grow: 0.875;
+  }
 }
 
 details {
-	border-radius: 0.5em;
-	display: block;
-	background-color: #bababa33;
-	padding: 1em;
+  border-radius: 0.5em;
+  display: block;
+  background-color: #bababa33;
+  padding: 1em;
 }
 
-.expanded-options{
-	display: flex;
-	flex-direction: column;
-	label {
-		padding-bottom: 0;
-		margin-top: 1.25em;
-	}
+.expanded-options {
+  display: flex;
+  flex-direction: column;
+  label {
+    padding-bottom: 0;
+    margin-top: 1.25em;
+  }
 }
 
-.expanded-dates{
-display: flex;
-justify-content: space-between;
+.expanded-dates {
+  display: flex;
+  justify-content: space-between;
 }

@@ -1,6 +1,6 @@
-import { useRef, useEffect, useContext, useState } from "react";
-import { DialogContext } from "./DialogContext";
-import React from "react";
+import { useRef, useEffect, useContext, useState } from 'react';
+import { DialogContext } from './DialogContext';
+import React from 'react';
 
 interface DialogComponentProps {
   buttonText: string;
@@ -27,10 +27,10 @@ function DialogComponent(props: DialogComponentProps) {
       }
     };
 
-    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside);
 
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
 

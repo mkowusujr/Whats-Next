@@ -1,4 +1,4 @@
-import { createContext } from "react";
+import { createContext } from 'react';
 
 type DialogContextType = {
   dialogState: boolean;
@@ -7,5 +7,5 @@ type DialogContextType = {
 
 export const DialogContext = createContext<DialogContextType>({
   dialogState: false,
-  setDialogState: () => {},
+  setDialogState: () => {}
 });

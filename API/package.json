@@ -4,13 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "npx nodemon server.js"
+    "dev": "npx nodemon src/server.js",
+    "pretty": "npx prettier --write ."
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "jest": "^29.5.0",
-    "nodeman": "^1.1.2"
+    "nodeman": "^1.1.2",
+    "prettier": "^2.8.8"
   },
   "dependencies": {
     "cors": "^2.8.5",

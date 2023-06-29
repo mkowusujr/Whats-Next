@@ -1,21 +1,21 @@
-import { useState, useEffect } from "react";
-import AddMediaForm from "./AddMediaForm";
-import MediaTable from "./MediaTable";
-import { listMedia } from "../../services/media.service";
-import Filter from "./Filter";
-import "../../sass/media/Media.scss";
-import MediaDetails from "./MediaDetails";
+import { useState, useEffect } from 'react';
+import AddMediaForm from './AddMediaForm';
+import MediaTable from './MediaTable';
+import { listMedia } from '../../services/media.service';
+import Filter from './Filter';
+import '../../sass/media/Media.scss';
+import MediaDetails from './MediaDetails';
 
 export default function Media(props) {
   const [mediaList, setMediaListTo] = useState([]);
   const [filters, setFilters] = useState(
-    JSON.parse(localStorage.getItem("filters")) ?? {
+    JSON.parse(localStorage.getItem('filters')) ?? {
       sortBy: {
-        prop: "Personal Rating",
-        desc: true,
+        prop: 'Personal Rating',
+        desc: true
       },
-      mediaType: "",
-      watchStatus: "",
+      mediaType: '',
+      watchStatus: ''
     }
   );
   const [selectedMedia, setSelectedMedia] = useState(null);
@@ -26,8 +26,8 @@ export default function Media(props) {
 
   const updateMediaList = () => {
     listMedia(filters)
-      .then((mediaList) => setMediaListTo(mediaList))
-      .catch((err) => console.error(err));
+      .then(mediaList => setMediaListTo(mediaList))
+      .catch(err => console.error(err));
   };
 
   useEffect(() => {

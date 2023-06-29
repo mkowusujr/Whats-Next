@@ -1,9 +1,9 @@
-import "../../sass/media/MediaDetails.scss";
+import '../../sass/media/MediaDetails.scss';
 
 export default function MediaDetails(props) {
   const media = props.media;
   const castList = JSON.parse(media.cast).map(
-    (a) => `${a.name} as ${a.roles.map((r) => r.name)}, `
+    a => `${a.name} as ${a.roles.map(r => r.name)}, `
   );
 
   return (
@@ -11,21 +11,23 @@ export default function MediaDetails(props) {
       <img src={media.posterImageUrl} />
       <div className="offical-info">
         <div className="imdb-stats">
-          <label>Release Date: { new Date(media.releaseDate).toDateString()}</label>
+          <label>
+            Release Date: {new Date(media.releaseDate).toDateString()}
+          </label>
           <label>IMDB Rating: {media.imdbRating}</label>
           <label>Runtime: {media.runtime}</label>
         </div>
         <p>{media.plot}</p>
         <label>
-          Directors:{" "}
+          Directors:{' '}
           {JSON.parse(media.directors)
-            .map((d) => d.name)
+            .map(d => d.name)
             .toString()}
         </label>
         <label>
-          Writers:{" "}
+          Writers:{' '}
           {JSON.parse(media.writers)
-            .map((w) => w.name)
+            .map(w => w.name)
             .toString()}
         </label>
         <label>

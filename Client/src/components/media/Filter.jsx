@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
-import { sortByOptions, watchStatuses, mediaTypes } from "./FormFields";
-import "../../sass/media/Filter.scss";
+import { useState, useEffect } from 'react';
+import { sortByOptions, watchStatuses, mediaTypes } from './FormFields';
+import '../../sass/media/Filter.scss';
 
 export default function Filter(props) {
   const { filters, setFilters } = props.filterProps;
@@ -10,15 +10,15 @@ export default function Filter(props) {
   const [mediaType, setMediaType] = useState(filters.mediaType);
   const [watchStatus, setWatchStatus] = useState(filters.watchStatus);
 
-  const saveFilterSettings = (filters) => {
-    localStorage.setItem("filters", JSON.stringify(filters))
+  const saveFilterSettings = filters => {
+    localStorage.setItem('filters', JSON.stringify(filters));
   };
 
   const updateFilters = () => {
     const updatedFilters = {
       sortBy: { prop: sortByProp, desc: sortByDesc },
       mediaType: mediaType,
-      watchStatus: watchStatus,
+      watchStatus: watchStatus
     };
 
     setFilters(updatedFilters);
@@ -46,7 +46,7 @@ export default function Filter(props) {
               <div className="sorting">
                 <select
                   value={sortByProp}
-                  onChange={(e) => setSortByProp(e.target.value)}
+                  onChange={e => setSortByProp(e.target.value)}
                 >
                   {Object.values(sortByOptions).map((o, key) => (
                     <option key={key} value={o.label}>
@@ -80,11 +80,11 @@ export default function Filter(props) {
             <td>
               <select
                 value={watchStatus}
-                onChange={(e) => setWatchStatus(e.target.value)}
+                onChange={e => setWatchStatus(e.target.value)}
               >
-                {["", ...watchStatuses].map((s, key) => (
+                {['', ...watchStatuses].map((s, key) => (
                   <option key={key} value={s}>
-                    {s == "" ? "Show All" : s}
+                    {s == '' ? 'Show All' : s}
                   </option>
                 ))}
               </select>
@@ -97,11 +97,11 @@ export default function Filter(props) {
             <td>
               <select
                 value={mediaType}
-                onChange={(e) => setMediaType(e.target.value)}
+                onChange={e => setMediaType(e.target.value)}
               >
-                {["", ...mediaTypes].map((m, key) => (
+                {['', ...mediaTypes].map((m, key) => (
                   <option key={key} value={m}>
-                    {m == "" ? "Show All" : m}
+                    {m == '' ? 'Show All' : m}
                   </option>
                 ))}
               </select>

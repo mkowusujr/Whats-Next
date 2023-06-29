@@ -1,21 +1,21 @@
-import MediaRow from "./MediaRow";
-import "../../sass/media/MediaTable.scss";
-import { usePalette } from "react-palette";
+import MediaRow from './MediaRow';
+import '../../sass/media/MediaTable.scss';
+import { usePalette } from 'react-palette';
 
 export default function MediaTable(props) {
   const mediaList = props.mediaList;
-  const show = props.show == null || props.show == "" ? "Show All" : props.show;
+  const show = props.show == null || props.show == '' ? 'Show All' : props.show;
   const { data, loading, error } = usePalette(props.imgUrlUtils.imgUrl);
   return (
     <div className="media-table">
       <table
         style={{
-          borderColor: data.darkMuted,
+          borderColor: data.darkMuted
         }}
       >
         <thead
           style={{
-            background: data.darkVibrant,
+            background: data.darkVibrant
           }}
         >
           <tr className="sort-by-prop">
@@ -23,7 +23,7 @@ export default function MediaTable(props) {
           </tr>
         </thead>
         <tbody>
-          {mediaList.map((media) => (
+          {mediaList.map(media => (
             <MediaRow
               key={media.id}
               media={media}
