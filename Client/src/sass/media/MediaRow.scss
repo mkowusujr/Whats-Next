@@ -1,4 +1,4 @@
-.media-row {
+.media-row-dafault {
   .poster-image {
     width: 130px;
   }
@@ -17,4 +17,59 @@
 
 .start-date {
   margin-right: 0.25em;
+}
+
+.media-name {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  select {
+    font-weight: normal;
+  }
+  p,
+  select {
+    margin: 0;
+    display: inline-block;
+  }
+}
+
+.media-row-mobile {
+  display: none;
+  td {
+    height: auto !important;
+    // width: auto !important;
+  }
+  .col-1 {
+    width: 7.5em;
+  }
+  .media-info-mobile {
+    font-style: italic;
+    color: gray;
+    td {
+      display: flex;
+      justify-content: space-evenly;
+    }
+  }
+}
+
+.text {
+  text-overflow: ellipsis; // this line adds the ellipsis
+  cursor: pointer; // this changes the cursor
+  word-break: break-all;
+  overflow: hidden; // this hides the overflowing text
+  white-space: nowrap;
+}
+.text:hover {
+  // overflow: visible;        // this makes the overflowing text visible on hover
+  // white-space: normal;
+  // height:auto;
+}
+
+@media (max-width: 1400px) {
+  .media-row-mobile {
+    display: block;
+  }
+  .media-row-dafault {
+    display: none;
+  }
 }

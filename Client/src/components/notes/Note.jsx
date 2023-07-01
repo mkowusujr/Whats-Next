@@ -12,6 +12,7 @@ export default function Note(props) {
         value={title}
         placeholder="Enter Title"
         onChange={e => setTitle(e.target.value)}
+        className="title"
       />
       <textarea
         value={content}

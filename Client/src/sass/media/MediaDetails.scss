@@ -1,17 +1,10 @@
 .media-details {
   display: flex;
   flex-direction: column;
-  position: relative;
-  top: 5em;
-  margin-left: 2em;
-  margin-right: 1em;
-  width: 741px;
+  width: 40%;
   line-height: 1.5;
 
   img {
-    width: 570px;
-    height: 814px;
-    margin-right: 1em;
     margin-bottom: 0.5em;
   }
 
@@ -24,9 +17,13 @@
     margin-bottom: 0.5em;
   }
 }
+@media (max-width: 1400px) {
+  .media-details {
+    display: none;
+  }
+}
 
 .offical-info {
-  width: 570px;
   display: flex;
   flex-direction: column;
   details {

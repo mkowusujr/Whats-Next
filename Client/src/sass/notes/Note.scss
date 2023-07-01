@@ -1,2 +1,22 @@
 .note {
+  textarea {
+    margin-top: 0.5em;
+    font-size: initial;
+  }
+  p {
+    color: gray;
+    font-size: initial;
+    font-style: italic;
+    text-align: right;
+  }
+}
+
+.title {
+  background-color: white;
+  border: none;
+  font-weight: bold;
+  font-size: xx-large;
+  margin: 0;
+  padding: 0;
+  line-height: 0;
 }

@@ -1,8 +1,11 @@
 const sqlite3 = require('sqlite3').verbose();
-const db = new sqlite3.Database('./watchnext.db');
+const db = new sqlite3.Database('watchnext.db');
 
 runScripts = () => {
-  // db.run()
+  // db.run(`
+	// ALTER TABLE media
+	// ADD COLUMN ownershipStatus TEXT;
+	// `);
 };
 
 exports.setupDb = () =>

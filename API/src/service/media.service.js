@@ -85,7 +85,8 @@ exports.update = media => {
     personalRating = ?, 
     dateStarted = ?, 
     dateCompleted = ?,
-    lastUpdated = ?
+    lastUpdated = ?,
+    ownershipStatus = ?
     WHERE id = ?
     `,
       [
@@ -94,6 +95,7 @@ exports.update = media => {
         media.dateStarted,
         media.dateCompleted,
         new Date().toLocaleDateString(),
+        media.ownershipStatus,
         media.id
       ],
       function (err) {

@@ -58,7 +58,7 @@ export default function Media(props) {
         {selectedMedia ? (
           <MediaDetails media={selectedMedia} />
         ) : (
-          <p>No Media Selected</p>
+          <p className="media-details">No Media Selected</p>
         )}
       </>
     </div>

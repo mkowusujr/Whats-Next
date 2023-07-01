@@ -5,7 +5,8 @@ export default function MediaDetails(props) {
   const castList = JSON.parse(media.cast).map(
     a => `${a.name} as ${a.roles.map(r => r.name)}, `
   );
-
+  const preloadImage = url => (document.createElement('img').src = url);
+  preloadImage(media.posterImageUrl);
   return (
     <div className="media-details">
       <img src={media.posterImageUrl} />

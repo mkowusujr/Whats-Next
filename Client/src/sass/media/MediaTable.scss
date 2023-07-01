@@ -1,12 +1,13 @@
 .media-table {
-  display: block;
-  padding: 1em;
   background-color: white;
   border-radius: 0.25em;
   margin-bottom: 1.5em;
   overflow-y: scroll;
+  overflow-x: hidden;
+  width: auto;
   table {
     padding-bottom: 0;
+    width: 100%;
 
     thead {
       .sort-by-prop {
