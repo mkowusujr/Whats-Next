@@ -1,0 +1,55 @@
+import { useEffect, useState } from 'react';
+import {listBooks} from '../../services/book.service';
+import Category from '../utils/Category';
+import CategoryTable from '../utils/CategoryTable';
+import AddBookForm from './AddBookForm';
+import BookFilter from './BookFilter';
+import BookDetails from './BookDetails';
+import BookRow from './BookRow';
+export default function Books(props) {
+  const [bookList, setBookList] = useState([]);
+  const [selectedBook, setSelectedBook] = useState(null);
+  const [filters, setFilters] = useState(
+    JSON.parse(localStorage.getItem('bookFilters')) ?? {
+      sortBy: {
+        prop: 'Personal Rating',
+        desc: true
+      },
+      bookType: '',
+      readingStatus: ''
+    }
+  );
+   const imgUrlUtils = props.imgUrlUtils;
+  const filterProps = { filters, setFilters };
+  
+  const updateBookList = () => {
+    listBooks()
+    .then(bookList => setBookList(bookList))
+    .catch(err => console.error(err));
+  };
+  
+  useEffect(() => {
+  updateBookList();
+}, [filters]);
+	
+	return (
+    <>
+      <Category
+        AddForm={<AddBookForm updateBookList={ updateBookList} />}
+        CategoryFilter={<BookFilter filterProps={ filterProps} />}
+        ItemDetails={<BookDetails book={selectedBook} /> }
+        selectedRow={selectedBook}
+        Table={
+          <CategoryTable
+            categoryList={bookList}
+            show={"filters.watchStatus"}
+            imgUrlUtils={props.imgUrlUtils}
+            setSelectedItem={setSelectedBook}
+            updateCategoryList={updateBookList}
+            rowElement={BookRow}
+          />
+        }
+      />
+    </>
+  );
+}

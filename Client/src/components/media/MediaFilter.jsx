@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
-import { sortByOptions, watchStatuses, mediaTypes } from './FormFields';
+import { sortByOptions, watchStatuses, mediaTypes } from '../utils/FormFields';
 import '../../sass/media/Filter.scss';
 
-export default function Filter(props) {
+export default function MediaFilter(props) {
   const { filters, setFilters } = props.filterProps;
 
   const [sortByProp, setSortByProp] = useState(filters.sortBy.prop);
@@ -11,7 +11,7 @@ export default function Filter(props) {
   const [watchStatus, setWatchStatus] = useState(filters.watchStatus);
 
   const saveFilterSettings = filters => {
-    localStorage.setItem('filters', JSON.stringify(filters));
+    localStorage.setItem('mediaFilters', JSON.stringify(filters));
   };
 
   const updateFilters = () => {

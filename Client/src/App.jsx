@@ -1,8 +1,11 @@
 import { useState } from 'react';
 import './sass/App.scss';
 import { usePalette } from 'react-palette';
-import Media from './components/media/Media';
-
+// import Media from './components/media/Media';
+import MediaPage from './pages/MediaPage';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import BooksPage from './pages/BooksPage';
+import Layout from './components/Nav';
 function App() {
   const [imgUrl, setImgUrl] = useState(
     'https://m.media-amazon.com/images/M/MV5BNjFmNWYzZjMtYWIyZi00NDVmLWIxY2EtN2RiMjZiMDk4MzcyXkEyXkFqcGdeQXVyMTg2NjYzOA@@._V1_.jpg'
@@ -18,10 +21,19 @@ function App() {
           background: `linear-gradient(${data.vibrant}, rgb(255, 255, 255)`
         }}
       ></div>
-      <header>
-        <h1 className="">Watch Next?</h1>
-      </header>
-      <Media imgUrlUtils={imgUrlUtils} />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Layout />} />
+          <Route
+            path="watchnext"
+            element={<MediaPage imgUrlUtils={imgUrlUtils} />}
+          />
+          <Route
+            path="readnext"
+            element={<BooksPage imgUrlUtils={imgUrlUtils} />}
+          />
+        </Routes>
+      </BrowserRouter>
     </>
   );
 }

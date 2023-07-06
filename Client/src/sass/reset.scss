@@ -5,9 +5,11 @@
   font-size: 100%;
   font: inherit;
   vertical-align: baseline;
-  overflow-x: hidden;
+  overflow: hidden;
 }
 
-body {
-  overflow-x: hidden;
+body, html {
+  overflow: hidden;
+  max-height: 100vh;
+  max-width: 100vw;
 }

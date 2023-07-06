@@ -1,4 +1,4 @@
-import { sortByOptions } from '../components/media/FormFields';
+import { sortByOptions } from '../components/utils/FormFields';
 import {
   deleteRequest,
   getRequest,

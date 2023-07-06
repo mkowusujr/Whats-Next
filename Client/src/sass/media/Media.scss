@@ -1,10 +1,12 @@
 .media-display {
-  display: flex;
-  flex-direction: column;
+  // display: flex;
+  // flex-direction: column;
+  overflow-y: scroll;
 }
 
 .media {
   display: flex;
-  // max-height: 1400px;
+  // max-height: 100vh;
+  height: 100vh;
   justify-content: space-around;
 }

@@ -1,15 +1,16 @@
 import { useState, useEffect } from 'react';
 import AddMediaForm from './AddMediaForm';
-import MediaTable from './MediaTable';
 import { listMedia } from '../../services/media.service';
-import Filter from './Filter';
+import MediaFilter from './MediaFilter';
 import '../../sass/media/Media.scss';
 import MediaDetails from './MediaDetails';
-
+import Category from '../utils/Category';
+import CategoryTable from '../utils/CategoryTable';
+import MediaRow from './MediaRow';
 export default function Media(props) {
   const [mediaList, setMediaListTo] = useState([]);
   const [filters, setFilters] = useState(
-    JSON.parse(localStorage.getItem('filters')) ?? {
+    JSON.parse(localStorage.getItem('mediaFilters')) ?? {
       sortBy: {
         prop: 'Personal Rating',
         desc: true
@@ -18,6 +19,7 @@ export default function Media(props) {
       watchStatus: ''
     }
   );
+  
   const [selectedMedia, setSelectedMedia] = useState(null);
 
   const imgUrlUtils = props.imgUrlUtils;
@@ -29,38 +31,32 @@ export default function Media(props) {
       .then(mediaList => setMediaListTo(mediaList))
       .catch(err => console.error(err));
   };
-
+useEffect(() => {
+  updateMediaList();
+}, []);
   useEffect(() => {
     updateMediaList();
   }, [filters]);
 
   return (
-    <div className="media">
-      <div className="media-display">
-        <AddMediaForm updateMediaList={updateMediaList} />
-        <Filter filterProps={filterProps} />
-        <MediaTable
-          mediaList={mediaList}
-          updateMediaList={updateMediaList}
-          show={filters.watchStatus}
-          imgUrlUtils={imgUrlUtils}
-          setSelectedMedia={setSelectedMedia}
-        />
-        {/* <footer
-          style={{
-            color: data.vibrant,
-          }}
-        >
-          Created by Mathew Owusu Jr
-        </footer> */}
-      </div>
-      <>
-        {selectedMedia ? (
-          <MediaDetails media={selectedMedia} />
-        ) : (
-          <p className="media-details">No Media Selected</p>
-        )}
-      </>
-    </div>
+    <>
+      <Category
+        AddForm={<AddMediaForm updateMediaList={updateMediaList} />}
+        CategoryFilter={<MediaFilter filterProps={filterProps} />}
+        ItemDetails={<MediaDetails media={selectedMedia} />}
+        selectedRow={selectedMedia}
+        Table={
+          <CategoryTable
+            categoryList={mediaList}
+            show={filters.watchStatus}
+            imgUrlUtils={imgUrlUtils}
+            setSelectedItem={setSelectedMedia}
+            updateCategoryList={updateMediaList}
+            rowElement={MediaRow}
+          />
+        }
+      />
+    </>
   );
+  
 }

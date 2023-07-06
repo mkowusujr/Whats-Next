@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { addMedia } from '../../services/media.service';
-import { watchStatuses, ratings } from './FormFields';
+import { watchStatuses, ratings } from '../utils/FormFields';
 import '../../sass/media/AddMediaForm.scss';
 
 export default function AddMediaForm(props) {
