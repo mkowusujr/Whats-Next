@@ -142,4 +142,9 @@ function darkenColor(color) {
   return darkenedHex;
 }
 
-export const readingStatuses = ["Select Reading Status", "Planned", "Reading", "Completed"]
+export const readingStatuses = [
+  'Select Reading Status',
+  'Planned',
+  'Reading',
+  'Completed'
+];

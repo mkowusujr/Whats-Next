@@ -19,7 +19,7 @@ export default function Media(props) {
       watchStatus: ''
     }
   );
-  
+
   const [selectedMedia, setSelectedMedia] = useState(null);
 
   const imgUrlUtils = props.imgUrlUtils;
@@ -31,9 +31,9 @@ export default function Media(props) {
       .then(mediaList => setMediaListTo(mediaList))
       .catch(err => console.error(err));
   };
-useEffect(() => {
-  updateMediaList();
-}, []);
+  useEffect(() => {
+    updateMediaList();
+  }, []);
   useEffect(() => {
     updateMediaList();
   }, [filters]);
@@ -58,5 +58,4 @@ useEffect(() => {
       />
     </>
   );
-  
 }

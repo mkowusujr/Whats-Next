@@ -31,11 +31,27 @@ exports.add = async note => {
   });
 };
 
-exports.list = async mediaID => {
+exports.listForMedia = async mediaID => {
   return new Promise(async (resolve, reject) => {
     db.all(
       `SELECT * FROM notes WHERE mediaID = ?`,
       mediaID,
+      function (err, rows) {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(rows);
+        }
+      }
+    );
+  });
+};
+
+exports.listForBook = async bookID => {
+  return new Promise(async (resolve, reject) => {
+    db.all(
+      `SELECT * FROM notes WHERE bookID = ?`,
+      bookID,
       function (err, rows) {
         if (err) {
           reject(err);

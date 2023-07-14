@@ -1,4 +1,3 @@
-
 import { usePalette } from 'react-palette';
 export default function CategoryTable(props) {
   const categoryList = props.categoryList;

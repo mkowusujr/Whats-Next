@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { addMedia } from '../../services/media.service';
 import { watchStatuses, ratings } from '../utils/FormFields';
+import toast from 'react-hot-toast';
 import '../../sass/media/AddMediaForm.scss';
 
 export default function AddMediaForm(props) {
@@ -19,16 +20,38 @@ export default function AddMediaForm(props) {
       dateStarted: dateStarted,
       dateCompleted: dateCompleted
     };
-    addMedia(media)
-      .then(() => {
-        props.updateMediaList();
-        setName('');
-        setWatchStatus('');
-        setPersonalRating(ratings[0]);
-        setDateStarted('');
-        setDateCompleted('');
-      })
-      .catch(err => console.error(err));
+
+    const add = new Promise((res, rej) => {
+      addMedia(media)
+        .then(() => {
+          props.updateMediaList();
+          setName('');
+          setWatchStatus('');
+          setPersonalRating(ratings[0]);
+          setDateStarted('');
+          setDateCompleted('');
+          res();
+        })
+        .catch(err => rej(err));
+    });
+
+    toast.promise(
+      add,
+      {
+        loading: 'Loading...',
+        success: () => `Successfully added ${media.name}`,
+        error: err => `This just happened: ${err.toString()}`
+      },
+      {
+        // style: {
+        //   minWidth: '250px'
+        // },
+        success: {
+          duration: 3000,
+          icon: '🔥'
+        }
+      }
+    );
   };
 
   return (
@@ -45,7 +68,6 @@ export default function AddMediaForm(props) {
           <select
             value={watchStatus}
             onChange={e => setWatchStatus(e.target.value)}
-            required
           >
             <option value="" disabled>
               Select Watch Status

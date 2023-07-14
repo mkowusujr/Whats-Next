@@ -5,13 +5,19 @@ export default function BookDetails(props) {
   return (
     <div className="media-details">
       <img src={book.imageUrl} />
-			<div className="offical-info">
-				<div className="imdb-stats">
-					<label>Page Count { book.pageCount}</label>
-					<label>Rating { book.rating}</label>
-					<label>Publisher { book.publisher}</label>
-				</div>
-			</div>
+      <div className="offical-info">
+        <div className="imdb-stats">
+          <label>Publisher: {book.publisher}</label>
+          <label>Authors: {JSON.parse(book.authors)}</label>
+          <label>
+            Page Count: {book.pageCount == 0 ? 'N/A' : book.pageCount}
+          </label>
+        </div>
+        <label>{book.description}</label>
+        <div className="imdb-stats">
+          <label>ISBN-13: {book.isbn}</label>
+        </div>
+      </div>
     </div>
   );
 }

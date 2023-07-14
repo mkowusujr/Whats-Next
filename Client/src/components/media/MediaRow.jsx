@@ -44,7 +44,10 @@ export default function MediaRow(props) {
 
   const deleteRow = () => {
     deleteMedia(item)
-      .then(() => props.updateCategoryList())
+      .then(() => {
+        props.setSelectedItem(null);
+        props.updateCategoryList();
+      })
       .catch(err => console.error(err));
   };
   const preloadImage = url => (document.createElement('img').src = url);

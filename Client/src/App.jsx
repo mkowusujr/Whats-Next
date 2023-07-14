@@ -6,6 +6,8 @@ import MediaPage from './pages/MediaPage';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import BooksPage from './pages/BooksPage';
 import Layout from './components/Nav';
+import toast, { Toaster } from 'react-hot-toast';
+
 function App() {
   const [imgUrl, setImgUrl] = useState(
     'https://m.media-amazon.com/images/M/MV5BNjFmNWYzZjMtYWIyZi00NDVmLWIxY2EtN2RiMjZiMDk4MzcyXkEyXkFqcGdeQXVyMTg2NjYzOA@@._V1_.jpg'
@@ -15,6 +17,9 @@ function App() {
 
   return (
     <>
+      <div>
+        <Toaster position="bottom-center" reverseOrder={false} />
+      </div>
       <div
         className="banner"
         style={{

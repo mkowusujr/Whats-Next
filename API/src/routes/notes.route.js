@@ -11,7 +11,13 @@ router.post('', async (req, res) => {
 
 router.get('/media/:mediaID', async (req, res) => {
   const mediaID = req.params['mediaID'];
-  const result = await notesService.list(mediaID);
+  const result = await notesService.listForMedia(mediaID);
+  res.json(result);
+});
+
+router.get('/books/:bookID', async (req, res) => {
+  const bookID = req.params['bookID'];
+  const result = await notesService.listForBook(bookID);
   res.json(result);
 });
 

@@ -12,6 +12,11 @@ export const listNotesForMedia = mediaID => {
   return getRequest(apiUrl);
 };
 
+export const listNotesForBook = bookID => {
+  const apiUrl = `${baseUrl}/books/${bookID}`;
+  return getRequest(apiUrl);
+};
+
 export const updateNote = note => {
   const apiUrl = `${baseUrl}`;
   return updateRquest(apiUrl, note);

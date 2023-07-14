@@ -1,4 +1,4 @@
-import { ratings } from "./FormFields";
+import { ratings } from './FormFields';
 
 export const PersonalRatingSelect = props => {
   const personalRating = props.personalRating;

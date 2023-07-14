@@ -2,8 +2,10 @@ import { useState } from 'react';
 import { readingStatuses, ratings } from '../utils/FormFields';
 import '../../sass/media/AddMediaForm.scss';
 import { addBook } from '../../services/book.service';
+import toast from 'react-hot-toast';
 
 export default function AddBookForm(props) {
+  const [title, setTitle] = useState('');
   const [isbn, setIsbn] = useState('');
   const [readingStatus, setReadingStatus] = useState('');
   const [personalRating, setPersonalRating] = useState(ratings[0]);
@@ -13,22 +15,45 @@ export default function AddBookForm(props) {
   const submitEntry = e => {
     e.preventDefault();
     const book = {
+      title: title,
       isbn: isbn,
       readingStatus: readingStatus,
       personalRating: personalRating,
       dateStarted: dateStarted,
       dateCompleted: dateCompleted
     };
-    addBook(book)
-      .then(() => {
-        props.updateBookList();
-        setIsbn('');
-        setReadingStatus('');
-        setPersonalRating(ratings[0]);
-        setDateStarted('');
-        setDateCompleted('');
-      })
-      .catch(err => console.error(err));
+
+    const add = new Promise((res, rej) => {
+      addBook(book)
+        .then(() => {
+          props.updateBookList();
+          setIsbn('');
+          setReadingStatus('');
+          setPersonalRating(ratings[0]);
+          setDateStarted('');
+          setDateCompleted('');
+          res();
+        })
+        .catch(err => rej(err));
+    });
+
+    toast.promise(
+      add,
+      {
+        loading: 'Loading...',
+        success: () => `Successfully added ${book.title}`,
+        error: err => `This just happened: ${err.toString()}`
+      },
+      {
+        // style: {
+        //   minWidth: '250px'
+        // },
+        success: {
+          duration: 3000,
+          icon: '🔥'
+        }
+      }
+    );
   };
 
   return (
@@ -36,10 +61,10 @@ export default function AddBookForm(props) {
       <form onSubmit={submitEntry}>
         <div className="quick-add">
           <input
-            type="number"
-            value={isbn}
-            onChange={e => setIsbn(e.target.value)}
-            placeholder="Enter ISBN"
+            type="text"
+            value={title}
+            onChange={e => setTitle(e.target.value)}
+            placeholder="Enter Title"
             required
           />
           <select
@@ -58,6 +83,12 @@ export default function AddBookForm(props) {
         <details>
           <summary>Expand</summary>
           <div className="expanded-options">
+            <input
+              type="number"
+              value={isbn}
+              onChange={e => setIsbn(e.target.value)}
+              placeholder="Enter ISBN"
+            />
             <label>
               Personal Rating
               <select

@@ -2,12 +2,12 @@ const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database('watchnext.db');
 
 runScripts = () => {
-   /*
+  /*
 	 db.run(`
    ALTER TABLE media
    ADD COLUMN ownershipStatus TEXT;
-   `);*/
-
+   `);
+	*/
   /*
 	db.run(`alter table books add column readingStatus STRING NOT NULL`)
   db.run(`alter table books add column personalRating DOUBLE`);
@@ -15,6 +15,15 @@ runScripts = () => {
   db.run(`alter table books add column dateCompleted DATE`);
   db.run(`alter table books add column isbn INTEGER`);
 	db.run(`alter table books add column ownershipStatus STRING`);
+	*/
+  /*
+	db.run(`alter table notes add column bookID INTEGER`);
+	db.run(`ALTER TABLE books
+  RENAME COLUMN publisedDate TO publishedDate;`);
+	*/
+  /*
+	db.run('drop table books')
+  db.run(`alter table books add column subtitle STRING`);
 	*/
 };
 
@@ -52,14 +61,15 @@ exports.setupDb = () =>
 				title STRING NOT NULL,
 				content STRING NOT NULL,
 				mediaID INTEGER NOT NULL,
+				bookID INTEGER NOT NULL,
 				dateAdded DATE NOT NULL,
 				lastUpdated DATE,
 				FOREIGN KEY (mediaID) REFERENCES media(id)
 			)
 			`
-		);
-		
-		db.run(`
+    );
+
+    db.run(`
 		CREATE TABLE IF NOT EXISTS books(
 			id INTEGER PRIMARY KEY,
 			title STRING NOT NULL,
@@ -67,12 +77,9 @@ exports.setupDb = () =>
 			imageUrl STRING,
 			authors STRING,
 			publisher STRING,
-			publisedDate STRING,
+			publishedDate STRING,
 			pageCount INTEGER,
 			categories STRING,
-			rating DOUBLE,
-			previewLink STRING,
-			volLink STRING,
 			readingStatus STRING NOT NULL,
 			personalRating DOUBLE,
 			dateStarted DATE,

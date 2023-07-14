@@ -1,12 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const bookService = require('../service/book.service')
+const bookService = require('../service/book.service');
 
 router.post('', async (req, res) => {
-	const book = req.body
-	const result = await bookService.add(book)
-	res.json(result)
-})
+  const book = req.body;
+  const result = await bookService.add(book);
+  res.json(result);
+});
 
 router.get('', async (req, res) => {
   const result = await bookService.list();
