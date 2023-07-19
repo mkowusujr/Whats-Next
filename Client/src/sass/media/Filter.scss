@@ -1,21 +1,10 @@
 .filter {
-  display: block;
-  height: 102px;
-  margin-bottom: 1.5em;
-  width: -moz-available;
-  table {
-    border-radius: 0.25em;
-    height: inherit;
-    width: inherit;
-    border: none;
-    tbody {
-      display: flex;
-      flex-direction: row;
-      td {
-        height: 48.3px;
-        width: min-content;
-        border-bottom: none;
-      }
-    }
+  display: flex;
+  justify-content: space-between;
+  font-size: small;
+  align-items: baseline;
+  width: 100%;
+  select {
+    margin: 0;
   }
 }

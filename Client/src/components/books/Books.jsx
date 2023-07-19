@@ -19,7 +19,6 @@ export default function Books(props) {
       readingStatus: ''
     }
   );
-  const imgUrlUtils = props.imgUrlUtils;
   const filterProps = { filters, setFilters };
 
   const updateBookList = () => {
@@ -36,11 +35,11 @@ export default function Books(props) {
     <>
       <Category
         AddForm={<AddBookForm updateBookList={updateBookList} />}
-        CategoryFilter={<BookFilter filterProps={filterProps} />}
         ItemDetails={<BookDetails book={selectedBook} />}
         selectedRow={selectedBook}
         Table={
           <CategoryTable
+            filters={<BookFilter filterProps={filterProps} />}
             categoryList={bookList}
             show={filters.readingStatus}
             imgUrlUtils={props.imgUrlUtils}

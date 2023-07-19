@@ -42,11 +42,11 @@ export default function Media(props) {
     <>
       <Category
         AddForm={<AddMediaForm updateMediaList={updateMediaList} />}
-        CategoryFilter={<MediaFilter filterProps={filterProps} />}
         ItemDetails={<MediaDetails media={selectedMedia} />}
         selectedRow={selectedMedia}
         Table={
           <CategoryTable
+            filters={<MediaFilter filterProps={filterProps} />}
             categoryList={mediaList}
             show={filters.watchStatus}
             imgUrlUtils={imgUrlUtils}

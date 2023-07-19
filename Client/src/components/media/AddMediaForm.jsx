@@ -43,9 +43,6 @@ export default function AddMediaForm(props) {
         error: err => `This just happened: ${err.toString()}`
       },
       {
-        // style: {
-        //   minWidth: '250px'
-        // },
         success: {
           duration: 3000,
           icon: '🔥'

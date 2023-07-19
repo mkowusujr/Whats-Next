@@ -13,7 +13,7 @@ export const addBook = book => {
   return postRequest(apiUrl, book);
 };
 
-export const listBooks = (filters) => {
+export const listBooks = filters => {
   const apiUrl = `${baseUrl}`;
   return getRequest(apiUrl).then(bookList => applyFilters(bookList, filters));
 };

@@ -1,4 +1,4 @@
-import { sortByOptions } from "./FormFields";
+import { sortByOptions } from './FormFields';
 
 export const titleCase = name => {
   return name.charAt(0).toUpperCase() + name.slice(1);
@@ -8,7 +8,6 @@ export const toYear = timestamp => {
   const date = new Date(timestamp);
   return `${timestamp}`.length == 4 ? timestamp : date.getFullYear();
 };
-
 
 const getSortUtils = option => {
   const sortOption = Object.values(sortByOptions).find(o => o.label == option);
@@ -32,7 +31,9 @@ export const applyFilters = (items, filters) => {
   }
 
   if (filters.bookType && filters.bookType != '') {
-    items = items.filter(m => filters.bookType === m.bookType);
+    items = items.filter(m =>
+      JSON.parse(m.categories).includes(filters.bookType)
+    );
   }
 
   if (filters.sortBy.prop) {

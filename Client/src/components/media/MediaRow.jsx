@@ -8,6 +8,9 @@ import MediaDetails from './MediaDetails';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { titleCase, toYear } from '../utils/utils';
 import { PersonalRatingSelect } from '../utils/PersonalRatingSelect';
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
+
 export default function MediaRow(props) {
   const item = props.item;
 
@@ -72,7 +75,11 @@ export default function MediaRow(props) {
       }}
     >
       <td>
-        <LazyLoadImage src={item.posterImageUrl} width={130} />
+        <LazyLoadImage
+          src={item.posterImageUrl}
+          width={130}
+          placeholder={<Skeleton variant="rectangular" height={192} />}
+        />
       </td>
       <td className="media-info">
         <div className="media-name">
@@ -92,38 +99,35 @@ export default function MediaRow(props) {
           {titleCase(item.mediaType)} | {toYear(item.releaseDate)} |{' '}
           {item.genres.replaceAll(',', ', ')}
         </div>
-        <div className="media-user-info">
-          <label>
-            Watch Status:
-            {WatchStatusSelect}
+        <label>
+          Watch Status:
+          {WatchStatusSelect}
+        </label>
+        <div className="media-dates">
+          <label className="start-date">
+            Started:
+            <input
+              type="date"
+              value={dateStarted}
+              onChange={e => setDateStarted(e.target.value)}
+            />
           </label>
-          <div className="media-dates">
-            <label className="start-date">
-              Started:
-              <input
-                type="date"
-                value={dateStarted}
-                onChange={e => setDateStarted(e.target.value)}
-              />
-            </label>
-            <label>
-              Finished:
-              <input
-                type="date"
-                value={dateCompleted}
-                onChange={e => setDateCompleted(e.target.value)}
-              />
-            </label>
-          </div>
-
           <label>
-            Personal Rating:
-            <PersonalRatingSelect
-              personalRating={personalRating}
-              setPersonalRating={setPersonalRating}
+            Finished:
+            <input
+              type="date"
+              value={dateCompleted}
+              onChange={e => setDateCompleted(e.target.value)}
             />
           </label>
         </div>
+        <label>
+          Personal Rating:
+          <PersonalRatingSelect
+            personalRating={personalRating}
+            setPersonalRating={setPersonalRating}
+          />
+        </label>
       </td>
       <td>
         <div className="media-options">

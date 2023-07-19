@@ -1,10 +1,13 @@
+import '../../sass/media/Media.scss';
 export default function Category(props) {
   return (
     <>
       <div className="media">
         <div className="media-display">
-          {props.AddForm}
-          {props.CategoryFilter}
+          <div className="media-utils">
+            {props.AddForm}
+            {props.CategoryFilter}
+          </div>
           {props.Table}
         </div>
         <>

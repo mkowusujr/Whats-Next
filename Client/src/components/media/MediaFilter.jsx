@@ -29,86 +29,66 @@ export default function MediaFilter(props) {
     updateFilters();
   }, [sortByProp, sortByDesc, mediaType, watchStatus]);
 
+  const mediaTypeSelect = (
+    <select value={mediaType} onChange={e => setMediaType(e.target.value)}>
+      {mediaTypes.map((m, key) => (
+        <option key={key} value={m}>
+          {m == '' ? 'Any' : m}
+        </option>
+      ))}
+    </select>
+  );
+
+  const watchStatusSelect = (
+    <select value={watchStatus} onChange={e => setWatchStatus(e.target.value)}>
+      {['', ...watchStatuses.slice(1)].map((s, key) => (
+        <option key={key} value={s}>
+          {s == '' ? 'Any' : s}
+        </option>
+      ))}
+    </select>
+  );
+
+  const sortByPropSelect = (
+    <select value={sortByProp} onChange={e => setSortByProp(e.target.value)}>
+      {Object.values(sortByOptions).map((o, key) => (
+        <option key={key} value={o.label}>
+          {o.label}
+        </option>
+      ))}
+    </select>
+  );
+
+  const orderingSelect = (
+    <>
+      <label>
+        <input
+          type="checkbox"
+          checked={sortByDesc == false}
+          onChange={() => setSortByDesc(false)}
+        />
+        ASC
+      </label>
+      <label>
+        <input
+          type="checkbox"
+          checked={sortByDesc == true}
+          onChange={() => setSortByDesc(true)}
+        />
+        DESC
+      </label>
+    </>
+  );
+
   return (
     <div className="filter">
-      <table>
-        <thead>
-          <tr>
-            <td colSpan={2}>Filters</td>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>
-              <label>Sort By Property</label>
-            </td>
-            <td style={{ width: `auto` }}>
-              <div className="sorting">
-                <select
-                  value={sortByProp}
-                  onChange={e => setSortByProp(e.target.value)}
-                >
-                  {Object.values(sortByOptions).map((o, key) => (
-                    <option key={key} value={o.label}>
-                      {o.label}
-                    </option>
-                  ))}
-                </select>
-                <label>
-                  <input
-                    type="checkbox"
-                    checked={sortByDesc == false}
-                    onChange={() => setSortByDesc(false)}
-                  />
-                  ASC
-                </label>
-                <label>
-                  <input
-                    type="checkbox"
-                    checked={sortByDesc == true}
-                    onChange={() => setSortByDesc(true)}
-                  />
-                  DESC
-                </label>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <label>Show Watch Status</label>
-            </td>
-            <td>
-              <select
-                value={watchStatus}
-                onChange={e => setWatchStatus(e.target.value)}
-              >
-                {['', ...watchStatuses].map((s, key) => (
-                  <option key={key} value={s}>
-                    {s == '' ? 'Show All' : s}
-                  </option>
-                ))}
-              </select>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <label>Media Type</label>
-            </td>
-            <td>
-              <select
-                value={mediaType}
-                onChange={e => setMediaType(e.target.value)}
-              >
-                {['', ...mediaTypes].map((m, key) => (
-                  <option key={key} value={m}>
-                    {m == '' ? 'Show All' : m}
-                  </option>
-                ))}
-              </select>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <span>SHOWING</span>
+      {mediaTypeSelect}
+      <span>WITH STATUS</span>
+      {watchStatusSelect}
+      <span>SORTING BY</span>
+      {sortByPropSelect}
+      {orderingSelect}
     </div>
   );
 }

@@ -1,7 +1,7 @@
 export const watchStatuses = ['Watched', 'Watching', 'Planned'];
 
 export const mediaTypes = ['Movie', 'Series'];
-
+export const bookTypes = ['Comics & Graphic Novels'];
 export const ratings = [
   'Select Personal Rating',
   '(10) Masterpiece',
@@ -21,6 +21,11 @@ export const pRatingToNum = pRating => {
   return +pRating.substring(1, endIndex);
 };
 
+const extractNumber = title => {
+  const numberMatch = title.match(/\d+/);
+  return numberMatch ? parseInt(numberMatch[0], 10) : Number.MAX_VALUE;
+};
+
 export const sortByOptions = {
   pRating: {
     label: 'Personal Rating',
@@ -38,6 +43,25 @@ export const sortByOptions = {
     },
     findNullProps: m => {
       return m.name == '';
+    }
+  },
+  title: {
+    label: 'Title',
+    sortBy: (a, b) => {
+      const aNumber = extractNumber(a.title);
+      const bNumber = extractNumber(b.title);
+
+      const aTitle = a.title.replace(/\d+/, '').trim();
+      const bTitle = b.title.replace(/\d+/, '').trim();
+
+      if (aTitle !== bTitle) {
+        return aTitle.localeCompare(bTitle);
+      }
+
+      return aNumber - bNumber;
+    },
+    findNullProps: m => {
+      return m.title == '';
     }
   },
   releaseDate: {
@@ -120,7 +144,6 @@ export const pRatingColors = {
   }
 };
 
-// Function to darken a given color
 function darkenColor(color) {
   // Parse the color string to extract RGB values
   const hex = color.replace('#', '');

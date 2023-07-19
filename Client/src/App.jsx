@@ -1,12 +1,11 @@
 import { useState } from 'react';
 import './sass/App.scss';
 import { usePalette } from 'react-palette';
-// import Media from './components/media/Media';
 import MediaPage from './pages/MediaPage';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import BooksPage from './pages/BooksPage';
-import Layout from './components/Nav';
-import toast, { Toaster } from 'react-hot-toast';
+import NavBar from './components/Nav';
+import { Toaster } from 'react-hot-toast';
 
 function App() {
   const [imgUrl, setImgUrl] = useState(
@@ -28,15 +27,16 @@ function App() {
       ></div>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Layout />} />
-          <Route
-            path="watchnext"
-            element={<MediaPage imgUrlUtils={imgUrlUtils} />}
-          />
-          <Route
-            path="readnext"
-            element={<BooksPage imgUrlUtils={imgUrlUtils} />}
-          />
+          <Route path="/" element={<NavBar />}>
+            <Route
+              path="watchnext"
+              element={<MediaPage imgUrlUtils={imgUrlUtils} />}
+            />
+            <Route
+              path="readnext"
+              element={<BooksPage imgUrlUtils={imgUrlUtils} />}
+            />
+          </Route>
         </Routes>
       </BrowserRouter>
     </>

@@ -1,3 +1,4 @@
+import '../../sass/media/MediaTable.scss';
 import { usePalette } from 'react-palette';
 export default function CategoryTable(props) {
   const categoryList = props.categoryList;
@@ -16,7 +17,7 @@ export default function CategoryTable(props) {
           }}
         >
           <tr className="sort-by-prop">
-            <td colSpan={3}>{show.toUpperCase()}</td>
+            <td colSpan={3}>{props.filters}</td>
           </tr>
         </thead>
         <tbody>

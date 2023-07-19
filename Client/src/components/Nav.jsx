@@ -1,6 +1,7 @@
 import { Link, Outlet } from 'react-router-dom';
+import '../sass/NavBar.scss';
 
-export default function Layout() {
+export default function NavBar() {
   return (
     <>
       <header>

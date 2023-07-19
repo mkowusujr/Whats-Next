@@ -6,6 +6,11 @@
 
 .media-info {
   margin-top: 1em;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 174px;
+  margin-bottom: 1em;
 }
 
 .media-options {
@@ -13,6 +18,12 @@
   flex-direction: column;
   height: inherit;
   justify-content: space-evenly;
+  height: 174px;
+}
+
+.media-info-info {
+  color: gray;
+  font-style: italic;
 }
 
 .start-date {
@@ -34,10 +45,9 @@
 }
 
 .media-row-mobile {
-  display: none;
+  display: none !important;
   td {
     height: auto !important;
-    // width: auto !important;
   }
   .col-1 {
     width: 7.5em;
@@ -53,16 +63,11 @@
 }
 
 .text {
-  text-overflow: ellipsis; // this line adds the ellipsis
-  cursor: pointer; // this changes the cursor
+  text-overflow: ellipsis;
+  cursor: pointer;
   word-break: break-all;
-  overflow: hidden; // this hides the overflowing text
+  overflow: hidden;
   white-space: nowrap;
-}
-.text:hover {
-  // overflow: visible;        // this makes the overflowing text visible on hover
-  // white-space: normal;
-  // height:auto;
 }
 
 @media (max-width: 1400px) {
@@ -71,5 +76,17 @@
   }
   .media-row-dafault {
     display: none;
+  }
+}
+
+.update-titles {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.85em;
+  input {
+    width: 200px;
+  }
+  .subtitle {
+    margin-left: 0.75em;
   }
 }

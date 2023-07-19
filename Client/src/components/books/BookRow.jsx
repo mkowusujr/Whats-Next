@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { toYear } from '../utils/utils';
 import { deleteBook, updateBook } from '../../services/book.service';
@@ -7,6 +7,9 @@ import { PersonalRatingSelect } from '../utils/PersonalRatingSelect';
 import DialogComponent from '../utils/DialogComponent';
 import Notes from '../notes/Notes';
 import BookDetails from './BookDetails';
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
+import { Tooltip } from 'react-tooltip';
 import '../../sass/media/MediaRow.scss';
 
 export default function BookRow(props) {
@@ -16,6 +19,10 @@ export default function BookRow(props) {
   const [dateStarted, setDateStarted] = useState(item.dateStarted);
   const [dateCompleted, setDateCompleted] = useState(item.dateCompleted);
   const [ownershipStatus, setOwnershipStatus] = useState(item.ownershipStatus);
+  const [selectedImage, setSelectedImage] = useState(item.imageUrl);
+  const [title, setTitle] = useState(item.title);
+  const [subtitle, setSubtitle] = useState(item.subtitle);
+  const fileInputRef = useRef(null);
 
   useEffect(() => {
     updateRow();
@@ -24,7 +31,8 @@ export default function BookRow(props) {
     readingStatus,
     dateStarted,
     dateCompleted,
-    ownershipStatus
+    ownershipStatus,
+    selectedImage
   ]);
 
   const updateRow = () => {
@@ -34,11 +42,17 @@ export default function BookRow(props) {
       personalRating: personalRating,
       dateStarted: dateStarted,
       dateCompleted: dateCompleted,
-      ownershipStatus: ownershipStatus
+      ownershipStatus: ownershipStatus,
+      imageUrl: selectedImage,
+      title: title,
+      subtitle: subtitle
     };
 
     updateBook(updatedBook)
-      .then(() => props.updateCategoryList())
+      .then(updatedBook => {
+        updateBookDetails(updatedBook);
+        props.updateCategoryList();
+      })
       .catch(err => console.error(err));
   };
 
@@ -70,22 +84,88 @@ export default function BookRow(props) {
   const yearStr =
     item.categories === '[]' ? '' : ` | ${JSON.parse(item.categories)}`;
 
-  const titleStr = `${item.title}${item.subtitle ? `: ${item.subtitle}` : ''}`;
+  const titleStr = `${title}${subtitle ? `: ${subtitle}` : ''}`;
+
+  const handleImageChange = e => {
+    const file = e.target.files[0];
+
+    if (file) {
+      const reader = new FileReader();
+
+      reader.onloadend = () => {
+        const base64String = reader.result;
+        setSelectedImage(base64String);
+        props.setSelectedItem({ ...item, imageUrl: base64String });
+      };
+
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleImageClick = () => {
+    fileInputRef.current.click();
+  };
+
+  const updateBookDetails = book => {
+    props.imgUrlUtils.setImgUrl(book.imageUrl);
+  };
+
+  const updateTitleNSubtitle = (
+    <div className="update-titles">
+      <label>
+        Title
+        <input
+          type="text"
+          value={title}
+          onChange={e => setTitle(e.target.value)}
+        />
+      </label>
+      <label className="subtitle">
+        Subtitle
+        <input
+          type="text"
+          value={subtitle}
+          onChange={e => setSubtitle(e.target.value)}
+        />
+      </label>
+    </div>
+  );
 
   const DefaultBookRow = (
     <tr
       className="media-row-dafault"
       onClick={() => {
-        props.imgUrlUtils.setImgUrl(item.imageUrl);
+        updateBookDetails(item);
         props.setSelectedItem(item);
       }}
     >
       <td>
-        <LazyLoadImage src={item.imageUrl} width={130} />
+        <input
+          type="file"
+          accept="image/*"
+          style={{ display: 'none' }}
+          ref={fileInputRef}
+          onChange={handleImageChange}
+        />
+        <LazyLoadImage
+          src={selectedImage}
+          width={130}
+          style={{ cursor: 'pointer' }}
+          onClick={handleImageClick}
+          placeholder={<Skeleton variant="rectangular" height={192} />}
+        />
       </td>
       <td className="media-info">
         <div className="media-name">
-          <p>{titleStr}</p>
+          <p id={`title${item.id}`}>{titleStr}</p>
+          <Tooltip
+            className="tooltips"
+            anchorSelect={`#title${item.id}`}
+            afterHide={updateRow}
+            clickable
+          >
+            {updateTitleNSubtitle}
+          </Tooltip>
           <select
             value={ownershipStatus ?? ownershipOptions[0]}
             onChange={e => setOwnershipStatus(e.target.value)}
@@ -102,40 +182,36 @@ export default function BookRow(props) {
             {toYear(item.publishedDate)}
             {yearStr}
           </span>
-          <span></span>
         </div>
-        <div className="media-user-info">
-          <label>
-            Watch Status:
-            {ReadingStatusSelect}
+        <label>
+          Watch Status:
+          {ReadingStatusSelect}
+        </label>
+        <div className="media-dates">
+          <label className="start-date">
+            Started:
+            <input
+              type="date"
+              value={dateStarted}
+              onChange={e => setDateStarted(e.target.value)}
+            />
           </label>
-          <div className="media-dates">
-            <label className="start-date">
-              Started:
-              <input
-                type="date"
-                value={dateStarted}
-                onChange={e => setDateStarted(e.target.value)}
-              />
-            </label>
-            <label>
-              Finished:
-              <input
-                type="date"
-                value={dateCompleted}
-                onChange={e => setDateCompleted(e.target.value)}
-              />
-            </label>
-          </div>
-
           <label>
-            Personal Rating:
-            <PersonalRatingSelect
-              personalRating={personalRating}
-              setPersonalRating={setPersonalRating}
+            Finished:
+            <input
+              type="date"
+              value={dateCompleted}
+              onChange={e => setDateCompleted(e.target.value)}
             />
           </label>
         </div>
+        <label>
+          Personal Rating:
+          <PersonalRatingSelect
+            personalRating={personalRating}
+            setPersonalRating={setPersonalRating}
+          />
+        </label>
       </td>
       <td>
         <div className="media-options">
