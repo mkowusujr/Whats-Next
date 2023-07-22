@@ -2,7 +2,6 @@ import '../../sass/media/MediaTable.scss';
 import { usePalette } from 'react-palette';
 export default function CategoryTable(props) {
   const categoryList = props.categoryList;
-  const show = props.show == null || props.show == '' ? 'Show All' : props.show;
   const { data, loading, error } = usePalette(props.imgUrlUtils.imgUrl);
   return (
     <div className="media-table">
@@ -25,7 +24,8 @@ export default function CategoryTable(props) {
             <props.rowElement
               key={item.id}
               item={item}
-              updateCategoryList={props.updateCategoryList}
+              removeItemFromList={props.removeItemFromList}
+              updateItemInList={props.updateItemInList}
               imgUrlUtils={props.imgUrlUtils}
               setSelectedItem={props.setSelectedItem}
             />

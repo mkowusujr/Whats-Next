@@ -6,6 +6,8 @@ import AddBookForm from './AddBookForm';
 import BookFilter from './BookFilter';
 import BookDetails from './BookDetails';
 import BookRow from './BookRow';
+import { applyFilters } from '../utils/utils';
+
 export default function Books(props) {
   const [bookList, setBookList] = useState([]);
   const [selectedBook, setSelectedBook] = useState(null);
@@ -16,35 +18,41 @@ export default function Books(props) {
         desc: true
       },
       bookType: '',
-      readingStatus: ''
+      readingStatus: '',
+      title: ''
     }
   );
   const filterProps = { filters, setFilters };
 
-  const updateBookList = () => {
-    listBooks(filters)
+  useEffect(() => {
+    listBooks()
       .then(bookList => setBookList(bookList))
       .catch(err => console.error(err));
-  };
+  }, []);
 
-  useEffect(() => {
-    updateBookList();
-  }, [filters]);
+  const removeItemFromList = id =>
+    setBookList([...bookList].filter(i => i.id != id));
+
+  const addItemToList = item => setBookList([...bookList, item]);
+
+  const updateItemInList = item =>
+    setBookList([...bookList.filter(i => i.id != item.id), item]);
 
   return (
     <>
       <Category
-        AddForm={<AddBookForm updateBookList={updateBookList} />}
+        AddForm={<AddBookForm addItemToList={addItemToList} />}
         ItemDetails={<BookDetails book={selectedBook} />}
         selectedRow={selectedBook}
         Table={
           <CategoryTable
             filters={<BookFilter filterProps={filterProps} />}
-            categoryList={bookList}
+            categoryList={applyFilters(bookList, filters)}
             show={filters.readingStatus}
             imgUrlUtils={props.imgUrlUtils}
             setSelectedItem={setSelectedBook}
-            updateCategoryList={updateBookList}
+            removeItemFromList={removeItemFromList}
+            updateItemInList={updateItemInList}
             rowElement={BookRow}
           />
         }

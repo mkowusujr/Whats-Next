@@ -14,6 +14,7 @@ function DialogComponent(props: DialogComponentProps) {
 
   function openDialog() {
     setDialogState(true);
+    props.onOpen();
   }
 
   function closeDialog() {

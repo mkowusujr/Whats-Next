@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { addNote } from '../../services/notes.service';
-import '../../sass/notes/AddNoteForm.scss';
 import DialogComponent from '../utils/DialogComponent';
 export default function AddNoteForm(props) {
   const [title, setTitle] = useState('');
@@ -14,7 +13,6 @@ export default function AddNoteForm(props) {
       setTitle('');
       setContent('');
     });
-    props.updateNoteList();
   };
 
   return (

@@ -23,8 +23,8 @@ export default function AddMediaForm(props) {
 
     const add = new Promise((res, rej) => {
       addMedia(media)
-        .then(() => {
-          props.updateMediaList();
+        .then(media => {
+          props.addItemToList(media);
           setName('');
           setWatchStatus('');
           setPersonalRating(ratings[0]);

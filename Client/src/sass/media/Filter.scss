@@ -1,4 +1,4 @@
-.filter {
+.filter-fltr {
   display: flex;
   justify-content: space-between;
   font-size: small;
@@ -7,4 +7,9 @@
   select {
     margin: 0;
   }
+}
+.filter-title {
+  width: -moz-available;
+  margin: 0;
+  margin-bottom: 0.5em;
 }

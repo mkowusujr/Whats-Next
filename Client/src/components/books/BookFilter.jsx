@@ -9,6 +9,7 @@ export default function BookFilter(props) {
   const [sortByDesc, setSortByDesc] = useState(filters.sortBy.desc);
   const [bookType, setBookType] = useState(filters.mediaType);
   const [readingStatus, setReadingStatus] = useState(filters.readingStatus);
+  const [title, setTitle] = useState(filters.title);
 
   const saveFilterSettings = filters => {
     localStorage.setItem('bookFilters', JSON.stringify(filters));
@@ -18,16 +19,17 @@ export default function BookFilter(props) {
     const updatedFilters = {
       sortBy: { prop: sortByProp, desc: sortByDesc },
       bookType: bookType,
-      readingStatus: readingStatus
+      readingStatus: readingStatus,
+      title: title
     };
 
     setFilters(updatedFilters);
-    saveFilterSettings(updatedFilters);
+    saveFilterSettings({ ...updatedFilters, title: '' });
   };
 
   useEffect(() => {
     updateFilters();
-  }, [sortByProp, sortByDesc, bookType, readingStatus]);
+  }, [sortByProp, sortByDesc, bookType, readingStatus, title]);
 
   const bookTypeSelect = (
     <select value={bookType} onChange={e => setBookType(e.target.value)}>
@@ -52,7 +54,7 @@ export default function BookFilter(props) {
     </select>
   );
 
-  let bookSortByOptions = sortByOptions;
+  const bookSortByOptions = { ...sortByOptions };
   delete bookSortByOptions.name;
 
   const sortByPropSelect = (
@@ -88,13 +90,22 @@ export default function BookFilter(props) {
 
   return (
     <div className="filter">
-      <span>SHOWING</span>
-      {bookTypeSelect}
-      <span>WITH STATUS</span>
-      {readingStatusSelect}
-      <span>SORTING BY</span>
-      {sortByPropSelect}
-      {orderingSelect}
+      <input
+        className="filter-title"
+        type="text"
+        placeholder="Enter Title"
+        value={title}
+        onChange={e => setTitle(e.target.value)}
+      />
+      <div className="filter-fltr">
+        <span>SHOWING</span>
+        {bookTypeSelect}
+        <span>WITH STATUS</span>
+        {readingStatusSelect}
+        <span>SORTING BY</span>
+        {sortByPropSelect}
+        {orderingSelect}
+      </div>
     </div>
   );
 }

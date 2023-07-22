@@ -7,8 +7,10 @@ import MediaDetails from './MediaDetails';
 import Category from '../utils/Category';
 import CategoryTable from '../utils/CategoryTable';
 import MediaRow from './MediaRow';
+import { applyFilters } from '../utils/utils';
+
 export default function Media(props) {
-  const [mediaList, setMediaListTo] = useState([]);
+  const [mediaList, setMediaList] = useState([]);
   const [filters, setFilters] = useState(
     JSON.parse(localStorage.getItem('mediaFilters')) ?? {
       sortBy: {
@@ -16,42 +18,45 @@ export default function Media(props) {
         desc: true
       },
       mediaType: '',
-      watchStatus: ''
+      watchStatus: '',
+      name: ''
     }
   );
-
   const [selectedMedia, setSelectedMedia] = useState(null);
 
   const imgUrlUtils = props.imgUrlUtils;
 
   const filterProps = { filters, setFilters };
 
-  const updateMediaList = () => {
-    listMedia(filters)
-      .then(mediaList => setMediaListTo(mediaList))
+  useEffect(() => {
+    listMedia()
+      .then(mediaList => setMediaList(mediaList))
       .catch(err => console.error(err));
-  };
-  useEffect(() => {
-    updateMediaList();
   }, []);
-  useEffect(() => {
-    updateMediaList();
-  }, [filters]);
+
+  const removeItemFromList = id =>
+    setMediaList([...mediaList].filter(i => i.id != id));
+
+  const addItemToList = item => setMediaList([...mediaList, item]);
+
+  const updateItemInList = item =>
+    setMediaList([...mediaList.filter(i => i.id != item.id), item]);
 
   return (
     <>
       <Category
-        AddForm={<AddMediaForm updateMediaList={updateMediaList} />}
+        AddForm={<AddMediaForm addItemToList={addItemToList} />}
         ItemDetails={<MediaDetails media={selectedMedia} />}
         selectedRow={selectedMedia}
         Table={
           <CategoryTable
             filters={<MediaFilter filterProps={filterProps} />}
-            categoryList={mediaList}
+            categoryList={applyFilters(mediaList, filters)}
             show={filters.watchStatus}
             imgUrlUtils={imgUrlUtils}
             setSelectedItem={setSelectedMedia}
-            updateCategoryList={updateMediaList}
+            removeItemFromList={removeItemFromList}
+            updateItemInList={updateItemInList}
             rowElement={MediaRow}
           />
         }

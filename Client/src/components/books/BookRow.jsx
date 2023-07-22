@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { toYear } from '../utils/utils';
 import { deleteBook, updateBook } from '../../services/book.service';
@@ -11,6 +11,7 @@ import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import { Tooltip } from 'react-tooltip';
 import '../../sass/media/MediaRow.scss';
+import useSubsequentEffect from '../utils/useSubsequentEffect';
 
 export default function BookRow(props) {
   const item = props.item;
@@ -24,7 +25,7 @@ export default function BookRow(props) {
   const [subtitle, setSubtitle] = useState(item.subtitle);
   const fileInputRef = useRef(null);
 
-  useEffect(() => {
+  useSubsequentEffect(() => {
     updateRow();
   }, [
     personalRating,
@@ -49,10 +50,7 @@ export default function BookRow(props) {
     };
 
     updateBook(updatedBook)
-      .then(updatedBook => {
-        updateBookDetails(updatedBook);
-        props.updateCategoryList();
-      })
+      .then(book => props.updateItemInList(book))
       .catch(err => console.error(err));
   };
 
@@ -60,7 +58,7 @@ export default function BookRow(props) {
     deleteBook(item.id)
       .then(() => {
         props.setSelectedItem(null);
-        props.updateCategoryList();
+        props.removeItemFromList(item.id);
       })
       .catch(err => console.error(err));
   };
@@ -148,18 +146,23 @@ export default function BookRow(props) {
           onChange={handleImageChange}
         />
         <LazyLoadImage
+          id={`cover-img${item.id}`}
           src={selectedImage}
           width={130}
           style={{ cursor: 'pointer' }}
           onClick={handleImageClick}
           placeholder={<Skeleton variant="rectangular" height={192} />}
         />
+        <Tooltip
+          anchorSelect={`#cover-img${item.id}`}
+          content="Click On Cover to Manually Change It"
+          place="right-start"
+        />
       </td>
       <td className="media-info">
         <div className="media-name">
           <p id={`title${item.id}`}>{titleStr}</p>
           <Tooltip
-            className="tooltips"
             anchorSelect={`#title${item.id}`}
             afterHide={updateRow}
             clickable

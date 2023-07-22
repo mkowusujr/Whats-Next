@@ -27,7 +27,7 @@ function App() {
       ></div>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<NavBar />}>
+          <Route path="/" element={<NavBar imgUrlUtils={imgUrlUtils} />}>
             <Route
               path="watchnext"
               element={<MediaPage imgUrlUtils={imgUrlUtils} />}

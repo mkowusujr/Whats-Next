@@ -1,4 +1,3 @@
-import { applyFilters } from '../components/utils/utils';
 import {
   deleteRequest,
   getRequest,
@@ -13,9 +12,9 @@ export const addBook = book => {
   return postRequest(apiUrl, book);
 };
 
-export const listBooks = filters => {
+export const listBooks = () => {
   const apiUrl = `${baseUrl}`;
-  return getRequest(apiUrl).then(bookList => applyFilters(bookList, filters));
+  return getRequest(apiUrl);
 };
 
 export const updateBook = book => {

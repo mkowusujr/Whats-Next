@@ -1,4 +1,3 @@
-import { applyFilters } from '../components/utils/utils';
 import {
   deleteRequest,
   getRequest,
@@ -13,9 +12,9 @@ export const addMedia = media => {
   return postRequest(apiUrl, media);
 };
 
-export const listMedia = filters => {
+export const listMedia = () => {
   const apiUrl = `${baseUrl}`;
-  return getRequest(apiUrl).then(mediaList => applyFilters(mediaList, filters));
+  return getRequest(apiUrl);
 };
 
 export const updateMedia = media => {
@@ -23,7 +22,7 @@ export const updateMedia = media => {
   return updateRquest(apiUrl, media);
 };
 
-export const deleteMedia = media => {
-  const apiUrl = `${baseUrl}/${media.id}`;
+export const deleteMedia = mediaID => {
+  const apiUrl = `${baseUrl}/${mediaID}`;
   return deleteRequest(apiUrl);
 };

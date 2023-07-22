@@ -1,23 +1,30 @@
 import { Link, Outlet } from 'react-router-dom';
 import '../sass/NavBar.scss';
+import { usePalette } from 'react-palette';
+export default function NavBar(props) {
+  const { data, loading, error } = usePalette(props.imgUrlUtils.imgUrl);
 
-export default function NavBar() {
   return (
     <>
-      <header>
-        <nav>
+      <nav
+        style={{
+          backgroundColor: data.darkMuted
+        }}
+      >
+        <ul>
           <li>
-            <Link to="/watchnext">
-              <h1>Watch Next?</h1>
-            </Link>
+            <Link to="/watchnext">Watch Next?</Link>
           </li>
           <li>
-            <Link to="/readnext">
-              <h1>Read Next?</h1>
-            </Link>
+            <Link to="/readnext">Read Next?</Link>
           </li>
-        </nav>
-      </header>
+          <li>
+            <h1>
+              <Link to="/">Stats</Link>
+            </h1>
+          </li>
+        </ul>
+      </nav>
       <Outlet />
     </>
   );

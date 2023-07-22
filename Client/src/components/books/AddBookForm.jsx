@@ -25,8 +25,9 @@ export default function AddBookForm(props) {
 
     const add = new Promise((res, rej) => {
       addBook(book)
-        .then(() => {
-          props.updateBookList();
+        .then(book => {
+          props.addItemToList(book);
+          setTitle('');
           setIsbn('');
           setReadingStatus('');
           setPersonalRating(ratings[0]);
@@ -62,7 +63,7 @@ export default function AddBookForm(props) {
             value={title}
             onChange={e => setTitle(e.target.value)}
             placeholder="Enter Title"
-            required
+            // required
           />
           <select
             value={readingStatus}

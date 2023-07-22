@@ -8,7 +8,7 @@ export default function BookDetails(props) {
       <div className="offical-info">
         <div className="imdb-stats">
           <label>Publisher: {book.publisher}</label>
-          <label>Authors: {JSON.parse(book.authors)}</label>
+          <label>Author(s): {JSON.parse(book.authors)}</label>
           <label>
             Page Count: {book.pageCount == 0 ? 'N/A' : book.pageCount}
           </label>

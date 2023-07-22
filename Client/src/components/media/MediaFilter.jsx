@@ -9,6 +9,7 @@ export default function MediaFilter(props) {
   const [sortByDesc, setSortByDesc] = useState(filters.sortBy.desc);
   const [mediaType, setMediaType] = useState(filters.mediaType);
   const [watchStatus, setWatchStatus] = useState(filters.watchStatus);
+  const [name, setName] = useState(filters.name);
 
   const saveFilterSettings = filters => {
     localStorage.setItem('mediaFilters', JSON.stringify(filters));
@@ -18,16 +19,17 @@ export default function MediaFilter(props) {
     const updatedFilters = {
       sortBy: { prop: sortByProp, desc: sortByDesc },
       mediaType: mediaType,
-      watchStatus: watchStatus
+      watchStatus: watchStatus,
+      name: name
     };
 
     setFilters(updatedFilters);
-    saveFilterSettings(updatedFilters);
+    saveFilterSettings({ ...updatedFilters, name: '' });
   };
 
   useEffect(() => {
     updateFilters();
-  }, [sortByProp, sortByDesc, mediaType, watchStatus]);
+  }, [sortByProp, sortByDesc, mediaType, watchStatus, name]);
 
   const mediaTypeSelect = (
     <select value={mediaType} onChange={e => setMediaType(e.target.value)}>
@@ -41,7 +43,7 @@ export default function MediaFilter(props) {
 
   const watchStatusSelect = (
     <select value={watchStatus} onChange={e => setWatchStatus(e.target.value)}>
-      {['', ...watchStatuses.slice(1)].map((s, key) => (
+      {['', ...watchStatuses].map((s, key) => (
         <option key={key} value={s}>
           {s == '' ? 'Any' : s}
         </option>
@@ -49,9 +51,11 @@ export default function MediaFilter(props) {
     </select>
   );
 
+  const mediaSortByOptions = { ...sortByOptions };
+  delete mediaSortByOptions.title;
   const sortByPropSelect = (
     <select value={sortByProp} onChange={e => setSortByProp(e.target.value)}>
-      {Object.values(sortByOptions).map((o, key) => (
+      {Object.values(mediaSortByOptions).map((o, key) => (
         <option key={key} value={o.label}>
           {o.label}
         </option>
@@ -82,13 +86,22 @@ export default function MediaFilter(props) {
 
   return (
     <div className="filter">
-      <span>SHOWING</span>
-      {mediaTypeSelect}
-      <span>WITH STATUS</span>
-      {watchStatusSelect}
-      <span>SORTING BY</span>
-      {sortByPropSelect}
-      {orderingSelect}
+      <input
+        className="filter-title"
+        type="text"
+        placeholder="Enter Name"
+        value={name}
+        onChange={e => setName(e.target.value)}
+      />
+      <div className="filter-fltr">
+        <span>SHOWING</span>
+        {mediaTypeSelect}
+        <span>WITH STATUS</span>
+        {watchStatusSelect}
+        <span>SORTING BY</span>
+        {sortByPropSelect}
+        {orderingSelect}
+      </div>
     </div>
   );
 }

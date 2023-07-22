@@ -1,3 +1,22 @@
 nav {
-  display: flex;
+  padding: 1em;
+  margin-bottom: 2em;
+  ul {
+    display: flex;
+    list-style: none;
+    li {
+      margin-left: 2em;
+      margin-right: 2em;
+      a {
+        color: white !important;
+        font-size: 40px;
+        color: white;
+        font-family: 'Roboto Condensed', sans-serif;
+        font-weight: 400;
+        margin: 0;
+        padding: 0;
+        line-height: 1;
+      }
+    }
+  }
 }

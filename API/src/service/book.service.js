@@ -1,7 +1,6 @@
 const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database('./watchnext.db');
 const gbookFinder = require('@chewhx/google-books');
-const puppeteer = require('puppeteer');
 
 const populateBook = (gBooks, book) => {
   for (const gBook of gBooks) {
@@ -43,7 +42,7 @@ const findNumberInString = inputString => {
 
   let foundNumber = '';
 
-  for (const word of words) {
+  for (const word of words.slice(1)) {
     const num = Number(word);
 
     if (!isNaN(num) && isFinite(num)) {
@@ -79,9 +78,12 @@ exports.add = async book => {
         imageLinks: null
       });
 
-      let isbn = book.industryIdentifiers
-        .map(identifierObj => Object.entries(identifierObj))
-        .find(identifier => identifier[0][1] === 'ISBN_13')[1][1];
+      let isbn = null;
+      if (book.industryIdentifiers) {
+        isbn = book.industryIdentifiers
+          .map(identifierObj => Object.entries(identifierObj))
+          .find(identifier => identifier[0][1] === 'ISBN_13')[1][1];
+      }
 
       db.run(
         `

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { watchStatuses, ownershipOptions } from '../utils/FormFields';
 import { deleteMedia, updateMedia } from '../../services/media.service';
 import '../../sass/media/MediaRow.scss';
@@ -10,6 +10,7 @@ import { titleCase, toYear } from '../utils/utils';
 import { PersonalRatingSelect } from '../utils/PersonalRatingSelect';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
+import useSubsequentEffect from '../utils/useSubsequentEffect';
 
 export default function MediaRow(props) {
   const item = props.item;
@@ -20,7 +21,7 @@ export default function MediaRow(props) {
   const [dateCompleted, setDateCompleted] = useState(item.dateCompleted);
   const [ownershipStatus, setOwnershipStatus] = useState(item.ownershipStatus);
 
-  useEffect(() => {
+  useSubsequentEffect(() => {
     updateRow();
   }, [
     personalRating,
@@ -41,18 +42,19 @@ export default function MediaRow(props) {
     };
 
     updateMedia(updatedMedia)
-      .then(() => props.updateCategoryList())
+      .then(media => props.updateItemInList(media))
       .catch(err => console.error(err));
   };
 
   const deleteRow = () => {
-    deleteMedia(item)
+    deleteMedia(item.id)
       .then(() => {
         props.setSelectedItem(null);
-        props.updateCategoryList();
+        props.removeItemFromList(item.id);
       })
       .catch(err => console.error(err));
   };
+
   const preloadImage = url => (document.createElement('img').src = url);
   preloadImage(item.posterImageUrl);
 

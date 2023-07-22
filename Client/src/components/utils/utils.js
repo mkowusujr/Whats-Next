@@ -18,6 +18,18 @@ const getSortUtils = option => {
 };
 
 export const applyFilters = (items, filters) => {
+  if (filters.title) {
+    items = items.filter(m =>
+      m.title.toLowerCase().includes(filters.title.toLowerCase())
+    );
+  }
+
+  if (filters.name) {
+    items = items.filter(m =>
+      m.name.toLowerCase().includes(filters.name.toLowerCase())
+    );
+  }
+
   if (filters.watchStatus && filters.watchStatus != '') {
     items = items.filter(m => filters.watchStatus === m.watchStatus);
   }
