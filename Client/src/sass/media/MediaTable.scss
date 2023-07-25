@@ -2,7 +2,6 @@
   background-color: white;
   border-radius: 0.25em;
   margin-bottom: 1.5em;
-  width: auto;
   table {
     padding-bottom: 0;
     table-layout: fixed;
@@ -20,7 +19,7 @@
     tbody {
       display: block;
       overflow: auto;
-      height: 70vh;
+      max-height: 70vh;
       td {
         height: 190.3px;
       }

@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import BooksPage from './pages/BooksPage';
 import NavBar from './components/Nav';
 import { Toaster } from 'react-hot-toast';
+import SummaryPage from './pages/SummaryPage';
 
 function App() {
   const [imgUrl, setImgUrl] = useState(
@@ -28,6 +29,10 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<NavBar imgUrlUtils={imgUrlUtils} />}>
+            <Route
+              path="/"
+              element={<SummaryPage imgUrlUtils={imgUrlUtils} />}
+            />
             <Route
               path="watchnext"
               element={<MediaPage imgUrlUtils={imgUrlUtils} />}

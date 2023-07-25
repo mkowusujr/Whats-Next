@@ -76,19 +76,21 @@ export const sortByOptions = {
   dStarted: {
     label: 'Date Started',
     sortBy: (a, b) => {
-      return new Date(a.dateStarted) - new Date(b.dateStarted);
+      return new Date(a.dateStarted ?? a.dS) - new Date(b.dateStarted ?? b.dS);
     },
     findNullProps: m => {
-      return m.dateStarted == '';
+      return m.dateStarted ? m.dateStarted == '' : m.dS == '';
     }
   },
   dCompleted: {
     label: 'Date Completed',
     sortBy: (a, b) => {
-      return new Date(a.dateCompleted) - new Date(b.dateCompleted);
+      return (
+        new Date(a.dateCompleted ?? a.dC) - new Date(b.dateCompleted ?? b.dC)
+      );
     },
     findNullProps: m => {
-      return m.dateCompleted == '';
+      return m.dateCompleted ? m.dateCompleted == '' : m.dC == '';
     }
   }
 };

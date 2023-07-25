@@ -1,8 +1,10 @@
 import '../../sass/media/MediaTable.scss';
 import { usePalette } from 'react-palette';
+import EmptyRow from './EmptyRow';
 export default function CategoryTable(props) {
   const categoryList = props.categoryList;
   const { data, loading, error } = usePalette(props.imgUrlUtils.imgUrl);
+
   return (
     <div className="media-table">
       <table
@@ -20,16 +22,20 @@ export default function CategoryTable(props) {
           </tr>
         </thead>
         <tbody>
-          {categoryList.map(item => (
-            <props.rowElement
-              key={item.id}
-              item={item}
-              removeItemFromList={props.removeItemFromList}
-              updateItemInList={props.updateItemInList}
-              imgUrlUtils={props.imgUrlUtils}
-              setSelectedItem={props.setSelectedItem}
-            />
-          ))}
+          {categoryList.length != 0 ? (
+            categoryList.map(item => (
+              <props.rowElement
+                key={item.id}
+                item={item}
+                removeItemFromList={props.removeItemFromList}
+                updateItemInList={props.updateItemInList}
+                imgUrlUtils={props.imgUrlUtils}
+                setSelectedItem={props.setSelectedItem}
+              />
+            ))
+          ) : (
+            <EmptyRow />
+          )}
         </tbody>
       </table>
     </div>

@@ -70,12 +70,12 @@
   white-space: nowrap;
 }
 
-@media (max-width: 1400px) {
+@media (max-width: 750px) {
   .media-row-mobile {
-    display: block;
+    display: block !important;
   }
   .media-row-dafault {
-    display: none;
+    display: none !important;
   }
 }
 

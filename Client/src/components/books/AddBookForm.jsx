@@ -6,7 +6,6 @@ import toast from 'react-hot-toast';
 
 export default function AddBookForm(props) {
   const [title, setTitle] = useState('');
-  const [isbn, setIsbn] = useState('');
   const [readingStatus, setReadingStatus] = useState('');
   const [personalRating, setPersonalRating] = useState(ratings[0]);
   const [dateStarted, setDateStarted] = useState('');
@@ -16,7 +15,7 @@ export default function AddBookForm(props) {
     e.preventDefault();
     const book = {
       title: title,
-      isbn: isbn,
+      isbn: '',
       readingStatus: readingStatus,
       personalRating: personalRating,
       dateStarted: dateStarted,
@@ -28,7 +27,6 @@ export default function AddBookForm(props) {
         .then(book => {
           props.addItemToList(book);
           setTitle('');
-          setIsbn('');
           setReadingStatus('');
           setPersonalRating(ratings[0]);
           setDateStarted('');
@@ -81,12 +79,6 @@ export default function AddBookForm(props) {
         <details>
           <summary>Expand</summary>
           <div className="expanded-options">
-            <input
-              type="number"
-              value={isbn}
-              onChange={e => setIsbn(e.target.value)}
-              placeholder="Enter ISBN"
-            />
             <label>
               Personal Rating
               <select

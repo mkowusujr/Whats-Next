@@ -13,15 +13,15 @@ export default function NavBar(props) {
       >
         <ul>
           <li>
+            <h1>
+              <Link to="/">Next?</Link>
+            </h1>
+          </li>
+          <li>
             <Link to="/watchnext">Watch Next?</Link>
           </li>
           <li>
             <Link to="/readnext">Read Next?</Link>
-          </li>
-          <li>
-            <h1>
-              <Link to="/">Stats</Link>
-            </h1>
           </li>
         </ul>
       </nav>
