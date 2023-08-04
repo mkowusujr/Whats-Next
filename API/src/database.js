@@ -25,6 +25,28 @@ runScripts = () => {
 	db.run('drop table books')
   db.run(`alter table books add column subtitle STRING`);
 	*/
+  /*
+	const fetch = require('node-fetch');
+
+  const imgs = db.all(
+    `select id, imageUrl from books where imageUrl LIKE '%http://books.google.com%'`,
+    function (err, rows) {
+      if (err) {
+        console.error(err);
+      } else {
+      }
+      rows.forEach(async i => {
+        const r = await fetch(i.imageUrl);
+        const imgBuffer = await r.buffer();
+        const base64String = `data:image/jpeg;base64,${imgBuffer.toString(
+          'base64'
+        )}`;
+				db.run(`Update books set imageUrl = ? where id=?`,[base64String, i.id]);
+        
+      });
+    }
+  );
+	*/
 };
 
 exports.setupDb = () =>

@@ -1,7 +1,14 @@
 const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database('./watchnext.db');
 const gbookFinder = require('@chewhx/google-books');
+const fetch = require('node-fetch');
 
+const toBase64Str = async url => {
+  const r = await fetch(url);
+  const imgBuffer = await r.buffer();
+  const base64String = `data:image/jpeg;base64,${imgBuffer.toString('base64')}`;
+  return base64String;
+};
 const populateBook = (gBooks, book) => {
   for (const gBook of gBooks) {
     Object.entries(gBook.volumeInfo).forEach(([key, value]) => {
@@ -61,9 +68,45 @@ exports.add = async book => {
         ? await gbookFinder.isbn(book.title, { isbn: book.isbn })
         : await gbookFinder.search(book.title);
 
-      gBooks = gBooks.items.filter(gBk =>
-        gBk.volumeInfo.title.includes(findNumberInString(book.title))
+      gBooks = gBooks.items; //.filter(gBk =>
+      //   gBk.volumeInfo.title.includes(findNumberInString(book.title))
+      // );
+
+      // const imgss = [];
+
+      // await gBooks.forEach(async g => {
+
+      //   if (fetchedGBook.volumeInfo.imageLinks.extraLarge)
+      //   imgss.push(fetchedGBook.volumeInfo.imageLinks.extraLarge);
+      // })
+      const r1 = await fetch(
+        `https://www.googleapis.com/books/v1/volumes/${gBooks[0].id}`
       );
+      const f1 = await r1.json();
+      let coverImg = f1.volumeInfo.imageLinks.extraLarge;
+      if (coverImg) {
+        coverImg = await toBase64Str(coverImg);
+      }
+      // const r1 = await fetch(
+      //   `https://www.googleapis.com/books/v1/volumes/${gBooks[0].id}`
+      // );
+      // const f1 = await response.json();
+
+      // const r1 = await fetch(
+      //   `https://www.googleapis.com/books/v1/volumes/${gBooks[0].id}`
+      // );
+      // const f1 = await response.json();
+
+      // await Promise.all(
+      //   const gBooks.map(async g => {
+      //     return  {
+      //       ...g,
+      //       coverImgXL: g.volumeInfo.imageLinks?.extraLarge,
+      //       coverImgL: g.volumeInfo.imageLinks?.large ,
+      //       coverImgM: g.volumeInfo.imageLinks?.medium
+      //     };
+      //   })
+      // // );
 
       book = populateBook(gBooks, {
         ...book,
@@ -75,7 +118,10 @@ exports.add = async book => {
         categories: null,
         industryIdentifiers: null,
         subtitle: null,
-        imageLinks: null
+        imageLinks: null,
+        coverImgX: null,
+        coverImgL: null,
+        coverImgM: null
       });
 
       let isbn = null;
@@ -109,7 +155,7 @@ exports.add = async book => {
           book.title,
           book.subtitle,
           book.description,
-          book.imageLinks.thumbnail,
+          coverImg ?? book.imageLinks.thumbnail,
           `${JSON.stringify(book.authors)}`,
           book.publisher,
           book.publishedDate,

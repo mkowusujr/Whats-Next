@@ -35,7 +35,9 @@ exports.getSummary = async () => {
       t: m.mediaType,
       i: m.posterImageUrl,
       s: m.watchStatus,
-      r: m.personalRating
+      r: m.personalRating,
+      c: 'watchnext',
+      d: m.runtime
     };
   });
 
@@ -48,7 +50,9 @@ exports.getSummary = async () => {
       t: JSON.parse(b.categories),
       i: b.imageUrl,
       s: b.readingStatus,
-      r: b.personalRating
+      r: b.personalRating,
+      c: 'readnext',
+      d: b.pageCount
     };
   });
 

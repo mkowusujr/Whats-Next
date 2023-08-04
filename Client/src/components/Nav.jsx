@@ -14,7 +14,7 @@ export default function NavBar(props) {
         <ul>
           <li>
             <h1>
-              <Link to="/">Next?</Link>
+              <Link to="/">What's Next?</Link>
             </h1>
           </li>
           <li>

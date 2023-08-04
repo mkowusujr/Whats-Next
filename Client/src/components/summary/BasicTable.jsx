@@ -2,7 +2,27 @@ import { usePalette } from 'react-palette';
 import BasicRow from './BasicRow';
 import '../../sass/media/MediaRow.scss';
 import '../../sass/summary/Summary.scss';
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
 import EmptyRow from '../utils/EmptyRow';
+import '../../sass/summary/Summary.scss';
+
+function LoadingRow() {
+  return (
+    <tr>
+      <td className="img-cell">
+        <Skeleton width={56} height={86} width={'4em'} />
+      </td>
+      <td className="text">
+        <Skeleton height={20} width={250} />
+        <Skeleton height={20} width={100} />
+        <Skeleton height={20} width={350} />
+        <Skeleton height={20} width={280} />
+      </td>
+    </tr>
+  );
+}
+
 export default function BasicTable(props) {
   const { data, loading, error } = usePalette(props.imgUrlUtils.imgUrl);
   return (
@@ -18,12 +38,25 @@ export default function BasicTable(props) {
           </tr>
         </thead>
         <tbody>
-          {props.dataList.length != 0 ? (
-            props.dataList.map(i => (
-              <BasicRow key={i.id} item={i} showDC={props.showDC} />
-            ))
+          {props.dataList ? (
+            props.dataList.length != 0 ? (
+              props.dataList.map(i => (
+                <BasicRow
+                  key={i.id}
+                  item={i}
+                  showDC={props.showDC}
+                  category={i.c == 'readnext' ? 'readnext' : 'watchnext'}
+                />
+              ))
+            ) : (
+              <EmptyRow />
+            )
           ) : (
-            <EmptyRow />
+            <>
+              <LoadingRow />
+              <LoadingRow />
+              <LoadingRow />
+            </>
           )}
         </tbody>
       </table>

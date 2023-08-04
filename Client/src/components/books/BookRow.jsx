@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { toYear } from '../utils/utils';
 import { deleteBook, updateBook } from '../../services/book.service';
@@ -53,6 +53,26 @@ export default function BookRow(props) {
       .then(book => props.updateItemInList(book))
       .catch(err => console.error(err));
   };
+
+  useSubsequentEffect(() => {
+    const dateObj = new Date();
+    const year = dateObj.getFullYear();
+    const month =
+      dateObj.getMonth() + 1 < 10
+        ? `0${dateObj.getMonth() + 1}`
+        : dateObj.getMonth() + 1;
+    const day =
+      dateObj.getDate() < 10 ? `0${dateObj.getDate()}` : dateObj.getDate();
+
+    const todayStr = `${year}-${month}-${day}`;
+
+    if (readingStatus == 'Completed' && dateCompleted == '') {
+      setDateCompleted(todayStr);
+    } else if (readingStatus == 'Reading' && dateStarted == '') {
+      setDateStarted(todayStr);
+    }
+    
+  }, [readingStatus]);
 
   const deleteRow = () => {
     deleteBook(item.id)
@@ -131,6 +151,7 @@ export default function BookRow(props) {
 
   const DefaultBookRow = (
     <tr
+      id={props.id}
       className="media-row-dafault"
       onClick={() => {
         updateBookDetails(item);
@@ -187,7 +208,7 @@ export default function BookRow(props) {
           </span>
         </div>
         <label>
-          Watch Status:
+          Reading Status:
           {ReadingStatusSelect}
         </label>
         <div className="media-dates">

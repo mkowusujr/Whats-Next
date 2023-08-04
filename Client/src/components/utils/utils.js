@@ -18,6 +18,9 @@ const getSortUtils = option => {
 };
 
 export const applyFilters = (items, filters) => {
+  if (!items) {
+    return items;
+  }
   if (filters.title) {
     items = items.filter(m =>
       m.title.toLowerCase().includes(filters.title.toLowerCase())
@@ -67,3 +70,5 @@ export const applyFilters = (items, filters) => {
 
   return items;
 };
+
+export const fixDateTZ = date => `${date} 00:00:00`;

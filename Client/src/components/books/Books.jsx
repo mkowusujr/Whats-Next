@@ -9,7 +9,7 @@ import BookRow from './BookRow';
 import { applyFilters } from '../utils/utils';
 
 export default function Books(props) {
-  const [bookList, setBookList] = useState([]);
+  const [bookList, setBookList] = useState(null);
   const [selectedBook, setSelectedBook] = useState(null);
   const [filters, setFilters] = useState(
     JSON.parse(localStorage.getItem('bookFilters')) ?? {

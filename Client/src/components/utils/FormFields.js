@@ -171,5 +171,7 @@ export const readingStatuses = [
   'Select Reading Status',
   'Planned',
   'Reading',
+  'Paused',
+  'Dropped',
   'Completed'
 ];

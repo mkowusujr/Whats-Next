@@ -2,7 +2,7 @@
   background-color: white;
   border-radius: 0.25em;
   margin-bottom: 1.5em;
-  width: 45vw;
+  width: 47vw;
 
   table {
     padding-bottom: 0;
@@ -64,4 +64,18 @@
   height: 90vh;
   padding-right: 1em;
   overflow-y: scroll;
+}
+
+.read-watched-boxes {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  .box {
+    display: block;
+    padding: 1em;
+    border-radius: 0.25em;
+    background-color: #f5f5f5;
+    margin-bottom: 1em;
+    width: 42.5%;
+  }
 }

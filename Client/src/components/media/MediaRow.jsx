@@ -70,6 +70,7 @@ export default function MediaRow(props) {
 
   const DefaultMediaRow = (
     <tr
+      id={props.id}
       className="media-row-dafault"
       onClick={() => {
         props.imgUrlUtils.setImgUrl(item.posterImageUrl);
@@ -139,6 +140,7 @@ export default function MediaRow(props) {
       </td>
     </tr>
   );
+
   const MobileMediaRow = (
     <tr className="media-row-mobile">
       <td className="col-1">
@@ -165,6 +167,7 @@ export default function MediaRow(props) {
       </td>
     </tr>
   );
+
   return (
     <>
       {MobileMediaRow}

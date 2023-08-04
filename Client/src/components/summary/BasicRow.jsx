@@ -3,6 +3,7 @@ import 'react-loading-skeleton/dist/skeleton.css';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import '../../sass/media/MediaRow.scss';
 import '../../sass/summary/Summary.scss';
+import { useNavigate } from 'react-router-dom';
 export default function BasicRow(props) {
   const item = props.item;
 
@@ -22,15 +23,22 @@ export default function BasicRow(props) {
     return daysDifference;
   };
 
+  const navigate = useNavigate();
+  const navigateToSpecificedElement = () => {
+    navigate(`${props.category}#row${item.id.slice(0, 2)}`);
+  };
+
   return (
-    <tr>
+    <tr onClick={navigateToSpecificedElement}>
       <td className="img-cell">
         <LazyLoadImage
           id={`cover-img${item.id}`}
           src={item.i}
           width={130}
           style={{ cursor: 'pointer' }}
-          placeholder={<Skeleton variant="rectangular" height={192} />}
+          placeholder={
+            <Skeleton variant="rectangular" height={86} width={56} />
+          }
         />
       </td>
       <td className="text">

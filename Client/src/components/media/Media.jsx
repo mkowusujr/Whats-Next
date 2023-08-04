@@ -10,7 +10,7 @@ import MediaRow from './MediaRow';
 import { applyFilters } from '../utils/utils';
 
 export default function Media(props) {
-  const [mediaList, setMediaList] = useState([]);
+  const [mediaList, setMediaList] = useState(null);
   const [filters, setFilters] = useState(
     JSON.parse(localStorage.getItem('mediaFilters')) ?? {
       sortBy: {
