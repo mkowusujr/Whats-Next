@@ -2,6 +2,8 @@ const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database('./watchnext.db');
 const gbookFinder = require('@chewhx/google-books');
 const fetch = require('node-fetch');
+const fs = require('fs');
+const path = require('path');
 
 const toBase64Str = async url => {
   const r = await fetch(url);
@@ -9,6 +11,7 @@ const toBase64Str = async url => {
   const base64String = `data:image/jpeg;base64,${imgBuffer.toString('base64')}`;
   return base64String;
 };
+
 const populateBook = (gBooks, book) => {
   for (const gBook of gBooks) {
     Object.entries(gBook.volumeInfo).forEach(([key, value]) => {
@@ -44,23 +47,6 @@ const populateBook = (gBooks, book) => {
   return book;
 };
 
-const findNumberInString = inputString => {
-  const words = inputString.split(' ');
-
-  let foundNumber = '';
-
-  for (const word of words.slice(1)) {
-    const num = Number(word);
-
-    if (!isNaN(num) && isFinite(num)) {
-      foundNumber = num;
-      break;
-    }
-  }
-
-  return foundNumber;
-};
-
 exports.add = async book => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -68,17 +54,8 @@ exports.add = async book => {
         ? await gbookFinder.isbn(book.title, { isbn: book.isbn })
         : await gbookFinder.search(book.title);
 
-      gBooks = gBooks.items; //.filter(gBk =>
-      //   gBk.volumeInfo.title.includes(findNumberInString(book.title))
-      // );
+      gBooks = gBooks.items;
 
-      // const imgss = [];
-
-      // await gBooks.forEach(async g => {
-
-      //   if (fetchedGBook.volumeInfo.imageLinks.extraLarge)
-      //   imgss.push(fetchedGBook.volumeInfo.imageLinks.extraLarge);
-      // })
       const r1 = await fetch(
         `https://www.googleapis.com/books/v1/volumes/${gBooks[0].id}`
       );
@@ -87,26 +64,6 @@ exports.add = async book => {
       if (coverImg) {
         coverImg = await toBase64Str(coverImg);
       }
-      // const r1 = await fetch(
-      //   `https://www.googleapis.com/books/v1/volumes/${gBooks[0].id}`
-      // );
-      // const f1 = await response.json();
-
-      // const r1 = await fetch(
-      //   `https://www.googleapis.com/books/v1/volumes/${gBooks[0].id}`
-      // );
-      // const f1 = await response.json();
-
-      // await Promise.all(
-      //   const gBooks.map(async g => {
-      //     return  {
-      //       ...g,
-      //       coverImgXL: g.volumeInfo.imageLinks?.extraLarge,
-      //       coverImgL: g.volumeInfo.imageLinks?.large ,
-      //       coverImgM: g.volumeInfo.imageLinks?.medium
-      //     };
-      //   })
-      // // );
 
       book = populateBook(gBooks, {
         ...book,
@@ -137,7 +94,6 @@ exports.add = async book => {
         title,
         subtitle,
         description,
-        imageUrl,
         authors,
         publisher,
         publishedDate,
@@ -149,13 +105,12 @@ exports.add = async book => {
         dateCompleted,
         isbn
       )
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
       `,
         [
           book.title,
           book.subtitle,
           book.description,
-          coverImg ?? book.imageLinks.thumbnail,
           `${JSON.stringify(book.authors)}`,
           book.publisher,
           book.publishedDate,
@@ -167,13 +122,15 @@ exports.add = async book => {
           book.dateCompleted,
           isbn
         ],
-        function (err) {
+        async function (err) {
           if (err) {
             reject(err);
           } else {
+            const bookID = this.lastID;
+            await saveImg(coverImg ?? book.imageLinks.thumbnail, bookID);
             db.get(
               `select * from books where id = ?`,
-              this.lastID,
+              bookID,
               function (err, row) {
                 resolve(row);
               }
@@ -209,7 +166,6 @@ exports.update = async book => {
     dateStarted = ?, 
     dateCompleted = ?,
     ownershipStatus = ?,
-    imageUrl = ?,
     title = ?,
     subtitle = ?
     WHERE id = ?
@@ -220,7 +176,6 @@ exports.update = async book => {
         book.dateStarted,
         book.dateCompleted,
         book.ownershipStatus,
-        book.imageUrl,
         book.title,
         book.subtitle,
         book.id
@@ -243,6 +198,7 @@ exports.update = async book => {
 };
 
 exports.delete = bookID => {
+  deleteCoverImage(bookID);
   return new Promise(async (resolve, reject) => {
     db.run(
       `
@@ -259,4 +215,62 @@ exports.delete = bookID => {
       }
     );
   });
+};
+
+saveImg = async (imageUrl, bookID) => {
+  const path = require('path');
+
+  const base64ToImageAndSave = (base64String, filePath) => {
+    const fs = require('fs');
+    base64String = base64String.replace('data:image/jpeg;base64,', '');
+    // Step 1: Convert Base64 to Buffer
+    const buffer = Buffer.from(base64String, 'base64');
+
+    // Step 2: Save Buffer to File
+    fs.writeFileSync(filePath, buffer, err => {
+      if (err) {
+        console.error('Error saving image:', err);
+      } else {
+        console.log('Image saved successfully:', filePath);
+      }
+    });
+  };
+
+  const res = await fetch(imageUrl);
+  const imgBuffer = await res.buffer();
+  const base64String = `data:image/jpeg;base64,${imgBuffer.toString('base64')}`;
+  const loc = path.join(__dirname, `../../data/images/books/${bookID}.jpg`);
+  base64ToImageAndSave(base64String, loc);
+};
+
+deleteCoverImage = bookID => {
+  const fs = require('fs');
+  const path = require('path');
+
+  function deleteFilesMatchingString(directoryPath, searchString) {
+    fs.readdir(directoryPath, (err, files) => {
+      if (err) {
+        console.error('Error reading directory:', err);
+        return;
+      }
+
+      files.forEach(file => {
+        if (file.includes(searchString)) {
+          const filePath = path.join(directoryPath, file);
+          fs.unlink(filePath, err => {
+            if (err) {
+              console.error('Error deleting file:', err);
+              return;
+            }
+            console.log('File deleted:', filePath);
+          });
+        }
+      });
+    });
+  }
+
+  const directoryPath = path.join(__dirname, '../../data/images/books');
+  const searchString = `${bookID}.jpg`;
+
+  deleteFilesMatchingString(directoryPath, searchString);
 };

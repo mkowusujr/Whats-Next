@@ -58,12 +58,19 @@
 .table-rows {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
 }
 
 .completed-tables {
   height: 90vh;
   padding-right: 1em;
   overflow-y: scroll;
+}
+
+.table-rows,
+.completed-tables {
+  width: 45vw;
 }
 
 .read-watched-boxes {
@@ -78,4 +85,14 @@
     margin-bottom: 1em;
     width: 42.5%;
   }
+}
+
+.planned-items {
+  h1 {
+    font-size: x-large;
+    margin-bottom: 1em;
+    color: white;
+    font-weight: bolder;
+  }
+  margin-bottom: 1em;
 }

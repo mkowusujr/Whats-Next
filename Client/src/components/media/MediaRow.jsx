@@ -46,6 +46,25 @@ export default function MediaRow(props) {
       .catch(err => console.error(err));
   };
 
+  useSubsequentEffect(() => {
+    const dateObj = new Date();
+    const year = dateObj.getFullYear();
+    const month =
+      dateObj.getMonth() + 1 < 10
+        ? `0${dateObj.getMonth() + 1}`
+        : dateObj.getMonth() + 1;
+    const day =
+      dateObj.getDate() < 10 ? `0${dateObj.getDate()}` : dateObj.getDate();
+
+    const todayStr = `${year}-${month}-${day}`;
+
+    if (watchStatus == 'Watched' && dateCompleted == '') {
+      setDateCompleted(todayStr);
+    } else if (watchStatus == 'Watching' && dateStarted == '') {
+      setDateStarted(todayStr);
+    }
+  }, [watchStatus]);
+
   const deleteRow = () => {
     deleteMedia(item.id)
       .then(() => {
@@ -54,9 +73,6 @@ export default function MediaRow(props) {
       })
       .catch(err => console.error(err));
   };
-
-  const preloadImage = url => (document.createElement('img').src = url);
-  preloadImage(item.posterImageUrl);
 
   const WatchStatusSelect = (
     <select value={watchStatus} onChange={e => setWatchStatus(e.target.value)}>

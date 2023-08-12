@@ -1,6 +1,24 @@
 const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database('watchnext.db');
 
+/*
+const base64ToImageAndSave = (base64String, filePath) => {
+	const fs = require('fs')
+	base64String = base64String.replace('data:image/jpeg;base64,', '');
+  // Step 1: Convert Base64 to Buffer
+  const buffer = Buffer.from(base64String, 'base64');
+  
+  // Step 2: Save Buffer to File
+  fs.writeFileSync(filePath, buffer, err => {
+    if (err) {
+      console.error('Error saving image:', err);
+    } else {
+      console.log('Image saved successfully:', filePath);
+    }
+  });
+}
+*/
+
 runScripts = () => {
   /*
 	 db.run(`
@@ -46,6 +64,48 @@ runScripts = () => {
       });
     }
   );
+	*/
+	/*
+	const path = require('path');
+	const base64Imgs = db.all(
+		`select id, imageUrl from books where imageUrl like '%data:image%'`,
+    function (err, rows) {
+			if (err) {
+				console.error(err);
+      } else {
+			}
+			rows.forEach(async r => {
+				const loc = path.join(__dirname, `../data/images/books/${r.id}.jpg`);
+				base64ToImageAndSave(r.imageUrl, loc)
+      });
+    }
+	);
+	*/
+	/*
+	const fetch = require('node-fetch');
+	const path = require('path');
+  const base64Imgs = db.all(
+    `select id, imageUrl from books where imageUrl like '%media-amazon.com%'`,
+    function (err, rows) {
+      if (err) {
+        console.error(err);
+      } else {
+      }
+			rows.forEach(async r => {
+				const res = await fetch(r.imageUrl);
+        const imgBuffer = await res.buffer();
+        const base64String = `data:image/jpeg;base64,${imgBuffer.toString(
+          'base64'
+        )}`;
+        const loc = path.join(__dirname, `../data/images/books/${r.id}.jpg`);
+        base64ToImageAndSave(base64String, loc);
+      });
+    }
+  );
+	*/
+  /*
+	db.run(`ALTER TABLE books
+  DROP COLUMN imageUrl;`);
 	*/
 };
 

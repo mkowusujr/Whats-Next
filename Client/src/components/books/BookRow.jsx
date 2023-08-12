@@ -1,7 +1,12 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { toYear } from '../utils/utils';
-import { deleteBook, updateBook } from '../../services/book.service';
+import {
+  deleteBook,
+  updateBook,
+  updateCover,
+  bookCoverUrl
+} from '../../services/book.service';
 import { readingStatuses, ownershipOptions } from '../utils/FormFields';
 import { PersonalRatingSelect } from '../utils/PersonalRatingSelect';
 import DialogComponent from '../utils/DialogComponent';
@@ -20,7 +25,7 @@ export default function BookRow(props) {
   const [dateStarted, setDateStarted] = useState(item.dateStarted);
   const [dateCompleted, setDateCompleted] = useState(item.dateCompleted);
   const [ownershipStatus, setOwnershipStatus] = useState(item.ownershipStatus);
-  const [selectedImage, setSelectedImage] = useState(item.imageUrl);
+  const [selectedImage, setSelectedImage] = useState(bookCoverUrl(item.id));
   const [title, setTitle] = useState(item.title);
   const [subtitle, setSubtitle] = useState(item.subtitle);
   const fileInputRef = useRef(null);
@@ -71,7 +76,6 @@ export default function BookRow(props) {
     } else if (readingStatus == 'Reading' && dateStarted == '') {
       setDateStarted(todayStr);
     }
-    
   }, [readingStatus]);
 
   const deleteRow = () => {
@@ -82,9 +86,6 @@ export default function BookRow(props) {
       })
       .catch(err => console.error(err));
   };
-
-  const preloadImage = url => (document.createElement('img').src = url);
-  preloadImage(item.imageUrl);
 
   const ReadingStatusSelect = (
     <select
@@ -108,15 +109,11 @@ export default function BookRow(props) {
     const file = e.target.files[0];
 
     if (file) {
-      const reader = new FileReader();
-
-      reader.onloadend = () => {
-        const base64String = reader.result;
-        setSelectedImage(base64String);
-        props.setSelectedItem({ ...item, imageUrl: base64String });
-      };
-
-      reader.readAsDataURL(file);
+      const data = new FormData();
+      data.append('file', file, `${item.id}.jpg`);
+      updateCover(data).then(res => {
+        setSelectedImage(`${bookCoverUrl(item.id)}?t=${new Date().getTime()}`);
+      });
     }
   };
 
@@ -125,7 +122,7 @@ export default function BookRow(props) {
   };
 
   const updateBookDetails = book => {
-    props.imgUrlUtils.setImgUrl(book.imageUrl);
+    props.imgUrlUtils.setImgUrl(selectedImage);
   };
 
   const updateTitleNSubtitle = (

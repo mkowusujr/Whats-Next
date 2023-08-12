@@ -3,8 +3,10 @@ import { getSummary } from '../services/summary.service';
 import '../sass/summary/Summary.scss';
 import BasicTable from '../components/summary/BasicTable';
 import { sortByOptions } from '../components/utils/FormFields';
-import CompletionChart from '../components/summary/Chart';
+// import CompletionChart from '../components/summary/Chart';
 import { fixDateTZ } from '../components/utils/utils';
+import PlannedItems from '../components/summary/PlannedItems';
+// import PlannedTable from '../components/summary/PlannedTable';
 
 export default function SummaryPage(props) {
   const [summary, setSummary] = useState(null);
@@ -97,8 +99,7 @@ export default function SummaryPage(props) {
     return totalMinutes;
   };
 
-  let inprogress,
-    inProgressList,
+  let inProgressList,
     completedList,
     completedCurrMonth,
     completedLastMonth,
@@ -107,44 +108,14 @@ export default function SummaryPage(props) {
     minutesWatched;
 
   if (summary) {
-    inprogress = [
-      ...summary.inprogress.media.map(i => {
-        return { ...i, id: `${i.id}m` };
-      }),
-      ...summary.inprogress.books.map(i => {
-        return { ...i, id: `${i.id}b` };
-      })
-    ];
-
     inProgressList = [
-      ...inprogress
+      ...summary.inprogress
         .filter(i => !sortByOptions.dStarted.findNullProps(i))
         .sort(sortByOptions.dStarted.sortBy),
-      ...inprogress.filter(i => sortByOptions.dStarted.findNullProps(i))
-    ].map(i => ({
-      ...i,
-      dS: i.dS ? fixDateTZ(i.dS) : '',
-      dC: i.dC ? fixDateTZ(i.dC) : ''
-    }));
+      ...summary.inprogress.filter(i => sortByOptions.dStarted.findNullProps(i))
+    ];
 
-    completedList = [
-      ...summary.completed.media.map(i => {
-        return {
-          ...i,
-          id: `${i.id}m`,
-          dS: i.dS ? fixDateTZ(i.dS) : '',
-          dC: i.dC ? fixDateTZ(i.dC) : ''
-        };
-      }),
-      ...summary.completed.books.map(i => {
-        return {
-          ...i,
-          id: `${i.id}b`,
-          dS: i.dS ? fixDateTZ(i.dS) : '',
-          dC: i.dC ? fixDateTZ(i.dC) : ''
-        };
-      })
-    ]
+    completedList = summary.completed
       .filter(i => !sortByOptions.dCompleted.findNullProps(i))
       .sort(sortByOptions.dCompleted.sortBy)
       .reverse();
@@ -181,16 +152,6 @@ export default function SummaryPage(props) {
     <div className="table-cols">
       {/* {completedList ? <CompletionChart data={completedList} /> : <></>} */}
       <div className="table-rows">
-        <div className='read-watched-boxes'>
-          <span className='box'>
-            You've Read apx {pagesRead} pages in the last 3 months
-          </span>
-          <span className='box'>
-           
-              You've watched apx {minutesWatched} minutes in the last 3 months
-           
-          </span>
-        </div>
         <div>
           <BasicTable
             title={`In Progress (${inProgressList?.length ?? 'Loading...'})`}
@@ -198,6 +159,24 @@ export default function SummaryPage(props) {
             imgUrlUtils={props.imgUrlUtils}
             showDC={false}
           />
+        </div>
+        <div className="planned-items">
+          <span>
+            <h1>What's Up Next?</h1>
+          </span>
+          <PlannedItems
+            dataList={summary?.planned}
+            imgUrlUtils={props.imgUrlUtils}
+          />
+        </div>
+
+        <div className="read-watched-boxes">
+          <span className="box">
+            You've Read apx {pagesRead} pages in the last 3 months
+          </span>
+          <span className="box">
+            You've watched apx {minutesWatched} minutes in the last 3 months
+          </span>
         </div>
       </div>
       <div className="completed-tables">

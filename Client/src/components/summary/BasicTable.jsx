@@ -5,13 +5,12 @@ import '../../sass/summary/Summary.scss';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import EmptyRow from '../utils/EmptyRow';
-import '../../sass/summary/Summary.scss';
 
 function LoadingRow() {
   return (
     <tr>
       <td className="img-cell">
-        <Skeleton width={56} height={86} width={'4em'} />
+        <Skeleton  height={86} width={'4em'} />
       </td>
       <td className="text">
         <Skeleton height={20} width={250} />

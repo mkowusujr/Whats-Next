@@ -1,10 +1,11 @@
+import { bookCoverUrl } from "../../services/book.service";
+
 export default function BookDetails(props) {
   const book = props.book;
-  const preloadImage = url => (document.createElement('img').src = url);
-  preloadImage(book.imageUrl);
+  
   return (
     <div className="media-details">
-      <img src={book.imageUrl} />
+      <img src={`${bookCoverUrl(book.id)}?v=${new Date().getTime()}`} />
       <div className="offical-info">
         <div className="imdb-stats">
           <label>Publisher: {book.publisher}</label>

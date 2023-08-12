@@ -22,16 +22,18 @@ const dateCheck = (from, to, check) => {
   return false;
 };
 
+const fixDateTZ = date => `${date} 00:00:00`;
+
 exports.getSummary = async () => {
   let mediaList = await mediaService.list();
   bookList = await bookService.list();
 
   mediaList = mediaList.map(m => {
     return {
-      id: m.id,
+      id: `${m.id}m`,
       n: m.name,
-      dS: m.dateStarted,
-      dC: m.dateCompleted,
+      dS: m.dateStarted ? fixDateTZ(m.dateStarted) : '',
+      dC: m.dateCompleted ? fixDateTZ(m.dateCompleted) : '',
       t: m.mediaType,
       i: m.posterImageUrl,
       s: m.watchStatus,
@@ -41,14 +43,16 @@ exports.getSummary = async () => {
     };
   });
 
+  const imgsUrl = 'http://localhost:3000/imgs/books';
+
   bookList = bookList.map(b => {
     return {
-      id: b.id,
+      id: `${b.id}b`,
       n: `${b.title}${b.subtitle ? `: ${b.subtitle}` : ''}`,
-      dS: b.dateStarted,
-      dC: b.dateCompleted,
+      dS: b.dateStarted ? fixDateTZ(b.dateStarted) : '',
+      dC: b.dateCompleted ? fixDateTZ(b.dateCompleted) : '',
       t: JSON.parse(b.categories),
-      i: b.imageUrl,
+      i: `${imgsUrl}/${b.id}`,
       s: b.readingStatus,
       r: b.personalRating,
       c: 'readnext',
@@ -57,14 +61,18 @@ exports.getSummary = async () => {
   });
 
   return {
-    completed: {
-      media: mediaList.filter(m => m.s == 'Watched'),
-      books: bookList.filter(b => b.s == 'Completed')
-    },
-    inprogress: {
-      media: mediaList.filter(m => m.s == 'Watching'),
-      books: bookList.filter(b => b.s == 'Reading')
-    },
+    completed: [
+      ...mediaList.filter(m => m.s == 'Watched'),
+      ...bookList.filter(b => b.s == 'Completed')
+    ],
+    inprogress: [
+      ...mediaList.filter(m => m.s == 'Watching'),
+      ...bookList.filter(b => b.s == 'Reading')
+    ],
+    planned: [
+      ...mediaList.filter(m => m.s == 'Planned'),
+      ...bookList.filter(b => b.s == 'Planned')
+    ],
     topRated: {
       media: mediaList
         .filter(m => !findNullPRating(m))

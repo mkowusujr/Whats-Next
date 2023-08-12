@@ -1,4 +1,4 @@
-export const watchStatuses = ['Watched', 'Watching', 'Planned'];
+export const watchStatuses = ['Select Watch Status', 'Watched', 'Watching', 'Planned'];
 
 export const mediaTypes = ['Movie', 'Series'];
 export const bookTypes = ['Comics & Graphic Novels'];

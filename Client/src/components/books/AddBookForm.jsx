@@ -61,12 +61,11 @@ export default function AddBookForm(props) {
             value={title}
             onChange={e => setTitle(e.target.value)}
             placeholder="Enter Title"
-            // required
           />
           <select
             value={readingStatus}
             onChange={e => setReadingStatus(e.target.value)}
-            required
+            
           >
             {readingStatuses.map((status, index) => (
               <option key={index} value={status}>

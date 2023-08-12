@@ -66,9 +66,6 @@ export default function AddMediaForm(props) {
             value={watchStatus}
             onChange={e => setWatchStatus(e.target.value)}
           >
-            <option value="" disabled>
-              Select Watch Status
-            </option>
             {watchStatuses.map((status, index) => (
               <option key={index} value={status}>
                 {status}

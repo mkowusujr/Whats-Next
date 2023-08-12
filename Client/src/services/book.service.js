@@ -26,3 +26,14 @@ export const deleteBook = bookID => {
   const apiUrl = `${baseUrl}/${bookID}`;
   return deleteRequest(apiUrl);
 };
+
+const imgsUrl = 'http://localhost:3000/imgs/books';
+export const bookCoverUrl = bookID => `${imgsUrl}/${bookID}`;
+
+export const updateCover = data => {
+  const apiUrl = `${imgsUrl}`;
+  return fetch(apiUrl, {
+    method: 'POST',
+    body: data
+  }).then(res => res);
+};
