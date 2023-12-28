@@ -17,6 +17,8 @@ import 'react-loading-skeleton/dist/skeleton.css';
 import { Tooltip } from 'react-tooltip';
 import '../../sass/media/MediaRow.scss';
 import useSubsequentEffect from '../utils/useSubsequentEffect';
+import { addProgress, getProgress } from '../../services/progress.service';
+import ProgressTracker from '../utils/ProgressTracker';
 
 export default function BookRow(props) {
   const item = props.item;
@@ -208,6 +210,16 @@ export default function BookRow(props) {
           Reading Status:
           {ReadingStatusSelect}
         </label>
+        {readingStatus == 'Reading' ? (
+          <ProgressTracker
+            itemID={item.id}
+            type="book"
+            progressID={item.progressID}
+          />
+        ) : (
+          <></>
+        )}
+
         <div className="media-dates">
           <label className="start-date">
             Started:

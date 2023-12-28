@@ -2,7 +2,7 @@
   background-color: white;
   border-radius: 0.25em;
   margin-bottom: 1.5em;
-  width: 47vw;
+  // width: 47vw;
 
   table {
     padding-bottom: 0;
@@ -95,4 +95,9 @@
     font-weight: bolder;
   }
   margin-bottom: 1em;
+}
+
+.sum-progress{
+  display: flex;
+  justify-content: space-between;
 }

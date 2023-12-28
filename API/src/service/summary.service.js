@@ -39,7 +39,8 @@ exports.getSummary = async () => {
       s: m.watchStatus,
       r: m.personalRating,
       c: 'watchnext',
-      d: m.runtime
+      d: m.runtime,
+      p: m.progressID
     };
   });
 
@@ -56,7 +57,8 @@ exports.getSummary = async () => {
       s: b.readingStatus,
       r: b.personalRating,
       c: 'readnext',
-      d: b.pageCount
+      d: b.pageCount,
+      p: b.progressID
     };
   });
 

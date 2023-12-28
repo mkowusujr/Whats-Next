@@ -175,3 +175,6 @@ export const readingStatuses = [
   'Dropped',
   'Completed'
 ];
+
+export const bookProgressUnits = ['Pages', 'Chapters', 'Issues']
+export const mediaProgressUnits = ['Episodes', 'Minutes']

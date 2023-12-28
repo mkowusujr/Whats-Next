@@ -4,8 +4,20 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 import '../../sass/media/MediaRow.scss';
 import '../../sass/summary/Summary.scss';
 import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { getProgress } from '../../services/progress.service';
+import ProgressTracker from '../utils/ProgressTracker';
 export default function BasicRow(props) {
   const item = props.item;
+  const [progress, setProgress] = useState();
+
+  useEffect(() => {
+    if (item.s == 'Watching' || item.s == 'Reading') {
+      getProgress(item.p).then(p => {
+        setProgress(p);
+      });
+    }
+  }, []);
 
   const countDaysBetweenDates = (startDate, endDate) => {
     // Convert the target date to milliseconds since January 1, 1970
@@ -54,7 +66,20 @@ export default function BasicRow(props) {
             <span>Rated: {item.r}</span>
           </>
         ) : (
-          <span>Days In Progress: {countDaysBetweenDates(item.dS)}</span>
+          <div className="sum-progress">
+            <span>Days In Progress: {countDaysBetweenDates(item.dS)}</span>
+            {progress ? (
+              <>
+                <span>{`${progress.current}/${progress.total} ${
+                  progress.unit
+                } ...${((progress.current / progress.total) * 100).toFixed(
+                  2
+                )}% Complete`}</span>
+              </>
+            ) : (
+              <></>
+            )}
+          </div>
         )}
       </td>
     </tr>

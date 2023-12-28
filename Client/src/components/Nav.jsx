@@ -23,6 +23,9 @@ export default function NavBar(props) {
           <li>
             <Link to="/readnext">Read Next?</Link>
           </li>
+          <li>
+            <Link to="/listennext">Listen Next?</Link>
+          </li>
         </ul>
       </nav>
       <Outlet />

@@ -1,3 +1,5 @@
 API/node_modules
 Client/node_modules
 API/data/images/books
+node_modules
+.vscode

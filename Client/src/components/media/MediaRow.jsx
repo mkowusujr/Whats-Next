@@ -11,7 +11,7 @@ import { PersonalRatingSelect } from '../utils/PersonalRatingSelect';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import useSubsequentEffect from '../utils/useSubsequentEffect';
-
+import ProgressTracker from '../utils/ProgressTracker';
 export default function MediaRow(props) {
   const item = props.item;
 
@@ -122,6 +122,15 @@ export default function MediaRow(props) {
           Watch Status:
           {WatchStatusSelect}
         </label>
+        {watchStatus == 'Watching' ? (
+          <ProgressTracker
+            itemID={item.id}
+            type="media"
+            progressID={item.progressID}
+          />
+        ) : (
+          <></>
+        )}
         <div className="media-dates">
           <label className="start-date">
             Started:
