@@ -1,36 +1,70 @@
 const express = require('express');
 const router = express.Router();
-
 const notesService = require('../service/notes.service');
 
-router.post('', async (req, res) => {
-  const note = req.body;
-  const result = await notesService.add(note);
-  res.json(result);
+router.get('', async (req, res) => {
+  try {
+    const result = await notesService.list();
+    res.json(result);
+  }
+  catch (err) {
+    res.send(err)
+  }
+});
+
+router.get('/:noteID', async (req, res) => {
+  try {
+    const noteID = req.params['noteID'];
+    const result = await notesService.get(noteID);
+    res.json(result);
+  }
+  catch (err) {
+    res.send(err)
+  }
 });
 
 router.get('/media/:mediaID', async (req, res) => {
-  const mediaID = req.params['mediaID'];
-  const result = await notesService.listForMedia(mediaID);
-  res.json(result);
+  try {
+    const mediaID = req.params['mediaID'];
+    const result = await notesService.getFor(mediaID);
+    res.json(result);
+  }
+  catch (err) {
+    res.send(err)
+  }
 });
 
-router.get('/books/:bookID', async (req, res) => {
-  const bookID = req.params['bookID'];
-  const result = await notesService.listForBook(bookID);
-  res.json(result);
+router.post('', async (req, res) => {
+  try {
+    const note = req.body;
+    const result = await notesService.add(note);
+    res.json(result);
+  }
+  catch (err) {
+    res.send(err)
+  }
 });
 
 router.put('', async (req, res) => {
-  const note = req.body;
-  const result = await notesService.update(note);
-  res.json(result);
+  try {
+    const note = req.body;
+    const result = await notesService.update(note);
+    res.json(result);
+  }
+  catch (err) {
+    res.send(err)
+  }
 });
 
 router.delete('/:id', async (req, res) => {
-  const noteID = req.params['id'];
-  const result = await notesService.delete(noteID);
-  res.json(result);
+  try {
+    const noteID = req.params['id'];
+    const result = await notesService.delete(noteID);
+    res.json(result);
+  }
+  catch (err) {
+    res.send(err)
+  }
 });
 
 module.exports = router;
