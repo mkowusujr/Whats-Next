@@ -1,5 +1,5 @@
 const sqlite3 = require('sqlite3').verbose();
-const db = new sqlite3.Database('./watchnext.db');
+const db = new sqlite3.Database('./src/whatsnext.db');
 
 const createProgressTracker = async progress => {
   return new Promise(async (resolve, reject) => {

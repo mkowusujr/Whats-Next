@@ -1,32 +1,29 @@
 const sqlite3 = require('sqlite3').verbose();
-const db = new sqlite3.Database('whatsnext.db');
-const oldDB = new sqlite3.Database('watchnext.db');
+const db = new sqlite3.Database('./src/whatsnext.db');
 
-runScripts = () => {
-
-};
+runScripts = () => {}
 
 exports.setupDb = () =>
-  db.serialize(() => {
-    db.run(
-      `
+	db.serialize(() => {
+		db.run(
+			`
 			CREATE TABLE IF NOT EXISTS media(
 				id INTEGER PRIMARY KEY,
 				title STRING NOT NULL,
-				subTitle STRING NOT NULL,
+				subTitle STRING,
 				mediaType STRING NOT NULL,
 				extID INTEGER,
 				score DOUBLE,
 				status STRING NOT NULL,
-				storage STRING, 
-				releaseDate STRING NOT NULL,
+				storage STRING,
+				releaseDate STRING,
 				dateCreated DATE NOT NULL,
 				dateLastUpdated DATE
 			)
 		`
-    );
+		);
 
-    db.run(`
+		db.run(`
 		CREATE TABLE IF NOT EXISTS progress(
 			id INTEGER PRIMARY KEY,
 			current STRING,
@@ -39,8 +36,8 @@ exports.setupDb = () =>
 		)
 		`);
 
-    db.run(
-      `
+		db.run(
+			`
 			CREATE TABLE IF NOT EXISTS notes(
 				id INTEGER PRIMARY KEY,
 				title STRING NOT NULL,
@@ -51,7 +48,7 @@ exports.setupDb = () =>
 				FOREIGN KEY (mediaID) REFERENCES media(id)
 			)
 			`
-    );
-
-    runScripts();
-  });
+		);
+		
+		runScripts();
+	});

@@ -1,5 +1,5 @@
 const sqlite3 = require('sqlite3').verbose();
-const db = new sqlite3.Database('./watchnext.db');
+const db = new sqlite3.Database('./src/whatsnext.db');
 
 exports.add = async note => {
   return new Promise(async (resolve, reject) => {
