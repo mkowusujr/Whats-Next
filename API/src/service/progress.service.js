@@ -29,34 +29,39 @@ const createProgressTracker = async progress => {
 };
 
 exports.update = async progress => {
+  const updateStmt = `
+    UPDATE progress
+    SET current = ?,
+    total = ?,
+    unit = ?,
+    dateStarted = ?,
+    dateCompleted = ?
+    where id = ?
+    `;
+
+  const updateData = [
+    progress.current,
+    progress.total,
+    progress.unit,
+    progress.dateStarted,
+    progress.dateCompleted,
+    progress.id
+  ];
+
   return new Promise(async (resolve, reject) => {
-    try {
-      db.run(
-        `
-      UPDATE progress
-			SET current = ?,
-      total = ?,
-      unit = ?
-			where id = ?
-      `,
-        [progress.current, progress.total, progress.unit, progress.id],
-        async function (err) {
-          if (err) {
-            reject(err);
-          } else {
-            db.get(
-              `select * from progress where id = ?`,
-              progress.id,
-              function (err, row) {
-                resolve(row);
-              }
-            );
-          }
+    db.serialize(() => {
+      db.run(updateStmt, updateData, function (err) {
+        if (err) reject(err);
+      });
+
+      db.get(
+        `select * from progress where id = ?`,
+        progress.id,
+        function (err, row) {
+          resolve(row);
         }
       );
-    } catch (err) {
-      reject(err);
-    }
+    });
   });
 };
 
@@ -65,6 +70,22 @@ exports.get = async progressID => {
     db.get(
       `SELECT * FROM progress where id = ?`,
       progressID,
+      function (err, rows) {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(rows);
+        }
+      }
+    );
+  });
+};
+
+exports.getForMedia = async mediaID => {
+  return new Promise(async (resolve, reject) => {
+    db.all(
+      `SELECT * FROM progress where mediaID = ?`,
+      mediaID,
       function (err, rows) {
         if (err) {
           reject(err);

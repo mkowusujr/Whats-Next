@@ -103,20 +103,15 @@ exports.update = media => {
   return new Promise((resolve, reject) => {
     db.serialize(() => {
       db.run(updateStmt, updateData, function (err) {
-        if (err)
-        {
-          console.log("err " + err)
+        if (err) {
+          console.log('err ' + err);
           reject(err);
         }
       });
-      db.get(
-        `select * from media where id = ?`,
-        media.id,
-        function (_, row) {
-          resolve(row);
-        }
-      );
-    })
+      db.get(`select * from media where id = ?`, media.id, function (_, row) {
+        resolve(row);
+      });
+    });
   });
 };
 
