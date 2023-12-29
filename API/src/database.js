@@ -1,12 +1,12 @@
 const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database('./src/whatsnext.db');
 
-runScripts = () => {}
+runScripts = () => {};
 
 exports.setupDb = () =>
-	db.serialize(() => {
-		db.run(
-			`
+  db.serialize(() => {
+    db.run(
+      `
 			CREATE TABLE IF NOT EXISTS media(
 				id INTEGER PRIMARY KEY,
 				title STRING NOT NULL,
@@ -21,9 +21,9 @@ exports.setupDb = () =>
 				dateLastUpdated DATE
 			)
 		`
-		);
+    );
 
-		db.run(`
+    db.run(`
 		CREATE TABLE IF NOT EXISTS progress(
 			id INTEGER PRIMARY KEY,
 			current STRING,
@@ -36,8 +36,8 @@ exports.setupDb = () =>
 		)
 		`);
 
-		db.run(
-			`
+    db.run(
+      `
 			CREATE TABLE IF NOT EXISTS notes(
 				id INTEGER PRIMARY KEY,
 				title STRING NOT NULL,
@@ -48,7 +48,7 @@ exports.setupDb = () =>
 				FOREIGN KEY (mediaID) REFERENCES media(id)
 			)
 			`
-		);
-		
-		runScripts();
-	});
+    );
+
+    runScripts();
+  });

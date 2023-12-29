@@ -11,11 +11,11 @@ router.get('/books/:bookID', async (req, res) => {
 });
 
 router.post('/books', async (req, res, next) => {
-   if (!req.files || Object.keys(req.files).length === 0) {
-     return res.status(400).send('No files were uploaded.');
+  if (!req.files || Object.keys(req.files).length === 0) {
+    return res.status(400).send('No files were uploaded.');
   }
-  
-  const reqFiles =req.files
+
+  const reqFiles = req.files;
   let uploadFile = reqFiles.file;
   const fileName = req.files.file.name;
   uploadFile.mv(

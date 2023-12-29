@@ -64,55 +64,59 @@ exports.add = async media => {
   });
 };
 
-exports.list = (mediaTypes) => {
-  let selectStmt =
-    `SELECT * FROM media WHERE mediaType IN ('${mediaTypes.join("','")}')`
+exports.list = mediaTypes => {
+  const selectStmt = `SELECT * FROM media WHERE mediaType IN ('${mediaTypes.join(
+    "','"
+  )}')`;
   console.log(selectStmt);
 
   return new Promise((resolve, reject) => {
-    db.all(
-      selectStmt,
-      (err, rows) => _ = err ? reject(err) : resolve(rows)
-    );
+    db.all(selectStmt, (err, rows) => (_ = err ? reject(err) : resolve(rows)));
   });
 };
 
 exports.update = media => {
-  return new Promise((resolve, reject) => {
-    db.run(
-      `
+  const updateStmt = `
     UPDATE media
-    SET watchStatus = ?, 
-    personalRating = ?, 
-    dateStarted = ?, 
-    dateCompleted = ?,
-    lastUpdated = ?,
-    ownershipStatus = ?
+    SET
+    title = ?,
+    subTitle = ?,
+    status = ?,
+    score = ?, 
+    storage = ?,
+    releaseDate = ?,
+    dateLastUpdated = ?
     WHERE id = ?
-    `,
-      [
-        media.watchStatus,
-        media.personalRating,
-        media.dateStarted,
-        media.dateCompleted,
-        new Date().toLocaleDateString(),
-        media.ownershipStatus,
-        media.id
-      ],
-      function (err) {
-        if (err) {
+    `;
+
+  let updateData = [
+    media.title,
+    media.subTitle,
+    media.status,
+    media.score,
+    media.storage,
+    media.releaseDate,
+    new Date().toLocaleDateString(),
+    media.id
+  ];
+
+  return new Promise((resolve, reject) => {
+    db.serialize(() => {
+      db.run(updateStmt, updateData, function (err) {
+        if (err)
+        {
+          console.log("err " + err)
           reject(err);
-        } else {
-          db.get(
-            `select * from media where id = ?`,
-            media.id,
-            function (err, row) {
-              resolve(row);
-            }
-          );
         }
-      }
-    );
+      });
+      db.get(
+        `select * from media where id = ?`,
+        media.id,
+        function (_, row) {
+          resolve(row);
+        }
+      );
+    })
   });
 };
 

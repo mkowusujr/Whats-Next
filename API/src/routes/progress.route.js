@@ -7,9 +7,8 @@ router.get('/:progressID', async (req, res) => {
     const progressID = req.params['progressID'];
     const result = await progressService.get(progressID);
     res.json(result);
-  }
-  catch (err) {
-    res.send(err)
+  } catch (err) {
+    res.status(400).send(err);
   }
 });
 
@@ -18,9 +17,8 @@ router.get('/media/:mediaID', async (req, res) => {
     const mediaID = req.params['mediaID'];
     const result = await progressService.getFor(mediaID);
     res.json(result);
-  }
-  catch (err) {
-    res.send(err)
+  } catch (err) {
+    res.status(400).send(err);
   }
 });
 
@@ -29,9 +27,8 @@ router.post('', async (req, res) => {
     const progress = req.body.progress;
     const result = await progressService.add(progress);
     res.json(result);
-  }
-  catch (err) {
-    res.send(err)
+  } catch (err) {
+    res.status(400).send(err);
   }
 });
 
@@ -40,9 +37,8 @@ router.put('', async (req, res) => {
     const progress = req.body;
     const result = await progressService.update(progress);
     res.json(result);
-  }
-  catch (err) {
-    res.send(err)
+  } catch (err) {
+    res.status(400).send(err);
   }
 });
 
@@ -51,9 +47,8 @@ router.delete('/:progressID', async (req, res) => {
     const progressID = req.params['progressID'];
     const result = await progressService.delete(progressID);
     res.json(result);
-  }
-  catch (err) {
-    res.send(err)
+  } catch (err) {
+    res.status(400).send(err);
   }
 });
 

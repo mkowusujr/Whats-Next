@@ -128,8 +128,8 @@ exports.add = async (type, itemID, progress) => {
           if (err) {
             reject(err);
           } else {
-            const newProgress = await this.get(progressTrackerID)
-            resolve(newProgress)
+            const newProgress = await this.get(progressTrackerID);
+            resolve(newProgress);
           }
         }
       );
