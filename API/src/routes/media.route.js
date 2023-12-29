@@ -8,7 +8,7 @@ router.get('', async (req, res) => {
     const result = await mediaService.list(mediaTypes);
     res.json(result);
   } catch (err) {
-    res.status(400).send(err);
+    res.status(400).send(err.message);
   }
 });
 
@@ -18,7 +18,7 @@ router.get('/:mediaID', async (req, res) => {
     const result = await mediaService.get(mediaID);
     res.json(result);
   } catch (err) {
-    res.status(400).send(err);
+    res.status(400).send(err.message);
   }
 });
 
@@ -28,7 +28,7 @@ router.post('', async (req, res) => {
     const result = await mediaService.add(media);
     res.json(result);
   } catch (err) {
-    res.status(400).send(err);
+    res.status(400).send(err.message);
   }
 });
 
@@ -38,7 +38,7 @@ router.put('', async (req, res) => {
     const result = await mediaService.update(media);
     res.json(result);
   } catch (err) {
-    res.status(400).send(err);
+    res.status(400).send(err.message);
   }
 });
 
@@ -48,7 +48,7 @@ router.delete('/:mediaID', async (req, res) => {
     const result = await mediaService.delete(mediaID);
     res.json(result);
   } catch (err) {
-    res.status(400).send(err);
+    res.status(400).send(err.message);
   }
 });
 

@@ -1,30 +1,35 @@
-import { useEffect, useState } from 'react';
-import { getProgressForMedia } from '../../services/progress.service';
-import ProjectItem from './ProgressItem';
+import ProgressItem from './ProgressItem';
+import AddProjectItem from './AddProgressItem';
 
 export default function ProjectTracker(props) {
-  const [progressList, setProgressList] = useState([]);
-
-  useEffect(() => {
-    getProgressForMedia(props.mediaID)
-      .then(ps => setProgressList(ps))
-      .catch(err => console.error(err));
-  }, [props.mediaID]);
+  const progressList = props.progressTracking.get;
+  const setProgressList = props.progressTracking.set;
+  const addToList = item => {
+    setProgressList([item, ...progressList]);
+  };
+  const removeFromList = id => {
+    setProgressList(progressList.filter(p => p.id != id));
+  }
 
   const progressItems = progressList.map(p => (
-    <ProjectItem key={p.id} progress={p} />
+    <ProgressItem key={p.id} progress={p} removeFromList={removeFromList} />
   ));
 
   return (
     <>
       <h2>Progreess tracker</h2>
+      <AddProjectItem mediaID={props.mediaID} addToList={addToList} />
+      <h3>Progress History</h3>
       <table>
         <thead>
-          <th>Current</th>
-          <th>Total</th>
-          <th>Units</th>
-          <th>Date Started</th>
-          <th>Date Completed</th>
+          <tr>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+          </tr>
         </thead>
         <tbody>{progressItems}</tbody>
       </table>

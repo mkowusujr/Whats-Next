@@ -7,7 +7,7 @@ router.get('', async (req, res) => {
     const result = await notesService.list();
     res.json(result);
   } catch (err) {
-    res.status(400).send(err);
+    res.status(400).send(err.message);
   }
 });
 
@@ -17,7 +17,7 @@ router.get('/:noteID', async (req, res) => {
     const result = await notesService.get(noteID);
     res.json(result);
   } catch (err) {
-    res.status(400).send(err);
+    res.status(400).send(err.message);
   }
 });
 
@@ -27,7 +27,7 @@ router.get('/media/:mediaID', async (req, res) => {
     const result = await notesService.getFor(mediaID);
     res.json(result);
   } catch (err) {
-    res.status(400).send(err);
+    res.status(400).send(err.message);
   }
 });
 
@@ -37,7 +37,7 @@ router.post('', async (req, res) => {
     const result = await notesService.add(note);
     res.json(result);
   } catch (err) {
-    res.status(400).send(err);
+    res.status(400).send(err.message);
   }
 });
 
@@ -47,7 +47,7 @@ router.put('', async (req, res) => {
     const result = await notesService.update(note);
     res.json(result);
   } catch (err) {
-    res.status(400).send(err);
+    res.status(400).send(err.message);
   }
 });
 
@@ -57,7 +57,7 @@ router.delete('/:id', async (req, res) => {
     const result = await notesService.delete(noteID);
     res.json(result);
   } catch (err) {
-    res.status(400).send(err);
+    res.status(400).send(err.message);
   }
 });
 

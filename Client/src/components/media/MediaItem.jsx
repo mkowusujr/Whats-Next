@@ -1,9 +1,10 @@
 import Select from '../utils/Select';
 import { scores, statuses } from '../utils/FormFields';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { updateMedia } from '../../services/media.service';
 import DialogComponent from '../utils/DialogComponent';
 import MediaMoreInfo from './MediaMoreInfo';
+import { getProgressForMedia } from '../../services/progress.service';
 
 export default function MediaItem(props) {
   const [media, setMedia] = useState(props.media);
@@ -11,11 +12,8 @@ export default function MediaItem(props) {
   const handleChange = e => {
     const { name, value } = e.target;
     setMedia({ ...media, [name]: value });
-  };
-
-  useEffect(() => {
     updateMedia(media).catch(err => console.error(err));
-  }, [media]);
+  };
 
   const scoreSelector = (
     <Select
@@ -35,11 +33,23 @@ export default function MediaItem(props) {
     />
   );
 
+  const [progressList, setProgressList] = useState([]);
+  const getMediaProgress = () => {
+    getProgressForMedia(media.id)
+      .then(ps => setProgressList(ps))
+      .catch(err => console.error(err));
+  };
+
   const viewMoreBtn = (
     <DialogComponent
       buttonText={'View More'}
-      onOpen={() => {}}
-      cmpnt={<MediaMoreInfo media={media} />}
+      onOpen={getMediaProgress}
+      cmpnt={
+        <MediaMoreInfo
+          media={media}
+          progressTracking={{ get: progressList, set: setProgressList }}
+        />
+      }
     />
   );
 

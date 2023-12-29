@@ -8,7 +8,7 @@ router.get('/:progressID', async (req, res) => {
     const result = await progressService.get(progressID);
     res.json(result);
   } catch (err) {
-    res.status(400).send(err);
+    res.status(400).send(err.message);
   }
 });
 
@@ -18,17 +18,17 @@ router.get('/media/:mediaID', async (req, res) => {
     const result = await progressService.getForMedia(mediaID);
     res.json(result);
   } catch (err) {
-    res.status(400).send(err);
+    res.status(400).send(err.message);
   }
 });
 
 router.post('', async (req, res) => {
   try {
-    const progress = req.body.progress;
+    const progress = req.body;
     const result = await progressService.add(progress);
     res.json(result);
   } catch (err) {
-    res.status(400).send(err);
+    res.status(400).send(err.message);
   }
 });
 
@@ -38,7 +38,7 @@ router.put('', async (req, res) => {
     const result = await progressService.update(progress);
     res.json(result);
   } catch (err) {
-    res.status(400).send(err);
+    res.status(400).send(err.message);
   }
 });
 
@@ -48,7 +48,7 @@ router.delete('/:progressID', async (req, res) => {
     const result = await progressService.delete(progressID);
     res.json(result);
   } catch (err) {
-    res.status(400).send(err);
+    res.status(400).send(err.message);
   }
 });
 

@@ -1,33 +1,51 @@
-import { useEffect, useState } from 'react';
-import { getProgress, updateProgress } from '../../services/progress.service';
+import { useState } from 'react';
+import { deleteProgress, updateProgress } from '../../services/progress.service';
+import useSubsequentEffect from '../utils/useSubsequentEffect';
 
-export default function ProjectItem(props) {
-  const [progress, setProgress] = useState(props.progress);
+export default function ProgressItem(props) {
+  progress = props.progress;
+  const [current, setCurrent] = useState(progress.current);
+  const [total, setTotal] = useState(progress.total);
+  const [unit, setUnit] = useState(progress.unit);
+  const [dateStarted, setDateStarted] = useState(progress.dateStarted);
+  const [dateCompleted, setDateCompleted] = useState(progress.dateCompleted);
 
-  useEffect(() => {
-    updateProgress(progress).catch(err => console.error(err));
-  }, [progress]);
+  useSubsequentEffect(() => { 
+    const updatedProgress = {
+      current: +current,
+      total: +total,
+      unit: unit,
+      dateStarted: dateStarted,
+      dateCompleted: dateCompleted,
+      mediaID: +progress.mediaID
+    };
 
-  const handleChange = e => {
-    const { name, value } = e.target;
-    setProgress({ ...progress, [name]: value });
-  };
+    updateProgress(updatedProgress).catch(err => console.error(err));
+  },[current, total, unit, dateStarted, dateCompleted])
+
+  const deleteProgressTracker = () => {
+    deleteProgress(progress.id)
+      .then(() => props.removeFromList(progress.id))
+      .catch(err => console.error(err))
+  }
 
   const currentInput = (
     <input
       name="current"
-      type="text"
-      value={progress.current}
-      onChange={handleChange}
+      type="number"
+      value={current}
+      onChange={e => setCurrent(e.target.value)}
+      required
     />
   );
 
   const totalInput = (
     <input
       name="total"
-      type="text"
-      value={progress.total}
-      onChange={handleChange}
+      type="number"
+      value={total}
+      onChange={e => setTotal(e.target.value)}
+      required
     />
   );
 
@@ -35,8 +53,9 @@ export default function ProjectItem(props) {
     <input
       name="unit"
       type="text"
-      value={progress.unit}
-      onChange={handleChange}
+      value={unit}
+      onChange={e => setUnit(e.target.value)}
+      required
     />
   );
 
@@ -44,8 +63,9 @@ export default function ProjectItem(props) {
     <input
       name="dateStarted"
       type="date"
-      value={progress.dateStarted}
-      onChange={handleChange}
+      value={dateStarted}
+      onChange={e => setDateStarted(e.target.value)}
+      required
     />
   );
 
@@ -53,10 +73,14 @@ export default function ProjectItem(props) {
     <input
       name="dateCompleted"
       type="date"
-      value={progress.dateCompleted}
-      onChange={handleChange}
+      value={dateCompleted}
+      onChange={e => setDateCompleted(e.target.value)}
     />
   );
+
+  const deleteBtn = <button onClick={deleteProgressTracker}>
+    Delete Progress
+  </button>
 
   return (
     <tr>
@@ -65,6 +89,7 @@ export default function ProjectItem(props) {
       <td>{unitInput}</td>
       <td>{dateStartedtInput}</td>
       <td>{dateCompletedtInput}</td>
+      <td>{deleteBtn}</td>
     </tr>
   );
 }

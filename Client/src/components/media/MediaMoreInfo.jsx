@@ -6,7 +6,10 @@ export default function MediaMoreInfo(props) {
   return (
     <>
       <h1>{media.title}</h1>
-      <ProjectTracker mediaID={media.id} />
+      <ProjectTracker
+        mediaID={media.id}
+        progressTracking={props.progressTracking}
+      />
     </>
   );
 }
