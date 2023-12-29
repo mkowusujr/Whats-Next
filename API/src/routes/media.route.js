@@ -4,7 +4,8 @@ const mediaService = require('../service/media.service');
 
 router.get('', async (req, res) => {
   try {
-    const result = await mediaService.list();
+    const mediaTypes = req.query['mediaType'];
+    const result = await mediaService.list(mediaTypes);
     res.json(result);
   }
   catch (err) {

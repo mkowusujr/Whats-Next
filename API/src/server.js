@@ -7,7 +7,6 @@ const express = require('express'),
 
 const mediaRoutes = require('./routes/media.route'),
   notesRoutes = require('./routes/notes.route'),
-  bookRoutes = require('./routes/book.route'),
   summaryRoutes = require('./routes/summary.route'),
   imageRoutes = require('./routes/imgs.route'),
   progressRoutes = require('./routes/progress.route');
@@ -26,7 +25,6 @@ app.use(expressLogging(logger));
 
 app.use('/media', mediaRoutes);
 app.use('/notes', notesRoutes);
-app.use('/books', bookRoutes);
 app.use('/summary', summaryRoutes);
 app.use('/imgs', imageRoutes);
 app.use('/progress', progressRoutes);

@@ -64,15 +64,16 @@ exports.add = async media => {
   });
 };
 
-exports.list = () => {
+exports.list = (mediaTypes) => {
+  let selectStmt =
+    `SELECT * FROM media WHERE mediaType IN ('${mediaTypes.join("','")}')`
+  console.log(selectStmt);
+
   return new Promise((resolve, reject) => {
-    db.all(`SELECT * FROM media`, function (err, rows) {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(rows);
-      }
-    });
+    db.all(
+      selectStmt,
+      (err, rows) => _ = err ? reject(err) : resolve(rows)
+    );
   });
 };
 

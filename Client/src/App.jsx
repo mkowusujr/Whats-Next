@@ -1,14 +1,18 @@
 import { useState } from 'react';
-import './sass/App.scss';
 import { usePalette } from 'react-palette';
-import MediaPage from './pages/MediaPage';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import BooksPage from './pages/BooksPage';
-import NavBar from './components/Nav';
 import { Toaster } from 'react-hot-toast';
-import SummaryPage from './pages/SummaryPage';
-
+import WatchNextPage from './pages/WatchNext';
+import ReadNextPage from './pages/ReadNext';
 function App() {
+  return <>
+    {/* < WatchNextPage /> */}
+    <ReadNextPage/>
+    {/* <MediaList mediaTypes={bookTypes} /> */}
+  </>
+}
+
+function AppOld() {
   const [imgUrl, setImgUrl] = useState(
     'https://m.media-amazon.com/images/M/MV5BNjFmNWYzZjMtYWIyZi00NDVmLWIxY2EtN2RiMjZiMDk4MzcyXkEyXkFqcGdeQXVyMTg2NjYzOA@@._V1_.jpg'
   );

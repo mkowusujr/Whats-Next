@@ -1,19 +1,21 @@
-export const watchStatuses = ['Select Watch Status', 'Watched', 'Watching', 'Planned'];
 
-export const mediaTypes = ['Movie', 'Series'];
+export const videoMediaTypes = ['Movie', 'Series'];
 export const bookTypes = ['Comics & Graphic Novels'];
-export const ratings = [
-  'Select Personal Rating',
-  '(10) Masterpiece',
-  '(9) Great',
-  '(8) Very Good',
-  '(7) Good',
-  '(6) Fine',
-  '(5) Average',
-  '(4) Bad',
-  '(3) Very Bad',
-  '(2) Horrible',
-  '(1) Appalling'
+
+export const statuses = [{label: "Status", value: null, isDisabled: true},{ label: "Planned", value: "Planned" }, { label: "In Progress", value: "In Progress" }, { label: "Completed", value: "Completed" }, { label: "On Hold", value: "On Hold" }]
+
+export const scores = [
+  {label: 'Score', value: null, isDisabled: true},
+  {label: '(10) Masterpiece', value: 10},
+  {label: '(9) Great', value: 9},
+  {label: '(8) Very Good', value: 8},
+  {label: '(7) Good', value: 7},
+  {label: '(6) Fine', value: 6},
+  {label: '(5) Average', value: 5},
+  {label: '(4) Bad', value: 4},
+  {label: '(3) Very Bad', value: 3},
+  {label: '(2) Horrible', value: 2},
+  {label: '(1) Appalling', value: 1}
 ];
 
 export const pRatingToNum = pRating => {
