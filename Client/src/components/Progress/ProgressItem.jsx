@@ -60,9 +60,9 @@ export default function ProgressItem(props) {
   );
 
   let unitOptions = [];
-  if (videoMediaTypes.includes(props.mediaType)) {
+  if (videoMediaTypes.map(i => i.label).includes(props.mediaType)) {
     unitOptions = mediaProgressUnits;
-  } else if (bookTypes.includes(props.mediaType)) {
+  } else if (bookTypes.map(i => i.label).includes(props.mediaType)) {
     unitOptions = bookProgressUnits;
   }
 

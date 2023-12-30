@@ -6,63 +6,44 @@ const fetch = require('node-fetch');
 
 exports.add = async media => {
   return new Promise(async (resolve, reject) => {
-    const imdbInfo = await movier.getTitleDetailsByName(media.name);
     const titleCase = name => {
       return name.charAt(0).toUpperCase() + name.slice(1);
     };
-    db.run(
-      `
+
+    const insertStmt = `
     INSERT INTO media(
-      name,
-      watchStatus,
-      personalRating,
-      dateStarted,
-      dateCompleted,
-      posterImageUrl,
-      releaseDate,
+      title,
+      subTitle,
       mediaType,
-      genres,
-      directors,
-      writers,
-      imdbRating,
-      plot,
-      cast,
-      runtime,
-      dateAdded)
-    VALUES (?,?,?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-    `,
-      [
-        imdbInfo.name,
-        media.watchStatus,
-        media.personalRating,
-        media.dateStarted,
-        media.dateCompleted,
-        imdbInfo.posterImage.url,
-        imdbInfo.dates.startDate,
-        titleCase(imdbInfo.mainType),
-        `${imdbInfo.genres}`,
-        `${JSON.stringify(imdbInfo.directors)}`,
-        `${JSON.stringify(imdbInfo.writers)}`,
-        imdbInfo.mainRate.rate,
-        imdbInfo.plot,
-        `${JSON.stringify(imdbInfo.casts)}`,
-        imdbInfo.runtime.title,
-        new Date().toLocaleDateString()
-      ],
-      function (err) {
-        if (err) {
-          reject(err);
-        } else {
-          db.get(
-            `select * from media where id = ?`,
-            this.lastID,
-            function (err, row) {
-              resolve(row);
-            }
-          );
-        }
+      score,
+      status,
+      dateCreated
+      )
+    VALUES (?, ?, ?, ?, ?, ?)
+    `;
+
+    const insertData = [
+      titleCase(media.title),
+      titleCase(media.subTitle),
+      media.mediaType,
+      media.score,
+      media.status,
+      new Date().toLocaleDateString()
+    ];
+
+    db.run(insertStmt, insertData, function (err) {
+      if (err) {
+        reject(err);
+      } else {
+        db.get(
+          `select * from media where id = ?`,
+          this.lastID,
+          function (err, row) {
+            resolve(row);
+          }
+        );
       }
-    );
+    });
   });
 };
 

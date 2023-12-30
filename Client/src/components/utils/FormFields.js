@@ -1,5 +1,5 @@
 export const statuses = [
-  { label: 'Status', value: '', isDisabled: true },
+  { label: 'Status', value: '' },
   { label: 'Planned', value: 'Planned' },
   { label: 'In Progress', value: 'In Progress' },
   { label: 'Completed', value: 'Completed' },
@@ -8,7 +8,7 @@ export const statuses = [
 ];
 
 export const scores = [
-  { label: 'Score', value: 0, isDisabled: true },
+  { label: 'Score', value: 0 },
   { label: '(10) Masterpiece', value: 10 },
   { label: '(9) Great', value: 9 },
   { label: '(8) Very Good', value: 8 },
@@ -22,7 +22,7 @@ export const scores = [
 ];
 
 export const storageTypes = [
-  { label: 'Storage', value: '', isDisabled: true },
+  { label: 'Storage', value: '' },
   { label: 'Not Owned', value: 'not owned' },
   { label: 'Physically Owned', value: 'physically owned' },
   { label: 'Renting/Borrowing', value: 'renting/borrowing' },
@@ -36,14 +36,21 @@ export const bookProgressUnits = [
   { label: 'Chapters', value: 'Chapters' },
   { label: 'Issues', value: 'Issues' }
 ];
+
 export const mediaProgressUnits = [
   { label: 'Units', value: '' },
   { label: 'Episodes', value: 'Episodes' },
   { label: 'Minutes', value: 'Minutes' }
 ];
 
-export const videoMediaTypes = ['Movie', 'Series'];
-export const bookTypes = ['Graphic Novels', 'Fiction'];
+export const videoMediaTypes = [
+  { label: 'Movie', value: 'Movie' },
+  { label: 'Series', value: 'Series' }
+];
+export const bookTypes = [
+  { label: 'Graphic Novels', value: 'Graphic Novels' },
+  { label: 'Fiction', value: 'Fiction' }
+];
 
 export const pRatingToNum = pRating => {
   const endIndex = pRating.indexOf(')');

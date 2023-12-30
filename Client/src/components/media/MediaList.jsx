@@ -1,17 +1,9 @@
-import { useEffect, useState } from 'react';
-import { listMedia } from '../../services/media.service';
 import MediaItem from './MediaItem';
 
 export default function MediaList(props) {
-  const [mediaList, setMediaList] = useState([]);
-
-  useEffect(() => {
-    listMedia(props.mediaTypes)
-      .then(ms => setMediaList(ms))
-      .catch(err => console.error(err));
-  }, [props.mediaTypes]);
-
-  const mediaItems = mediaList.map(m => <MediaItem key={m.id} media={m} />);
+  const mediaItems = props.mediaList.map(m => (
+    <MediaItem key={m.id} media={m} />
+  ));
 
   return (
     <table>
