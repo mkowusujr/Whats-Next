@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { scores, sortByOptions, statuses } from '../utils/FormFields';
 import Select from '../utils/Select';
+import '../../sass/media.scss';
 
 export default function Filter(props) {
   const [name, setName] = useState(props.filters.get.name);
@@ -21,57 +22,54 @@ export default function Filter(props) {
     });
   }, [name, mediaTypes, score, status, sortBy, isAsc]);
 
-  const resetFilters = () => {
-    setScore([]);
-  };
-
   return (
-    <>
-      <h2>Filters</h2>
-      <label>
-        Search:
-        <input
-          type="text"
-          value={name}
-          onChange={e => setName(e.target.value)}
-          placeholder="Search Items"
-        />
-      </label>
-
-      <Select
-        label={'Score: '}
-        name={'score'}
-        value={score}
-        options={scores}
-        onChange={e => setScore(+e.target.value)}
-      />
-
-      <Select
-        label={'Status: '}
-        name={'status'}
-        value={status}
-        options={statuses}
-        onChange={e => setStatus(e.target.value)}
-      />
-      <Select
-        label={'Sort By: '}
-        name={'sortBy'}
-        value={sortBy}
-        options={sortByOptions}
-        onChange={e => {
-          setSortBy(e.target.value);
-          setIsAsc(['Name'].includes(e.target.value));
-        }}
-      />
-      <label>
-        ASC:
-        <input
-          type="checkbox"
-          name="isAsc"
-          checked={isAsc}
-          onChange={() => setIsAsc(!isAsc)}
-        />
-      </label>
-    </>
+    <div className="filter">
+      <div className="filter-data">
+        <div className="filter-group">
+          <input
+            className='filter-search'
+              type="text"
+              value={name}
+              onChange={e => setName(e.target.value)}
+              placeholder="Search Items"
+            />
+        </div>
+        <div className="filter-group">
+          <Select
+            label={'Score: '}
+            name={'score'}
+            value={score}
+            options={scores}
+            onChange={e => setScore(+e.target.value)}
+          />
+          <Select
+            label={'Status: '}
+            name={'status'}
+            value={status}
+            options={statuses}
+            onChange={e => setStatus(e.target.value)}
+          />
+          <Select
+            label={'Sort By: '}
+            name={'sortBy'}
+            value={sortBy}
+            options={sortByOptions}
+            onChange={e => {
+              setSortBy(e.target.value);
+              setIsAsc(['Name'].includes(e.target.value));
+            }}
+          />
+          <label>
+            ASC:
+            <input
+              type="checkbox"
+              name="isAsc"
+              checked={isAsc}
+              onChange={() => setIsAsc(!isAsc)}
+            />
+          </label>
+        </div>
+      </div>
+    </div>
   );
 }

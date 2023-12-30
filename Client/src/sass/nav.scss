@@ -1,0 +1,18 @@
+nav {
+  background-color: #8e4747;
+  margin-bottom: 2em;
+
+  ul {
+    padding: 1em;
+    display: flex;
+    list-style: none;
+    li {
+      margin-right: 3em;
+    }
+    a {
+      color: white;
+      text-decoration: none;
+      vertical-align: baseline;
+    }
+  }
+}

@@ -7,6 +7,7 @@ import MediaMoreInfo from './MediaMoreInfo';
 import { listProgressForMedia } from '../../services/progress.service';
 import { getMediaInfo } from '../../services/media.service';
 import { listNotesForMedia } from '../../services/notes.service';
+import '../../sass/media.scss';
 
 export default function MediaItem(props) {
   const [media, setMedia] = useState(props.media);

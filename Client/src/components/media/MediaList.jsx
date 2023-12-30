@@ -1,4 +1,5 @@
 import MediaItem from './MediaItem';
+import '../../sass/media.scss';
 
 export default function MediaList(props) {
   const mediaItems = props.mediaList.map(m => (
@@ -11,11 +12,13 @@ export default function MediaList(props) {
   ));
 
   return (
-    <>
-      <h2>Items</h2>
+    <div className="media-list">
+      <h2 className="title">{props.mediaType} Next </h2>
+      <>{props.filterComponent}</>
+      <hr className="media-hr"></hr>
       <table>
-        <tbody className="media-list">{mediaItems}</tbody>
+        <tbody>{mediaItems}</tbody>
       </table>
-    </>
+    </div>
   );
 }

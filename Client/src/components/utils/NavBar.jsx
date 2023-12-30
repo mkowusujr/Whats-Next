@@ -1,4 +1,5 @@
 import { Link, Outlet } from 'react-router-dom';
+import '../../sass/nav.scss';
 
 export default function NavBar() {
   return (
@@ -6,9 +7,7 @@ export default function NavBar() {
       <nav>
         <ul>
           <li>
-            <h1>
-              <Link to="/">What's Next?</Link>
-            </h1>
+            <Link to="/">What's Next?</Link>
           </li>
           <li>
             <Link to="/watchnext">Watch Next?</Link>

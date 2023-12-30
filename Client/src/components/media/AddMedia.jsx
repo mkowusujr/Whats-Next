@@ -7,6 +7,7 @@ import {
 } from '../utils/FormFields';
 import { useState } from 'react';
 import { addMedia } from '../../services/media.service';
+import '../../sass/media.scss';
 
 export default function AddMedia(props) {
   const [title, setTitle] = useState('');
@@ -51,14 +52,15 @@ export default function AddMedia(props) {
   };
 
   return (
-    <>
-      <h2>Add To Next</h2>
+    <div className="media-form">
+      <h2 className='title'>Add To Next</h2>
       <form onSubmit={addNewMedia}>
         <input
           type="text"
           name="title"
           value={title}
           onChange={e => setTitle(e.target.value)}
+          placeholder="Add Title"
           required
         />
         <input
@@ -66,6 +68,7 @@ export default function AddMedia(props) {
           name="subTitle"
           value={subTitle}
           onChange={e => setSubTitle(e.target.value)}
+          placeholder="Add Subtitle"
         />
         <Select
           name={'mediaType'}
@@ -88,6 +91,6 @@ export default function AddMedia(props) {
         />
         <input type="submit" value="Add Next" />
       </form>
-    </>
+    </div>
   );
 }

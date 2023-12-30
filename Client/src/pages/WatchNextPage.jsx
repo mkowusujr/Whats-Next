@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { listMedia } from '../services/media.service';
 import { sortByOptions } from '../components/utils/FormFields';
 import Filter from '../components/media/Filter';
+import '../sass/pages.scss';
 
 export default function WatchNextPage() {
   const [mediaList, setMediaList] = useState([]);
@@ -49,14 +50,15 @@ export default function WatchNextPage() {
     .sort(sortByOptions.find(s => s.label == filters.sortBy).sortBy);
 
   return (
-    <>
+    <div className="list-page">
       <AddMedia mediaType="Watch" addToList={addToList} />
-      <Filter filters={{ get: filters, set: setFilters }} />
       <MediaList
+        mediaType="Watch"
         mediaList={filters.isAsc ? filteredList : filteredList.reverse()}
         removeFromList={removeFromList}
         updateList={updateList}
+        filterComponent={<Filter filters={{ get: filters, set: setFilters }} />}
       />
-    </>
+    </div>
   );
 }

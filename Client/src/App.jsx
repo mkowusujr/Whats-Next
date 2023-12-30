@@ -3,6 +3,7 @@ import NavBar from './components/utils/NavBar';
 import WatchNextPage from './pages/WatchNextPage';
 import ReadNextPage from './pages/ReadNextPage';
 import WhatsNextPage from './pages/WhatsNextPage';
+import './sass/reset.scss';
 
 function App() {
   return (

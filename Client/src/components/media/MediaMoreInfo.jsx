@@ -2,6 +2,7 @@ import ProjectTracker from '../Progress/ProgressTracker';
 import Select from '../utils/Select';
 import { scores, statuses, storageTypes } from '../utils/FormFields';
 import MediaNotes from '../notes/MediaNotes';
+import '../../sass/media.scss';
 
 export default function MediaMoreInfo(props) {
   const media = props.media;
@@ -34,7 +35,7 @@ export default function MediaMoreInfo(props) {
   );
 
   return (
-    <>
+    <div className="media-info">
       <div>
         <h1>{media.title}</h1>
         <img style={{ width: '200px' }} src={mediaInfo.img} />
@@ -45,6 +46,6 @@ export default function MediaMoreInfo(props) {
       {mediaFields}
       <ProjectTracker media={media} progressTracking={props.progressTracking} />
       <MediaNotes mediaID={media.id} notes={props.notes} />
-    </>
+    </div>
   );
 }

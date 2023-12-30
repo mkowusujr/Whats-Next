@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { getSummary } from '../services/summary.service';
+import '../sass/pages.scss';
 
 export default function WhatsNextPage() {
   const [summary, setSummary] = useState({
