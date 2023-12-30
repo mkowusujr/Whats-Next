@@ -2,7 +2,7 @@ export default function Select(props) {
   const selectComponent = (
     <select
       name={props.name}
-      value={props.value}
+      value={props.value ?? ''}
       onChange={props.onChange}
       required={props.isRequired}
     >

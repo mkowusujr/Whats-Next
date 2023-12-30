@@ -6,8 +6,11 @@ export default function MediaList(props) {
   ));
 
   return (
-    <table>
-      <tbody className="media-list">{mediaItems}</tbody>
-    </table>
+    <>
+      <h2>Items</h2>
+      <table>
+        <tbody className="media-list">{mediaItems}</tbody>
+      </table>
+    </>
   );
 }

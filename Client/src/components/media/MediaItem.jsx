@@ -14,7 +14,7 @@ export default function MediaItem(props) {
   const handleChange = e => {
     const { name, value } = e.target;
     setMedia({ ...media, [name]: value });
-    updateMedia(media).catch(err => console.error(err));
+    updateMedia({ ...media, [name]: value }).catch(err => console.error(err));
   };
 
   const scoreSelector = (
