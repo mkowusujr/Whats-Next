@@ -95,8 +95,7 @@ exports.delete = progressID => {
 };
 
 exports.add = async progress => {
-  const insertStmt =
-    `
+  const insertStmt = `
       INSERT INTO progress(
         current,
         total,
@@ -107,7 +106,7 @@ exports.add = async progress => {
       )
       VALUES (?, ?, ?, ?, ?, ?)
       `;
-  
+
   const insertData = [
     progress.current,
     progress.total,
@@ -115,17 +114,11 @@ exports.add = async progress => {
     progress.dateStarted,
     progress.dateCompleted,
     progress.mediaID
-  ]
-  console.log(insertData)
+  ];
+  console.log(insertData);
   return new Promise(async (resolve, reject) => {
-    db.run(
-      insertStmt,
-      insertData,
-      function (err) {
-        _ = (err) ?
-          reject(err) : resolve({ id: this.lastID, ...progress})
-      }
-    );
+    db.run(insertStmt, insertData, function (err) {
+      _ = err ? reject(err) : resolve({ id: this.lastID, ...progress });
+    });
   });
-}
-
+};

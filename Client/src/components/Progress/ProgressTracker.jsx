@@ -9,7 +9,7 @@ export default function ProjectTracker(props) {
   };
   const removeFromList = id => {
     setProgressList(progressList.filter(p => p.id != id));
-  }
+  };
 
   const progressItems = progressList.map(p => (
     <ProgressItem key={p.id} progress={p} removeFromList={removeFromList} />

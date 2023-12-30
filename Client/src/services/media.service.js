@@ -12,6 +12,11 @@ export const addMedia = media => {
   return postRequest(apiUrl, media);
 };
 
+export const getMediaInfo = mediaID => {
+  const apiUrl = `${baseUrl}/${mediaID}`;
+  return getRequest(apiUrl);
+};
+
 export const listMedia = mediaTypes => {
   let queryParams = '?mediaType=' + mediaTypes.join('&mediaType=');
   const apiUrl = `${baseUrl}${queryParams}`;

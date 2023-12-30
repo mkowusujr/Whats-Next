@@ -15,7 +15,7 @@ router.get('', async (req, res) => {
 router.get('/:mediaID', async (req, res) => {
   try {
     const mediaID = req.params['mediaID'];
-    const result = await mediaService.get(mediaID);
+    const result = await mediaService.getInfo(mediaID);
     res.json(result);
   } catch (err) {
     res.status(400).send(err.message);

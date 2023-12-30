@@ -1,5 +1,5 @@
 const sqlite3 = require('sqlite3').verbose();
-const db = new sqlite3.Database('./src/whatsnext.db');
+const db = new sqlite3.Database('./watchnext.db');
 const gbookFinder = require('@chewhx/google-books');
 const fetch = require('node-fetch');
 const fs = require('fs');

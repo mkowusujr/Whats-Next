@@ -1,16 +1,19 @@
 import { useState } from 'react';
-import { deleteProgress, updateProgress } from '../../services/progress.service';
+import {
+  deleteProgress,
+  updateProgress
+} from '../../services/progress.service';
 import useSubsequentEffect from '../utils/useSubsequentEffect';
 
 export default function ProgressItem(props) {
-  progress = props.progress;
+  const progress = props.progress;
   const [current, setCurrent] = useState(progress.current);
   const [total, setTotal] = useState(progress.total);
   const [unit, setUnit] = useState(progress.unit);
   const [dateStarted, setDateStarted] = useState(progress.dateStarted);
   const [dateCompleted, setDateCompleted] = useState(progress.dateCompleted);
 
-  useSubsequentEffect(() => { 
+  useSubsequentEffect(() => {
     const updatedProgress = {
       current: +current,
       total: +total,
@@ -21,13 +24,13 @@ export default function ProgressItem(props) {
     };
 
     updateProgress(updatedProgress).catch(err => console.error(err));
-  },[current, total, unit, dateStarted, dateCompleted])
+  }, [current, total, unit, dateStarted, dateCompleted]);
 
   const deleteProgressTracker = () => {
     deleteProgress(progress.id)
       .then(() => props.removeFromList(progress.id))
-      .catch(err => console.error(err))
-  }
+      .catch(err => console.error(err));
+  };
 
   const currentInput = (
     <input
@@ -78,9 +81,9 @@ export default function ProgressItem(props) {
     />
   );
 
-  const deleteBtn = <button onClick={deleteProgressTracker}>
-    Delete Progress
-  </button>
+  const deleteBtn = (
+    <button onClick={deleteProgressTracker}>Delete Progress</button>
+  );
 
   return (
     <tr>

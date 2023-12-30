@@ -1,16 +1,14 @@
-export const videoMediaTypes = ['Movie', 'Series'];
-export const bookTypes = ['Comics & Graphic Novels'];
-
 export const statuses = [
-  { label: 'Status', value: null, isDisabled: true },
+  { label: 'Status', value: '', isDisabled: true },
   { label: 'Planned', value: 'Planned' },
   { label: 'In Progress', value: 'In Progress' },
   { label: 'Completed', value: 'Completed' },
-  { label: 'On Hold', value: 'On Hold' }
+  { label: 'On Hold', value: 'On Hold' },
+  { label: 'Dropped', value: 'Dropped' }
 ];
 
 export const scores = [
-  { label: 'Score', value: null, isDisabled: true },
+  { label: 'Score', value: 0, isDisabled: true },
   { label: '(10) Masterpiece', value: 10 },
   { label: '(9) Great', value: 9 },
   { label: '(8) Very Good', value: 8 },
@@ -22,6 +20,16 @@ export const scores = [
   { label: '(2) Horrible', value: 2 },
   { label: '(1) Appalling', value: 1 }
 ];
+
+export const storageTypes = [
+  { lbael: 'Storage', value: '', isDisabled: true },
+  { label: 'Not Owned', value: 'not owned' },
+  { label: 'Physically Owned', value: 'physically owned' },
+  { label: 'Renting/Borrowing', value: 'renting/borrowing' },
+  { label: 'Digitally Owned', value: 'digitally owned' },
+  { label: 'On Streaming', value: 'on streaming' }
+];
+
 
 export const pRatingToNum = pRating => {
   const endIndex = pRating.indexOf(')');
@@ -102,14 +110,6 @@ export const sortByOptions = {
   }
 };
 
-export const ownershipOptions = [
-  'not owned',
-  'physically owned',
-  'renting/borrowing',
-  'digitally owned',
-  'on streaming'
-];
-
 export const pRatingColors = {
   one: {
     background: '#ff4d4d',
@@ -174,14 +174,6 @@ function darkenColor(color) {
   return darkenedHex;
 }
 
-export const readingStatuses = [
-  'Select Reading Status',
-  'Planned',
-  'Reading',
-  'Paused',
-  'Dropped',
-  'Completed'
-];
 
 export const bookProgressUnits = ['Pages', 'Chapters', 'Issues'];
 export const mediaProgressUnits = ['Episodes', 'Minutes'];

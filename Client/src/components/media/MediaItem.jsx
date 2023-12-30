@@ -5,6 +5,7 @@ import { updateMedia } from '../../services/media.service';
 import DialogComponent from '../utils/DialogComponent';
 import MediaMoreInfo from './MediaMoreInfo';
 import { getProgressForMedia } from '../../services/progress.service';
+import { getMediaInfo } from '../../services/media.service';
 
 export default function MediaItem(props) {
   const [media, setMedia] = useState(props.media);
@@ -33,21 +34,29 @@ export default function MediaItem(props) {
     />
   );
 
+  const [mediaInfo, setMediaInfo] = useState({});
   const [progressList, setProgressList] = useState([]);
-  const getMediaProgress = () => {
-    getProgressForMedia(media.id)
-      .then(ps => setProgressList(ps))
-      .catch(err => console.error(err));
-  };
+
+  const setupMediaInfo = () => {
+    getMediaInfo(media.id)
+      .then(m => setMediaInfo(m))
+      .catch(err => console.error(err))
+
+      getProgressForMedia(media.id)
+        .then(ps => setProgressList(ps))
+        .catch(err => console.error(err));
+  }
 
   const viewMoreBtn = (
     <DialogComponent
       buttonText={'View More'}
-      onOpen={getMediaProgress}
+      onOpen={setupMediaInfo}
       cmpnt={
         <MediaMoreInfo
           media={media}
           progressTracking={{ get: progressList, set: setProgressList }}
+          mediaInfo={mediaInfo}
+          handleChange={handleChange}
         />
       }
     />

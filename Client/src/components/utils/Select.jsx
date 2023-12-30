@@ -1,5 +1,5 @@
 export default function Select(props) {
-  return (
+  const selectComponent = (
     <select name={props.name} value={props.value} onChange={props.onChange}>
       {props.options.map(option => (
         <option
@@ -11,5 +11,18 @@ export default function Select(props) {
         </option>
       ))}
     </select>
+  );
+  
+  return (
+    <>
+      {props.label ? (
+        <label>
+          {props.label}
+          {selectComponent}
+        </label>
+      ) : (
+        <>{ selectComponent }</>
+      )}
+    </>
   );
 }
