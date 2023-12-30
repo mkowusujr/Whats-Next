@@ -17,11 +17,6 @@ export const getNote = noteID => {
   return getRequest(apiUrl);
 };
 
-export const listNotes = () => {
-  const apiUrl = `${baseUrl}`;
-  return getRequest(apiUrl);
-};
-
 export const listNotesForMedia = mediaID => {
   const apiUrl = `${baseUrl}/media/${mediaID}`;
   return getRequest(apiUrl);

@@ -1,7 +1,6 @@
 const express = require('express'),
   cors = require('cors'),
   bodyParser = require('body-parser'),
-  fileUpload = require('express-fileupload'),
   expressLogging = require('express-logging'),
   logger = require('logops');
 
@@ -18,7 +17,6 @@ database.setupDb();
 
 app.use(cors());
 app.use(bodyParser.json());
-app.use(fileUpload());
 // app.use(expressLogging(logger));
 
 app.use('/media', mediaRoutes);
