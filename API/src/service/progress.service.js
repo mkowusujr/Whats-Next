@@ -115,7 +115,7 @@ exports.add = async progress => {
     progress.dateCompleted,
     progress.mediaID
   ];
-  console.log(insertData);
+
   return new Promise(async (resolve, reject) => {
     db.run(insertStmt, insertData, function (err) {
       _ = err ? reject(err) : resolve({ id: this.lastID, ...progress });

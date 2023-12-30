@@ -51,7 +51,6 @@ exports.list = mediaTypes => {
   const selectStmt = `SELECT * FROM media WHERE mediaType IN ('${mediaTypes.join(
     "','"
   )}')`;
-  console.log(selectStmt);
 
   return new Promise((resolve, reject) => {
     db.all(selectStmt, (err, rows) => (_ = err ? reject(err) : resolve(rows)));
@@ -147,7 +146,6 @@ exports.update = media => {
     db.serialize(() => {
       db.run(updateStmt, updateData, function (err) {
         if (err) {
-          console.log('err ' + err);
           reject(err);
         }
       });
