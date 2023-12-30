@@ -8,7 +8,6 @@ const express = require('express'),
 const mediaRoutes = require('./routes/media.route'),
   notesRoutes = require('./routes/notes.route'),
   summaryRoutes = require('./routes/summary.route'),
-  imageRoutes = require('./routes/imgs.route'),
   progressRoutes = require('./routes/progress.route');
 
 const app = express(),
@@ -18,15 +17,13 @@ const app = express(),
 database.setupDb();
 
 app.use(cors());
-app.use(bodyParser.json({ limit: '50mb' }));
-app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
+app.use(bodyParser.json());
 app.use(fileUpload());
 // app.use(expressLogging(logger));
 
 app.use('/media', mediaRoutes);
 app.use('/notes', notesRoutes);
 app.use('/summary', summaryRoutes);
-app.use('/imgs', imageRoutes);
 app.use('/progress', progressRoutes);
 
 app.listen(port, () => {
