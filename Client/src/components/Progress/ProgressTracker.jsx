@@ -12,13 +12,22 @@ export default function ProjectTracker(props) {
   };
 
   const progressItems = progressList.map(p => (
-    <ProgressItem key={p.id} progress={p} mediaType={props.media.mediaType } removeFromList={removeFromList} />
+    <ProgressItem
+      key={p.id}
+      progress={p}
+      mediaType={props.media.mediaType}
+      removeFromList={removeFromList}
+    />
   ));
 
   return (
     <>
       <h2>Progreess tracker</h2>
-      <AddProjectItem mediaID={props.media.id} mediaType={props.media.mediaType} addToList={addToList} />
+      <AddProjectItem
+        mediaID={props.media.id}
+        mediaType={props.media.mediaType}
+        addToList={addToList}
+      />
       <h3>Progress History</h3>
       <table>
         <thead>

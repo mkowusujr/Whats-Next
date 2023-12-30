@@ -1,4 +1,9 @@
-import { deleteRequest, getRequest, postRequest, updateRquest } from './api-base.service';
+import {
+  deleteRequest,
+  getRequest,
+  postRequest,
+  updateRquest
+} from './api-base.service';
 
 const baseUrl = 'http://localhost:3000/notes';
 

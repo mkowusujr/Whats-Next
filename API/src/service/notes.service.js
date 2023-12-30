@@ -31,21 +31,17 @@ exports.add = async note => {
   });
 };
 
-exports.get = async (noteID) => {
+exports.get = async noteID => {
   return new Promise(async (resolve, reject) => {
-    db.all(
-      `SELECT * FROM notes WHERE id = ?`,
-      noteID,
-      function (err, rows) {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(rows);
-        }
+    db.all(`SELECT * FROM notes WHERE id = ?`, noteID, function (err, rows) {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(rows);
       }
-    );
+    });
   });
-}
+};
 
 exports.list = async () => {
   return new Promise(async (resolve, reject) => {
@@ -61,7 +57,7 @@ exports.list = async () => {
       }
     );
   });
-}
+};
 
 exports.listForMedia = async mediaID => {
   return new Promise(async (resolve, reject) => {
@@ -92,12 +88,7 @@ exports.update = async note => {
 			SET title = ?, content = ?, dateLastUpdated = ?
 			WHERE id = ?
 			`,
-      [
-        note.title,
-        note.content,
-        new Date().toLocaleDateString(),
-        note.id
-      ],
+      [note.title, note.content, new Date().toLocaleDateString(), note.id],
       function (err) {
         if (err) {
           reject(err);

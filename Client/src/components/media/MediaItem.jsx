@@ -42,16 +42,16 @@ export default function MediaItem(props) {
   const setupMediaInfo = () => {
     getMediaInfo(media.id)
       .then(m => setMediaInfo(m))
-      .catch(err => console.error(err))
+      .catch(err => console.error(err));
 
     listProgressForMedia(media.id)
-        .then(ps => setProgressList(ps))
-        .catch(err => console.error(err));
-    
+      .then(ps => setProgressList(ps))
+      .catch(err => console.error(err));
+
     listNotesForMedia(media.id)
       .then(ns => setNoteList(ns))
       .catch(err => console.error(err));
-  }
+  };
 
   const viewMoreBtn = (
     <DialogComponent
@@ -62,7 +62,7 @@ export default function MediaItem(props) {
           media={media}
           mediaInfo={mediaInfo}
           progressTracking={{ get: progressList, set: setProgressList }}
-          notes={{get: noteList, set:setNoteList}}
+          notes={{ get: noteList, set: setNoteList }}
           handleChange={handleChange}
         />
       }

@@ -4,8 +4,13 @@ import {
   updateProgress
 } from '../../services/progress.service';
 import useSubsequentEffect from '../utils/useSubsequentEffect';
-import Select from '../utils/Select'
-import { bookProgressUnits, bookTypes, mediaProgressUnits, videoMediaTypes } from '../utils/FormFields';
+import Select from '../utils/Select';
+import {
+  bookProgressUnits,
+  bookTypes,
+  mediaProgressUnits,
+  videoMediaTypes
+} from '../utils/FormFields';
 
 export default function ProgressItem(props) {
   const progress = props.progress;
@@ -55,21 +60,21 @@ export default function ProgressItem(props) {
   );
 
   let unitOptions = [];
-  if(videoMediaTypes.includes(props.mediaType))
-  {
+  if (videoMediaTypes.includes(props.mediaType)) {
     unitOptions = mediaProgressUnits;
-  }
-  else if (bookTypes.includes(props.mediaType)) {
+  } else if (bookTypes.includes(props.mediaType)) {
     unitOptions = bookProgressUnits;
   }
 
-  const unitInput = <Select
-    name={"unit"}
-    value={unit}
-    options={unitOptions}
-    onChange={e => setUnit(e.target.value)}
-    isRequired={true}
+  const unitInput = (
+    <Select
+      name={'unit'}
+      value={unit}
+      options={unitOptions}
+      onChange={e => setUnit(e.target.value)}
+      isRequired={true}
     />
+  );
 
   const dateStartedtInput = (
     <input

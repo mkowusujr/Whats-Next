@@ -1,4 +1,3 @@
-
 const mediaService = require('./media.service');
 
 const pRatingToNum = pRating => {
@@ -26,7 +25,7 @@ const fixDateTZ = date => `${date} 00:00:00`;
 
 exports.getSummary = async () => {
   let mediaList = await mediaService.list();
-  bookList = []//await bookService.list();
+  bookList = []; //await bookService.list();
 
   mediaList = mediaList.map(m => {
     return {

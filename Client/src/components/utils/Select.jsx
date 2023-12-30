@@ -1,6 +1,11 @@
 export default function Select(props) {
   const selectComponent = (
-    <select name={props.name} value={props.value} onChange={props.onChange} required={props.isRequired}>
+    <select
+      name={props.name}
+      value={props.value}
+      onChange={props.onChange}
+      required={props.isRequired}
+    >
       {props.options.map(option => (
         <option
           key={option.label}
@@ -12,7 +17,7 @@ export default function Select(props) {
       ))}
     </select>
   );
-  
+
   return (
     <>
       {props.label ? (
@@ -21,7 +26,7 @@ export default function Select(props) {
           {selectComponent}
         </label>
       ) : (
-        <>{ selectComponent }</>
+        <>{selectComponent}</>
       )}
     </>
   );

@@ -1,6 +1,11 @@
 import { useState } from 'react';
 import { addProgress } from '../../services/progress.service';
-import { bookProgressUnits, bookTypes, mediaProgressUnits, videoMediaTypes } from '../utils/FormFields';
+import {
+  bookProgressUnits,
+  bookTypes,
+  mediaProgressUnits,
+  videoMediaTypes
+} from '../utils/FormFields';
 import Select from '../utils/Select';
 
 export default function AddProjectItem(props) {
@@ -26,10 +31,10 @@ export default function AddProjectItem(props) {
       .then(newProgress => {
         props.addToList(newProgress);
         setCurrent('');
-        setTotal('')
-        setUnit('')
-        setDateStarted('')
-        setDateCompleted('')
+        setTotal('');
+        setUnit('');
+        setDateStarted('');
+        setDateCompleted('');
       })
       .catch(err => console.error(err));
   };
@@ -57,18 +62,19 @@ export default function AddProjectItem(props) {
   let unitOptions = [];
   if (videoMediaTypes.includes(props.mediaType)) {
     unitOptions = mediaProgressUnits;
-  }
-  else if (bookTypes.includes(props.mediaType)) {
+  } else if (bookTypes.includes(props.mediaType)) {
     unitOptions = bookProgressUnits;
   }
 
-  const unitInput = <Select
-    name={"unit"}
-    value={unit}
-    options={unitOptions}
-    onChange={e => setUnit(e.target.value)}
-    isRequired={true}
-  />
+  const unitInput = (
+    <Select
+      name={'unit'}
+      value={unit}
+      options={unitOptions}
+      onChange={e => setUnit(e.target.value)}
+      isRequired={true}
+    />
+  );
 
   const dateStartedtInput = (
     <input

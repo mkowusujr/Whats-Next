@@ -78,15 +78,13 @@ exports.list = mediaTypes => {
 };
 
 async function fetchInfo(media) {
-  const mediaTitle = media.title + (media.subTitle ?? '')
-  
-  let mediaInfo = {}
+  const mediaTitle = media.title + (media.subTitle ?? '');
+
+  let mediaInfo = {};
   switch (media.mediaType) {
     case 'Movie':
     case 'Series':
-      const imdbInfo = await movier.getTitleDetailsByName(
-        mediaTitle
-      );
+      const imdbInfo = await movier.getTitleDetailsByName(mediaTitle);
       mediaInfo = {
         img: imdbInfo.posterImage.url,
         creator: imdbInfo.directors[0].name,
@@ -98,8 +96,7 @@ async function fetchInfo(media) {
     case 'Graphic Novels':
     case 'Fiction':
       try {
-        
-        const gBooks = await gbookFinder.search({ q: mediaTitle })
+        const gBooks = await gbookFinder.search({ q: mediaTitle });
         const gBook = gBooks.items[0].volumeInfo;
         const r1 = await fetch(
           `https://www.googleapis.com/books/v1/volumes/${gBooks.items[0].id}`
@@ -107,24 +104,24 @@ async function fetchInfo(media) {
         const f1 = await r1.json();
 
         let coverImg = f1.volumeInfo.imageLinks.medium;
-        
+
         mediaInfo = {
-          img: coverImg ?? 'https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg',
-          creator: gBook.authors ? gBook.authors.join(",") : '',
+          img:
+            coverImg ??
+            'https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg',
+          creator: gBook.authors ? gBook.authors.join(',') : '',
           summary: gBook.description,
           releaseDate: gBook.publishedDate
         };
-  
+
         return mediaInfo;
-        
-      }catch(err){
-        console.log(err.message)
+      } catch (err) {
+        console.log(err.message);
       }
   }
 }
 
 exports.getInfo = mediaID => {
-  
   return new Promise((resolve, reject) => {
     db.get(
       `select title, subTitle, mediaType from media WHERE id = ?`,
@@ -134,7 +131,7 @@ exports.getInfo = mediaID => {
 
         fetchInfo(media)
           .then(mediaInfo => resolve(mediaInfo))
-          .catch(err => reject(err))
+          .catch(err => reject(err));
       }
     );
   });

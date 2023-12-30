@@ -10,7 +10,7 @@ export default function MediaMoreInfo(props) {
   const mediaFields = (
     <div>
       <Select
-        label={"Score: "}
+        label={'Score: '}
         name={'score'}
         value={media.score}
         options={scores}
@@ -24,7 +24,7 @@ export default function MediaMoreInfo(props) {
         onChange={props.handleChange}
       />
       <Select
-        label={"Storage: "}
+        label={'Storage: '}
         name={'storage'}
         value={media.storage}
         options={storageTypes}
@@ -37,20 +37,14 @@ export default function MediaMoreInfo(props) {
     <>
       <div>
         <h1>{media.title}</h1>
-        <img style={{ width: '200px'}} src={mediaInfo.img} />
+        <img style={{ width: '200px' }} src={mediaInfo.img} />
         <p>{mediaInfo.summary}</p>
         <p>{mediaInfo.releaseDate}</p>
-      <p>{mediaInfo.creator}</p>
+        <p>{mediaInfo.creator}</p>
       </div>
       {mediaFields}
-      <ProjectTracker
-        media={media}
-        progressTracking={props.progressTracking}
-      />
-      <MediaNotes
-        mediaID={media.id}
-        notes={props.notes}
-      />
+      <ProjectTracker media={media} progressTracking={props.progressTracking} />
+      <MediaNotes mediaID={media.id} notes={props.notes} />
     </>
   );
 }

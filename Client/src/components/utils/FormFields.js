@@ -31,12 +31,15 @@ export const storageTypes = [
 ];
 
 export const bookProgressUnits = [
-  {label: 'Units', value: ''},
-  { label: 'Pages', value: 'Pages' }, { label: 'Chapters', value: 'Chapters' }, { label: 'Issues', value: 'Issues' }
+  { label: 'Units', value: '' },
+  { label: 'Pages', value: 'Pages' },
+  { label: 'Chapters', value: 'Chapters' },
+  { label: 'Issues', value: 'Issues' }
 ];
 export const mediaProgressUnits = [
   { label: 'Units', value: '' },
-  { label: 'Episodes', value: 'Episodes' }, { label: 'Minutes', value: 'Minutes' }
+  { label: 'Episodes', value: 'Episodes' },
+  { label: 'Minutes', value: 'Minutes' }
 ];
 
 export const videoMediaTypes = ['Movie', 'Series'];
@@ -184,4 +187,3 @@ function darkenColor(color) {
 
   return darkenedHex;
 }
-
