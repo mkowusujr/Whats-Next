@@ -58,10 +58,10 @@ export default function Filter(props) {
         name={'sortBy'}
         value={sortBy}
         options={sortByOptions}
-				onChange={e => {
-					setSortBy(e.target.value)
-					setIsAsc(['Name'].includes(e.target.value))
-				}}
+        onChange={e => {
+          setSortBy(e.target.value);
+          setIsAsc(['Name'].includes(e.target.value));
+        }}
       />
       <label>
         ASC:

@@ -20,6 +20,14 @@ export default function WatchNextPage() {
     setMediaList([item, ...mediaList]);
   };
 
+  const removeFromList = id => {
+    setMediaList(mediaList.filter(i => i.id != id));
+  };
+
+  const updateList = item => {
+    setMediaList([item, ...mediaList.filter(i => i.id != item.id)]);
+  };
+
   const [filters, setFilters] = useState({
     name: '',
     mediaTypes: [...mediaTypes],
@@ -46,6 +54,8 @@ export default function WatchNextPage() {
       <Filter filters={{ get: filters, set: setFilters }} />
       <MediaList
         mediaList={filters.isAsc ? filteredList : filteredList.reverse()}
+        removeFromList={removeFromList}
+        updateList={updateList}
       />
     </>
   );

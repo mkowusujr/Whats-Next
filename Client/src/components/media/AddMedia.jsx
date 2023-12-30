@@ -12,7 +12,7 @@ export default function AddMedia(props) {
   const [title, setTitle] = useState('');
   const [subTitle, setSubTitle] = useState('');
   const [mediaType, setMediaType] = useState('');
-  const [score, setScore] = useState('');
+  const [score, setScore] = useState(0);
   const [status, setStatus] = useState('');
 
   let allowedMediaOptions = [];
@@ -39,7 +39,14 @@ export default function AddMedia(props) {
     };
 
     addMedia(newMedia)
-      .then(m => props.addToList(m))
+      .then(m => {
+        props.addToList(m);
+        setTitle('');
+        setSubTitle('');
+        setMediaType('');
+        setScore(0);
+        setStatus('');
+      })
       .catch(err => console.log(err));
   };
 

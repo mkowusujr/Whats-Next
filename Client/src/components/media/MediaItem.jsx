@@ -1,7 +1,7 @@
 import Select from '../utils/Select';
 import { scores, statuses } from '../utils/FormFields';
 import { useState } from 'react';
-import { updateMedia } from '../../services/media.service';
+import { deleteMedia, updateMedia } from '../../services/media.service';
 import DialogComponent from '../utils/DialogComponent';
 import MediaMoreInfo from './MediaMoreInfo';
 import { listProgressForMedia } from '../../services/progress.service';
@@ -14,7 +14,9 @@ export default function MediaItem(props) {
   const handleChange = e => {
     const { name, value } = e.target;
     setMedia({ ...media, [name]: value });
-    updateMedia({ ...media, [name]: value }).catch(err => console.error(err));
+    updateMedia({ ...media, [name]: value })
+      .then(m => props.updateList(m))
+      .catch(err => console.error(err));
   };
 
   const scoreSelector = (
@@ -69,14 +71,36 @@ export default function MediaItem(props) {
     />
   );
 
+  const handleDeletion = () => {
+    deleteMedia(media.id)
+      .then(() => props.removeFromList(media.id))
+      .catch(err => console.error(err));
+  };
+  const deleteBtn = <button onClick={handleDeletion}>Remove</button>;
+
   return (
     <tr className="media-item">
-      <td>{media.title + (media.subTitle ? ' ' + media.subTitle : '')}</td>
-
+      <td>
+        {/* {media.title + (media.subTitle ? ' ' + media.subTitle : '')} */}
+        <input
+          value={media.title}
+          name="title"
+          size={media.title.length}
+          onChange={handleChange}
+        />
+        <input
+          value={media.subTitle}
+          name="subTitle"
+          size={media.subTitle ? media.subTitle.length : 'SubTitle'.length}
+          placeholder="SubTitle"
+          onChange={handleChange}
+        />
+      </td>
       <td>{media.mediaType}</td>
       <td>{scoreSelector}</td>
       <td>{statusSelector}</td>
       <td>{viewMoreBtn}</td>
+      <td>{deleteBtn}</td>
     </tr>
   );
 }
