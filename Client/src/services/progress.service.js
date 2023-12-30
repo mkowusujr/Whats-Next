@@ -27,7 +27,7 @@ export const getProgress = progressID => {
   return getRequest(apiUrl);
 };
 
-export const getProgressForMedia = mediaID => {
+export const listProgressForMedia = mediaID => {
   const apiUrl = `${baseUrl}/media/${mediaID}`;
   return getRequest(apiUrl);
 };

@@ -24,7 +24,7 @@ router.get('/:noteID', async (req, res) => {
 router.get('/media/:mediaID', async (req, res) => {
   try {
     const mediaID = req.params['mediaID'];
-    const result = await notesService.getFor(mediaID);
+    const result = await notesService.listForMedia(mediaID);
     res.json(result);
   } catch (err) {
     res.status(400).send(err.message);
@@ -51,9 +51,9 @@ router.put('', async (req, res) => {
   }
 });
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:noteID', async (req, res) => {
   try {
-    const noteID = req.params['id'];
+    const noteID = req.params['noteID'];
     const result = await notesService.delete(noteID);
     res.json(result);
   } catch (err) {

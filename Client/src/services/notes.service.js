@@ -1,4 +1,4 @@
-import { getRequest, postRequest, updateRquest } from './api-base.service';
+import { deleteRequest, getRequest, postRequest, updateRquest } from './api-base.service';
 
 const baseUrl = 'http://localhost:3000/notes';
 
@@ -7,13 +7,18 @@ export const addNote = note => {
   return postRequest(apiUrl, note);
 };
 
-export const listNotesForMedia = mediaID => {
-  const apiUrl = `${baseUrl}/media/${mediaID}`;
+export const getNote = noteID => {
+  const apiUrl = `${baseUrl}/${noteID}`;
   return getRequest(apiUrl);
 };
 
-export const listNotesForBook = bookID => {
-  const apiUrl = `${baseUrl}/books/${bookID}`;
+export const listNotes = () => {
+  const apiUrl = `${baseUrl}`;
+  return getRequest(apiUrl);
+};
+
+export const listNotesForMedia = mediaID => {
+  const apiUrl = `${baseUrl}/media/${mediaID}`;
   return getRequest(apiUrl);
 };
 
@@ -24,5 +29,5 @@ export const updateNote = note => {
 
 export const deleteNote = noteID => {
   const apiUrl = `${baseUrl}/${noteID}`;
-  return deleteNote(apiUrl);
+  return deleteRequest(apiUrl);
 };

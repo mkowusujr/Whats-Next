@@ -1,7 +1,8 @@
 import MediaList from '../components/media/MediaList';
+import { videoMediaTypes } from '../components/utils/FormFields';
 
 export default function WatchNextPage() {
-  const videoMediaTypes = ['Movie', 'Series'];
+  
 
   return <MediaList mediaTypes={videoMediaTypes} />;
 }

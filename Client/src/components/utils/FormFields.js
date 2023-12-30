@@ -22,7 +22,7 @@ export const scores = [
 ];
 
 export const storageTypes = [
-  { lbael: 'Storage', value: '', isDisabled: true },
+  { label: 'Storage', value: '', isDisabled: true },
   { label: 'Not Owned', value: 'not owned' },
   { label: 'Physically Owned', value: 'physically owned' },
   { label: 'Renting/Borrowing', value: 'renting/borrowing' },
@@ -30,6 +30,17 @@ export const storageTypes = [
   { label: 'On Streaming', value: 'on streaming' }
 ];
 
+export const bookProgressUnits = [
+  {label: 'Units', value: ''},
+  { label: 'Pages', value: 'Pages' }, { label: 'Chapters', value: 'Chapters' }, { label: 'Issues', value: 'Issues' }
+];
+export const mediaProgressUnits = [
+  { label: 'Units', value: '' },
+  { label: 'Episodes', value: 'Episodes' }, { label: 'Minutes', value: 'Minutes' }
+];
+
+export const videoMediaTypes = ['Movie', 'Series'];
+export const bookTypes = ['Graphic Novels', 'Fiction'];
 
 export const pRatingToNum = pRating => {
   const endIndex = pRating.indexOf(')');
@@ -174,6 +185,3 @@ function darkenColor(color) {
   return darkenedHex;
 }
 
-
-export const bookProgressUnits = ['Pages', 'Chapters', 'Issues'];
-export const mediaProgressUnits = ['Episodes', 'Minutes'];

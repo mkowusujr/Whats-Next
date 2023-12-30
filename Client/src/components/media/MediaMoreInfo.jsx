@@ -1,6 +1,7 @@
 import ProjectTracker from '../Progress/ProgressTracker';
 import Select from '../utils/Select';
 import { scores, statuses, storageTypes } from '../utils/FormFields';
+import MediaNotes from '../notes/MediaNotes';
 
 export default function MediaMoreInfo(props) {
   const media = props.media;
@@ -43,8 +44,12 @@ export default function MediaMoreInfo(props) {
       </div>
       {mediaFields}
       <ProjectTracker
-        mediaID={media.id}
+        media={media}
         progressTracking={props.progressTracking}
+      />
+      <MediaNotes
+        mediaID={media.id}
+        notes={props.notes}
       />
     </>
   );

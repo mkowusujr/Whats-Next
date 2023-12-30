@@ -9,7 +9,7 @@ exports.add = async note => {
 				title,
 				content,
 				mediaID,
-				dateAdded
+				dateCreated
 			)
 			values(?, ?, ?, ?)
 			`,
@@ -31,10 +31,26 @@ exports.add = async note => {
   });
 };
 
-exports.listForMedia = async mediaID => {
+exports.get = async (noteID) => {
   return new Promise(async (resolve, reject) => {
     db.all(
-      `SELECT * FROM notes WHERE mediaID = ?`,
+      `SELECT * FROM notes WHERE id = ?`,
+      noteID,
+      function (err, rows) {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(rows);
+        }
+      }
+    );
+  });
+}
+
+exports.list = async () => {
+  return new Promise(async (resolve, reject) => {
+    db.all(
+      `SELECT * FROM notes ORDER BY dateCreated DESC`,
       mediaID,
       function (err, rows) {
         if (err) {
@@ -45,13 +61,18 @@ exports.listForMedia = async mediaID => {
       }
     );
   });
-};
+}
 
-exports.listForBook = async bookID => {
+exports.listForMedia = async mediaID => {
   return new Promise(async (resolve, reject) => {
     db.all(
-      `SELECT * FROM notes WHERE bookID = ?`,
-      bookID,
+      `
+      SELECT *
+      FROM notes
+      WHERE mediaID = ?
+      ORDER BY dateCreated DESC
+      `,
+      mediaID,
       function (err, rows) {
         if (err) {
           reject(err);
@@ -68,13 +89,12 @@ exports.update = async note => {
     db.run(
       `
 			UPDATE notes
-			SET title = ?, content = ?, mediaID = ?, lastUpdated = ?
+			SET title = ?, content = ?, dateLastUpdated = ?
 			WHERE id = ?
 			`,
       [
         note.title,
         note.content,
-        note.mediaID,
         new Date().toLocaleDateString(),
         note.id
       ],

@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { addProgress } from '../../services/progress.service';
+import { bookProgressUnits, bookTypes, mediaProgressUnits, videoMediaTypes } from '../utils/FormFields';
+import Select from '../utils/Select';
 
 export default function AddProjectItem(props) {
   const [current, setCurrent] = useState('');
@@ -23,7 +25,11 @@ export default function AddProjectItem(props) {
     addProgress(progress)
       .then(newProgress => {
         props.addToList(newProgress);
-        setProgress({ ...emptyFields });
+        setCurrent('');
+        setTotal('')
+        setUnit('')
+        setDateStarted('')
+        setDateCompleted('')
       })
       .catch(err => console.error(err));
   };
@@ -48,15 +54,21 @@ export default function AddProjectItem(props) {
     />
   );
 
-  const unitInput = (
-    <input
-      name="unit"
-      type="text"
-      value={unit}
-      onChange={e => setUnit(e.target.value)}
-      required
-    />
-  );
+  let unitOptions = [];
+  if (videoMediaTypes.includes(props.mediaType)) {
+    unitOptions = mediaProgressUnits;
+  }
+  else if (bookTypes.includes(props.mediaType)) {
+    unitOptions = bookProgressUnits;
+  }
+
+  const unitInput = <Select
+    name={"unit"}
+    value={unit}
+    options={unitOptions}
+    onChange={e => setUnit(e.target.value)}
+    isRequired={true}
+  />
 
   const dateStartedtInput = (
     <input
@@ -100,7 +112,7 @@ export default function AddProjectItem(props) {
               <td>{dateStartedtInput}</td>
               <td>{dateCompletedtInput}</td>
               <td>
-                <input type="submit" value="Submit" />
+                <input type="submit" value="Add Progress" />
               </td>
             </tr>
           </tbody>
