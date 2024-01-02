@@ -54,9 +54,7 @@ export const deleteRequest = async apiUrl => {
   }
 };
 
-
-
-export const apiToast = (apiCall) => {
+export const apiToast = apiCall => {
   toast.promise(
     apiCall,
     {
@@ -71,4 +69,4 @@ export const apiToast = (apiCall) => {
       }
     }
   );
-}
+};

@@ -37,12 +37,12 @@ export default function AddProjectItem(props) {
           setUnit('');
           setDateStarted('');
           setDateCompleted('');
-          res('Successfully added progress')
+          res('Successfully added progress');
         })
         .catch(err => rej(err));
-    })
+    });
 
-    apiToast(callAPI)
+    apiToast(callAPI);
   };
 
   const currentInput = (

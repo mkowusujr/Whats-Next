@@ -40,7 +40,7 @@ export default function AddMedia(props) {
         score: score,
         status: status
       };
-  
+
       addMedia(newMedia)
         .then(m => {
           props.addToList(m);
@@ -49,12 +49,12 @@ export default function AddMedia(props) {
           setMediaType('');
           setScore(0);
           setStatus('');
-          res(`Successfully added ${m.title}`)
+          res(`Successfully added ${m.title}`);
         })
         .catch(err => rej(err));
-    })
+    });
 
-    apiToast(callAPI)
+    apiToast(callAPI);
   };
 
   return (

@@ -9,24 +9,24 @@ export default function AddNote(props) {
   const handleSubmit = e => {
     e.preventDefault();
 
-    const callAPI = new Promise((res, rej) => { 
+    const callAPI = new Promise((res, rej) => {
       const note = {
         title: title,
         content: content,
         mediaID: props.mediaID
       };
-  
+
       addNote(note)
         .then(n => {
           props.addToList(n);
           setTitle('');
           setContent('');
-          res('Successfully added note')
+          res('Successfully added note');
         })
         .catch(err => rej(err));
-    })
+    });
 
-    apiToast(callAPI)
+    apiToast(callAPI);
   };
 
   return (
