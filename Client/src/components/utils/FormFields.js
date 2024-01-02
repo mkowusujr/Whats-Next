@@ -47,6 +47,7 @@ export const videoMediaTypes = [
   { label: 'Movie', value: 'Movie' },
   { label: 'Series', value: 'Series' }
 ];
+
 export const bookTypes = [
   { label: 'Graphic Novels', value: 'Graphic Novels' },
   { label: 'Fiction', value: 'Fiction' }
@@ -55,11 +56,6 @@ export const bookTypes = [
 export const pRatingToNum = pRating => {
   const endIndex = pRating.indexOf(')');
   return +pRating.substring(1, endIndex);
-};
-
-const extractNumber = title => {
-  const numberMatch = title.match(/\d+/);
-  return numberMatch ? parseInt(numberMatch[0], 10) : Number.MAX_VALUE;
 };
 
 export const sortByOptions = [

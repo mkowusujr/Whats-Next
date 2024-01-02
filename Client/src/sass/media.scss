@@ -8,7 +8,7 @@
   margin-inline: auto;
   display: block;
   padding: 1em;
-  background-color: #efefef;
+  background-color: #d7cce9;
   border-radius: 0.5em;
   margin-bottom: 2em;
 
@@ -56,4 +56,41 @@
   width: 100%;
   padding: 0.5em;
   border-radius: 0.25em;
+}
+
+
+.media-info {
+  background-color: #f0e8fd;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  height: 500px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  width: 800px;
+   p {
+    text-align: center;
+  }
+  .desc {
+    text-align: left;
+  }
+  h1, img, p {
+    margin-bottom: 20px;
+  }
+  img {
+    margin-inline: auto;
+    margin-bottom: 40px;
+  }
+  .media-fields{
+    display: flex;
+    justify-content: space-around;
+    select {
+    margin-top: 10px;
+    }
+  }
+  hr {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    margin-inline: 30px;
+  }
 }
