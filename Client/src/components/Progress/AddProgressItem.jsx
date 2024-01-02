@@ -7,6 +7,7 @@ import {
   videoMediaTypes
 } from '../utils/FormFields';
 import Select from '../utils/Select';
+import { apiToast } from '../../services/api-base.service';
 
 export default function AddProjectItem(props) {
   const [current, setCurrent] = useState('');
@@ -15,28 +16,33 @@ export default function AddProjectItem(props) {
   const [dateStarted, setDateStarted] = useState('');
   const [dateCompleted, setDateCompleted] = useState('');
 
-  const addNewProgress = e => {
+  const handleSubmit = e => {
     e.preventDefault();
 
-    const progress = {
-      current: +current,
-      total: +total,
-      unit: unit,
-      dateStarted: dateStarted,
-      dateCompleted: dateCompleted,
-      mediaID: +props.mediaID
-    };
+    const callAPI = new Promise((res, rej) => {
+      const progress = {
+        current: +current,
+        total: +total,
+        unit: unit,
+        dateStarted: dateStarted,
+        dateCompleted: dateCompleted,
+        mediaID: +props.mediaID
+      };
 
-    addProgress(progress)
-      .then(newProgress => {
-        props.addToList(newProgress);
-        setCurrent('');
-        setTotal('');
-        setUnit('');
-        setDateStarted('');
-        setDateCompleted('');
-      })
-      .catch(err => console.error(err));
+      addProgress(progress)
+        .then(newProgress => {
+          props.addToList(newProgress);
+          setCurrent('');
+          setTotal('');
+          setUnit('');
+          setDateStarted('');
+          setDateCompleted('');
+          res('Successfully added progress')
+        })
+        .catch(err => rej(err));
+    })
+
+    apiToast(callAPI)
   };
 
   const currentInput = (
@@ -98,7 +104,7 @@ export default function AddProjectItem(props) {
   return (
     <>
       <h3>Track New Progress</h3>
-      <form onSubmit={addNewProgress}>
+      <form onSubmit={handleSubmit}>
         <table>
           <thead>
             <tr>

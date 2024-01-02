@@ -8,6 +8,7 @@ import {
 import { useState } from 'react';
 import { addMedia } from '../../services/media.service';
 import '../../sass/media.scss';
+import { apiToast } from '../../services/api-base.service';
 
 export default function AddMedia(props) {
   const [title, setTitle] = useState('');
@@ -28,33 +29,38 @@ export default function AddMedia(props) {
       break;
   }
 
-  const addNewMedia = e => {
+  const handleSubmit = e => {
     e.preventDefault();
 
-    const newMedia = {
-      title: title,
-      subTitle: subTitle,
-      mediaType: mediaType,
-      score: score,
-      status: status
-    };
+    const callAPI = new Promise((res, rej) => {
+      const newMedia = {
+        title: title,
+        subTitle: subTitle,
+        mediaType: mediaType,
+        score: score,
+        status: status
+      };
+  
+      addMedia(newMedia)
+        .then(m => {
+          props.addToList(m);
+          setTitle('');
+          setSubTitle('');
+          setMediaType('');
+          setScore(0);
+          setStatus('');
+          res(`Successfully added ${m.title}`)
+        })
+        .catch(err => rej(err));
+    })
 
-    addMedia(newMedia)
-      .then(m => {
-        props.addToList(m);
-        setTitle('');
-        setSubTitle('');
-        setMediaType('');
-        setScore(0);
-        setStatus('');
-      })
-      .catch(err => console.log(err));
+    apiToast(callAPI)
   };
 
   return (
     <div className="media-form">
       <h2 className="title">Add To Next</h2>
-      <form onSubmit={addNewMedia}>
+      <form onSubmit={handleSubmit}>
         <input
           type="text"
           name="title"

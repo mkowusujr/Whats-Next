@@ -52,6 +52,7 @@ export default function ReadNextPage() {
     <div className="list-page">
       <AddMedia mediaType="Read" addToList={addToList} />
       <MediaList
+        mediaType='Read'
         mediaList={filters.isAsc ? filteredList : filteredList.reverse()}
         removeFromList={removeFromList}
         updateList={updateList}

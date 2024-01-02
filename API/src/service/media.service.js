@@ -25,7 +25,7 @@ exports.add = async media => {
       summary,
       releaseDate
       )
-    VALUES (?, ?, ?, ?, ?, ?)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `;
 
     const insertData = [

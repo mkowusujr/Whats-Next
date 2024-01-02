@@ -1,3 +1,5 @@
+import toast from 'react-hot-toast';
+
 export const postRequest = async (apiUrl, body) => {
   try {
     const response = await fetch(apiUrl, {
@@ -51,3 +53,22 @@ export const deleteRequest = async apiUrl => {
     console.error('Error:', error);
   }
 };
+
+
+
+export const apiToast = (apiCall) => {
+  toast.promise(
+    apiCall,
+    {
+      loading: 'Loading...',
+      success: msg => msg,
+      error: err => `This just happened: ${err.toString()}`
+    },
+    {
+      success: {
+        duration: 3000,
+        icon: '🔥'
+      }
+    }
+  );
+}

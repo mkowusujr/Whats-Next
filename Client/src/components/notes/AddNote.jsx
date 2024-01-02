@@ -1,32 +1,38 @@
 import { useState } from 'react';
 import { addNote } from '../../services/notes.service';
+import { apiToast } from '../../services/api-base.service';
 
 export default function AddNote(props) {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
 
-  const addNewNote = e => {
+  const handleSubmit = e => {
     e.preventDefault();
 
-    const note = {
-      title: title,
-      content: content,
-      mediaID: props.mediaID
-    };
+    const callAPI = new Promise((res, rej) => { 
+      const note = {
+        title: title,
+        content: content,
+        mediaID: props.mediaID
+      };
+  
+      addNote(note)
+        .then(n => {
+          props.addToList(n);
+          setTitle('');
+          setContent('');
+          res('Successfully added note')
+        })
+        .catch(err => rej(err));
+    })
 
-    addNote(note)
-      .then(n => {
-        props.addToList(n);
-        setTitle('');
-        setContent('');
-      })
-      .catch(err => console.error(err));
+    apiToast(callAPI)
   };
 
   return (
     <>
       <h3>Add Note</h3>
-      <form onSubmit={addNewNote}>
+      <form onSubmit={handleSubmit}>
         <input
           type="text"
           value={title}
