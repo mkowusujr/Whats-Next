@@ -4,6 +4,7 @@ What's Next is a personal project designed to help you track and manage various 
 
 ## Features
 ![](./reademe-resources/adding.gif)
+![](./reademe-resources/view_more.gif)
 
 - **Add and Track Media Items:** Easily add new movies, books, or any other media items to your list.
 - **Update and Remove:** Keep your list up-to-date by editing or removing items as needed.
