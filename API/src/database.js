@@ -1,8 +1,17 @@
 const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database('./src/whatsnext.db');
 
+/**
+ * Function to run additional setup scripts for the database.
+ * @function
+ */
 runScripts = () => {};
 
+/**
+ * Sets up the database schema by creating necessary tables if they do not exist.
+ * @function
+ * @returns {void}
+ */
 exports.setupDb = () =>
   db.serialize(() => {
     db.run(

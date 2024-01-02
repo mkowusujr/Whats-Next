@@ -1,6 +1,18 @@
 const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database('./src/whatsnext.db');
 
+/**
+ * Updates progress information in the database.
+ * @param {Object} progress - The progress object containing updated information.
+ * @param {number} progress.current - The current progress value.
+ * @param {number} progress.total - The total progress value.
+ * @param {string} progress.unit - The unit of progress.
+ * @param {string} progress.dateStarted - The date when the progress started.
+ * @param {string} progress.dateCompleted - The date when the progress was completed.
+ * @param {number} progress.id - The ID of the progress entry to update.
+ * @returns {Promise<Object>} A promise that resolves with the updated progress object.
+ * @throws {Error} Throws an error if there is an issue with the process.
+ */
 exports.update = async progress => {
   const updateStmt = `
     UPDATE progress
@@ -38,6 +50,12 @@ exports.update = async progress => {
   });
 };
 
+/**
+ * Retrieves progress information from the database based on progress ID.
+ * @param {number} progressID - The ID of the progress entry to retrieve.
+ * @returns {Promise<Object>} A promise that resolves with the progress object.
+ * @throws {Error} Throws an error if there is an issue with the process.
+ */
 exports.get = async progressID => {
   return new Promise(async (resolve, reject) => {
     db.get(
@@ -54,6 +72,12 @@ exports.get = async progressID => {
   });
 };
 
+/**
+ * Retrieves progress information from the database based on media ID.
+ * @param {number} mediaID - The ID of the media entry associated with the progress.
+ * @returns {Promise<Array<Object>>} A promise that resolves with an array of progress objects.
+ * @throws {Error} Throws an error if there is an issue with the process.
+ */
 exports.getForMedia = async mediaID => {
   return new Promise(async (resolve, reject) => {
     db.all(
@@ -75,6 +99,12 @@ exports.getForMedia = async mediaID => {
   });
 };
 
+/**
+ * Deletes progress information from the database based on progress ID.
+ * @param {number} progressID - The ID of the progress entry to delete.
+ * @returns {Promise<string>} A promise that resolves with a success message upon successful deletion.
+ * @throws {Error} Throws an error if there is an issue with the process.
+ */
 exports.delete = progressID => {
   return new Promise(async (resolve, reject) => {
     db.run(
@@ -94,6 +124,18 @@ exports.delete = progressID => {
   });
 };
 
+/**
+ * Adds progress information to the database.
+ * @param {Object} progress - The progress object containing information to be added.
+ * @param {number} progress.current - The current progress value.
+ * @param {number} progress.total - The total progress value.
+ * @param {string} progress.unit - The unit of progress.
+ * @param {string} progress.dateStarted - The date when the progress started.
+ * @param {string} progress.dateCompleted - The date when the progress was completed.
+ * @param {number} progress.mediaID - The ID of the media entry associated with the progress.
+ * @returns {Promise<Object>} A promise that resolves with the added progress object.
+ * @throws {Error} Throws an error if there is an issue with the process.
+ */
 exports.add = async progress => {
   const insertStmt = `
       INSERT INTO progress(

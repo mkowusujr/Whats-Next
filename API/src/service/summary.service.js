@@ -1,6 +1,11 @@
 const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database('./src/whatsnext.db');
 
+/**
+ * Retrieves information about completed media items from the database.
+ * @returns {Promise<Array<Object>>} A promise that resolves with an array of completed media objects.
+ * @throws {Error} Throws an error if there is an issue with the process.
+ */
 const getCompleted = () => {
   const selectStmt = `
   SELECT
@@ -24,6 +29,11 @@ const getCompleted = () => {
   });
 };
 
+/**
+ * Retrieves information about in-progress media items from the database.
+ * @returns {Promise<Array<Object>>} A promise that resolves with an array of in-progress media objects.
+ * @throws {Error} Throws an error if there is an issue with the process.
+ */
 const getInprogress = () => {
   const selectStmt = `
   SELECT
@@ -46,6 +56,11 @@ const getInprogress = () => {
   });
 };
 
+/**
+ * Retrieves information about planned media items from the database.
+ * @returns {Promise<Array<Object>>} A promise that resolves with an array of planned media objects.
+ * @throws {Error} Throws an error if there is an issue with the process.
+ */
 const getPlanned = () => {
   const selectStmt = `
   SELECT 
@@ -67,6 +82,11 @@ const getPlanned = () => {
   });
 };
 
+/**
+ * Retrieves information about notes, including details about the associated media item (if any).
+ * @returns {Promise<Array<Object>>} A promise that resolves with an array of note objects.
+ * @throws {Error} Throws an error if there is an issue with the select process.
+ */
 const getNotes = () => {
   return new Promise(async (resolve, reject) => {
     db.all(
@@ -93,6 +113,12 @@ const getNotes = () => {
   });
 };
 
+/**
+ * Retrieves a summary of completed, in-progress, planned media, and notes.
+ * @returns {Promise<Object>} A promise that resolves with an object containing summaries 
+ * for completed, in-progress, planned media, and notes.
+ * @throws {Error} Throws an error if there is an issue with the process.
+ */
 exports.getSummary = async () => {
   return {
     completed: await getCompleted(),
