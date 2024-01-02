@@ -70,7 +70,18 @@ const getPlanned = () => {
 const getNotes = () => {
   return new Promise(async (resolve, reject) => {
     db.all(
-      `SELECT * FROM notes ORDER BY dateCreated DESC LIMIT 10`,
+      `
+      SELECT
+        n.id,
+        n.title,
+        n.content,
+        n.dateCreated,
+        n.dateLastUpdated,
+        m.title as mediaTitle,
+        m.subTitle as mediaSubtitle
+      FROM notes n
+      LEFT JOIN media m on n.mediaID = m.id 
+      ORDER BY n.dateCreated DESC LIMIT 10`,
       function (err, rows) {
         if (err) {
           reject(err);

@@ -11,9 +11,7 @@
   background-color: #d7cce9;
   border-radius: 0.5em;
   margin-bottom: 2em;
-
-  max-width: 825px;
-  min-width: 825px;
+  width: -moz-available;
 }
 
 .media-hr {

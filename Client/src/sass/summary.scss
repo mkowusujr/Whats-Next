@@ -5,15 +5,23 @@
   padding-top: 30px;
   padding-bottom: 40px;
 
-  img {
+  img,
+  .carousel-note-title {
     margin-right: 30px;
     height: 150px;
     width: 100px;
   }
 
-  .item-info {
+  .item-info,
+  .carousel-note-title {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+  }
+}
+
+.carousel-note-title {
+  h4 {
+    text-align: left;
   }
 }

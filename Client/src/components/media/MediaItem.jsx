@@ -125,7 +125,7 @@ export default function MediaItem({ media, removeFromList, updateList }) {
           onChange={handleChange}
         />
         <input
-          value={mediaData.subTitle}
+          value={mediaData.subTitle ?? ''}
           name="subTitle"
           size={
             mediaData.subTitle ? mediaData.subTitle.length : 'SubTitle'.length

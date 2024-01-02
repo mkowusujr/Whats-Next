@@ -9,11 +9,18 @@ exports.add = async note => {
 				title,
 				content,
 				mediaID,
-				dateCreated
+				dateCreated,
+        dateLastUpdated
 			)
-			values(?, ?, ?, ?)
+			values(?, ?, ?, ?, ?)
 			`,
-      [note.title, note.content, note.mediaID, new Date().toLocaleDateString()],
+      [
+        note.title,
+        note.content,
+        note.mediaID,
+        new Date().toLocaleDateString(),
+        new Date().toLocaleDateString()
+      ],
       function (err) {
         if (err) {
           reject(err);

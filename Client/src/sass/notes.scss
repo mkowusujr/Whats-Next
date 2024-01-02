@@ -1,23 +1,25 @@
-.note form, .note-form form {
-	width: 500px;
-	display: flex;
-	flex-direction: column;
-	margin-inline: auto;
-	margin-top: 1em;
-	margin-bottom: 1em;
-	textarea {
-		resize: none;
-		height: 200px;
-	}
-	input, textarea {
-		margin-bottom: 1em;
-	}
-	.dates {
-		display: flex;
-		justify-content: space-around;
-	}
+.note form,
+.note-form form {
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+  margin-inline: auto;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  textarea {
+    resize: none;
+    height: 200px;
+  }
+  input,
+  textarea {
+    margin-bottom: 1em;
+  }
+  .dates {
+    display: flex;
+    justify-content: space-around;
+  }
 }
 
 .note-list {
-	list-style: none;
+  list-style: none;
 }

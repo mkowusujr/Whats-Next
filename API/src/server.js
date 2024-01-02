@@ -17,7 +17,7 @@ database.setupDb();
 
 app.use(cors());
 app.use(bodyParser.json());
-// app.use(expressLogging(logger));
+app.use(expressLogging(logger));
 
 app.use('/media', mediaRoutes);
 app.use('/notes', notesRoutes);

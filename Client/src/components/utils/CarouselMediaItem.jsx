@@ -10,13 +10,11 @@ import '../../sass/summary.scss';
  * Component representing a media item in a carousel.
  *
  * @param {Object} props - The properties passed to the component.
- * @param {Object} props.item - The media item data.
+ * @param {Object} props.media - The media item data.
  * @param {boolean} props.showScore - Determines whether to display the score information.
  * @returns {JSX.Element} - The rendered CarouselMediaItem component.
  */
-export default function CarouselMediaItem({ item, showScore }) {
-  const media = item;
-
+export default function CarouselMediaItem({ media, showScore }) {
   return (
     <div className="carousel-item">
       <LazyLoadImage
@@ -53,7 +51,7 @@ export default function CarouselMediaItem({ item, showScore }) {
 }
 
 CarouselMediaItem.propTypes = {
-  item: PropTypes.shape({
+  media: PropTypes.shape({
     id: PropTypes.number,
     img: PropTypes.string,
     title: PropTypes.string,

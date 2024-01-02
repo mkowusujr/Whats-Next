@@ -8,6 +8,7 @@ import { getSummary } from '../services/summary.service';
 import '../sass/pages.scss';
 import '../sass/media.scss';
 import Note from '../components/notes/Note';
+import CarouselNoteItem from '../components/utils/CarouselNoteItem';
 
 export default function WhatsNextPage() {
   const [summary, setSummary] = useState({
@@ -29,7 +30,7 @@ export default function WhatsNextPage() {
         <h2>In Progress</h2>
         <Carousel autoplay autoplayInterval={5000} wrapAround pauseOnHover>
           {summary.inprogress.map(i => (
-            <CarouselMediaItem key={i.id} item={i} showScore={true} />
+            <CarouselMediaItem key={i.id} media={i} showScore={true} />
           ))}
         </Carousel>
       </div>
@@ -37,7 +38,7 @@ export default function WhatsNextPage() {
         <h2>{`What's Next?`}</h2>
         <Carousel autoplay autoplayInterval={5000} wrapAround pauseOnHover>
           {summary.planned.map(i => (
-            <CarouselMediaItem key={i.id} item={i} />
+            <CarouselMediaItem key={i.id} media={i} />
           ))}
         </Carousel>
       </div>
@@ -45,15 +46,15 @@ export default function WhatsNextPage() {
         <h2>Recently Completed</h2>
         <Carousel autoplay autoplayInterval={5000} wrapAround pauseOnHover>
           {summary.completed.map(i => (
-            <CarouselMediaItem key={i.id} item={i} showScore={true} />
+            <CarouselMediaItem key={i.id} media={i} showScore={true} />
           ))}
         </Carousel>
       </div>
       <div className="summary-notes">
         <h2>Recent Notes</h2>
-        <Carousel autoplay autoplayInterval={5000} wrapAround >
+        <Carousel autoplay autoplayInterval={5000} wrapAround>
           {summary.notes.map(i => (
-            <Note key={i.id} note={i} />
+            <CarouselNoteItem key={i.id} note={i} />
           ))}
         </Carousel>
       </div>
