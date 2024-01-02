@@ -1,5 +1,7 @@
 import { useState } from 'react';
 
+import { PropTypes } from 'prop-types';
+
 import {
   bookProgressUnits,
   bookTypes,
@@ -10,13 +12,27 @@ import Select from '../utils/Select';
 import { apiToast } from '../../services/api-base.service';
 import { addProgress } from '../../services/progress.service';
 
-export default function AddProjectItem(props) {
+/**
+ * Component for adding progress tracking information for a media item.
+ *
+ * @param {Object} props - The properties passed to the component.
+ * @param {number} props.mediaID - The ID of the media item being tracked.
+ * @param {function} props.addToList - Function to add the new progress to the list.
+ * @param {string} props.mediaType - The type of media (e.g., book, video) being tracked.
+ * @returns {JSX.Element} - The rendered AddProjectItem component.
+ */
+export default function AddProjectItem({ mediaID, addToList, mediaType }) {
   const [current, setCurrent] = useState('');
   const [total, setTotal] = useState('');
   const [unit, setUnit] = useState('');
   const [dateStarted, setDateStarted] = useState('');
   const [dateCompleted, setDateCompleted] = useState('');
 
+  /**
+   * Handles the form submission, adds progress to the list, and makes an API call.
+   *
+   * @param {Object} e - The form submission event.
+   */
   const handleSubmit = e => {
     e.preventDefault();
 
@@ -27,12 +43,12 @@ export default function AddProjectItem(props) {
         unit: unit,
         dateStarted: dateStarted,
         dateCompleted: dateCompleted,
-        mediaID: +props.mediaID
+        mediaID: +mediaID
       };
 
       addProgress(progress)
         .then(newProgress => {
-          props.addToList(newProgress);
+          addToList(newProgress);
           setCurrent('');
           setTotal('');
           setUnit('');
@@ -67,9 +83,9 @@ export default function AddProjectItem(props) {
   );
 
   let unitOptions = [];
-  if (videoMediaTypes.map(i => i.label).includes(props.mediaType)) {
+  if (videoMediaTypes.map(i => i.label).includes(mediaType)) {
     unitOptions = mediaProgressUnits;
-  } else if (bookTypes.map(i => i.label).includes(props.mediaType)) {
+  } else if (bookTypes.map(i => i.label).includes(mediaType)) {
     unitOptions = bookProgressUnits;
   }
 
@@ -134,3 +150,9 @@ export default function AddProjectItem(props) {
     </>
   );
 }
+
+AddProjectItem.propTypes = {
+  mediaID: PropTypes.number.isRequired,
+  addToList: PropTypes.func.isRequired,
+  mediaType: PropTypes.string.isRequired
+};

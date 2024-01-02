@@ -1,14 +1,12 @@
 {
-  "name": "watchnext-api",
-  "version": "1.0.0",
+  "name": "whatsnext-api",
+  "version": "2.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "dev": "npx nodemon src/server.js",
     "pretty": "npx prettier --write ."
   },
-  "author": "",
-  "license": "ISC",
   "devDependencies": {
     "nodeman": "^1.1.2",
     "prettier": "^2.8.8"
@@ -23,5 +21,15 @@
     "movier": "^3.0.1",
     "node-fetch": "^2.6.12",
     "sqlite3": "^5.1.6"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mkowusujr/WatchNext.git"
+  },
+  "author": "Mathew Owusu Jr",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mkowusujr/WatchNext/issues"
+  },
+  "homepage": "https://github.com/mkowusujr/WatchNext#readme"
 }

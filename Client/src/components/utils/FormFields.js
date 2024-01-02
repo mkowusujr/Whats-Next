@@ -1,3 +1,7 @@
+/**
+ * Different status options for media items.
+ * @type {Array}
+ */
 export const statuses = [
   { label: 'Status', value: '' },
   { label: 'Planned', value: 'Planned' },
@@ -7,6 +11,10 @@ export const statuses = [
   { label: 'Dropped', value: 'Dropped' }
 ];
 
+/**
+ * Different score options for media items.
+ * @type {Array}
+ */
 export const scores = [
   { label: 'Score', value: 0 },
   { label: '(10) Masterpiece', value: 10 },
@@ -21,6 +29,10 @@ export const scores = [
   { label: '(1) Appalling', value: 1 }
 ];
 
+/**
+ * Different storage types for media items.
+ * @type {Array}
+ */
 export const storageTypes = [
   { label: 'Storage', value: '' },
   { label: 'Not Owned', value: 'not owned' },
@@ -30,6 +42,10 @@ export const storageTypes = [
   { label: 'On Streaming', value: 'on streaming' }
 ];
 
+/**
+ * Different progress unit options for books.
+ * @type {Array}
+ */
 export const bookProgressUnits = [
   { label: 'Units', value: '' },
   { label: 'Pages', value: 'Pages' },
@@ -37,27 +53,38 @@ export const bookProgressUnits = [
   { label: 'Issues', value: 'Issues' }
 ];
 
+/**
+ * Different progress unit options for other media types.
+ * @type {Array}
+ */
 export const mediaProgressUnits = [
   { label: 'Units', value: '' },
   { label: 'Episodes', value: 'Episodes' },
   { label: 'Minutes', value: 'Minutes' }
 ];
 
+/**
+ * Different video media types.
+ * @type {Array}
+ */
 export const videoMediaTypes = [
   { label: 'Movie', value: 'Movie' },
   { label: 'Series', value: 'Series' }
 ];
 
+/**
+ * Different book types.
+ * @type {Array}
+ */
 export const bookTypes = [
   { label: 'Graphic Novels', value: 'Graphic Novels' },
   { label: 'Fiction', value: 'Fiction' }
 ];
 
-export const pRatingToNum = pRating => {
-  const endIndex = pRating.indexOf(')');
-  return +pRating.substring(1, endIndex);
-};
-
+/**
+ * Sorting options for media items.
+ * @type {Array}
+ */
 export const sortByOptions = [
   {
     label: 'Name',
@@ -107,6 +134,11 @@ export const sortByOptions = [
   }
 ];
 
+/**
+ * Darkens a color.
+ * @param {string} color - The color to be darkened.
+ * @returns {string} - The darkened color.
+ */
 const darkenColor = color => {
   // Parse the color string to extract RGB values
   const hex = color.replace('#', '');
@@ -128,6 +160,10 @@ const darkenColor = color => {
   return darkenedHex;
 };
 
+/**
+ * Color options for personal ratings.
+ * @type {Object}
+ */
 export const pRatingColors = {
   one: {
     background: '#ff4d4d',

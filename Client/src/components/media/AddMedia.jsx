@@ -1,5 +1,7 @@
 import { useState } from 'react';
 
+import { PropTypes } from 'prop-types';
+
 import {
   bookTypes,
   videoMediaTypes,
@@ -11,17 +13,27 @@ import { apiToast } from '../../services/api-base.service';
 import { addMedia } from '../../services/media.service';
 import '../../sass/media.scss';
 
-export default function AddMedia(props) {
+/**
+ * Functional component for adding new media items.
+ *
+ * @param {Object} props - The component's props.
+ * @param {function} props.addToList - Callback function to add a new media item to the list.
+ * @param {string} props.mediaType - The type of media to be added ('Watch' or 'Read').
+ * @returns {JSX.Element} - The rendered AddMedia component.
+ */
+export default function AddMedia({ pageName, addToList }) {
+  // State variables for form inputs
   const [title, setTitle] = useState('');
   const [subTitle, setSubTitle] = useState('');
   const [mediaType, setMediaType] = useState('');
   const [score, setScore] = useState(0);
   const [status, setStatus] = useState('');
 
+  // Options for the media type dropdown
   let allowedMediaOptions = [];
   const defaultMediaType = { label: 'MediaType', value: '' };
 
-  switch (props.mediaType) {
+  switch (pageName) {
     case 'Watch':
       allowedMediaOptions = [defaultMediaType, ...videoMediaTypes];
       break;
@@ -30,6 +42,12 @@ export default function AddMedia(props) {
       break;
   }
 
+  /**
+   * Handles the form submission and calls the API to add a new media item.
+   * Displays a toast notification based on API response.
+   *
+   * @param {Event} e - The form submission event.
+   */
   const handleSubmit = e => {
     e.preventDefault();
 
@@ -44,7 +62,7 @@ export default function AddMedia(props) {
 
       addMedia(newMedia)
         .then(m => {
-          props.addToList(m);
+          addToList(m);
           setTitle('');
           setSubTitle('');
           setMediaType('');
@@ -101,3 +119,8 @@ export default function AddMedia(props) {
     </div>
   );
 }
+
+AddMedia.propTypes = {
+  addToList: PropTypes.func.isRequired,
+  pageName: PropTypes.string.isRequired
+};

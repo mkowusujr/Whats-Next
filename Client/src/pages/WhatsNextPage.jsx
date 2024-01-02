@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import Carousel from 'nuka-carousel';
+import { PropTypes } from 'prop-types';
 
 import CarouselMediaItem from '../components/utils/CarouselMediaItem';
 import { getSummary } from '../services/summary.service';

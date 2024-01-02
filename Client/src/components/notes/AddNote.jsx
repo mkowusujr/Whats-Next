@@ -1,12 +1,27 @@
 import { useState } from 'react';
 
+import { PropTypes } from 'prop-types';
+
 import { apiToast } from '../../services/api-base.service';
 import { addNote } from '../../services/notes.service';
 
-export default function AddNote(props) {
+/**
+ * Component for adding notes to a media item.
+ *
+ * @param {Object} props - The properties passed to the component.
+ * @param {number} props.mediaID - The ID of the associated media item.
+ * @param {function} props.addToList - The function to add a new note to the list.
+ * @returns {JSX.Element} - The rendered AddNote component.
+ */
+export default function AddNote({ mediaID, addToList }) {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
 
+  /**
+   * Handles the form submission to add a new note.
+   *
+   * @param {Event} e - The form submission event.
+   */
   const handleSubmit = e => {
     e.preventDefault();
 
@@ -14,12 +29,12 @@ export default function AddNote(props) {
       const note = {
         title: title,
         content: content,
-        mediaID: props.mediaID
+        mediaID: mediaID
       };
 
       addNote(note)
         .then(n => {
-          props.addToList(n);
+          addToList(n);
           setTitle('');
           setContent('');
           res('Successfully added note');
@@ -52,3 +67,8 @@ export default function AddNote(props) {
     </>
   );
 }
+
+AddNote.propTypes = {
+  mediaID: PropTypes.number.isRequired,
+  addToList: PropTypes.func.isRequired
+};

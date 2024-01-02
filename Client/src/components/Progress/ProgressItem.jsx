@@ -1,5 +1,7 @@
 import { useState } from 'react';
 
+import { PropTypes } from 'prop-types';
+
 import {
   bookProgressUnits,
   bookTypes,
@@ -13,14 +15,23 @@ import {
   updateProgress
 } from '../../services/progress.service';
 
-export default function ProgressItem(props) {
-  const progress = props.progress;
+/**
+ * Component representing an individual progress tracker item for a media item.
+ *
+ * @param {Object} props - The properties passed to the component.
+ * @param {string} props.mediaType - The type of media (e.g., book, video) being tracked.
+ * @param {Object} props.progress - The progress information for the media item.
+ * @param {function} props.removeFromList - Function to remove the progress item from the list.
+ * @returns {JSX.Element} - The rendered ProgressItem component.
+ */
+export default function ProgressItem({ mediaType, progress, removeFromList }) {
   const [current, setCurrent] = useState(progress.current);
   const [total, setTotal] = useState(progress.total);
   const [unit, setUnit] = useState(progress.unit);
   const [dateStarted, setDateStarted] = useState(progress.dateStarted);
   const [dateCompleted, setDateCompleted] = useState(progress.dateCompleted);
 
+  // Use a custom effect hook that only triggers on subsequent renders
   useSubsequentEffect(() => {
     const updatedProgress = {
       current: +current,
@@ -31,12 +42,16 @@ export default function ProgressItem(props) {
       mediaID: +progress.mediaID
     };
 
+    // Update progress when dependencies change
     updateProgress(updatedProgress).catch(err => console.error(err));
   }, [current, total, unit, dateStarted, dateCompleted]);
 
+  /**
+   * Deletes the progress tracker item and removes it from the list.
+   */
   const deleteProgressTracker = () => {
     deleteProgress(progress.id)
-      .then(() => props.removeFromList(progress.id))
+      .then(() => removeFromList(progress.id))
       .catch(err => console.error(err));
   };
 
@@ -61,9 +76,9 @@ export default function ProgressItem(props) {
   );
 
   let unitOptions = [];
-  if (videoMediaTypes.map(i => i.label).includes(props.mediaType)) {
+  if (videoMediaTypes.map(i => i.label).includes(mediaType)) {
     unitOptions = mediaProgressUnits;
-  } else if (bookTypes.map(i => i.label).includes(props.mediaType)) {
+  } else if (bookTypes.map(i => i.label).includes(mediaType)) {
     unitOptions = bookProgressUnits;
   }
 
@@ -111,3 +126,17 @@ export default function ProgressItem(props) {
     </tr>
   );
 }
+
+ProgressItem.propTypes = {
+  mediaType: PropTypes.string.isRequired,
+  progress: PropTypes.shape({
+    id: PropTypes.number,
+    current: PropTypes.number,
+    total: PropTypes.number,
+    unit: PropTypes.string,
+    dateStarted: PropTypes.string,
+    dateCompleted: PropTypes.string,
+    mediaID: PropTypes.number
+  }).isRequired,
+  removeFromList: PropTypes.func.isRequired
+};

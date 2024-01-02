@@ -1,7 +1,7 @@
 {
-  "name": "watchnext-client",
+  "name": "whatsnext-client",
   "private": true,
-  "version": "0.0.0",
+  "version": "2.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -11,13 +11,16 @@
     "pretty": "npx prettier --write ."
   },
   "dependencies": {
+    "eslint": "^8.56.0",
+    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
     "nuka-carousel": "^6.0.3",
+    "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hot-toast": "^2.4.1",
     "react-lazy-load-image-component": "^1.6.0",
     "react-loading-skeleton": "^3.3.1",
-    "recharts": "^2.7.2"
   },
   "devDependencies": {
     "@types/react": "^18.0.37",
@@ -27,5 +30,15 @@
     "react-router-dom": "^6.14.1",
     "sass": "^1.63.3",
     "vite": "^4.3.9"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mkowusujr/WatchNext.git"
+  },
+  "author": "Mathew Owusu Jr",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mkowusujr/WatchNext/issues"
+  },
+  "homepage": "https://github.com/mkowusujr/WatchNext#readme"
 }
