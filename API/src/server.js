@@ -14,9 +14,9 @@ const app = express(),
   database = require('./database');
 
 /**
-* Set up the database by creating necessary tables if they do 
-* not exist.
-*/
+ * Set up the database by creating necessary tables if they do
+ * not exist.
+ */
 database.setupDb();
 
 app.use(cors());

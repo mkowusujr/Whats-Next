@@ -115,7 +115,7 @@ const getNotes = () => {
 
 /**
  * Retrieves a summary of completed, in-progress, planned media, and notes.
- * @returns {Promise<Object>} A promise that resolves with an object containing summaries 
+ * @returns {Promise<Object>} A promise that resolves with an object containing summaries
  * for completed, in-progress, planned media, and notes.
  * @throws {Error} Throws an error if there is an issue with the process.
  */

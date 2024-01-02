@@ -36,7 +36,7 @@ export default function CarouselMediaItem({ media, showScore }) {
         <>{showScore ? <p>Score: {media.score}</p> : <></>}</>
         <p>Storage: {media.storage}</p>
         <p>Status: {media.status}</p>
-        <DialogComponent
+        {/* <DialogComponent
           buttonText="View Summary"
           element={
             <div>
@@ -44,7 +44,7 @@ export default function CarouselMediaItem({ media, showScore }) {
             </div>
           }
           onOpen={() => {}}
-        />
+        /> */}
       </div>
     </div>
   );

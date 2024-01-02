@@ -71,7 +71,7 @@ exports.add = async media => {
 /**
  * Retrieves a list of media entries from the database based on media types.
  * @param {Array<string>} mediaTypes - An array of media types to filter the result.
- * @returns {Promise<Array<Object>>} A promise that resolves with an array containing the retrieved 
+ * @returns {Promise<Array<Object>>} A promise that resolves with an array containing the retrieved
  * media objects.
  * @throws {Error} Throws an error if there is an issue with the select process.
  */

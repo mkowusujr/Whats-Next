@@ -50,7 +50,7 @@ exports.add = async note => {
 /**
  * Retrieves a note from the database based on note ID.
  * @param {number} noteID - The ID of the note entry to retrieve.
- * @returns {Promise<Array<Object>>} A promise that resolves with an array containing 
+ * @returns {Promise<Array<Object>>} A promise that resolves with an array containing
  * the retrieved note object.
  * @throws {Error} Throws an error if there is an issue with the process.
  */
@@ -68,7 +68,7 @@ exports.get = async noteID => {
 
 /**
  * Retrieves a list of all notes from the database.
- * @returns {Promise<Array<Object>>} A promise that resolves with an array containing all notes, 
+ * @returns {Promise<Array<Object>>} A promise that resolves with an array containing all notes,
  * ordered by dateCreated.
  * @throws {Error} Throws an error if there is an issue with the process.
  */
@@ -91,7 +91,7 @@ exports.list = async () => {
 /**
  * Retrieves a list of notes associated with a specific media ID from the database.
  * @param {number} mediaID - The ID of the media entry associated with the notes.
- * @returns {Promise<Array<Object>>} A promise that resolves with an array containing 
+ * @returns {Promise<Array<Object>>} A promise that resolves with an array containing
  * notes associated with the specified media ID, ordered by dateCreated.
  * @throws {Error} Throws an error if there is an issue with the process.
  */
