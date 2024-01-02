@@ -81,8 +81,8 @@ export default function MediaItem(props) {
 
   return (
     <tr className="media-item">
+      <td><img src={media.img} width={50}/></td>
       <td>
-        {/* {media.title + (media.subTitle ? ' ' + media.subTitle : '')} */}
         <input
           value={media.title}
           name="title"

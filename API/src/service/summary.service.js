@@ -10,7 +10,9 @@ const getCompleted = () => {
     m.mediaType,
     m.score,
     m.storage,
-		m.status
+		m.status,
+    m.img,
+    m.summary
   FROM media m
   left join progress p on p.mediaID = m.id
   WHERE status='Completed'
@@ -31,7 +33,9 @@ const getInprogress = () => {
     m.mediaType,
     m.score,
     m.storage,
-		m.status
+		m.status,
+    m.img,
+    m.summary
   FROM media m
   left join progress p on p.mediaID = m.id
   WHERE status='In Progress'
@@ -50,9 +54,13 @@ const getPlanned = () => {
     subTitle, 
     mediaType, 
     score, 
-    storage 
+    storage,
+    img,
+    summary
   FROM media 
   WHERE status='Planned'
+  ORDER BY dateCreated
+  LIMIT 10
   `;
   return new Promise((resolve, reject) => {
     db.all(selectStmt, (err, rows) => (_ = err ? reject(err) : resolve(rows)));

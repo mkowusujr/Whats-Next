@@ -3,7 +3,7 @@ import { getSummary } from '../services/summary.service';
 import Carousel from 'nuka-carousel';
 import '../sass/pages.scss';
 import '../sass/media.scss';
-import CarouselItem from '../components/utils/CarouselItem';
+import CarouselMediaItem from '../components/utils/CarouselMediaItem';
 
 export default function WhatsNextPage() {
   const [summary, setSummary] = useState({
@@ -23,36 +23,36 @@ export default function WhatsNextPage() {
     <div className="summary-page">
       <div className="summary-inprogress">
         <h2>In Progress</h2>
-        <Carousel autoplay enableKeyboardControls wrapAround withoutControls>
+        <Carousel autoplay autoplayInterval={5000} wrapAround >
           {summary.inprogress.map(i => (
-            <CarouselItem key={i.id} item={i} showScore={true} />
+            <CarouselMediaItem key={i.id} item={i} showScore={true} />
           ))}
         </Carousel>
       </div>
       <div className="summary-planned">
-        <h2>What's Next?</h2>
-        <Carousel autoplay enableKeyboardControls wrapAround withoutControls>
+        <h2>{`What's Next?`}</h2>
+        <Carousel autoplay autoplayInterval={5000} wrapAround >
           {summary.planned.map(i => (
-            <CarouselItem key={i.id} item={i} />
+            <CarouselMediaItem key={i.id} item={i} />
           ))}
         </Carousel>
       </div>
       <div className="summary-completed">
         <h2>Recently Completed</h2>
-        <Carousel autoplay enableKeyboardControls wrapAround withoutControls>
+        <Carousel autoplay autoplayInterval={5000} wrapAround >
           {summary.completed.map(i => (
-            <CarouselItem key={i.id} item={i} showScore={true} />
+            <CarouselMediaItem key={i.id} item={i} showScore={true} />
           ))}
         </Carousel>
       </div>
-      <div className="summary-notes">
+      {/* <div className="summary-notes">
         <h2>Recent Notes</h2>
-        <Carousel autoplay enableKeyboardControls wrapAround withoutControls>
+        <Carousel autoplay autoplayInterval={5000} wrapAround >
           {summary.notes.map(i => (
             <CarouselItem key={i.id} item={i} />
           ))}
         </Carousel>
-      </div>
+      </div> */}
     </div>
   );
 }

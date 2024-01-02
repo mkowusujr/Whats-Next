@@ -1,11 +1,18 @@
-.summary-page {
-}
-
-.summary-inprogress,
-.summary-planned,
-.summary-completed,
-.summary-notes {
-}
 
 .carousel-item {
+display:flex;
+width:600px;
+padding-left: 100px;
+padding-top: 30px;
+padding-bottom: 40px;
+img {
+	margin-right: 30px;
+	height: 150px;
+	width: 100px;
+}
+.item-info {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
 }

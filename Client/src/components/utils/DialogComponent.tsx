@@ -4,7 +4,7 @@ import React from 'react';
 
 interface DialogComponentProps {
   buttonText: string;
-  cmpnt: () => JSX.Element;
+  cmpnt: JSX.Element;
 }
 
 function DialogComponent(props: DialogComponentProps) {

@@ -18,7 +18,10 @@ exports.setupDb = () =>
 				storage STRING,
 				releaseDate STRING,
 				dateCreated DATE NOT NULL,
-				dateLastUpdated DATE
+				dateLastUpdated DATE,
+				img STRING,
+				creator STRING,
+				summary STRING
 			)
 		`
     );

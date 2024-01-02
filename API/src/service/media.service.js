@@ -5,6 +5,8 @@ const gbookFinder = require('@chewhx/google-books');
 const fetch = require('node-fetch');
 
 exports.add = async media => {
+  const mediaInfo = await fetchInfo(media)
+
   return new Promise(async (resolve, reject) => {
     const titleCase = name => {
       return name.charAt(0).toUpperCase() + name.slice(1);
@@ -17,7 +19,11 @@ exports.add = async media => {
       mediaType,
       score,
       status,
-      dateCreated
+      dateCreated,
+      img,
+      creator,
+      summary,
+      releaseDate
       )
     VALUES (?, ?, ?, ?, ?, ?)
     `;
@@ -28,7 +34,11 @@ exports.add = async media => {
       media.mediaType,
       media.score,
       media.status,
-      new Date().toLocaleDateString()
+      new Date().toLocaleDateString(),
+      mediaInfo.img,
+      mediaInfo.creator,
+      mediaInfo.summary,
+      mediaInfo.releaseDate
     ];
 
     db.run(insertStmt, insertData, function (err) {
@@ -104,14 +114,14 @@ async function fetchInfo(media) {
 exports.getInfo = mediaID => {
   return new Promise((resolve, reject) => {
     db.get(
-      `select title, subTitle, mediaType from media WHERE id = ?`,
+      `
+      select
+        img, creator, summary, releaseDate
+      from media
+      WHERE id = ?`,
       mediaID,
       async function (err, row) {
-        const media = err ? reject(err) : row;
-
-        fetchInfo(media)
-          .then(mediaInfo => resolve(mediaInfo))
-          .catch(err => reject(err));
+        _ = err ? reject(err) : resolve(row);
       }
     );
   });
