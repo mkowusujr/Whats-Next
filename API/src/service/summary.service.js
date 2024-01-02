@@ -1,22 +1,6 @@
 const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database('./src/whatsnext.db');
 
-const sortByScore = (a, b) => a.score - b.score;
-
-const findNullPRating = m => m.r == 'Select Personal Rating';
-
-const dateCheck = (from, to, check) => {
-  let fDate, tDate, cDate;
-  fDate = Date.parse(from);
-  tDate = Date.parse(to);
-  cDate = Date.parse(check);
-
-  if (cDate <= tDate && cDate >= fDate) {
-    return true;
-  }
-  return false;
-};
-
 const getCompleted = () => {
   const selectStmt = `
   SELECT

@@ -53,7 +53,7 @@ export default function AddMedia(props) {
 
   return (
     <div className="media-form">
-      <h2 className='title'>Add To Next</h2>
+      <h2 className="title">Add To Next</h2>
       <form onSubmit={addNewMedia}>
         <input
           type="text"

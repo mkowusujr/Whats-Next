@@ -27,12 +27,12 @@ export default function Filter(props) {
       <div className="filter-data">
         <div className="filter-group">
           <input
-            className='filter-search'
-              type="text"
-              value={name}
-              onChange={e => setName(e.target.value)}
-              placeholder="Search Items"
-            />
+            className="filter-search"
+            type="text"
+            value={name}
+            onChange={e => setName(e.target.value)}
+            placeholder="Search Items"
+          />
         </div>
         <div className="filter-group">
           <Select

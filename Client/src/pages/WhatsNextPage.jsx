@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react';
 import { getSummary } from '../services/summary.service';
+import Carousel from 'nuka-carousel';
 import '../sass/pages.scss';
+import '../sass/media.scss';
+import CarouselItem from '../components/utils/CarouselItem';
 
 export default function WhatsNextPage() {
   const [summary, setSummary] = useState({
@@ -17,39 +20,39 @@ export default function WhatsNextPage() {
   }, []);
 
   return (
-    <>
-      <div>
+    <div className="summary-page">
+      <div className="summary-inprogress">
         <h2>In Progress</h2>
-        <ul>
+        <Carousel autoplay enableKeyboardControls wrapAround withoutControls>
           {summary.inprogress.map(i => (
-            <li key={i.id}>{JSON.stringify(i)}</li>
+            <CarouselItem key={i.id} item={i} showScore={true} />
           ))}
-        </ul>
+        </Carousel>
       </div>
-      <div>
+      <div className="summary-planned">
         <h2>What's Next?</h2>
-        <ul>
+        <Carousel autoplay enableKeyboardControls wrapAround withoutControls>
           {summary.planned.map(i => (
-            <li key={i.id}>{JSON.stringify(i)}</li>
+            <CarouselItem key={i.id} item={i} />
           ))}
-        </ul>
+        </Carousel>
       </div>
-      <div>
+      <div className="summary-completed">
         <h2>Recently Completed</h2>
-        <ul>
+        <Carousel autoplay enableKeyboardControls wrapAround withoutControls>
           {summary.completed.map(i => (
-            <li key={i.id}>{JSON.stringify(i)}</li>
+            <CarouselItem key={i.id} item={i} showScore={true} />
           ))}
-        </ul>
+        </Carousel>
       </div>
-      <div>
+      <div className="summary-notes">
         <h2>Recent Notes</h2>
-        <ul>
+        <Carousel autoplay enableKeyboardControls wrapAround withoutControls>
           {summary.notes.map(i => (
-            <li key={i.id}>{JSON.stringify(i)}</li>
+            <CarouselItem key={i.id} item={i} />
           ))}
-        </ul>
+        </Carousel>
       </div>
-    </>
+    </div>
   );
 }
