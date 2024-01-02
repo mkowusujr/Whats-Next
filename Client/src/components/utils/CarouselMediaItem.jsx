@@ -1,7 +1,9 @@
-import '../../sass/summary.scss';
-import DialogComponent from './DialogComponent';
 import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
+
+import DialogComponent from './DialogComponent';
+import '../../sass/summary.scss';
 
 export default function CarouselMediaItem(props) {
   const media = props.item;

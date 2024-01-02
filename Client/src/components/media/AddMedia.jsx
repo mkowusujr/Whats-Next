@@ -1,14 +1,15 @@
-import Select from '../utils/Select';
+import { useState } from 'react';
+
 import {
   bookTypes,
   videoMediaTypes,
   statuses,
   scores
 } from '../utils/FormFields';
-import { useState } from 'react';
+import Select from '../utils/Select';
+import { apiToast } from '../../services/api-base.service';
 import { addMedia } from '../../services/media.service';
 import '../../sass/media.scss';
-import { apiToast } from '../../services/api-base.service';
 
 export default function AddMedia(props) {
   const [title, setTitle] = useState('');

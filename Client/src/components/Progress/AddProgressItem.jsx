@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { addProgress } from '../../services/progress.service';
+
 import {
   bookProgressUnits,
   bookTypes,
@@ -8,6 +8,7 @@ import {
 } from '../utils/FormFields';
 import Select from '../utils/Select';
 import { apiToast } from '../../services/api-base.service';
+import { addProgress } from '../../services/progress.service';
 
 export default function AddProjectItem(props) {
   const [current, setCurrent] = useState('');

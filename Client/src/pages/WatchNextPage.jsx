@@ -1,10 +1,10 @@
+import { useEffect, useState } from 'react';
+
 import AddMedia from '../components/media/AddMedia';
 import MediaList from '../components/media/MediaList';
-import { videoMediaTypes } from '../components/utils/FormFields';
-import { useEffect, useState } from 'react';
-import { listMedia } from '../services/media.service';
-import { sortByOptions } from '../components/utils/FormFields';
 import Filter from '../components/media/Filter';
+import { sortByOptions, videoMediaTypes } from '../components/utils/FormFields';
+import { listMedia } from '../services/media.service';
 import '../sass/pages.scss';
 
 export default function WatchNextPage() {

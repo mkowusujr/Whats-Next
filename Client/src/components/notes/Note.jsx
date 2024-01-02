@@ -1,4 +1,5 @@
 import { useState } from 'react';
+
 import { deleteNote, updateNote } from '../../services/notes.service';
 
 export default function Note(props) {

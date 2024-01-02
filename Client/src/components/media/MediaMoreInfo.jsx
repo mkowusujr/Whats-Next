@@ -1,7 +1,7 @@
 import ProjectTracker from '../Progress/ProgressTracker';
-import Select from '../utils/Select';
-import { scores, statuses, storageTypes } from '../utils/FormFields';
 import MediaNotes from '../notes/MediaNotes';
+import { scores, statuses, storageTypes } from '../utils/FormFields';
+import Select from '../utils/Select';
 import '../../sass/media.scss';
 
 export default function MediaMoreInfo(props) {
@@ -9,7 +9,7 @@ export default function MediaMoreInfo(props) {
   const mediaInfo = props.mediaInfo;
 
   const mediaFields = (
-    <div className='media-fields'>
+    <div className="media-fields">
       <Select
         label={'Score: '}
         name={'score'}
@@ -36,17 +36,16 @@ export default function MediaMoreInfo(props) {
 
   return (
     <div className="media-info">
-     
-        <h1>{media.title.toUpperCase()}</h1>
-        <p>Released on {new Date(mediaInfo.releaseDate).toDateString()}</p>
-        <p>{mediaInfo.creator}</p>
-        <img style={{ width: '200px' }} src={mediaInfo.img} />
-        <p className='desc'>{mediaInfo.summary}</p>
-      
+      <h1>{media.title.toUpperCase()}</h1>
+      <p>Released on {new Date(mediaInfo.releaseDate).toDateString()}</p>
+      <p>{mediaInfo.creator}</p>
+      <img style={{ width: '200px' }} src={mediaInfo.img} />
+      <p className="desc">{mediaInfo.summary}</p>
+
       {mediaFields}
-      <hr/>
+      <hr />
       <ProjectTracker media={media} progressTracking={props.progressTracking} />
-      <hr/>
+      <hr />
       <MediaNotes mediaID={media.id} notes={props.notes} />
     </div>
   );

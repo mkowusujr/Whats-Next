@@ -1,15 +1,21 @@
-import Select from '../utils/Select';
-import { scores, statuses } from '../utils/FormFields';
 import { useState } from 'react';
-import { deleteMedia, updateMedia } from '../../services/media.service';
-import DialogComponent from '../utils/DialogComponent';
-import MediaMoreInfo from './MediaMoreInfo';
-import { listProgressForMedia } from '../../services/progress.service';
-import { getMediaInfo } from '../../services/media.service';
-import { listNotesForMedia } from '../../services/notes.service';
-import '../../sass/media.scss';
+
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
+
+import MediaMoreInfo from './MediaMoreInfo';
+import DialogComponent from '../utils/DialogComponent';
+import { scores, statuses } from '../utils/FormFields';
+import Select from '../utils/Select';
+import {
+  getMediaInfo,
+  deleteMedia,
+  updateMedia
+} from '../../services/media.service';
+import { listNotesForMedia } from '../../services/notes.service';
+import { listProgressForMedia } from '../../services/progress.service';
+import '../../sass/media.scss';
 
 export default function MediaItem(props) {
   const [media, setMedia] = useState(props.media);

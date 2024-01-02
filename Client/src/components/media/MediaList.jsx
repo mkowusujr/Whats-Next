@@ -1,7 +1,8 @@
-import MediaItem from './MediaItem';
-import '../../sass/media.scss';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
+
+import MediaItem from './MediaItem';
+import '../../sass/media.scss';
 
 export default function MediaList(props) {
   const mediaItems = props.mediaList.map(m => (

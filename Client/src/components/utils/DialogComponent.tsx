@@ -1,6 +1,7 @@
-import { useRef, useEffect, useContext, useState } from 'react';
-import { DialogContext } from './DialogContext';
 import React from 'react';
+import { useRef, useEffect, useState } from 'react';
+
+import { DialogContext } from './DialogContext';
 
 interface DialogComponentProps {
   buttonText: string;

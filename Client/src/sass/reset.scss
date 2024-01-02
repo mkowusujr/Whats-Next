@@ -18,14 +18,17 @@ table {
 
 dialog {
   top: 10%;
-    left: 22%;
-    position: fixed;
-    // top: 0px;
-    border-radius: 0.5em;
-    
+  left: 22%;
+  position: fixed;
+  // top: 0px;
+  border-radius: 0.5em;
 }
 
-h1, h2, h3, h4, h5, h6
-p {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 p {
   text-align: center;
 }

@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { addNote } from '../../services/notes.service';
+
 import { apiToast } from '../../services/api-base.service';
+import { addNote } from '../../services/notes.service';
 
 export default function AddNote(props) {
   const [title, setTitle] = useState('');

@@ -1,5 +1,5 @@
-import ProgressItem from './ProgressItem';
 import AddProjectItem from './AddProgressItem';
+import ProgressItem from './ProgressItem';
 
 export default function ProjectTracker(props) {
   const progressList = props.progressTracking.get;

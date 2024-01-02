@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react';
-import { getSummary } from '../services/summary.service';
+
 import Carousel from 'nuka-carousel';
+
+import CarouselMediaItem from '../components/utils/CarouselMediaItem';
+import { getSummary } from '../services/summary.service';
 import '../sass/pages.scss';
 import '../sass/media.scss';
-import CarouselMediaItem from '../components/utils/CarouselMediaItem';
 
 export default function WhatsNextPage() {
   const [summary, setSummary] = useState({

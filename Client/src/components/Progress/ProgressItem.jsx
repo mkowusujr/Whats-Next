@@ -1,16 +1,17 @@
 import { useState } from 'react';
-import {
-  deleteProgress,
-  updateProgress
-} from '../../services/progress.service';
-import useSubsequentEffect from '../utils/useSubsequentEffect';
-import Select from '../utils/Select';
+
 import {
   bookProgressUnits,
   bookTypes,
   mediaProgressUnits,
   videoMediaTypes
 } from '../utils/FormFields';
+import useSubsequentEffect from '../utils/useSubsequentEffect';
+import Select from '../utils/Select';
+import {
+  deleteProgress,
+  updateProgress
+} from '../../services/progress.service';
 
 export default function ProgressItem(props) {
   const progress = props.progress;
