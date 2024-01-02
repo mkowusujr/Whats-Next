@@ -8,6 +8,8 @@ import { listProgressForMedia } from '../../services/progress.service';
 import { getMediaInfo } from '../../services/media.service';
 import { listNotesForMedia } from '../../services/notes.service';
 import '../../sass/media.scss';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import Skeleton from 'react-loading-skeleton';
 
 export default function MediaItem(props) {
   const [media, setMedia] = useState(props.media);
@@ -81,7 +83,16 @@ export default function MediaItem(props) {
 
   return (
     <tr className="media-item">
-      <td><img src={media.img} width={50}/></td>
+      <td>
+        <LazyLoadImage
+          id={`cover-img${media.id}`}
+          src={media.img}
+          width={50}
+          placeholder={
+            <Skeleton variant="rectangular" height={100} width={50} />
+          }
+        />
+      </td>
       <td>
         <input
           value={media.title}

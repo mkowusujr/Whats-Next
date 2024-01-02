@@ -5,7 +5,7 @@ const gbookFinder = require('@chewhx/google-books');
 const fetch = require('node-fetch');
 
 exports.add = async media => {
-  const mediaInfo = await fetchInfo(media)
+  const mediaInfo = await fetchInfo(media);
 
   return new Promise(async (resolve, reject) => {
     const titleCase = name => {
