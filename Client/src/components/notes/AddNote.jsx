@@ -4,6 +4,7 @@ import { PropTypes } from 'prop-types';
 
 import { apiToast } from '../../services/api-base.service';
 import { addNote } from '../../services/notes.service';
+import '../../sass/notes.scss'
 
 /**
  * Component for adding notes to a media item.
@@ -46,7 +47,7 @@ export default function AddNote({ mediaID, addToList }) {
   };
 
   return (
-    <>
+    <div className='note-form'>
       <h3>Add Note</h3>
       <form onSubmit={handleSubmit}>
         <input
@@ -54,17 +55,19 @@ export default function AddNote({ mediaID, addToList }) {
           value={title}
           name="title"
           onChange={e => setTitle(e.target.value)}
+          placeholder='Add Title'
           required
         />
         <textarea
           value={content}
           name="content"
           onChange={e => setContent(e.target.value)}
+          placeholder='Add Content'
           required
         ></textarea>
         <input type="submit" value="Add Note" />
       </form>
-    </>
+    </div>
   );
 }
 

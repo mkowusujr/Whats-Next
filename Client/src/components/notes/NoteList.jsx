@@ -1,6 +1,7 @@
 import { PropTypes } from 'prop-types';
 
 import Note from './Note';
+import '../../sass/notes.scss'
 
 /**
  * Component for displaying a list of notes.
@@ -24,7 +25,10 @@ export default function NoteList({ noteUtils }) {
   const noteItems = noteList.map(n => (
     <Note key={n.id} note={n} removeFromList={removeFromList} />
   ));
-  return <ul>{noteItems}</ul>;
+  return <>
+  <h2>Past Notes</h2>
+  <ul className='note-list'>{noteItems}</ul>;
+  </>
 }
 
 NoteList.propTypes = {

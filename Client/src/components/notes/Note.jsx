@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { PropTypes } from 'prop-types';
 
 import { deleteNote, updateNote } from '../../services/notes.service';
+import '../../sass/notes.scss'
 
 /**
  * Component representing a single note with the ability to update and delete.
@@ -42,7 +43,7 @@ export default function Note({ note, removeFromList }) {
   };
 
   return (
-    <li>
+    <li className='note'>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
@@ -51,6 +52,10 @@ export default function Note({ note, removeFromList }) {
           onChange={e => setTitle(e.target.value)}
           required
         />
+        <div className='dates'>
+          <p>Created : {new Date(note.dateCreated).toDateString()}</p>
+          <p>Updated : {new Date(note.dateLastUpdated).toDateString()}</p>
+        </div>
         <textarea
           value={content}
           name="content"
@@ -58,8 +63,8 @@ export default function Note({ note, removeFromList }) {
           required
         ></textarea>
         <input type="submit" value="Update Note" />
-      </form>
       <button onClick={handleDelete}>Delete Note</button>
+      </form>
     </li>
   );
 }

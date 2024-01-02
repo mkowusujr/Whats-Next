@@ -7,6 +7,7 @@ import CarouselMediaItem from '../components/utils/CarouselMediaItem';
 import { getSummary } from '../services/summary.service';
 import '../sass/pages.scss';
 import '../sass/media.scss';
+import Note from '../components/notes/Note';
 
 export default function WhatsNextPage() {
   const [summary, setSummary] = useState({
@@ -48,14 +49,14 @@ export default function WhatsNextPage() {
           ))}
         </Carousel>
       </div>
-      {/* <div className="summary-notes">
+      <div className="summary-notes">
         <h2>Recent Notes</h2>
         <Carousel autoplay autoplayInterval={5000} wrapAround >
           {summary.notes.map(i => (
-            <CarouselItem key={i.id} item={i} />
+            <Note key={i.id} note={i} />
           ))}
         </Carousel>
-      </div> */}
+      </div>
     </div>
   );
 }
