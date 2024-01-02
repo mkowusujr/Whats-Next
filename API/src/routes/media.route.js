@@ -2,27 +2,54 @@ const express = require('express');
 const router = express.Router();
 const mediaService = require('../service/media.service');
 
-router.post('', async (req, res) => {
-  const media = req.body;
-  const result = await mediaService.add(media);
-  res.json(result);
+router.get('', async (req, res) => {
+  try {
+    const mediaTypes = req.query['mediaType'];
+    const result = await mediaService.list(mediaTypes);
+    res.json(result);
+  } catch (err) {
+    res.status(400).send(err.message);
+  }
 });
 
-router.get('', async (req, res) => {
-  const result = await mediaService.list();
-  res.json(result);
+router.get('/:mediaID', async (req, res) => {
+  try {
+    const mediaID = req.params['mediaID'];
+    const result = await mediaService.getInfo(mediaID);
+    res.json(result);
+  } catch (err) {
+    res.status(400).send(err.message);
+  }
+});
+
+router.post('', async (req, res) => {
+  try {
+    const media = req.body;
+    const result = await mediaService.add(media);
+    res.json(result);
+  } catch (err) {
+    res.status(400).send(err.message);
+  }
 });
 
 router.put('', async (req, res) => {
-  const media = req.body;
-  const result = await mediaService.update(media);
-  res.json(result);
+  try {
+    const media = req.body;
+    const result = await mediaService.update(media);
+    res.json(result);
+  } catch (err) {
+    res.status(400).send(err.message);
+  }
 });
 
-router.delete('/:id', async (req, res) => {
-  const mediaID = req.params['id'];
-  const result = await mediaService.delete(mediaID);
-  res.json(result);
+router.delete('/:mediaID', async (req, res) => {
+  try {
+    const mediaID = req.params['mediaID'];
+    const result = await mediaService.delete(mediaID);
+    res.json(result);
+  } catch (err) {
+    res.status(400).send(err.message);
+  }
 });
 
 module.exports = router;

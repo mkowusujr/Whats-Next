@@ -1,68 +1,50 @@
 const sqlite3 = require('sqlite3').verbose();
-const db = new sqlite3.Database('watchnext.db');
+const db = new sqlite3.Database('./src/whatsnext.db');
 
-runScripts = () => {
+/**
+ * Function to run additional setup scripts for the database.
+ * @function
+ */
+runScripts = () => {};
 
-};
-
+/**
+ * Sets up the database schema by creating necessary tables if they do not exist.
+ * @function
+ * @returns {void}
+ */
 exports.setupDb = () =>
   db.serialize(() => {
     db.run(
       `
 			CREATE TABLE IF NOT EXISTS media(
 				id INTEGER PRIMARY KEY,
-				name STRING NOT NULL,
-				watchStatus STRING NOT NULL,
-				personalRating DOUBLE,
-				dateStarted DATE,
-				dateCompleted DATE,
-				posterImageUrl STRING NOT NULL,
-				releaseDate STRING NOT NULL,
+				title STRING NOT NULL,
+				subTitle STRING,
 				mediaType STRING NOT NULL,
-				genres STRING NOT NULL,
-				directors STRING NOT NULL,
-				writers STRING NOT NULL,
-				imdbRating STRING NOT NULL,
-				plot STRING NOT NULL,
-				cast STRING NOT NULL,
-				runtime STRING NOT NULL,
-				dateAdded DATE NOT NULL,
-				lastUpdated DATE,
-				ownershipStatus STRING,
-        progressID INTEGER,
-  			FOREIGN KEY(progressID) REFERENCES progress(id)
+				extID INTEGER,
+				score DOUBLE,
+				status STRING NOT NULL,
+				storage STRING,
+				releaseDate STRING,
+				dateCreated DATE NOT NULL,
+				dateLastUpdated DATE,
+				img STRING,
+				creator STRING,
+				summary STRING
 			)
 		`
     );
-
-    db.run(`
-		CREATE TABLE IF NOT EXISTS books(
-			id INTEGER PRIMARY KEY,
-			title STRING NOT NULL,
-			description STRING,
-			imageUrl STRING,
-			authors STRING,
-			publisher STRING,
-			publishedDate STRING,
-			pageCount INTEGER,
-			categories STRING,
-			readingStatus STRING NOT NULL,
-			personalRating DOUBLE,
-			dateStarted DATE,
-			dateCompleted DATE,
-			isbn INTEGER,
-			ownershipStatus STRING,
-      progressID INTEGER,
-  			FOREIGN KEY(progressID) REFERENCES progress(id)
-		)
-		`);
 
     db.run(`
 		CREATE TABLE IF NOT EXISTS progress(
 			id INTEGER PRIMARY KEY,
 			current STRING,
 			total STRING,
-			unit STRING
+			unit STRING,
+			dateStarted DATE,
+			dateCompleted DATE,
+			mediaID INTEGER NOT NULL,
+			FOREIGN KEY (mediaID) REFERENCES media(id)
 		)
 		`);
 
@@ -72,10 +54,9 @@ exports.setupDb = () =>
 				id INTEGER PRIMARY KEY,
 				title STRING NOT NULL,
 				content STRING NOT NULL,
+				dateCreated DATE NOT NULL,
+				dateLastUpdated DATE,
 				mediaID INTEGER NOT NULL,
-				bookID INTEGER NOT NULL,
-				dateAdded DATE NOT NULL,
-				lastUpdated DATE,
 				FOREIGN KEY (mediaID) REFERENCES media(id)
 			)
 			`

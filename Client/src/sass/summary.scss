@@ -1,0 +1,27 @@
+.carousel-item {
+  display: flex;
+  width: 450px;
+  margin-inline: auto;
+  padding-top: 30px;
+  padding-bottom: 40px;
+
+  img,
+  .carousel-note-title {
+    margin-right: 30px;
+    height: 150px;
+    width: 100px;
+  }
+
+  .item-info,
+  .carousel-note-title {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+}
+
+.carousel-note-title {
+  h4 {
+    text-align: left;
+  }
+}
