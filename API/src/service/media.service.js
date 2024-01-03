@@ -101,7 +101,7 @@ const fetchInfo = async media => {
       const imdbInfo = await movier.getTitleDetailsByName(mediaTitle);
       mediaInfo = {
         img: imdbInfo.posterImage.url,
-        creator: imdbInfo.directors[0].name,
+        creator: imdbInfo.directors[0]?.name ?? null,
         summary: imdbInfo.plot,
         releaseDate: new Date(imdbInfo.dates.startDate)
           .toISOString()
