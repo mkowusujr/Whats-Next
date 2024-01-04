@@ -3,8 +3,8 @@ import { PropTypes } from 'prop-types';
 
 import ProjectTracker from '../Progress/ProgressTracker';
 import MediaNotes from '../notes/MediaNotes';
-import { scores, statuses, storageTypes } from '../utils/FormFields';
-import Select from '../utils/Select';
+import { scores, statuses, storageTypes } from '../common/FormFields';
+import Select from '../common/Select';
 import '../../sass/media.scss';
 
 /**

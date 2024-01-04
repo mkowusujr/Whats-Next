@@ -1,5 +1,5 @@
-import { videoMediaTypes } from '../components/utils/FormFields';
-import ListPage from '../components/utils/ListPage';
+import { videoMediaTypes } from '../components/common/FormFields';
+import ListPage from '../components/common/ListPage';
 import '../sass/pages.scss';
 
 /**

@@ -7,8 +7,8 @@ import {
   bookTypes,
   mediaProgressUnits,
   videoMediaTypes
-} from '../utils/FormFields';
-import Select from '../utils/Select';
+} from '../common/FormFields';
+import Select from '../common/Select';
 import { apiToast } from '../../services/api-base.service';
 import { addProgress } from '../../services/progress.service';
 

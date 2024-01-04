@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import { Toaster } from 'react-hot-toast';
 
-import NavBar from './components/utils/NavBar';
+import NavBar from './components/common/NavBar';
 import ReadNextPage from './pages/ReadNextPage';
 import WatchNextPage from './pages/WatchNextPage';
 import WhatsNextPage from './pages/WhatsNextPage';

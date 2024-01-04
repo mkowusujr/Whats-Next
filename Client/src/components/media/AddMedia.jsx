@@ -7,8 +7,8 @@ import {
   videoMediaTypes,
   statuses,
   scores
-} from '../utils/FormFields';
-import Select from '../utils/Select';
+} from '../common/FormFields';
+import Select from '../common/Select';
 import { apiToast } from '../../services/api-base.service';
 import { addMedia } from '../../services/media.service';
 import '../../sass/media.scss';

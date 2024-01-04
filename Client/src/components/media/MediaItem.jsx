@@ -6,9 +6,9 @@ import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 
 import MediaMoreInfo from './MediaMoreInfo';
-import DialogComponent from '../utils/DialogComponent';
-import { scores, statuses } from '../utils/FormFields';
-import Select from '../utils/Select';
+import DialogComponent from '../common/DialogComponent';
+import { scores, statuses } from '../common/FormFields';
+import Select from '../common/Select';
 import {
   getMediaInfo,
   deleteMedia,

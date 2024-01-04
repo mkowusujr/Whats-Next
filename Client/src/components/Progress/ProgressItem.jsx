@@ -7,9 +7,9 @@ import {
   bookTypes,
   mediaProgressUnits,
   videoMediaTypes
-} from '../utils/FormFields';
-import useSubsequentEffect from '../utils/useSubsequentEffect';
-import Select from '../utils/Select';
+} from '../common/FormFields';
+import useSubsequentEffect from '../common/useSubsequentEffect';
+import Select from '../common/Select';
 import {
   deleteProgress,
   updateProgress
@@ -50,9 +50,11 @@ export default function ProgressItem({ mediaType, progress, removeFromList }) {
    * Deletes the progress tracker item and removes it from the list.
    */
   const deleteProgressTracker = () => {
-    deleteProgress(progress.id)
-      .then(() => removeFromList(progress.id))
-      .catch(err => console.error(err));
+    if (removeFromList) {
+      deleteProgress(progress.id)
+        .then(() => removeFromList(progress.id))
+        .catch(err => console.error(err));
+    }
   };
 
   const currentInput = (
@@ -111,10 +113,13 @@ export default function ProgressItem({ mediaType, progress, removeFromList }) {
     />
   );
 
-  const deleteBtn = (
-    <button onClick={deleteProgressTracker}>Delete Progress</button>
+  const deleteBtn = removeFromList ? (
+    <td>
+      <button onClick={deleteProgressTracker}>Delete Progress</button>
+    </td>
+  ) : (
+    <></>
   );
-
   return (
     <tr>
       <td>{currentInput}</td>
@@ -122,7 +127,7 @@ export default function ProgressItem({ mediaType, progress, removeFromList }) {
       <td>{unitInput}</td>
       <td>{dateStartedtInput}</td>
       <td>{dateCompletedtInput}</td>
-      <td>{deleteBtn}</td>
+      <>{deleteBtn}</>
     </tr>
   );
 }
@@ -138,5 +143,5 @@ ProgressItem.propTypes = {
     dateCompleted: PropTypes.string,
     mediaID: PropTypes.number
   }).isRequired,
-  removeFromList: PropTypes.func.isRequired
+  removeFromList: PropTypes.func
 };

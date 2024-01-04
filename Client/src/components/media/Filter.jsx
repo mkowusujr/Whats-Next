@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 
 import { PropTypes } from 'prop-types';
 
-import { scores, sortByOptions, statuses } from '../utils/FormFields';
-import Select from '../utils/Select';
+import { scores, sortByOptions, statuses } from '../common/FormFields';
+import Select from '../common/Select';
 import '../../sass/media.scss';
 
 /**
