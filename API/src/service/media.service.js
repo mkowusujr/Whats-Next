@@ -31,12 +31,13 @@ exports.add = async media => {
       score,
       status,
       dateCreated,
+      dateLastUpdated,
       img,
       creator,
       summary,
       releaseDate
       )
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `;
 
     const insertData = [
@@ -45,6 +46,7 @@ exports.add = async media => {
       media.mediaType,
       media.score,
       media.status,
+      new Date().toLocaleDateString(),
       new Date().toLocaleDateString(),
       mediaInfo.img,
       mediaInfo.creator,

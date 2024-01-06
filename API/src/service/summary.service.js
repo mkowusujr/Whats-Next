@@ -21,7 +21,7 @@ const getCompleted = () => {
   FROM media m
   left join progress p on p.mediaID = m.id
   WHERE status='Completed'
-  ORDER BY p.dateStarted
+  ORDER BY m.dateLastUpdated
   LIMIT 10
   `;
   return new Promise((resolve, reject) => {
