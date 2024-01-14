@@ -20,7 +20,7 @@ database.setupDb();
 
 app.use(cors());
 app.use(bodyParser.json());
-app.use(morgan(':status :method :url - :response-time ms'));
+app.use(morgan('dev'));
 
 app.use('/media', mediaRoutes);
 app.use('/notes', notesRoutes);

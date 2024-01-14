@@ -25,6 +25,7 @@ import {
  * @returns {JSX.Element} - The rendered ProgressItem component.
  */
 export default function ProgressItem({ mediaType, progress, removeFromList }) {
+  const [title, setTitle] = useState(progress.title);
   const [current, setCurrent] = useState(progress.current);
   const [total, setTotal] = useState(progress.total);
   const [unit, setUnit] = useState(progress.unit);
@@ -34,17 +35,19 @@ export default function ProgressItem({ mediaType, progress, removeFromList }) {
   // Use a custom effect hook that only triggers on subsequent renders
   useSubsequentEffect(() => {
     const updatedProgress = {
+      title: title,
       current: +current,
       total: +total,
       unit: unit,
       dateStarted: dateStarted,
       dateCompleted: dateCompleted,
-      mediaID: +progress.mediaID
+      mediaID: +progress.mediaID,
+      id: +progress.id
     };
 
     // Update progress when dependencies change
     updateProgress(updatedProgress).catch(err => console.error(err));
-  }, [current, total, unit, dateStarted, dateCompleted]);
+  }, [title, current, total, unit, dateStarted, dateCompleted]);
 
   /**
    * Deletes the progress tracker item and removes it from the list.
@@ -57,11 +60,25 @@ export default function ProgressItem({ mediaType, progress, removeFromList }) {
     }
   };
 
+  const titleInput = (
+    <input
+      name="text"
+      value={title}
+      placeholder="Title"
+      onChange={e => setTitle(e.target.value)}
+      required
+    />
+  );
+
   const currentInput = (
     <input
       name="current"
       type="number"
       value={current}
+      min={0}
+      max={total}
+      size={5}
+      disabled={total == ''}
       onChange={e => setCurrent(e.target.value)}
       required
     />
@@ -72,6 +89,8 @@ export default function ProgressItem({ mediaType, progress, removeFromList }) {
       name="total"
       type="number"
       value={total}
+      min={0}
+      size={5}
       onChange={e => setTotal(e.target.value)}
       required
     />
@@ -122,6 +141,7 @@ export default function ProgressItem({ mediaType, progress, removeFromList }) {
   );
   return (
     <tr>
+      <td>{titleInput}</td>
       <td>{currentInput}</td>
       <td>{totalInput}</td>
       <td>{unitInput}</td>

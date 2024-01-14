@@ -36,7 +36,7 @@ const getCompleted = () => {
  */
 const getInprogress = () => {
   const selectStmt = `
-  SELECT 
+  SELECT
   m.id,
     m.title,
     m.subTitle,
@@ -47,6 +47,7 @@ const getInprogress = () => {
     m.img,
     m.summary,
     p.id as pID,
+    p.title as progressTitle,
     p.current,
     p.total,
     p.unit,
@@ -56,6 +57,11 @@ const getInprogress = () => {
   FROM media m
   left join progress p on p.mediaID = m.id
   WHERE m.status='In Progress'
+	AND p.dateStarted = (
+  	SELECT MAX(dateStarted)
+  	FROM progress
+  	WHERE mediaID = m.id
+	)
   ORDER BY p.dateStarted
   `;
   return new Promise((resolve, reject) => {

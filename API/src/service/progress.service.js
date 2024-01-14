@@ -4,6 +4,7 @@ const db = new sqlite3.Database('./src/whatsnext.db');
 /**
  * Updates progress information in the database.
  * @param {Object} progress - The progress object containing updated information.
+ * @param {string} progress.title - The progress item's title.
  * @param {number} progress.current - The current progress value.
  * @param {number} progress.total - The total progress value.
  * @param {string} progress.unit - The unit of progress.
@@ -16,7 +17,8 @@ const db = new sqlite3.Database('./src/whatsnext.db');
 exports.update = async progress => {
   const updateStmt = `
     UPDATE progress
-    SET current = ?,
+    SET title = ?,
+    current = ?,
     total = ?,
     unit = ?,
     dateStarted = ?,
@@ -25,6 +27,7 @@ exports.update = async progress => {
     `;
 
   const updateData = [
+    progress.title,
     progress.current,
     progress.total,
     progress.unit,
@@ -36,7 +39,7 @@ exports.update = async progress => {
   return new Promise(async (resolve, reject) => {
     db.serialize(() => {
       db.run(updateStmt, updateData, function (err) {
-        if (err) console.log(err);
+        if (err) reject(err);
       });
 
       db.get(
@@ -127,6 +130,7 @@ exports.delete = progressID => {
 /**
  * Adds progress information to the database.
  * @param {Object} progress - The progress object containing information to be added.
+ * @param {string} progress.title - The progress item's title.
  * @param {number} progress.current - The current progress value.
  * @param {number} progress.total - The total progress value.
  * @param {string} progress.unit - The unit of progress.
@@ -139,6 +143,7 @@ exports.delete = progressID => {
 exports.add = async progress => {
   const insertStmt = `
       INSERT INTO progress(
+        title,
         current,
         total,
         unit,
@@ -146,10 +151,11 @@ exports.add = async progress => {
         dateCompleted,
         mediaID
       )
-      VALUES (?, ?, ?, ?, ?, ?)
+      VALUES (?, ?, ?, ?, ?, ?, ?)
       `;
 
   const insertData = [
+    progress.title,
     progress.current,
     progress.total,
     progress.unit,

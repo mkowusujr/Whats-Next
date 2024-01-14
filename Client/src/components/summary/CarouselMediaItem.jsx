@@ -5,7 +5,6 @@ import { PropTypes } from 'prop-types';
 
 import DialogComponent from '../common/DialogComponent';
 import '../../sass/summary.scss';
-import ProgressItem from '../Progress/ProgressItem';
 
 /**
  * Component representing a media item in a carousel.
@@ -15,22 +14,18 @@ import ProgressItem from '../Progress/ProgressItem';
  * @returns {JSX.Element} - The rendered CarouselMediaItem component.
  */
 export default function CarouselMediaItem({ data }) {
-  const progress = {
-    id: data.pID,
-    current: data.current,
-    total: data.total,
-    unit: data.unit,
-    dateStarted: data.datedStarted,
-    dateCompleted: data.dateCompleted
-  };
-  
   const progressTracking = (
     <>
       {data.pID ? (
-        <ProgressItem
-          mediaType={data.mediaType}
-          progress={progress}
-        />
+        <p>
+          {`${data.progressTitle} ${data.current}/${data.total} ${
+            data.unit
+          } Started ${
+            data.dateStarted
+              ? new Date(data.dateStarted).toDateString()
+              : 'Date Unknown'
+          }`}
+        </p>
       ) : (
         <></>
       )}

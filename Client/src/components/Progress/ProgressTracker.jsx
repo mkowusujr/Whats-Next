@@ -57,6 +57,7 @@ export default function ProjectTracker({ media, progressTrackingUtils }) {
             <th></th>
             <th></th>
             <th></th>
+            <th></th>
           </tr>
         </thead>
         <tbody>{progressItems}</tbody>

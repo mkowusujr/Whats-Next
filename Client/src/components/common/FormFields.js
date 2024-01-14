@@ -60,8 +60,7 @@ export const bookProgressUnits = [
 export const mediaProgressUnits = [
   { label: 'Units', value: '' },
   { label: 'Minutes', value: 'Minutes' },
-  { label: 'Episodes', value: 'Episodes' },
-  { label: 'Season', value: 'Season' }
+  { label: 'Episodes', value: 'Episodes' }
 ];
 
 /**

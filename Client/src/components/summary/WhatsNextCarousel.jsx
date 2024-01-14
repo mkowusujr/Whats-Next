@@ -25,5 +25,5 @@ export default function WhatsNextCarousel({ title, items, SlideComponent }) {
 WhatsNextCarousel.propTypes = {
   title: PropTypes.string.isRequired,
   items: PropTypes.arrayOf(PropTypes.object).isRequired,
-  SlideComponent: PropTypes.elementType.isRequired,
+  SlideComponent: PropTypes.elementType.isRequired
 };

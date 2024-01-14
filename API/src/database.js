@@ -38,6 +38,7 @@ exports.setupDb = () =>
     db.run(`
 		CREATE TABLE IF NOT EXISTS progress(
 			id INTEGER PRIMARY KEY,
+			title STRING NOT NULL DEFAULT 'First Watch',
 			current STRING,
 			total STRING,
 			unit STRING,

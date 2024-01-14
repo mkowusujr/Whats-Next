@@ -22,6 +22,7 @@ import { addProgress } from '../../services/progress.service';
  * @returns {JSX.Element} - The rendered AddProjectItem component.
  */
 export default function AddProjectItem({ mediaID, addToList, mediaType }) {
+  const [title, setTitle] = useState('');
   const [current, setCurrent] = useState('');
   const [total, setTotal] = useState('');
   const [unit, setUnit] = useState('');
@@ -38,6 +39,7 @@ export default function AddProjectItem({ mediaID, addToList, mediaType }) {
 
     const callAPI = new Promise((res, rej) => {
       const progress = {
+        title: title,
         current: +current,
         total: +total,
         unit: unit,
@@ -62,12 +64,26 @@ export default function AddProjectItem({ mediaID, addToList, mediaType }) {
     apiToast(callAPI);
   };
 
+  const titleInput = (
+    <input
+      name="text"
+      value={title}
+      placeholder="Title"
+      onChange={e => setTitle(e.target.value)}
+      required
+    />
+  );
+
   const currentInput = (
     <input
       name="current"
       type="number"
       value={current}
+      size={5}
+      min={0}
+      max={total}
       onChange={e => setCurrent(e.target.value)}
+      disabled={total == ''}
       required
     />
   );
@@ -77,6 +93,8 @@ export default function AddProjectItem({ mediaID, addToList, mediaType }) {
       name="total"
       type="number"
       value={total}
+      size={5}
+      min={0}
       onChange={e => setTotal(e.target.value)}
       required
     />
@@ -125,6 +143,7 @@ export default function AddProjectItem({ mediaID, addToList, mediaType }) {
         <table>
           <thead>
             <tr>
+              <th>Title</th>
               <th>Current</th>
               <th>Total</th>
               <th>Units</th>
@@ -135,6 +154,7 @@ export default function AddProjectItem({ mediaID, addToList, mediaType }) {
           </thead>
           <tbody>
             <tr>
+              <td>{titleInput}</td>
               <td>{currentInput}</td>
               <td>{totalInput}</td>
               <td>{unitInput}</td>
