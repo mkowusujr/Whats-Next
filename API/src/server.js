@@ -1,8 +1,7 @@
 const express = require('express'),
   cors = require('cors'),
   bodyParser = require('body-parser'),
-  expressLogging = require('express-logging'),
-  logger = require('logops');
+  morgan = require('morgan');
 
 const mediaRoutes = require('./routes/media.route'),
   notesRoutes = require('./routes/notes.route'),
@@ -21,7 +20,7 @@ database.setupDb();
 
 app.use(cors());
 app.use(bodyParser.json());
-app.use(expressLogging(logger));
+app.use(morgan(':status :method :url - :response-time ms'));
 
 app.use('/media', mediaRoutes);
 app.use('/notes', notesRoutes);
