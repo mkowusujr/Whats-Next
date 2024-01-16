@@ -107,6 +107,7 @@ const getNotes = () => {
         n.id,
         n.title,
         n.content,
+        n.mediaID,
         n.dateCreated,
         n.dateLastUpdated,
         m.title as mediaTitle,

@@ -56,6 +56,7 @@ export default function AddNote({ mediaID, addToList }) {
           name="title"
           onChange={e => setTitle(e.target.value)}
           placeholder="Add Title"
+          autoComplete="off"
           required
         />
         <textarea

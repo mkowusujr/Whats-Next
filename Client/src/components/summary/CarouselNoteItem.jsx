@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 import PropTypes from 'prop-types';
 
 import '../../sass/summary.scss';
@@ -11,6 +13,8 @@ import '../../sass/summary.scss';
  */
 export default function CarouselNoteItem({ data }) {
   return (
+    <Link to={"/media?mediaID=" + data.mediaID}>
+      
     <div className="carousel-item">
       <div className="carousel-data-title">
         <h4>{data.title}</h4>
@@ -24,6 +28,7 @@ export default function CarouselNoteItem({ data }) {
       </div>
       <p>{data.content}</p>
     </div>
+    </Link>
   );
 }
 

@@ -5,7 +5,6 @@ import ProjectTracker from '../Progress/ProgressTracker';
 import MediaNotes from '../notes/MediaNotes';
 import { scores, statuses, storageTypes } from '../common/FormFields';
 import Select from '../common/Select';
-import '../../sass/media.scss';
 
 /**
  * Functional component for displaying detailed information about a media item.

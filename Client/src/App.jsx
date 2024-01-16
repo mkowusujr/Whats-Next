@@ -7,6 +7,7 @@ import ReadNextPage from './pages/ReadNextPage';
 import WatchNextPage from './pages/WatchNextPage';
 import WhatsNextPage from './pages/WhatsNextPage';
 import './sass/reset.scss';
+import MediaItemPage from './pages/MediaItemPage';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
             <Route path="/" element={<WhatsNextPage />} />
             <Route path="watchnext" element={<WatchNextPage />} />
             <Route path="readnext" element={<ReadNextPage />} />
+            <Route path="media" element={<MediaItemPage />} />
           </Route>
         </Routes>
       </BrowserRouter>

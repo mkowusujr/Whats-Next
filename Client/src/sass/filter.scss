@@ -1,0 +1,104 @@
+@import "./common.scss";
+
+.filter {
+	margin: 1em;
+	display: flex;
+	// flex-wrap: wrap;
+	// top: 80px;
+		// position: sticky;
+		// z-index: 9999;
+	input,
+	select,
+	button,
+	label,
+	#text {
+		margin: 0px;
+		align-items: center;
+		font-size: larger;
+		box-shadow: $drop-shadow;
+	}
+
+}
+
+.filter-group {
+	display: flex;
+	width: 40%;
+	
+}
+
+.filter-search {
+	padding: 0.5em;
+	width: 90%;
+	height: 1em;
+	
+}
+
+.filter-button {
+	height: 2em;
+	display: none;
+}
+
+.filter-options-container {
+	width: 60%;
+	.filter-options {
+		// width: 100%;
+		display: flex;
+		justify-content: space-around;
+		// transition: 200ms;
+	}
+}
+
+
+@media only screen and (max-width: 900px) {
+	.filter {
+		flex-direction: column;
+	}
+	.filter-group {
+			display: flex;
+			width: 100%;
+		}
+
+	.filter-search {
+		
+		margin-right: 15px !important;
+	}
+
+	.filter-button {
+		display: flex;
+
+		i {
+			margin-right: 1em;
+		}
+
+		box-shadow: $drop-shadow;
+	}
+
+	.filter-options-container {
+		// margin-inline: 2em;
+		// padding-top: 2em;
+		// padding-bottom: 2em;
+		display: none;
+		// min-width: 400px;
+		width: 100%;
+		.filter-options {
+			margin: 0px;
+			width:110px;
+			box-sizing: border-box;
+			overflow-y: scroll;
+				// width: 400px;
+				display: flex;
+				justify-content: space-around;
+				// transition: 200ms;
+			}
+		select {
+			// margin-left: 1em;
+			// margin-right: 1em;
+		}
+				// transition: 200ms;
+
+	}
+
+	.filter-options {
+
+	}
+}

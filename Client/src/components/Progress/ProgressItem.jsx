@@ -66,6 +66,7 @@ export default function ProgressItem({ mediaType, progress, removeFromList }) {
       value={title}
       placeholder="Title"
       onChange={e => setTitle(e.target.value)}
+      autoComplete="off"
       required
     />
   );
@@ -80,6 +81,7 @@ export default function ProgressItem({ mediaType, progress, removeFromList }) {
       size={5}
       disabled={total == ''}
       onChange={e => setCurrent(e.target.value)}
+      autoComplete="off"
       required
     />
   );
@@ -92,6 +94,7 @@ export default function ProgressItem({ mediaType, progress, removeFromList }) {
       min={0}
       size={5}
       onChange={e => setTotal(e.target.value)}
+      autoComplete="off"
       required
     />
   );

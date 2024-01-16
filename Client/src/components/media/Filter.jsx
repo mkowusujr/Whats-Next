@@ -1,38 +1,39 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 
 import { PropTypes } from 'prop-types';
 
 import { scores, sortByOptions, statuses } from '../common/FormFields';
 import Select from '../common/Select';
-import '../../sass/media.scss';
+import "../../sass/filter.scss";
 
 /**
  * Functional component for filtering media items.
  *
  * @param {Object} props - The component's props.
- * @param {Object} props.filters - Object containing filter parameters (get and set).
- * @param {Object} props.filters.get - Object representing the current filter values.
- * @param {string} props.filters.get.name - The name filter.
- * @param {Array} props.filters.get.mediaTypes - The media types filter.
- * @param {number} props.filters.get.score - The score filter.
- * @param {string} props.filters.get.status - The status filter.
- * @param {string} props.filters.get.sortBy - The sorting parameter.
- * @param {boolean} props.filters.get.isAsc - The sorting order (true for ascending, false for descending).
- * @param {function} props.filters.set - Function to update filter parameters.
+ * @param {Object} props.filterProps - A List containing filter state.
  * @returns {JSX.Element} - The rendered Filter component.
  */
-export default function Filter({ filters }) {
+export default function Filter({ filterProps }) {
+  const [filters, setFilters] = filterProps;
+  
+  const windowWidth = useRef(window.innerWidth);
   // State variables for filter inputs
-  const [name, setName] = useState(filters.get.name);
-  const [mediaTypes, setMediaTypes] = useState(filters.get.mediaTypes);
-  const [score, setScore] = useState(filters.get.score);
-  const [status, setStatus] = useState(filters.get.status);
-  const [sortBy, setSortBy] = useState(filters.get.sortBy);
-  const [isAsc, setIsAsc] = useState(filters.get.isAsc);
+  const [name, setName] = useState(filters.name);
+  const [mediaTypes, setMediaTypes] = useState(filters.mediaTypes);
+  const [score, setScore] = useState(filters.score);
+  const [status, setStatus] = useState(filters.status);
+  const [sortBy, setSortBy] = useState(filters.sortBy);
+  const [isAsc, setIsAsc] = useState(filters.isAsc);
+  const [showFilterOptions, setShowFilterOptions] = useState(false);
+
+  useEffect(() => { 
+    setShowFilterOptions(windowWidth.current > 900)
+    
+  }, [windowWidth])
 
   // Effect to update filters when filter inputs change
   useEffect(() => {
-    filters.set({
+    setFilters({
       name: name,
       mediaTypes: mediaTypes,
       score: [score],
@@ -44,7 +45,7 @@ export default function Filter({ filters }) {
 
   return (
     <div className="filter">
-      <div className="filter-data">
+     
         <div className="filter-group">
           <input
             className="filter-search"
@@ -53,24 +54,35 @@ export default function Filter({ filters }) {
             onChange={e => setName(e.target.value)}
             placeholder="Search Items"
           />
+        <button
+          className="filter-button"
+          onClick={() => setShowFilterOptions(!showFilterOptions)}
+        >
+              <i className="gg-filters"></i>
+              Filters
+          </button>
         </div>
-        <div className="filter-group">
+      <div className='filter-options-container'
+        style={{ display: showFilterOptions ? 'flex' : 'none'}}
+      >
+        <div className='filter-options'>
+
           <Select
-            label={'Score: '}
+            // label={'Score: '}
             name={'score'}
             value={score}
             options={scores}
             onChange={e => setScore(+e.target.value)}
           />
           <Select
-            label={'Status: '}
+            // label={'Status: '}
             name={'status'}
             value={status}
             options={statuses}
             onChange={e => setStatus(e.target.value)}
           />
           <Select
-            label={'Sort By: '}
+            // label={'Sort By: '}
             name={'sortBy'}
             value={sortBy}
             options={sortByOptions}
@@ -89,14 +101,12 @@ export default function Filter({ filters }) {
             />
           </label>
         </div>
-      </div>
+        </div>
+      
     </div>
   );
 }
 
 Filter.propTypes = {
-  filters: PropTypes.shape({
-    get: PropTypes.object,
-    set: PropTypes.string
-  }).isRequired
+  filterProps: PropTypes.array.isRequired
 };

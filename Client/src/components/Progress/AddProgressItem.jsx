@@ -70,6 +70,7 @@ export default function AddProjectItem({ mediaID, addToList, mediaType }) {
       value={title}
       placeholder="Title"
       onChange={e => setTitle(e.target.value)}
+      autoComplete="off"
       required
     />
   );
@@ -84,6 +85,7 @@ export default function AddProjectItem({ mediaID, addToList, mediaType }) {
       max={total}
       onChange={e => setCurrent(e.target.value)}
       disabled={total == ''}
+      autoComplete="off"
       required
     />
   );
@@ -96,6 +98,7 @@ export default function AddProjectItem({ mediaID, addToList, mediaType }) {
       size={5}
       min={0}
       onChange={e => setTotal(e.target.value)}
+      autoComplete="off"
       required
     />
   );

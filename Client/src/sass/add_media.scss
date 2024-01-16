@@ -1,0 +1,45 @@
+@import "./common.scss";
+
+.add-new-media {
+	display: flex;
+	flex-direction: column;
+	margin-inline: 10px;
+}
+
+.add-header {
+	display: flex;
+	width: 100%;
+	justify-content: space-around;
+	align-items: baseline;
+	font-size: larger;
+}
+
+.add-button {
+	button {
+		display: flex;
+		font-size: xx-large;
+		align-items: center;
+		box-shadow: $drop-shadow;
+		i {
+			margin-right: 0.5em;
+		}
+	}
+}
+
+.add-form {
+	display: flex;
+	width: 80%;
+	margin: auto;
+	padding: 1em;
+	border-radius: 0.5em;
+	flex-direction: column;
+	justify-content: space-around;
+	box-shadow: $drop-shadow;
+	margin-top: 1em;
+	margin-bottom: 1em;
+
+	input, select {
+		font-size: larger;
+		margin-bottom: 1em;
+	}
+}

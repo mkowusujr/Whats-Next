@@ -75,7 +75,7 @@ export default function ListPage({ mediaTypes, pageName }) {
   const filtersProp = { get: filters, set: setFilters };
 
   return (
-    <div className="list-page">
+    <div>
       <AddMedia pageName={pageName} addToList={addToList} />
       <MediaList
         mediaType={pageName}
@@ -84,7 +84,7 @@ export default function ListPage({ mediaTypes, pageName }) {
         }
         removeFromList={removeFromList}
         updateList={updateList}
-        filterComponent={<Filter filters={filtersProp} />}
+        filterComponent={<Filter filterProps={[filters, setFilters]} />}
       />
     </div>
   );

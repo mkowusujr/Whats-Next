@@ -2,8 +2,7 @@ import { PropTypes } from 'prop-types';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 
-import MediaItem from './MediaItem';
-import '../../sass/media.scss';
+import MediaCell from './MediaCell';
 
 /**
  * Functional component for displaying a list of media items.
@@ -23,9 +22,9 @@ export default function MediaList({
   removeFromList,
   updateList
 }) {
-  // Map media items to MediaItem components
+  // Map media items to MediaCell components
   const mediaItems = mediaList.map(m => (
-    <MediaItem
+    <MediaCell
       key={m.id}
       media={m}
       removeFromList={removeFromList}
@@ -35,54 +34,50 @@ export default function MediaList({
 
   // Skeleton loader for loading state
   const loadingSkeleton = (
-    <tr className="media-item">
-      <td>
+    <div className="media-item">
+      <div>
         <Skeleton variant="rectangular" height={75} width={50} />
-      </td>
-      <td>
+      </div>
+      <div>
         <Skeleton variant="rectangular" height={22} width={195} />
-      </td>
-      <td>
+      </div>
+      <div>
         <Skeleton variant="rectangular" height={22} width={44} />
-      </td>
-      <td>
+      </div>
+      <div>
         <Skeleton variant="rectangular" height={22} width={127} />
-      </td>
-      <td>
+      </div>
+      <div>
         <Skeleton variant="rectangular" height={22} width={95} />
-      </td>
-      <td>
+      </div>
+      <div>
         <Skeleton variant="rectangular" height={22} width={73} />
-      </td>
-      <td>
+      </div>
+      <div>
         <Skeleton variant="rectangular" height={22} width={58} />
-      </td>
-    </tr>
+      </div>
+    </div>
   );
 
   return (
-    <div className="media-list">
-      <h2 className="title">{mediaType} Next </h2>
+    <>
       <>{filterComponent}</>
-      <hr className="media-hr"></hr>
-      <table>
-        <tbody>
-          <>
-            {mediaItems.length != 0 ? (
-              <>{mediaItems}</>
-            ) : (
-              <>
-                <>{loadingSkeleton}</>
-                <>{loadingSkeleton}</>
-                <>{loadingSkeleton}</>
-                <>{loadingSkeleton}</>
-                <>{loadingSkeleton}</>
-              </>
-            )}
-          </>
-        </tbody>
-      </table>
-    </div>
+      <div className="media-list">
+        <>
+          {mediaItems.length != 0 ? (
+            <>{mediaItems}</>
+          ) : (
+            <>
+              <>{loadingSkeleton}</>
+              <>{loadingSkeleton}</>
+              <>{loadingSkeleton}</>
+              <>{loadingSkeleton}</>
+              <>{loadingSkeleton}</>
+            </>
+          )}
+        </>
+      </div>
+    </>
   );
 }
 

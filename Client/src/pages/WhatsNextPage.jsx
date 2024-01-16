@@ -5,7 +5,6 @@ import CarouselNoteItem from '../components/summary/CarouselNoteItem';
 import WhatsNextCarousel from '../components/summary/WhatsNextCarousel';
 import { getSummary } from '../services/summary.service';
 import '../sass/pages.scss';
-import '../sass/media.scss';
 
 export default function WhatsNextPage() {
   const [summary, setSummary] = useState({

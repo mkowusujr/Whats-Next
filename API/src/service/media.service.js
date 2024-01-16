@@ -149,10 +149,7 @@ exports.getInfo = mediaID => {
   return new Promise((resolve, reject) => {
     db.get(
       `
-      select
-        img, creator, summary, releaseDate
-      from media
-      WHERE id = ?`,
+      SELECT * FROM media WHERE id = ?`,
       mediaID,
       async function (err, row) {
         _ = err ? reject(err) : resolve(row);

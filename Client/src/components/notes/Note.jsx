@@ -50,6 +50,7 @@ export default function Note({ note, removeFromList }) {
           value={title}
           name="title"
           onChange={e => setTitle(e.target.value)}
+          autoComplete="off"
           required
         />
         <div className="dates">

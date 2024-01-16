@@ -11,14 +11,14 @@ import {
 import Select from '../common/Select';
 import { apiToast } from '../../services/api-base.service';
 import { addMedia } from '../../services/media.service';
-import '../../sass/media.scss';
+import "../../sass/add_media.scss";
 
 /**
  * Functional component for adding new media items.
  *
  * @param {Object} props - The component's props.
  * @param {function} props.addToList - Callback function to add a new media item to the list.
- * @param {string} props.mediaType - The type of media to be added ('Watch' or 'Read').
+ * @param {string} props.pageName - The type of media to be added ('Watch' or 'Read').
  * @returns {JSX.Element} - The rendered AddMedia component.
  */
 export default function AddMedia({ pageName, addToList }) {
@@ -28,6 +28,7 @@ export default function AddMedia({ pageName, addToList }) {
   const [mediaType, setMediaType] = useState('');
   const [score, setScore] = useState(0);
   const [status, setStatus] = useState('');
+  const [isShown, setIsSHown] = useState(false);
 
   // Options for the media type dropdown
   let allowedMediaOptions = [];
@@ -77,15 +78,26 @@ export default function AddMedia({ pageName, addToList }) {
   };
 
   return (
-    <div className="media-form">
-      <h2 className="title">Add To Next</h2>
-      <form onSubmit={handleSubmit}>
+    <div className='add-new-media'>
+      <div className='add-header'>
+        <h1>{pageName } Next?</h1>
+        <div className='add-button'>
+          <button onClick={() => setIsSHown(!isShown)}>
+            <i className="gg-add-r"></i>
+            Add Media
+          </button>
+        </div>
+      </div>
+      <form className='add-form' onSubmit={handleSubmit}
+        style={{display: isShown? 'flex' : 'none'}}
+      >
         <input
           type="text"
           name="title"
           value={title}
           onChange={e => setTitle(e.target.value)}
           placeholder="Add Title"
+          autoComplete="off"
           required
         />
         <input
@@ -94,6 +106,7 @@ export default function AddMedia({ pageName, addToList }) {
           value={subTitle}
           onChange={e => setSubTitle(e.target.value)}
           placeholder="Add Subtitle"
+          autoComplete="off"
         />
         <Select
           name={'mediaType'}
@@ -114,7 +127,7 @@ export default function AddMedia({ pageName, addToList }) {
           options={statuses}
           onChange={e => setStatus(e.target.value)}
         />
-        <input type="submit" value="Add Next" />
+        <input type="submit" value="Post" />
       </form>
     </div>
   );
