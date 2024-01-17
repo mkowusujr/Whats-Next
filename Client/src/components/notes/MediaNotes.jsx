@@ -19,7 +19,7 @@ export default function MediaNotes({ mediaID, noteUtils }) {
   };
 
   return (
-    <div>
+    <div className="media-item-notes">
       <h2>Notes</h2>
       <AddNote mediaID={mediaID} addToList={addToList} />
       <NoteList mediaID={mediaID} noteUtils={noteUtils} />

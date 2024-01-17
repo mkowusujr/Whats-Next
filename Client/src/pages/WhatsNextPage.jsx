@@ -15,6 +15,7 @@ export default function WhatsNextPage() {
   });
 
   useEffect(() => {
+    document.title = "What's Next?"
     getSummary()
       .then(s => setSummary(s))
       .catch(err => console.log(err));

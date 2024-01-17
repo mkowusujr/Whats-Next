@@ -79,15 +79,7 @@ export default function AddMedia({ pageName, addToList }) {
 
   return (
     <div className='add-new-media'>
-      <div className='add-header'>
-        <h1>{pageName } Next?</h1>
-        <div className='add-button'>
-          <button onClick={() => setIsSHown(!isShown)}>
-            <i className="gg-add-r"></i>
-            Add Media
-          </button>
-        </div>
-      </div>
+        
       <form className='add-form' onSubmit={handleSubmit}
         style={{display: isShown? 'flex' : 'none'}}
       >
@@ -129,6 +121,12 @@ export default function AddMedia({ pageName, addToList }) {
         />
         <input type="submit" value="Post" />
       </form>
+      <div className='add-button'>
+        <button onClick={() => setIsSHown(!isShown)}>
+          <i className="gg-add-r"></i>
+          {pageName} Next?
+        </button>
+      </div>
     </div>
   );
 }

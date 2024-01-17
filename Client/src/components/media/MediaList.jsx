@@ -3,6 +3,7 @@ import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 
 import MediaCell from './MediaCell';
+import "../../sass/media_list.scss"
 
 /**
  * Functional component for displaying a list of media items.

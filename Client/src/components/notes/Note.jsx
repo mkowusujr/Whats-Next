@@ -25,13 +25,13 @@ export default function Note({ note, removeFromList }) {
   const handleSubmit = e => {
     e.preventDefault();
 
-    const note = {
+    const updatedNote = {
       id: note.id,
       title: title,
       content: content
     };
 
-    updateNote(note).catch(err => console.error(err));
+    updateNote(updatedNote).catch(err => console.error(err));
   };
 
   const handleDelete = () => {

@@ -1,0 +1,39 @@
+.media-item-page{
+	display: flex;
+	flex-direction: column;
+	width: 80%;
+	margin: auto;
+	
+	 p, img, div {
+		margin-inline: auto;
+		margin-bottom: 1.5em;
+	}
+
+	p.desc{
+		line-height: 1.5;
+		padding: 1em;
+		background-color: #f0dfff;
+		border-radius: 0.25em;
+	}
+
+	input, label {
+		font-size: large;
+	}
+
+	.update-button {
+		width: 150px;
+		margin: auto;
+		margin-bottom: 2em;
+	}
+}
+
+.media-item-fields {
+	display: flex;
+	flex-direction: column;
+}
+
+.media-item-remaining-options {
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+}

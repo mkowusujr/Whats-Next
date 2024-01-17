@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+
 import { bookTypes } from '../components/common/FormFields';
 import ListPage from '../components/common/ListPage';
 import '../sass/pages.scss';
@@ -9,6 +11,8 @@ import '../sass/pages.scss';
  */
 export default function ReadNextPage() {
   const mediaTypes = bookTypes.map(i => i.label);
+
+  useEffect(() => { document.title = "Read Next?" }, [])
 
   return <ListPage mediaTypes={mediaTypes} pageName={'Read'} />;
 }

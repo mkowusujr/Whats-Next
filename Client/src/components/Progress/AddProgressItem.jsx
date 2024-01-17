@@ -11,6 +11,7 @@ import {
 import Select from '../common/Select';
 import { apiToast } from '../../services/api-base.service';
 import { addProgress } from '../../services/progress.service';
+import "../../sass/progress_tracking.scss";
 
 /**
  * Component for adding progress tracking information for a media item.
@@ -66,7 +67,7 @@ export default function AddProjectItem({ mediaID, addToList, mediaType }) {
 
   const titleInput = (
     <input
-      name="text"
+      type="text"
       value={title}
       placeholder="Title"
       onChange={e => setTitle(e.target.value)}
@@ -140,37 +141,24 @@ export default function AddProjectItem({ mediaID, addToList, mediaType }) {
   );
 
   return (
-    <>
+    <div>
       <h3>Track New Progress</h3>
-      <form onSubmit={handleSubmit}>
-        <table>
-          <thead>
-            <tr>
-              <th>Title</th>
-              <th>Current</th>
-              <th>Total</th>
-              <th>Units</th>
-              <th>Date Started</th>
-              <th>Date Completed</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>{titleInput}</td>
-              <td>{currentInput}</td>
-              <td>{totalInput}</td>
-              <td>{unitInput}</td>
-              <td>{dateStartedtInput}</td>
-              <td>{dateCompletedtInput}</td>
-              <td>
-                <input type="submit" value="Add Progress" />
-              </td>
-            </tr>
-          </tbody>
-        </table>
+      <form  className="add-progress-item" onSubmit={handleSubmit}>
+        <>{titleInput}</>
+        <div>
+        <>{currentInput}</>
+        <>{totalInput}</>
+        <>{unitInput}</>
+        </div>
+        <div>
+        <>{dateStartedtInput}</>
+        <>{dateCompletedtInput}</>
+        </div>
+        <>
+          <input type="submit" value="Add Progress" />
+        </>
       </form>
-    </>
+    </div>
   );
 }
 

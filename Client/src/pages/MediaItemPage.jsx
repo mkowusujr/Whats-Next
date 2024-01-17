@@ -10,10 +10,11 @@ import { getMediaInfo, updateMedia } from '../services/media.service';
 import { listNotesForMedia } from '../services/notes.service';
 import { listProgressForMedia } from '../services/progress.service';
 import { scores, statuses, storageTypes } from '../components/common/FormFields';
-import useSubsequentEffect from '../components/common/useSubsequentEffect';
+import "../sass/media_item_page.scss";
 
-export default function MediaItemPage({ }) {
+export default function MediaItemPage() {
 	const [queryParams] = useSearchParams()
+	const mediaID = queryParams.get("mediaID")
 
 	const [progressList, setProgressList] = useState([]);
 	const [noteList, setNoteList] = useState([]);
@@ -21,16 +22,22 @@ export default function MediaItemPage({ }) {
 
 	const [title, setTitle] = useState('');
 	const [subTitle, setSubTitle] = useState('');
-	const [mediaType, setMediaType] = useState('');
 	const [score, setScore] = useState(0);
 	const [status, setStatus] = useState('');
 	const [storage, setStorage] = useState('');
 
 	useEffect(() => {
-		const mediaID = queryParams.get("mediaID")
-
 		getMediaInfo(mediaID)
-			.then(m => setMedia(m))
+			.then(m => {
+				setTitle(m.title)
+				setSubTitle(m.subTitle ?? '')
+				setScore(m.score)
+				setStatus(m.status)
+				setStorage(m.storage)
+				document.title = (m.title + ' ' + (m.subTitle ?? '')).trim() + " | " + m.status
+
+				setMedia(m)
+			})
 			.catch(err => console.error(err));
 
 		listProgressForMedia(mediaID)
@@ -42,54 +49,83 @@ export default function MediaItemPage({ }) {
 			.catch(err => console.error(err));
 	}, [])
 
-	useSubsequentEffect(() => { 
+	const handleUpdate = (e) => {
+		e.preventDefault();
+
 		const updatedMedia = {
-			id: media?.id,
+			...media,
 			title: title,
 			subTitle: subTitle,
-			score: score,
+			score: +score,
 			status: status,
 			storage: storage
 		}
-		
+
+		document.title = (title + ' ' + (subTitle ?? '')).trim() + " | " + status
+
 		updateMedia(updatedMedia)
-		.catch(err => console.error(err))
-	},
-		[title, subTitle, score, status, storage])
+			.catch(err => console.error(err))
+	}
 
 	return (
 		media ?
-			<div className="media-info">
-				<h1>{media.title.toUpperCase()}</h1>
-				<p>Released on {new Date(media.releaseDate).toDateString()}</p>
-				<p>{media.creator}</p>
+			<div className="media-item-page">
+				<h1>{title.toUpperCase()}</h1>
+				<p>Released on {new Date(media.releaseDate).toDateString()} By {media.creator}</p>
 				<LazyLoadImage src={media.img} width={200} />
+				<form className="media-item-fields" onSubmit={handleUpdate}>
+					<div>
+						<input
+							type="text"
+							name="title"
+							value={title}
+							size={title.length}
+							onChange={e => setTitle(e.target.value)}
+							placeholder="Add Title"
+							autoComplete="off"
+							required
+						/>
+						<input
+							type="text"
+							name="subTitle"
+							value={subTitle }
+							size={subTitle?.length?? 3}
+							onChange={e => setSubTitle(e.target.value)}
+							placeholder="Add Subtitle"
+							autoComplete="off"
+						/>
+					</div>
+					<div className='media-item-remaining-options'>
+						<Select
+							label={'Score: '}
+							name={'score'}
+							value={score}
+							options={scores}
+							onChange={e => setScore(e.target.value)}
+						/>
+						<Select
+							label={'Status: '}
+							name={'status'}
+							value={status}
+							options={statuses}
+							onChange={e => setStatus(e.target.value)}
+						/>
+						<Select
+							label={'Storage: '}
+							name={'storage'}
+							value={storage}
+							options={storageTypes}
+							onChange={e => setStorage(e.target.value)}
+						/>
+					</div>
+					<input className='update-button' type='submit' value="Update Media" />
+				</form>
+
+
 				<p className="desc">{media.summary}</p>
-				<div className="media-fields">
-					<Select
-						label={'Score: '}
-						name={'score'}
-						value={media.score}
-						options={scores}
-						onChange={() => { }}
-					/>
-					<Select
-						label={'Status: '}
-						name={'status'}
-						value={media.status}
-						options={statuses}
-						onChange={() => { }}
-					/>
-					<Select
-						label={'Storage: '}
-						name={'storage'}
-						value={media.storage}
-						options={storageTypes}
-						onChange={() => { }}
-					/>
-				</div>
 				<hr />
 				<ProjectTracker
+					className="media-item-progress-tracker"
 					media={media}
 					progressTrackingUtils={[progressList, setProgressList]}
 				/>

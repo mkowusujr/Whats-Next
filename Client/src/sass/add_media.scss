@@ -3,18 +3,19 @@
 .add-new-media {
 	display: flex;
 	flex-direction: column;
-	margin-inline: 10px;
+	// margin-inline: 10px;
+	// position: sticky;
+	// top: 80vh;
 }
 
-.add-header {
-	display: flex;
-	width: 100%;
-	justify-content: space-around;
-	align-items: baseline;
-	font-size: larger;
-}
 
 .add-button {
+	margin-left: auto;
+	z-index: 9000;
+	bottom: 30px;
+	position: fixed;
+	
+
 	button {
 		display: flex;
 		font-size: xx-large;
@@ -27,9 +28,16 @@
 }
 
 .add-form {
+	z-index: 9999;
+	position: fixed;
+	bottom: 150px;
+	left: 8vw;
+	background-color: #fff;
+
+
 	display: flex;
 	width: 80%;
-	margin: auto;
+	// margin: auto;
 	padding: 1em;
 	border-radius: 0.5em;
 	flex-direction: column;

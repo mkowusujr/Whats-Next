@@ -14,6 +14,7 @@ import {
   deleteProgress,
   updateProgress
 } from '../../services/progress.service';
+import "../../sass/progress_tracking.scss"
 
 /**
  * Component representing an individual progress tracker item for a media item.
@@ -62,7 +63,7 @@ export default function ProgressItem({ mediaType, progress, removeFromList }) {
 
   const titleInput = (
     <input
-      name="text"
+      type="text"
       value={title}
       placeholder="Title"
       onChange={e => setTitle(e.target.value)}
@@ -78,7 +79,7 @@ export default function ProgressItem({ mediaType, progress, removeFromList }) {
       value={current}
       min={0}
       max={total}
-      size={5}
+      size={3}
       disabled={total == ''}
       onChange={e => setCurrent(e.target.value)}
       autoComplete="off"
@@ -92,7 +93,7 @@ export default function ProgressItem({ mediaType, progress, removeFromList }) {
       type="number"
       value={total}
       min={0}
-      size={5}
+      size={3}
       onChange={e => setTotal(e.target.value)}
       autoComplete="off"
       required
@@ -143,15 +144,20 @@ export default function ProgressItem({ mediaType, progress, removeFromList }) {
     <></>
   );
   return (
-    <tr>
-      <td>{titleInput}</td>
-      <td>{currentInput}</td>
-      <td>{totalInput}</td>
-      <td>{unitInput}</td>
-      <td>{dateStartedtInput}</td>
-      <td>{dateCompletedtInput}</td>
+    <div className='progress-item'>
+      <>{titleInput}</>
+      <div className='progress-units'>
+        <>{currentInput}</>
+        <>/</>
+        <>{totalInput}</>
+        <>{unitInput}</>
+      </div>
+      <div>
+      <>{dateStartedtInput}</>
+      <>{dateCompletedtInput}</>
+      </div>
       <>{deleteBtn}</>
-    </tr>
+    </div>
   );
 }
 

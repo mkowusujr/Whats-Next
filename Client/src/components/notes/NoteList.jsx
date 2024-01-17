@@ -28,9 +28,9 @@ export default function NoteList({ noteUtils }) {
   return (
     <>
       <h2>Past Notes</h2>
-      <ul className="note-list">{noteItems}</ul>;
+      <ul className="note-list">{noteItems}</ul>
     </>
-  );
+  )
 }
 
 NoteList.propTypes = {

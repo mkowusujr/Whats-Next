@@ -1,27 +1,46 @@
-.carousel-item {
+.summary-page, .summary-carousel {
+  margin-bottom: 30px;
+}
+
+.summary-carousel h2 {
+  margin-bottom: 0.5em;
+}
+
+.carousel-item, .carousel-note-item {
   display: flex;
   width: 450px;
   margin-inline: auto;
   padding-top: 30px;
   padding-bottom: 40px;
+  padding-inline: 30px;
+  background-color: #c6b4ce;
+  border-radius: 0.25em;
+  margin-bottom: 50px;
 
-  img,
-  .carousel-note-title {
+  img {
     margin-right: 30px;
     height: 150px;
     width: 100px;
   }
 
-  .item-info,
-  .carousel-note-title {
+  .item-info {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
   }
 }
 
-.carousel-note-title {
-  h4 {
-    text-align: left;
+.carousel-note-item {
+  flex-direction: column;
+  height: 150px;
+  .content {
+    // overflow: hidden;
+    //   white-space: pre-wrap;
+    //   /* or white-space: normal; */
+    //   overflow-wrap: break-word;
+    //   text-overflow: ellipsis;
+    height: 80px;
+    margin-bottom: 10px;
   }
 }
+

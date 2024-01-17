@@ -6,8 +6,6 @@ import { PropTypes } from 'prop-types';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 
-import MediaMoreInfo from './MediaMoreInfo';
-import DialogComponent from '../common/DialogComponent';
 import { scores, statuses } from '../common/FormFields';
 import Select from '../common/Select';
 import {
@@ -111,7 +109,7 @@ export default function MediaCell({ media, removeFromList, updateList }) {
           }
         />
       <div className='media-cell-title'>
-        <p>{(media.title + ' ' + media.subTitle).trim()}</p>
+        <p>{(media.title + ' ' + (media.subTitle ?? '')).trim()}</p>
       </div>
       <div className='media-cell-options'>
         {scoreSelector}

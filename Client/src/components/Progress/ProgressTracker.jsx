@@ -2,6 +2,7 @@ import { PropTypes } from 'prop-types';
 
 import AddProjectItem from './AddProgressItem';
 import ProgressItem from './ProgressItem';
+import "../../sass/progress_tracking.scss";
 
 /**
  * Component representing a progress tracker for a media item.
@@ -40,7 +41,7 @@ export default function ProjectTracker({ media, progressTrackingUtils }) {
   ));
 
   return (
-    <>
+    <div className="media-item-progress-tracker">
       <h2>Progreess tracker</h2>
       <AddProjectItem
         mediaID={media.id}
@@ -48,21 +49,10 @@ export default function ProjectTracker({ media, progressTrackingUtils }) {
         addToList={addToList}
       />
       <h3>Progress History</h3>
-      <table>
-        <thead>
-          <tr>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>{progressItems}</tbody>
-      </table>
-    </>
+    
+        <>{progressItems}</>
+     
+    </div>
   );
 }
 
@@ -71,5 +61,5 @@ ProjectTracker.propTypes = {
     id: PropTypes.number,
     mediaType: PropTypes.string
   }).isRequired,
-  ckingUtils: PropTypes.array.isRequired
+  progressTrackingUtils: PropTypes.array.isRequired
 };
