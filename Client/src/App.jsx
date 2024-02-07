@@ -1,15 +1,16 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Suspense, lazy } from 'react';
 
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 
 import NavBar from './components/common/NavBar';
-import ReadNextPage from './pages/ReadNextPage';
-import WatchNextPage from './pages/WatchNextPage';
-import WhatsNextPage from './pages/WhatsNextPage';
 import './sass/reset.scss';
-import MediaItemPage from './pages/MediaItemPage';
 
 function App() {
+  const ReadNextPage = lazy(() => import('./pages/ReadNextPage'));
+  const WatchNextPage = lazy(() => import('./pages/WatchNextPage'));
+  const WhatsNextPage = lazy(() => import('./pages/WhatsNextPage'));
+  const MediaItemPage = lazy(() => import('./pages/MediaItemPage'));
   return (
     <>
       <div>
@@ -18,10 +19,38 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<NavBar />}>
-            <Route path="/" element={<WhatsNextPage />} />
-            <Route path="watchnext" element={<WatchNextPage />} />
-            <Route path="readnext" element={<ReadNextPage />} />
-            <Route path="media" element={<MediaItemPage />} />
+            <Route
+              path="/"
+              element={
+                <Suspense>
+                  <WhatsNextPage />
+                </Suspense>
+              }
+            />
+            <Route
+              path="watchnext"
+              element={
+                <Suspense>
+                  <WatchNextPage />
+                </Suspense>
+              }
+            />
+            <Route
+              path="readnext"
+              element={
+                <Suspense>
+                  <ReadNextPage />
+                </Suspense>
+              }
+            />
+            <Route
+              path="media"
+              element={
+                <Suspense>
+                  <MediaItemPage />
+                </Suspense>
+              }
+            />
           </Route>
         </Routes>
       </BrowserRouter>

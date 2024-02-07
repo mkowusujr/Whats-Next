@@ -36,28 +36,30 @@ h6 p {
   text-align: center;
 }
 
-h1{
+h1 {
   color: #785982;
 }
 
-input, select, button, textarea {
+input,
+select,
+button,
+textarea {
   padding: 0.25em;
-    border-radius: 0.25em;
-    margin-right: 0;
-    border: none;
-    color: #785982;
-    background-color: #faf3fc;
-    border-bottom: 1px solid #eee;
-    margin-inline: 0.25em;
-  
-  }
-  input:focus {
-    outline: none;
-    color: #ce3aff;
-    background-color: #e6bcf6;
-  }
+  border-radius: 0.25em;
+  margin-right: 0;
+  border: none;
+  color: #785982;
+  background-color: #faf3fc;
+  border-bottom: 1px solid #eee;
+  margin-inline: 0.25em;
+}
+input:focus {
+  outline: none;
+  background-color: #ccb4d3;
+}
 
-button:hover, input[type="submit"] {
+button:hover,
+input[type='submit'] {
   background-color: #ccb4d3;
   cursor: pointer;
 }
@@ -66,7 +68,17 @@ select {
   cursor: pointer;
 }
 
+label {
+  display: flex;
+  border-radius: 0.25em;
+  padding: 0.25em;
+  color: #785982;
+  p {
+    margin-right: 0.5em;
+  }
+}
+
 a {
   text-decoration: none;
-  color: #785982;;
+  color: #785982;
 }

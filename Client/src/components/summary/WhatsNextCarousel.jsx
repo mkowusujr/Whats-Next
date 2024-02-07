@@ -1,7 +1,7 @@
 import Carousel from 'nuka-carousel';
 import PropTypes from 'prop-types';
 
-import "../../sass/summary.scss"
+import '../../sass/summary.scss';
 
 /**
  * Component to display a carousel with custom slides.

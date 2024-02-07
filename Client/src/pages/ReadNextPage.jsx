@@ -1,7 +1,6 @@
-import { useEffect } from 'react';
+import { Suspense, lazy, useEffect } from 'react';
 
-import { bookTypes } from '../components/common/FormFields';
-import ListPage from '../components/common/ListPage';
+import { bookTypes } from '../lib/form-fields';
 import '../sass/pages.scss';
 
 /**
@@ -11,8 +10,15 @@ import '../sass/pages.scss';
  */
 export default function ReadNextPage() {
   const mediaTypes = bookTypes.map(i => i.label);
+  const ListPage = lazy(() => import('../components/common/ListPage'));
 
-  useEffect(() => { document.title = "Read Next?" }, [])
+  useEffect(() => {
+    document.title = 'Read Next?';
+  }, []);
 
-  return <ListPage mediaTypes={mediaTypes} pageName={'Read'} />;
+  return (
+    <Suspense>
+      <ListPage mediaTypes={mediaTypes} pageName={'Read'} />;
+    </Suspense>
+  );
 }

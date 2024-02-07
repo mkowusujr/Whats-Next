@@ -2,8 +2,7 @@ import { useState } from 'react';
 
 import { PropTypes } from 'prop-types';
 
-import { apiToast } from '../../services/api-base.service';
-import { addNote } from '../../services/notes.service';
+import { apiToast } from '../../lib/api-base.service';
 import '../../sass/notes.scss';
 
 /**
@@ -33,14 +32,16 @@ export default function AddNote({ mediaID, addToList }) {
         mediaID: mediaID
       };
 
-      addNote(note)
-        .then(n => {
-          addToList(n);
-          setTitle('');
-          setContent('');
-          res('Successfully added note');
-        })
-        .catch(err => rej(err));
+      import('../../lib/notes.service').then(addNote =>
+        addNote(note)
+          .then(n => {
+            addToList(n);
+            setTitle('');
+            setContent('');
+            res('Successfully added note');
+          })
+          .catch(err => rej(err))
+      );
     });
 
     apiToast(callAPI);

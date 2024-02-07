@@ -3,8 +3,8 @@
 What's Next is a personal project designed to help you track and manage various movies, books, and other media items that you interact with. Whether you're a movie enthusiast, bookworm, or simply want to keep a record of your media consumption, What's Next provides an intuitive and user-friendly interface for managing your media lists.
 
 ## Features
-![](./reademe-resources/adding.gif)
-![](./reademe-resources/view_more.gif)
+![](./readme-resources/adding.gif)
+![](./readme-resources/view_more.gif)
 
 - **Add and Track Media Items:** Easily add new movies, books, or any other media items to your list.
 - **Update and Remove:** Keep your list up-to-date by editing or removing items as needed.

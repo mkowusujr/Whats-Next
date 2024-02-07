@@ -44,19 +44,15 @@ export default function CarouselMediaItem({ data }) {
           <Skeleton variant="rectangular" height={150} width={100} />
         }
       />
-      <Link to={"/media?mediaID=" + data.id }>
-      <div className="item-info">
-        <h4>
-          {data.title +
-            (data.subTitle ? ' ' + data.subTitle : '') }
-        </h4>
-        <>{data.score ? <p>Score: {data.score}</p> : <></>}</>
-        <p>Storage: {data.storage}</p>
-        <p>Status: {data.status}</p>
-        <>{progressTracking}</>
-      </div>
+      <Link to={'/media?mediaID=' + data.id}>
+        <div className="item-info">
+          <h4>{data.title + (data.subTitle ? ' ' + data.subTitle : '')}</h4>
+          <>{data.score ? <p>Score: {data.score}</p> : <></>}</>
+          <p>Storage: {data.storage}</p>
+          <p>Status: {data.status}</p>
+          <>{progressTracking}</>
+        </div>
       </Link>
-        
     </div>
   );
 }

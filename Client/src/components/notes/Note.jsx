@@ -2,7 +2,6 @@ import { useState } from 'react';
 
 import { PropTypes } from 'prop-types';
 
-import { deleteNote, updateNote } from '../../services/notes.service';
 import '../../sass/notes.scss';
 
 /**
@@ -31,15 +30,19 @@ export default function Note({ note, removeFromList }) {
       content: content
     };
 
-    updateNote(updatedNote).catch(err => console.error(err));
+    import('../../lib/notes.service').then(updateNote => {
+      updateNote(updatedNote).catch(err => console.error(err));
+    });
   };
 
   const handleDelete = () => {
-    deleteNote(note.id)
-      .then(() => {
-        removeFromList(note.id);
-      })
-      .catch(err => console.error(err));
+    import('../../lib/notes.service').then(deleteNote =>
+      deleteNote(note.id)
+        .then(() => {
+          removeFromList(note.id);
+        })
+        .catch(err => console.error(err))
+    );
   };
 
   return (

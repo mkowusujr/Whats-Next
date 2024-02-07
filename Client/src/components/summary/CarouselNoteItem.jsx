@@ -13,20 +13,26 @@ import '../../sass/summary.scss';
  */
 export default function CarouselNoteItem({ data }) {
   return (
-    <Link to={"/media?mediaID=" + data.mediaID}>
-    <div className="carousel-note-item">
+    <Link to={'/media?mediaID=' + data.mediaID}>
+      <div className="carousel-note-item">
         <h4>{data.title}</h4>
-        <p className='content'>{data.content.slice(0, 200) + (data.content.length > 200 ? "..." : '')}</p>
+        <p className="content">
+          {data.content.slice(0, 200) +
+            (data.content.length > 200 ? '...' : '')}
+        </p>
         <div>
-        <p><i>Posted on {data.mediaTitle +
-            (data.mediaSubTitle ? ' ' + data.mediaSubTitle : '')}
-        </i>
-        </p>
-        <p>
-          <i>Created on {new Date(data.dateCreated).toDateString()} </i>
-        </p>
+          <p>
+            <i>
+              Posted on{' '}
+              {data.mediaTitle +
+                (data.mediaSubTitle ? ' ' + data.mediaSubTitle : '')}
+            </i>
+          </p>
+          <p>
+            <i>Created on {new Date(data.dateCreated).toDateString()} </i>
+          </p>
         </div>
-    </div>
+      </div>
     </Link>
   );
 }

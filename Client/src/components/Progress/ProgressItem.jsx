@@ -7,14 +7,11 @@ import {
   bookTypes,
   mediaProgressUnits,
   videoMediaTypes
-} from '../common/FormFields';
-import useSubsequentEffect from '../common/useSubsequentEffect';
+} from '../../lib/form-fields';
+import useSubsequentEffect from '../../lib/useSubsequentEffect';
 import Select from '../common/Select';
-import {
-  deleteProgress,
-  updateProgress
-} from '../../services/progress.service';
-import "../../sass/progress_tracking.scss"
+import { deleteProgress, updateProgress } from '../../lib/progress.service';
+import '../../sass/progress_tracking.scss';
 
 /**
  * Component representing an individual progress tracker item for a media item.
@@ -137,24 +134,24 @@ export default function ProgressItem({ mediaType, progress, removeFromList }) {
   );
 
   const deleteBtn = removeFromList ? (
-    <td>
+    <div>
       <button onClick={deleteProgressTracker}>Delete Progress</button>
-    </td>
+    </div>
   ) : (
     <></>
   );
   return (
-    <div className='progress-item'>
+    <div className="progress-item">
       <>{titleInput}</>
-      <div className='progress-units'>
+      <div className="progress-units">
         <>{currentInput}</>
         <>/</>
         <>{totalInput}</>
         <>{unitInput}</>
       </div>
       <div>
-      <>{dateStartedtInput}</>
-      <>{dateCompletedtInput}</>
+        <>{dateStartedtInput}</>
+        <>{dateCompletedtInput}</>
       </div>
       <>{deleteBtn}</>
     </div>

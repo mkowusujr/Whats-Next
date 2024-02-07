@@ -7,11 +7,11 @@ import {
   bookTypes,
   mediaProgressUnits,
   videoMediaTypes
-} from '../common/FormFields';
+} from '../../lib/form-fields';
 import Select from '../common/Select';
-import { apiToast } from '../../services/api-base.service';
-import { addProgress } from '../../services/progress.service';
-import "../../sass/progress_tracking.scss";
+import { apiToast } from '../../lib/api-base.service';
+import { addProgress } from '../../lib/progress.service';
+import '../../sass/progress_tracking.scss';
 
 /**
  * Component for adding progress tracking information for a media item.
@@ -143,16 +143,16 @@ export default function AddProjectItem({ mediaID, addToList, mediaType }) {
   return (
     <div>
       <h3>Track New Progress</h3>
-      <form  className="add-progress-item" onSubmit={handleSubmit}>
+      <form className="add-progress-item" onSubmit={handleSubmit}>
         <>{titleInput}</>
         <div>
-        <>{currentInput}</>
-        <>{totalInput}</>
-        <>{unitInput}</>
+          <>{currentInput}</>
+          <>{totalInput}</>
+          <>{unitInput}</>
         </div>
         <div>
-        <>{dateStartedtInput}</>
-        <>{dateCompletedtInput}</>
+          <>{dateStartedtInput}</>
+          <>{dateCompletedtInput}</>
         </div>
         <>
           <input type="submit" value="Add Progress" />

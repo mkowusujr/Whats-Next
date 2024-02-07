@@ -2,9 +2,9 @@ import { useEffect, useState, useRef } from 'react';
 
 import { PropTypes } from 'prop-types';
 
-import { scores, sortByOptions, statuses } from '../common/FormFields';
+import { scores, sortByOptions, statuses } from '../../lib/form-fields';
 import Select from '../common/Select';
-import "../../sass/filter.scss";
+import '../../sass/filter.scss';
 
 /**
  * Functional component for filtering media items.
@@ -15,7 +15,7 @@ import "../../sass/filter.scss";
  */
 export default function Filter({ filterProps }) {
   const [filters, setFilters] = filterProps;
-  
+
   const windowWidth = useRef(window.innerWidth);
   // State variables for filter inputs
   const [name, setName] = useState(filters.name);
@@ -26,10 +26,9 @@ export default function Filter({ filterProps }) {
   const [isAsc, setIsAsc] = useState(filters.isAsc);
   const [showFilterOptions, setShowFilterOptions] = useState(false);
 
-  useEffect(() => { 
-    setShowFilterOptions(windowWidth.current > 900)
-    
-  }, [windowWidth])
+  useEffect(() => {
+    setShowFilterOptions(windowWidth.current > 900);
+  }, [windowWidth]);
 
   // Effect to update filters when filter inputs change
   useEffect(() => {
@@ -45,28 +44,27 @@ export default function Filter({ filterProps }) {
 
   return (
     <div className="filter">
-     
-        <div className="filter-group">
-          <input
-            className="filter-search"
-            type="text"
-            value={name}
-            onChange={e => setName(e.target.value)}
-            placeholder="Search Items"
-          />
+      <div className="filter-group">
+        <input
+          className="filter-search"
+          type="text"
+          value={name}
+          onChange={e => setName(e.target.value)}
+          placeholder="Search Items"
+        />
         <button
           className="filter-button"
           onClick={() => setShowFilterOptions(!showFilterOptions)}
         >
-              <i className="gg-filters"></i>
-              Filters
-          </button>
-        </div>
-      <div className='filter-options-container'
-        style={{ display: showFilterOptions ? 'flex' : 'none'}}
+          <i className="gg-filters"></i>
+          Filters
+        </button>
+      </div>
+      <div
+        className="filter-options-container"
+        style={{ display: showFilterOptions ? 'flex' : 'none' }}
       >
-        <div className='filter-options'>
-
+        <div className="filter-options">
           <Select
             // label={'Score: '}
             name={'score'}
@@ -92,7 +90,7 @@ export default function Filter({ filterProps }) {
             }}
           />
           <label>
-            ASC:
+            <p>ASC</p>
             <input
               type="checkbox"
               name="isAsc"
@@ -101,8 +99,7 @@ export default function Filter({ filterProps }) {
             />
           </label>
         </div>
-        </div>
-      
+      </div>
     </div>
   );
 }

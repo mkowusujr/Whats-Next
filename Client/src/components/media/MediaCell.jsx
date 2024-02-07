@@ -6,15 +6,9 @@ import { PropTypes } from 'prop-types';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 
-import { scores, statuses } from '../common/FormFields';
+import { scores, statuses } from '../../lib/form-fields';
 import Select from '../common/Select';
-import {
-  getMediaInfo,
-  deleteMedia,
-  updateMedia
-} from '../../services/media.service';
-import { listNotesForMedia } from '../../services/notes.service';
-import { listProgressForMedia } from '../../services/progress.service';
+import { deleteMedia, updateMedia } from '../../lib/media.service';
 import '../../sass/media_cell.scss';
 
 /**
@@ -28,26 +22,6 @@ import '../../sass/media_cell.scss';
  */
 export default function MediaCell({ media, removeFromList, updateList }) {
   const [mediaData, setMediaData] = useState(media);
-  const [mediaInfo, setMediaInfo] = useState({});
-  const [progressList, setProgressList] = useState([]);
-  const [noteList, setNoteList] = useState([]);
-
-  /**
-   * Sets up additional media information, progress list, and note list.
-   */
-  const setupMediaInfo = () => {
-    getMediaInfo(media.id)
-      .then(m => setMediaInfo(m))
-      .catch(err => console.error(err));
-
-    listProgressForMedia(media.id)
-      .then(ps => setProgressList(ps))
-      .catch(err => console.error(err));
-
-    listNotesForMedia(media.id)
-      .then(ns => setNoteList(ns))
-      .catch(err => console.error(err));
-  };
 
   /**
    * Handles changes in input fields and updates the media data.
@@ -80,10 +54,9 @@ export default function MediaCell({ media, removeFromList, updateList }) {
   );
 
   const viewMoreBtn = (
-    <Link to={"/media?mediaID=" + media.id} >
+    <Link to={'/media?mediaID=' + media.id}>
       <div>
-
-    <i className="gg-menu"></i>
+        <i className="gg-menu"></i>
       </div>
     </Link>
   );
@@ -100,18 +73,16 @@ export default function MediaCell({ media, removeFromList, updateList }) {
 
   return (
     <div className="media-cell-item">
-        <LazyLoadImage
-          id={`cover-img${media.id}`}
-          src={media.img}
-          width={50}
-          placeholder={
-            <Skeleton variant="rectangular" height={100} width={50} />
-          }
-        />
-      <div className='media-cell-title'>
+      <LazyLoadImage
+        id={`cover-img${media.id}`}
+        src={media.img}
+        width={50}
+        placeholder={<Skeleton variant="rectangular" height={100} width={50} />}
+      />
+      <div className="media-cell-title">
         <p>{(media.title + ' ' + (media.subTitle ?? '')).trim()}</p>
       </div>
-      <div className='media-cell-options'>
+      <div className="media-cell-options">
         {scoreSelector}
         {statusSelector}
         {viewMoreBtn}

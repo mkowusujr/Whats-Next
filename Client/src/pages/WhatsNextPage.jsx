@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import CarouselMediaItem from '../components/summary/CarouselMediaItem';
 import CarouselNoteItem from '../components/summary/CarouselNoteItem';
 import WhatsNextCarousel from '../components/summary/WhatsNextCarousel';
-import { getSummary } from '../services/summary.service';
+import { getSummary } from '../lib/summary.service';
 import '../sass/pages.scss';
 
 export default function WhatsNextPage() {
@@ -15,7 +15,7 @@ export default function WhatsNextPage() {
   });
 
   useEffect(() => {
-    document.title = "What's Next?"
+    document.title = "What's Next?";
     getSummary()
       .then(s => setSummary(s))
       .catch(err => console.log(err));

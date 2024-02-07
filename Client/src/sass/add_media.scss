@@ -1,53 +1,52 @@
-@import "./common.scss";
+@import './common.scss';
 
 .add-new-media {
-	display: flex;
-	flex-direction: column;
-	// margin-inline: 10px;
-	// position: sticky;
-	// top: 80vh;
+  display: flex;
+  flex-direction: column;
+  // margin-inline: 10px;
+  // position: sticky;
+  // top: 80vh;
 }
 
-
 .add-button {
-	margin-left: auto;
-	z-index: 9000;
-	bottom: 30px;
-	position: fixed;
-	
+  margin-left: auto;
+  z-index: 9000;
+  bottom: 30px;
+  position: fixed;
 
-	button {
-		display: flex;
-		font-size: xx-large;
-		align-items: center;
-		box-shadow: $drop-shadow;
-		i {
-			margin-right: 0.5em;
-		}
-	}
+  button {
+    display: flex;
+    font-size: xx-large;
+    align-items: center;
+    box-shadow: $drop-shadow;
+
+    i {
+      margin-right: 0.5em;
+    }
+  }
 }
 
 .add-form {
-	z-index: 9999;
-	position: fixed;
-	bottom: 150px;
-	left: 8vw;
-	background-color: #fff;
+  z-index: 9999;
+  position: fixed;
+  bottom: 150px;
+  left: 8vw;
+  background-color: #fff;
 
+  display: flex;
+  width: 80%;
+  // margin: auto;
+  padding: 1em;
+  border-radius: 0.5em;
+  flex-direction: column;
+  justify-content: space-around;
+  box-shadow: $drop-shadow;
+  margin-top: 1em;
+  margin-bottom: 1em;
 
-	display: flex;
-	width: 80%;
-	// margin: auto;
-	padding: 1em;
-	border-radius: 0.5em;
-	flex-direction: column;
-	justify-content: space-around;
-	box-shadow: $drop-shadow;
-	margin-top: 1em;
-	margin-bottom: 1em;
-
-	input, select {
-		font-size: larger;
-		margin-bottom: 1em;
-	}
+  input,
+  select {
+    font-size: larger;
+    margin-bottom: 1em;
+  }
 }

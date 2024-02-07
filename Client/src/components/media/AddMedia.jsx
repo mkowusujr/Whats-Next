@@ -7,11 +7,11 @@ import {
   videoMediaTypes,
   statuses,
   scores
-} from '../common/FormFields';
+} from '../../lib/form-fields';
 import Select from '../common/Select';
-import { apiToast } from '../../services/api-base.service';
-import { addMedia } from '../../services/media.service';
-import "../../sass/add_media.scss";
+import { apiToast } from '../../lib/api-base.service';
+import { addMedia } from '../../lib/media.service';
+import '../../sass/add_media.scss';
 
 /**
  * Functional component for adding new media items.
@@ -78,10 +78,11 @@ export default function AddMedia({ pageName, addToList }) {
   };
 
   return (
-    <div className='add-new-media'>
-        
-      <form className='add-form' onSubmit={handleSubmit}
-        style={{display: isShown? 'flex' : 'none'}}
+    <div className="add-new-media">
+      <form
+        className="add-form"
+        onSubmit={handleSubmit}
+        style={{ display: isShown ? 'flex' : 'none' }}
       >
         <input
           type="text"
@@ -121,7 +122,7 @@ export default function AddMedia({ pageName, addToList }) {
         />
         <input type="submit" value="Post" />
       </form>
-      <div className='add-button'>
+      <div className="add-button">
         <button onClick={() => setIsSHown(!isShown)}>
           <i className="gg-add-r"></i>
           {pageName} Next?

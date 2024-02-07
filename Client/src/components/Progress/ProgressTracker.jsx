@@ -2,7 +2,7 @@ import { PropTypes } from 'prop-types';
 
 import AddProjectItem from './AddProgressItem';
 import ProgressItem from './ProgressItem';
-import "../../sass/progress_tracking.scss";
+import '../../sass/progress_tracking.scss';
 
 /**
  * Component representing a progress tracker for a media item.
@@ -49,9 +49,8 @@ export default function ProjectTracker({ media, progressTrackingUtils }) {
         addToList={addToList}
       />
       <h3>Progress History</h3>
-    
-        <>{progressItems}</>
-     
+
+      <>{progressItems}</>
     </div>
   );
 }

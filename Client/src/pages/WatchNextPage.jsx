@@ -1,7 +1,6 @@
-import { useEffect } from 'react';
+import { lazy, Suspense, useEffect } from 'react';
 
-import { videoMediaTypes } from '../components/common/FormFields';
-import ListPage from '../components/common/ListPage';
+import { videoMediaTypes } from '../lib/form-fields';
 import '../sass/pages.scss';
 
 /**
@@ -11,8 +10,14 @@ import '../sass/pages.scss';
  */
 export default function WatchNextPage() {
   const mediaTypes = videoMediaTypes.map(i => i.label);
+  const ListPage = lazy(() => import('../components/common/ListPage'));
+  useEffect(() => {
+    document.title = 'Watch Next?';
+  }, []);
 
-  useEffect(() => {document.title = "Watch Next?"}, [])
-
-  return <ListPage mediaTypes={mediaTypes} pageName={'Watch'} />;
+  return (
+    <Suspense>
+      <ListPage mediaTypes={mediaTypes} pageName={'Watch'} />;
+    </Suspense>
+  );
 }

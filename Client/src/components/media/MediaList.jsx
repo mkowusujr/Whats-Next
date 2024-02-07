@@ -1,9 +1,11 @@
 import { PropTypes } from 'prop-types';
-import Skeleton from 'react-loading-skeleton';
-import 'react-loading-skeleton/dist/skeleton.css';
+
+import '../../sass/media_list.scss';
+import { Suspense, lazy } from 'react';
 
 import MediaCell from './MediaCell';
-import "../../sass/media_list.scss"
+// import  MediaCellSkeleton  from '../skeletons/MediaCellSkeleton';
+// import { MediaListSkeleton } from '../skeletons/MediaListSkeleton';
 
 /**
  * Functional component for displaying a list of media items.
@@ -23,60 +25,33 @@ export default function MediaList({
   removeFromList,
   updateList
 }) {
-  // Map media items to MediaCell components
-  const mediaItems = mediaList.map(m => (
-    <MediaCell
-      key={m.id}
-      media={m}
-      removeFromList={removeFromList}
-      updateList={updateList}
-    />
-  ));
-
   // Skeleton loader for loading state
-  const loadingSkeleton = (
-    <div className="media-item">
-      <div>
-        <Skeleton variant="rectangular" height={75} width={50} />
-      </div>
-      <div>
-        <Skeleton variant="rectangular" height={22} width={195} />
-      </div>
-      <div>
-        <Skeleton variant="rectangular" height={22} width={44} />
-      </div>
-      <div>
-        <Skeleton variant="rectangular" height={22} width={127} />
-      </div>
-      <div>
-        <Skeleton variant="rectangular" height={22} width={95} />
-      </div>
-      <div>
-        <Skeleton variant="rectangular" height={22} width={73} />
-      </div>
-      <div>
-        <Skeleton variant="rectangular" height={22} width={58} />
-      </div>
-    </div>
-  );
+
+  // const MediaListSkeleton = [];
+  // for (let i = 0; i <= 6; i++) {
+  //   MediaListSkeleton.push(<MediaCellSkeleton key={i} />);
+  // }
+
+  const MediaItems = () => {
+    // const MediaCell = lazy(() => import('./MediaCell'));
+    return mediaList.map(m => (
+      // <Suspense fallback={<MediaCellSkeleton />}>
+      <MediaCell
+        key={m.id}
+        media={m}
+        removeFromList={removeFromList}
+        updateList={updateList}
+      />
+      // </Suspense>
+    ));
+  };
 
   return (
     <>
       <>{filterComponent}</>
       <div className="media-list">
-        <>
-          {mediaItems.length != 0 ? (
-            <>{mediaItems}</>
-          ) : (
-            <>
-              <>{loadingSkeleton}</>
-              <>{loadingSkeleton}</>
-              <>{loadingSkeleton}</>
-              <>{loadingSkeleton}</>
-              <>{loadingSkeleton}</>
-            </>
-          )}
-        </>
+        <MediaItems />
+        {/* <>{mediaList ? <MediaItems /> : <MediaListSkeleton />}</> */}
       </div>
     </>
   );
@@ -84,7 +59,7 @@ export default function MediaList({
 
 MediaList.propTypes = {
   mediaType: PropTypes.string.isRequired,
-  mediaList: PropTypes.array.isRequired,
+  mediaList: PropTypes.array,
   removeFromList: PropTypes.func.isRequired,
   updateList: PropTypes.func.isRequired,
   filterComponent: PropTypes.element.isRequired
