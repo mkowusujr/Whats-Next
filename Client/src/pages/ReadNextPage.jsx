@@ -2,6 +2,7 @@ import { Suspense, lazy, useEffect } from 'react';
 
 import { bookTypes } from '../lib/form-fields';
 import '../sass/pages.scss';
+import ListPageSkeleton from '../components/skeletons/ListPageSkeleton';
 
 /**
  * Functional component for the Read Next page, displaying a list of readable media items.
@@ -17,8 +18,9 @@ export default function ReadNextPage() {
   }, []);
 
   return (
-    <Suspense>
-      <ListPage mediaTypes={mediaTypes} pageName={'Read'} />;
+    <Suspense fallback={<ListPageSkeleton />}>
+      {/* <ListPage mediaTypes={mediaTypes} pageName={'Read'} /> */}
+      <ListPageSkeleton />
     </Suspense>
   );
 }

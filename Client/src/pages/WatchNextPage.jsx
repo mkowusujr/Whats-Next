@@ -2,6 +2,7 @@ import { lazy, Suspense, useEffect } from 'react';
 
 import { videoMediaTypes } from '../lib/form-fields';
 import '../sass/pages.scss';
+import ListPageSkeleton from '../components/skeletons/ListPageSkeleton';
 
 /**
  * Functional component for the Watch Next page, displaying a list of watchable media items.
@@ -16,8 +17,8 @@ export default function WatchNextPage() {
   }, []);
 
   return (
-    <Suspense>
-      <ListPage mediaTypes={mediaTypes} pageName={'Watch'} />;
+    <Suspense fallback={<ListPageSkeleton />}>
+      <ListPage mediaTypes={mediaTypes} pageName={'Watch'} />
     </Suspense>
   );
 }

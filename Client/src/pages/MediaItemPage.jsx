@@ -7,11 +7,7 @@ import Select from '../components/common/Select';
 import { getMediaInfo, updateMedia } from '../lib/media.service';
 import { listNotesForMedia } from '../lib/notes.service';
 import { listProgressForMedia } from '../lib/progress.service';
-import {
-  scores,
-  statuses,
-  storageTypes
-} from '../lib/form-fields';
+import { scores, statuses, storageTypes } from '../lib/form-fields';
 import '../sass/media_item_page.scss';
 
 export default function MediaItemPage() {

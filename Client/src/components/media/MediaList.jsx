@@ -5,7 +5,7 @@ import { Suspense, lazy } from 'react';
 
 import MediaCell from './MediaCell';
 // import  MediaCellSkeleton  from '../skeletons/MediaCellSkeleton';
-// import { MediaListSkeleton } from '../skeletons/MediaListSkeleton';
+import MediaListSkeleton from '../skeletons/MediaListSkeleton';
 
 /**
  * Functional component for displaying a list of media items.
@@ -50,8 +50,8 @@ export default function MediaList({
     <>
       <>{filterComponent}</>
       <div className="media-list">
-        <MediaItems />
-        {/* <>{mediaList ? <MediaItems /> : <MediaListSkeleton />}</> */}
+        {/* <MediaItems /> */}
+        <>{mediaList.length != 0 ? <MediaItems /> : <MediaListSkeleton />}</>
       </div>
     </>
   );

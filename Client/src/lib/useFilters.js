@@ -13,15 +13,15 @@ export const useFilters = (mediaTypes, list) => {
 
   const filteredList = list
     ? [...list]
-      .filter(m => {
-        return (
-          (m.title + (m.subTitle ?? '')).includes(filters.name) &&
-          filters.mediaTypes.includes(m.mediaType) &&
-          (filters.score != 0 ? filters.score.includes(m.score) : true) &&
-          (filters.status != '' ? filters.status == m.status : true)
-        );
-      })
-      .sort(sortByOptions.find(s => s.label == filters.sortBy).sortBy)
+        .filter(m => {
+          return (
+            (m.title + (m.subTitle ?? '')).includes(filters.name) &&
+            filters.mediaTypes.includes(m.mediaType) &&
+            (filters.score != 0 ? filters.score.includes(m.score) : true) &&
+            (filters.status != '' ? filters.status == m.status : true)
+          );
+        })
+        .sort(sortByOptions.find(s => s.label == filters.sortBy).sortBy)
     : list;
 
   const filtersProp = { get: filters, set: setFilters };
