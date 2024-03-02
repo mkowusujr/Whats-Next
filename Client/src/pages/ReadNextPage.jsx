@@ -19,8 +19,7 @@ export default function ReadNextPage() {
 
   return (
     <Suspense fallback={<ListPageSkeleton />}>
-      {/* <ListPage mediaTypes={mediaTypes} pageName={'Read'} /> */}
-      <ListPageSkeleton />
+      <ListPage mediaTypes={mediaTypes} pageName={'Read'} />
     </Suspense>
   );
 }
