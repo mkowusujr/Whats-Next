@@ -27,7 +27,7 @@ export default function AddMedia({ pageName, addToList }: AddMediaProps) {
   const [mediaType, setMediaType] = useState('');
   const [score, setScore] = useState(0);
   const [status, setStatus] = useState('');
-  const [isShown, setIsSHown] = useState(false);
+  const [link, setLink] = useState('');
 
   // Options for the media type dropdown
   let allowedMediaOptions: { label: string; value: string }[] = [];
@@ -57,7 +57,8 @@ export default function AddMedia({ pageName, addToList }: AddMediaProps) {
         subTitle: subTitle,
         mediaType: mediaType,
         score: score,
-        status: status
+        status: status,
+        link: link
       };
 
       addMedia(newMedia)
@@ -68,6 +69,7 @@ export default function AddMedia({ pageName, addToList }: AddMediaProps) {
           setMediaType('');
           setScore(0);
           setStatus('');
+          setLink('');
           res(`Successfully added ${m.title}`);
         })
         .catch(err => rej(err));
@@ -116,7 +118,7 @@ export default function AddMedia({ pageName, addToList }: AddMediaProps) {
               value={mediaType}
               options={allowedMediaOptions}
               onChange={e => setMediaType(e.target.value)}
-              className='rounded-md'
+              className="rounded-md"
               isRequired={true}
             />
             <Select
@@ -124,14 +126,24 @@ export default function AddMedia({ pageName, addToList }: AddMediaProps) {
               value={score}
               options={scores}
               onChange={e => setScore(e.target.value)}
-              className='rounded-md'
+              className="rounded-md"
             />
             <Select
               name={'status'}
               value={status}
               options={statuses}
               onChange={e => setStatus(e.target.value)}
-              className='rounded-md'
+              className="rounded-md"
+            />
+          </div>
+          <div>
+            <input
+              name="link"
+              value={link}
+              onChange={e => setLink(e.target.value)}
+              placeholder="Add Link"
+              className="block rounded-b-md border-2 p-1 md:rounded-e-md"
+              autoComplete="off"
             />
           </div>
           <input type="submit" value="Post" />

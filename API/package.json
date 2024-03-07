@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "npx nodemon src/server.js",
+    "dev": "set DB_URL=./src/prisma/whatsnext.db && npx nodemon src/server.js",
     "pretty": "npx prettier --write ."
   },
   "devDependencies": {
@@ -20,6 +20,7 @@
     "morgan": "^1.10.0",
     "movier": "^3.0.1",
     "node-fetch": "^2.6.12",
+    "prisma": "^5.10.2",
     "sqlite3": "^5.1.6"
   },
   "repository": {

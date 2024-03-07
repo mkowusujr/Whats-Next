@@ -1,5 +1,5 @@
 const sqlite3 = require('sqlite3').verbose();
-const db = new sqlite3.Database('./src/whatsnext.db');
+const db = new sqlite3.Database(process.env.DB_URL);
 const movier = require('movier');
 const gbookFinder = require('@chewhx/google-books');
 const fetch = require('node-fetch');
@@ -12,6 +12,7 @@ const fetch = require('node-fetch');
  * @param {string} media.mediaType - The type of media (e.g., Movie, Series, Graphic Novels, Fiction).
  * @param {number} media.score - The score of the media.
  * @param {string} media.status - The status of the media.
+ * @param {string} media.link - The link to access the media.
  * @returns {Promise<Object>} A promise that resolves with the added media object.
  * @throws {Error} Throws an error if there is an issue with the creation process.
  */
@@ -35,9 +36,10 @@ exports.add = async media => {
       img,
       creator,
       summary,
-      releaseDate
+      releaseDate,
+      link
       )
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `;
 
     const insertData = [
@@ -51,7 +53,8 @@ exports.add = async media => {
       mediaInfo.img,
       mediaInfo.creator,
       mediaInfo.summary,
-      mediaInfo.releaseDate
+      mediaInfo.releaseDate,
+      media.link
     ];
 
     db.run(insertStmt, insertData, function (err) {
@@ -167,6 +170,7 @@ exports.getInfo = mediaID => {
  * @param {number} media.score - The updated score of the media.
  * @param {string} media.storage - The updated storage information for the media.
  * @param {string} media.releaseDate - The updated release date of the media.
+ * @param {string} media.link - The link to access the media.
  * @param {number} media.id - The ID of the media entry to update.
  * @returns {Promise<Object>} A promise that resolves with the updated media object.
  * @throws {Error} Throws an error if there is an issue with the update process.
@@ -181,7 +185,8 @@ exports.update = media => {
     score = ?, 
     storage = ?,
     releaseDate = ?,
-    dateLastUpdated = ?
+    dateLastUpdated = ?,
+    link = ?
     WHERE id = ?
     `;
 
@@ -193,6 +198,7 @@ exports.update = media => {
     media.storage,
     media.releaseDate,
     new Date().toLocaleDateString(),
+    media.link,
     media.id
   ];
 

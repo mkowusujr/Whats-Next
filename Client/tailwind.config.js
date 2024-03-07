@@ -30,8 +30,8 @@ export default {
       animation: {
         "fade-in": 'fadeIn 150ms ease-in',
         "fade-out": 'fadeOut 150ms ease-out',
-        "slide-in-Right": 'slideInRight 150ms ease-out',
-        "slide-out-right": 'slideOutRight 150ms ease-out',
+        "slide-in-right": 'slideInRight 300ms ease-out',
+        "slide-out-right": 'slideOutRight 300ms ease-out',
       },
     },
 

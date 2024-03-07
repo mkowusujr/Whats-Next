@@ -1,14 +1,20 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { TrashIcon, InformationCircleIcon } from '@heroicons/react/24/outline';
+import {
+  TrashIcon,
+  InformationCircleIcon,
+  LinkIcon,
+  BookOpenIcon,
+  PencilSquareIcon,
+  PresentationChartLineIcon,
+  EllipsisVerticalIcon
+} from '@heroicons/react/24/outline';
 import { scores, statuses } from '@/lib/form-fields';
 import Select from '../common/Select';
 import { deleteMedia, updateMedia } from '@/lib/data/media';
-import MediaCellSkeleton from '../skeletons/MediaCellSkeleton';
-import {
-  LazyLoadComponent,
-  LazyLoadImage
-} from 'react-lazy-load-image-component';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import { Dialog, DialogContent, DialogTrigger } from '../common/Dialog';
+import clsx from 'clsx';
 
 type MediaCellProps = {
   /** The media object containing information about the item. */
@@ -72,7 +78,53 @@ export default function MediaCell({
       .catch(err => console.error(err));
   };
 
-  const DeleteBtn = () => <TrashIcon className="size-5" />;
+  const MediaLink = () => {
+    return (
+      media.link && (
+        <a href={media.link}>
+          <LinkIcon className="size-5" />
+        </a>
+      )
+    );
+  };
+
+  const ViewSummary = () => (
+    <div>
+      <Dialog>
+        <DialogTrigger>
+          <InformationCircleIcon className="size-5" />
+        </DialogTrigger>
+        <DialogContent>
+          <p className="w-72 rounded-md bg-white/80 p-6 text-2xl text-black backdrop-blur-sm sm:w-[500px] lg:w-[800px]">
+            {media.summary}
+          </p>
+        </DialogContent>
+      </Dialog>
+    </div>
+  );
+
+  const MoreOption = () => {
+    const [isOpen, setIsOpen] = useState(false);
+    return (
+      <div className="mt-auto flex justify-end gap-2 text-white">
+        <div
+          className={clsx('flex gap-1 opacity-0', {
+            'pointer-events-auto animate-fade-out opacity-0': !isOpen,
+            'pointer-events-auto visible animate-fade-in opacity-100': isOpen
+          })}
+        >
+          <BookOpenIcon className="size-5" />
+          <PresentationChartLineIcon className="size-5" />
+          <PencilSquareIcon className="size-5" />
+          <TrashIcon className="size-5" />
+        </div>
+        <EllipsisVerticalIcon
+          className="size-5 cursor-pointer"
+          onClick={() => setIsOpen(!isOpen)}
+        />
+      </div>
+    );
+  };
 
   return (
     <div className="flex rounded-md bg-slate-500 p-4 text-sm shadow-sm">
@@ -91,11 +143,14 @@ export default function MediaCell({
           <span className="mr-2 font-semibold">
             {(media.title + ' ' + (media.subTitle ?? '')).trim()}
           </span>
-          <ViewMore className="ml-auto" />
+          <div className="ml-auto flex gap-2">
+            <MediaLink />
+            <ViewSummary />
+          </div>
         </div>
         <ScoreSelector />
         <StatusSelector />
-        {/* <DeleteBtn/> */}
+        <MoreOption />
       </div>
     </div>
   );

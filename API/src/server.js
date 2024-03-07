@@ -9,14 +9,13 @@ const mediaRoutes = require('./routes/media.route'),
   progressRoutes = require('./routes/progress.route');
 
 const app = express(),
-  port = 3000,
-  database = require('./database');
+  port = 3000
 
 /**
  * Set up the database by creating necessary tables if they do
  * not exist.
  */
-database.setupDb();
+// database.setupDb();
 
 app.use(cors());
 app.use(bodyParser.json());

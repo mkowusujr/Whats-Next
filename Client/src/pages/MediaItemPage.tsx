@@ -22,6 +22,7 @@ export default function MediaItemPage() {
   const [score, setScore] = useState(0);
   const [status, setStatus] = useState('');
   const [storage, setStorage] = useState('');
+  const [link, setLink] = useState('');
 
   useEffect(() => {
     getMediaInfo(mediaID)
@@ -31,6 +32,7 @@ export default function MediaItemPage() {
         setScore(m.score);
         setStatus(m.status);
         setStorage(m.storage);
+        setLink(m.link);
         document.title =
           (m.title + ' ' + (m.subTitle ?? '')).trim() + ' | ' + m.status;
 
@@ -56,7 +58,8 @@ export default function MediaItemPage() {
       subTitle: subTitle,
       score: +score,
       status: status,
-      storage: storage
+      storage: storage,
+      link: link
     };
 
     document.title = (title + ' ' + (subTitle ?? '')).trim() + ' | ' + status;
@@ -131,6 +134,14 @@ export default function MediaItemPage() {
             onChange={(e: { target: { value: SetStateAction<string> } }) =>
               setStorage(e.target.value)
             }
+          />
+          <input
+            type="text"
+            name="link"
+            value={link}
+            onChange={e => setLink(e.target.value)}
+            placeholder="Add Link"
+            autoComplete="off"
           />
 
           <input className="update-button" type="submit" value="Update Media" />

@@ -9,5 +9,6 @@ type Media = {
   releaseDate: string;
   creator: string;
   img: string;
-  mediaType: string
+  mediaType: string;
+  link: string;
 };

@@ -1,5 +1,5 @@
 const sqlite3 = require('sqlite3').verbose();
-const db = new sqlite3.Database('./src/whatsnext.db');
+const db = new sqlite3.Database(process.env.DB_URL);
 
 /**
  * Updates progress information in the database.

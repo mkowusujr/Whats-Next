@@ -80,7 +80,7 @@ const DialogTrigger = ({ children }: { children: ReactNode }) => (
     {({ setIsOpen }) => (
       <div
         id="dialog-trigger"
-        className="w-fit"
+        className="w-fit cursor-pointer"
         onClick={() => setIsOpen(true)}
       >
         {children}

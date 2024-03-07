@@ -1,11 +1,11 @@
 const sqlite3 = require('sqlite3').verbose();
-const db = new sqlite3.Database('./src/whatsnext.db');
+const db = new sqlite3.Database(process.env.DB_URL);
 
 /**
  * Function to run additional setup scripts for the database.
  * @function
  */
-runScripts = () => {};
+runScripts = () => { };
 
 /**
  * Sets up the database schema by creating necessary tables if they do not exist.
@@ -13,9 +13,9 @@ runScripts = () => {};
  * @returns {void}
  */
 exports.setupDb = () =>
-  db.serialize(() => {
-    db.run(
-      `
+	db.serialize(() => {
+		db.run(
+			`
 			CREATE TABLE IF NOT EXISTS media(
 				id INTEGER PRIMARY KEY,
 				title STRING NOT NULL,
@@ -33,9 +33,9 @@ exports.setupDb = () =>
 				summary STRING
 			)
 		`
-    );
+		);
 
-    db.run(`
+		db.run(`
 		CREATE TABLE IF NOT EXISTS progress(
 			id INTEGER PRIMARY KEY,
 			title STRING NOT NULL DEFAULT 'First Watch',
@@ -49,8 +49,8 @@ exports.setupDb = () =>
 		)
 		`);
 
-    db.run(
-      `
+		db.run(
+			`
 			CREATE TABLE IF NOT EXISTS notes(
 				id INTEGER PRIMARY KEY,
 				title STRING NOT NULL,
@@ -61,7 +61,7 @@ exports.setupDb = () =>
 				FOREIGN KEY (mediaID) REFERENCES media(id)
 			)
 			`
-    );
+		);
 
-    runScripts();
-  });
+		runScripts();
+	});
