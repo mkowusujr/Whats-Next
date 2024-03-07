@@ -41,7 +41,6 @@ const getInprogress = () => {
     m.title,
     m.subTitle,
     m.mediaType,
-    m.score,
     m.storage,
 		m.status,
     m.img,
@@ -111,7 +110,8 @@ const getNotes = () => {
         n.dateCreated,
         n.dateLastUpdated,
         m.title as mediaTitle,
-        m.subTitle as mediaSubtitle
+        m.subTitle as mediaSubtitle,
+        m.img
       FROM notes n
       LEFT JOIN media m on n.mediaID = m.id 
       ORDER BY n.dateCreated DESC LIMIT 10`,
