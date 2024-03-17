@@ -1,3 +1,5 @@
+import { getMediaFullTitle } from './utils/media-utils';
+
 /**
  * Different status options for media items.
  */
@@ -74,6 +76,11 @@ export const bookTypes = [
   { label: 'Fiction', value: 'Fiction' }
 ];
 
+const collator = new Intl.Collator(undefined, {
+  numeric: true,
+  sensitivity: 'base'
+});
+
 /**
  * Sorting options for media items.
  */
@@ -81,47 +88,24 @@ export const sortByOptions = [
   {
     label: 'Name',
     value: 'Name',
-    sortBy: (a, b) => {
-      return a.name < b.name
-        ? -1
-        : a.title + (a.subTitle ?? '') > b.title + (b.subTitle ?? '')
-          ? 1
-          : 0;
-    },
-    findNullProps: m => {
-      return m.name == '';
+    sortBy: (a: Media, b: Media) => {
+      return collator.compare(getMediaFullTitle(a), getMediaFullTitle(b));
     }
   },
   {
     label: 'Score',
     value: 'Score',
-    sortBy: (a, b) => {
+    sortBy: (a: Media, b: Media) => {
       return a.score - b.score;
-    },
-    findNullProps: m => {
-      return m.personalRating == 'Select Personal Rating';
     }
   },
   {
     label: 'Date Started',
     value: 'Date Started',
-    sortBy: (a, b) => {
-      return new Date(a.dateStarted ?? a.dS) - new Date(b.dateStarted ?? b.dS);
-    },
-    findNullProps: m => {
-      return m.dateStarted ? m.dateStarted == '' : m.dS == '';
-    }
-  },
-  {
-    label: 'Date Completed',
-    value: 'Date Completed',
-    sortBy: (a, b) => {
+    sortBy: (a: Media, b: Media) => {
       return (
-        new Date(a.dateCompleted ?? a.dC) - new Date(b.dateCompleted ?? b.dC)
+        new Date(a.dateStarted).getTime() - new Date(b.dateStarted).getTime()
       );
-    },
-    findNullProps: m => {
-      return m.dateCompleted ? m.dateCompleted == '' : m.dC == '';
     }
   }
 ];

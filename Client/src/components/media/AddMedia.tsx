@@ -6,11 +6,15 @@ import {
   statuses,
   scores
 } from '@/lib/form-fields';
-import Select from '../common/Select';
+import Select from '@/components/common/Select';
 import { apiToast } from '@/lib/data/api-base';
 import { addMedia } from '@/lib/data/media';
 import { PlusCircleIcon } from '@heroicons/react/24/outline';
-import { Dialog, DialogContent, DialogTrigger } from '../common/Dialog';
+import {
+  Dialog,
+  DialogContent,
+  DialogTrigger
+} from '@/components/common/Dialog';
 
 type AddMediaProps = {
   /** The type of media to be added ('Watch' or 'Read'). */
@@ -48,11 +52,11 @@ export default function AddMedia({ pageName, addToList }: AddMediaProps) {
    *
    * @param {Event} e - The form submission event.
    */
-  const handleSubmit = e => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    const callAPI = new Promise((res, rej) => {
-      const newMedia = {
+    const callAPI = new Promise<string>((res, rej) => {
+      const newMedia: CreatedMedia = {
         title: title,
         subTitle: subTitle,
         mediaType: mediaType,
@@ -70,7 +74,7 @@ export default function AddMedia({ pageName, addToList }: AddMediaProps) {
           setScore(0);
           setStatus('');
           setLink('');
-          res(`Successfully added ${m.title}`);
+          res(`Successfully added ${m!.title}`);
         })
         .catch(err => rej(err));
     });
@@ -81,14 +85,14 @@ export default function AddMedia({ pageName, addToList }: AddMediaProps) {
   return (
     <Dialog>
       <DialogTrigger>
-        <button className="align-center fixed bottom-4 left-4 z-30 flex rounded-md bg-slate-800/80 px-4 py-2 text-2xl font-bold text-white shadow-lg  backdrop-blur-md">
+        <div className="align-center fixed bottom-4 left-4  z-30 flex rounded-md bg-accent px-4  py-2 text-2xl font-bold text-neutral opacity-90 shadow-lg">
           <PlusCircleIcon className="mr-2 size-8" />
           <span>{pageName} Next?</span>
-        </button>
+        </div>
       </DialogTrigger>
       <DialogContent>
         <form
-          className="flex flex-col justify-between gap-4 rounded-md bg-white/80 p-6 text-2xl backdrop-blur-sm"
+          className="flex flex-col justify-between gap-4 rounded-md bg-base-300  p-6 text-2xl"
           onSubmit={handleSubmit}
         >
           <div className="flex flex-col md:flex-row">
@@ -99,7 +103,7 @@ export default function AddMedia({ pageName, addToList }: AddMediaProps) {
               onChange={e => setTitle(e.target.value)}
               placeholder="Add Title"
               autoComplete="off"
-              className="block rounded-t-md border-2 p-1 md:rounded-s-md"
+              className="rounded-t-md bg-secondary px-4 py-1 text-primary placeholder-base-100 outline-none md:rounded-e-none md:rounded-s-md"
               required
             />
             <input
@@ -108,11 +112,11 @@ export default function AddMedia({ pageName, addToList }: AddMediaProps) {
               value={subTitle}
               onChange={e => setSubTitle(e.target.value)}
               placeholder="Add Subtitle"
-              className="block rounded-b-md border-2 p-1 md:rounded-e-md"
+              className="rounded-b-md bg-secondary px-4 py-1 text-primary placeholder-base-100 outline-none md:rounded-e-md md:rounded-s-none"
               autoComplete="off"
             />
           </div>
-          <div className="flex flex-col gap-4 md:flex-row">
+          <div className="mx-auto flex flex-col gap-4 md:flex-row">
             <Select
               name={'mediaType'}
               value={mediaType}
@@ -142,11 +146,15 @@ export default function AddMedia({ pageName, addToList }: AddMediaProps) {
               value={link}
               onChange={e => setLink(e.target.value)}
               placeholder="Add Link"
-              className="block rounded-b-md border-2 p-1 md:rounded-e-md"
+              className="w-full rounded-md bg-secondary px-4 py-1 text-primary placeholder-base-100 outline-none"
               autoComplete="off"
             />
           </div>
-          <input type="submit" value="Post" />
+          <input
+            type="submit"
+            value="Add Media"
+            className="cursor-pointer rounded-md bg-primary px-4 py-1 text-secondary outline-none"
+          />
         </form>
       </DialogContent>
     </Dialog>

@@ -9,7 +9,6 @@ function App() {
   const ReadNextPage = lazy(() => import('@/pages/ReadNextPage'));
   const WatchNextPage = lazy(() => import('@/pages/WatchNextPage'));
   const WhatsNextPage = lazy(() => import('@/pages/WhatsNextPage'));
-  const MediaItemPage = lazy(() => import('@/pages/MediaItemPage'));
   return (
     <>
       <div>
@@ -39,14 +38,6 @@ function App() {
               element={
                 <Suspense fallback={<ListPageSkeleton />}>
                   <ReadNextPage />
-                </Suspense>
-              }
-            />
-            <Route
-              path="media"
-              element={
-                <Suspense>
-                  <MediaItemPage />
                 </Suspense>
               }
             />

@@ -6,6 +6,14 @@ export default {
 
   theme: {
     extend: {
+      colors: {
+        primary: 'var(--color-primary)',
+        secondary: 'var(--color-scondary)',
+        accent: 'var(--color-accent)',
+        neutral: 'var(--color-neutral)',
+        "base-100": 'var(--color-base-100)',
+        "base-300": 'var(--color-base-300)',
+      },
       fontFamily: {
         sans: ['"Lato"', ...defaultTheme.fontFamily.sans]
       },
@@ -28,8 +36,8 @@ export default {
         },
       },
       animation: {
-        "fade-in": 'fadeIn 150ms ease-in',
-        "fade-out": 'fadeOut 150ms ease-out',
+        "fade-in": 'fadeIn 100ms ease-in',
+        "fade-out": 'fadeOut 100ms ease-out',
         "slide-in-right": 'slideInRight 300ms ease-out',
         "slide-out-right": 'slideOutRight 300ms ease-out',
       },

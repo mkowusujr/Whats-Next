@@ -1,4 +1,4 @@
-import clsx from 'clsx';
+import { cn } from '@/lib/utils/styles';
 
 /** The properties passed to the component. */
 type SelectProps = {
@@ -33,7 +33,10 @@ export default function Select({
       value={value ?? ''}
       onChange={onChange}
       required={isRequired}
-      className={clsx('rounded-sm p-1', className)}
+      className={cn(
+        'cursor-pointer rounded-md bg-secondary px-4 py-1 text-primary',
+        className
+      )}
     >
       {options.map(option => (
         <option key={option.label} value={option.value}>

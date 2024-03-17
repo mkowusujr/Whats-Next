@@ -1,28 +1,20 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import {
-  TrashIcon,
-  InformationCircleIcon,
-  LinkIcon,
-  BookOpenIcon,
-  PencilSquareIcon,
-  PresentationChartLineIcon,
-  EllipsisVerticalIcon
-} from '@heroicons/react/24/outline';
+import { LinkIcon } from '@heroicons/react/24/outline';
 import { scores, statuses } from '@/lib/form-fields';
-import Select from '../common/Select';
-import { deleteMedia, updateMedia } from '@/lib/data/media';
+import Select from '@/components/common/Select';
+import { updateMedia } from '@/lib/data/media';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
-import { Dialog, DialogContent, DialogTrigger } from '../common/Dialog';
-import clsx from 'clsx';
+import { ViewSummary } from './MediaOptions/ViewSummary';
+import { MediaOptions } from './MediaOptions/MediaOptions';
+import { getMediaFullTitle } from '@/lib/utils/media-utils';
 
 type MediaCellProps = {
   /** The media object containing information about the item. */
   media: Media;
   /** Callback function to remove the media item from the list. */
-  removeFromList: Function;
+  removeFromList: RemoveFromList;
   /** Callback function to update the list after a change.*/
-  updateList: Function;
+  updateList: UpdateList<Media>;
 };
 
 /** Functional component representing a media item in a list. */
@@ -38,7 +30,7 @@ export default function MediaCell({
     const { name, value } = e.target;
     setMediaData({ ...media, [name]: value });
     updateMedia({ ...media, [name]: value })
-      .then(m => updateList(m))
+      .then(m => updateList(m!))
       .catch(err => console.error(err));
   };
 
@@ -49,6 +41,7 @@ export default function MediaCell({
       value={mediaData.score}
       options={scores}
       onChange={handleChange}
+      className="rounded-sm"
     />
   );
 
@@ -58,25 +51,9 @@ export default function MediaCell({
       value={mediaData.status}
       options={statuses}
       onChange={handleChange}
+      className="rounded-sm"
     />
   );
-
-  const ViewMore = ({ className }: { className?: string }) => (
-    <button className={className ?? ''}>
-      <Link to={'/media?mediaID=' + media.id}>
-        <InformationCircleIcon className="size-5">
-          <i className="gg-menu"></i>
-        </InformationCircleIcon>
-      </Link>
-    </button>
-  );
-
-  // Button click handler for deleting the media item
-  const handleDeletion = () => {
-    deleteMedia(media.id)
-      .then(() => removeFromList(media.id))
-      .catch(err => console.error(err));
-  };
 
   const MediaLink = () => {
     return (
@@ -88,69 +65,33 @@ export default function MediaCell({
     );
   };
 
-  const ViewSummary = () => (
-    <div>
-      <Dialog>
-        <DialogTrigger>
-          <InformationCircleIcon className="size-5" />
-        </DialogTrigger>
-        <DialogContent>
-          <p className="w-72 rounded-md bg-white/80 p-6 text-2xl text-black backdrop-blur-sm sm:w-[500px] lg:w-[800px]">
-            {media.summary}
-          </p>
-        </DialogContent>
-      </Dialog>
-    </div>
-  );
-
-  const MoreOption = () => {
-    const [isOpen, setIsOpen] = useState(false);
-    return (
-      <div className="mt-auto flex justify-end gap-2 text-white">
-        <div
-          className={clsx('flex gap-1 opacity-0', {
-            'pointer-events-auto animate-fade-out opacity-0': !isOpen,
-            'pointer-events-auto visible animate-fade-in opacity-100': isOpen
-          })}
-        >
-          <BookOpenIcon className="size-5" />
-          <PresentationChartLineIcon className="size-5" />
-          <PencilSquareIcon className="size-5" />
-          <TrashIcon className="size-5" />
-        </div>
-        <EllipsisVerticalIcon
-          className="size-5 cursor-pointer"
-          onClick={() => setIsOpen(!isOpen)}
-        />
-      </div>
-    );
-  };
-
   return (
-    <div className="flex rounded-md bg-slate-500 p-4 text-sm shadow-sm">
+    <div className="flex h-[155px] rounded-md border-2 border-accent bg-base-300 p-4 text-sm shadow-sm">
       <LazyLoadImage
         id={`cover-img${media.id}`}
         src={media.img}
         width={80}
         height={120}
         placeholder={
-          <div className="mr-4 h-[120px] w-20 animate-pulse rounded-sm bg-gray-400"></div>
+          <div className="mr-4 h-[120px] w-20 animate-pulse rounded-sm bg-secondary"></div>
         }
         className="mr-4 h-[120px] w-20 rounded-sm"
       />
       <div className="flex flex-grow flex-col gap-2">
-        <div className="inline-flex text-white">
-          <span className="mr-2 font-semibold">
-            {(media.title + ' ' + (media.subTitle ?? '')).trim()}
-          </span>
+        <div className="inline-flex text-neutral">
+          <span className="mr-2 font-semibold">{getMediaFullTitle(media)}</span>
           <div className="ml-auto flex gap-2">
             <MediaLink />
-            <ViewSummary />
+            <ViewSummary media={media} />
           </div>
         </div>
         <ScoreSelector />
         <StatusSelector />
-        <MoreOption />
+        <MediaOptions
+          media={media}
+          updateList={updateList}
+          removeFromList={removeFromList}
+        />
       </div>
     </div>
   );

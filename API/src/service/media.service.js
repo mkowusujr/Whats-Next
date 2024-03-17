@@ -83,7 +83,9 @@ exports.add = async media => {
 exports.list = mediaTypes => {
   const selectStmt = `SELECT * FROM media WHERE mediaType IN ('${mediaTypes.join(
     "','"
-  )}')`;
+  )}')
+  AND (isDeleted = 0 OR isDeleted is Null)
+  `;
 
   return new Promise((resolve, reject) => {
     db.all(selectStmt, (err, rows) => (_ = err ? reject(err) : resolve(rows)));
@@ -171,6 +173,7 @@ exports.getInfo = mediaID => {
  * @param {string} media.storage - The updated storage information for the media.
  * @param {string} media.releaseDate - The updated release date of the media.
  * @param {string} media.link - The link to access the media.
+ * @param {string} media.img - The image source to access the media.
  * @param {number} media.id - The ID of the media entry to update.
  * @returns {Promise<Object>} A promise that resolves with the updated media object.
  * @throws {Error} Throws an error if there is an issue with the update process.
@@ -186,7 +189,9 @@ exports.update = media => {
     storage = ?,
     releaseDate = ?,
     dateLastUpdated = ?,
-    link = ?
+    link = ?,
+    img = ?,
+    summary = ?
     WHERE id = ?
     `;
 
@@ -199,6 +204,8 @@ exports.update = media => {
     media.releaseDate,
     new Date().toLocaleDateString(),
     media.link,
+    media.img,
+    media.summary,
     media.id
   ];
 
@@ -226,8 +233,7 @@ exports.delete = mediaID => {
   return new Promise((resolve, reject) => {
     db.run(
       `
-    DELETE FROM media
-    WHERE id = ?
+      UPDATE media SET isDeleted = true WHERE id = ?
     `,
       mediaID,
       function (err) {

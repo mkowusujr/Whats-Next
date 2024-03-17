@@ -20,6 +20,7 @@ model media {
   notes           notes[]
   progress        progress[]
   link            String?
+  isDeleted       Boolean?
 }
 
 model notes {
@@ -30,6 +31,7 @@ model notes {
   dateLastUpdated DateTime?
   mediaID         Int
   media           media     @relation(fields: [mediaID], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  isDeleted       Boolean?
 }
 
 model progress {
@@ -42,4 +44,5 @@ model progress {
   mediaID       Int
   title         String    @default(dbgenerated("'First Watch'"))
   media         media     @relation(fields: [mediaID], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  isDeleted     Boolean?
 }

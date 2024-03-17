@@ -6,12 +6,13 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "lint": "eslint src --ext js,jsx --report-unused-disable-directives --max-warnings 0",
+    "lint": "eslint \"**/*.{ts,tsx}\" --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "format": "npx prettier --write ./src"
   },
   "dependencies": {
     "@heroicons/react": "^2.1.1",
+    "@tailwindcss/line-clamp": "^0.4.4",
     "clsx": "^2.1.0",
     "eslint": "^8.56.0",
     "eslint-plugin-react": "^7.33.2",
@@ -20,7 +21,9 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hot-toast": "^2.4.1",
-    "react-lazy-load-image-component": "^1.6.0"
+    "react-lazy-load-image-component": "^1.6.0",
+    "require": "^2.4.20",
+    "tailwind-merge": "^2.2.2"
   },
   "devDependencies": {
     "@types/react": "^18.2.61",
@@ -30,6 +33,7 @@
     "@vitejs/plugin-react": "^4.0.0",
     "autoprefixer": "^10.4.18",
     "daisyui": "^4.7.2",
+    "eslint-plugin-react-refresh": "^0.4.5",
     "postcss": "^8.4.35",
     "prettier": "^3.2.5",
     "prettier-plugin-tailwindcss": "^0.5.11",

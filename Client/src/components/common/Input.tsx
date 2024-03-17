@@ -1,4 +1,4 @@
-import clsx from 'clsx';
+import { cn } from '@/lib/utils/styles';
 
 type InputProps = {
   className?: string;
@@ -15,7 +15,7 @@ export default function Input({
 }: InputProps) {
   return (
     <div
-      className={clsx('relative h-10 w-72 min-w-[200px]', className)}
+      className={cn('relative h-10 w-72 min-w-[200px]', className)}
       data-te-input-wrapper-init
     >
       <input
@@ -25,7 +25,7 @@ export default function Input({
         onChange={onChange}
         placeholder="Type query"
       />
-      <label className="peer-focus:text-primary dark:peer-focus:text-primary pointer-events-none absolute left-3 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-neutral-500 transition-all duration-200 ease-out peer-focus:-translate-y-[0.9rem] peer-focus:scale-[0.8] peer-data-[te-input-state-active]:-translate-y-[0.9rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-200">
+      <label className="text-neutral-500 dark:text-neutral-200 pointer-events-none absolute left-3 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] transition-all duration-200 ease-out peer-focus:-translate-y-[0.9rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[0.9rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:peer-focus:text-primary">
         {label}
       </label>
     </div>

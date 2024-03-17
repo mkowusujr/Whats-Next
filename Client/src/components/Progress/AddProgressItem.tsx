@@ -5,23 +5,25 @@ import {
   mediaProgressUnits,
   videoMediaTypes
 } from '@/lib/form-fields';
-import Select from '../common/Select';
+import Select from '@/components/common/Select';
 import { apiToast } from '@/lib/data/api-base';
 import { addProgress } from '@/lib/data/progress';
-import { Dialog, DialogContent, DialogTrigger } from '../common/Dialog';
-import { PlusCircleIcon } from '@heroicons/react/24/outline';
 
 type AddProjectItemProps = {
   /** The ID of the media item being tracked. */
   mediaID: number;
   /** Function to add the new progress to the list. */
-  addToList: any;
+  addToList: AddToList<Progress>;
   /** The type of media (e.g., book, video) being tracked. */
-  mediaType: any;
+  mediaType: string;
 };
 
 /** Component for adding progress tracking information for a media item. */
-export default function AddProjectItem({ mediaID, addToList, mediaType }:AddProjectItemProps) {
+export default function AddProjectItem({
+  mediaID,
+  addToList,
+  mediaType
+}: AddProjectItemProps) {
   const [title, setTitle] = useState('');
   const [current, setCurrent] = useState('');
   const [total, setTotal] = useState('');
@@ -34,10 +36,10 @@ export default function AddProjectItem({ mediaID, addToList, mediaType }:AddProj
    *
    * @param {Object} e - The form submission event.
    */
-  const handleSubmit = e => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    const callAPI = new Promise((res, rej) => {
+    const callAPI = new Promise<string>((res, rej) => {
       const progress = {
         title: title,
         current: +current,
@@ -50,7 +52,7 @@ export default function AddProjectItem({ mediaID, addToList, mediaType }:AddProj
 
       addProgress(progress)
         .then(newProgress => {
-          addToList(newProgress);
+          addToList(newProgress!);
           setCurrent('');
           setTotal('');
           setUnit('');
@@ -72,6 +74,7 @@ export default function AddProjectItem({ mediaID, addToList, mediaType }:AddProj
       onChange={e => setTitle(e.target.value)}
       autoComplete="off"
       required
+      className="w-full rounded-md bg-secondary px-4 py-1 text-primary placeholder-base-100 outline-none"
     />
   );
 
@@ -86,6 +89,8 @@ export default function AddProjectItem({ mediaID, addToList, mediaType }:AddProj
       onChange={e => setCurrent(e.target.value)}
       disabled={total == ''}
       autoComplete="off"
+      placeholder="Curr"
+      className="rounded-md bg-secondary px-4 py-1 text-primary placeholder-base-100 outline-none"
       required
     />
   );
@@ -99,6 +104,8 @@ export default function AddProjectItem({ mediaID, addToList, mediaType }:AddProj
       min={0}
       onChange={e => setTotal(e.target.value)}
       autoComplete="off"
+      placeholder="Goal"
+      className="rounded-md bg-secondary px-4 py-1 text-primary placeholder-base-100 outline-none"
       required
     />
   );
@@ -127,6 +134,7 @@ export default function AddProjectItem({ mediaID, addToList, mediaType }:AddProj
       value={dateStarted}
       onChange={e => setDateStarted(e.target.value)}
       required
+      className="w-full rounded-md bg-secondary px-4 py-1 text-primary placeholder-base-100 outline-none"
     />
   );
 
@@ -136,39 +144,34 @@ export default function AddProjectItem({ mediaID, addToList, mediaType }:AddProj
       type="date"
       value={dateCompleted}
       onChange={e => setDateCompleted(e.target.value)}
+      className="w-full rounded-md bg-secondary px-4 py-1 text-primary placeholder-base-100 outline-none"
     />
   );
 
   return (
-    <Dialog>
-      <DialogTrigger>
-        <button>
-          <button className="align-center fixed bottom-4 left-4 z-30 flex rounded-md bg-slate-800/80 px-4 py-2 text-2xl font-bold text-white shadow-lg  backdrop-blur-md">
-            <PlusCircleIcon className="mr-2 size-8" />
-            <span>Add Progress</span>
-          </button>
-        </button>
-      </DialogTrigger>
-      <DialogContent>
-        <form
-          className="flex w-[300px] flex-col justify-between gap-4 rounded-sm bg-white/80 p-6 text-2xl backdrop-blur-sm"
-          onSubmit={handleSubmit}
-        >
-          <>{titleInput}</>
-          <div>
-            <>{currentInput}</>
-            <>{totalInput}</>
-            <>{unitInput}</>
-          </div>
-          <div>
-            <>{dateStartedtInput}</>
-            <>{dateCompletedtInput}</>
-          </div>
-          <>
-            <input type="submit" value="Add Progress" />
-          </>
-        </form>
-      </DialogContent>
-    </Dialog>
+    <div>
+      <form
+        className="flex flex-col justify-between gap-4 rounded-sm text-2xl"
+        onSubmit={handleSubmit}
+      >
+        <>{titleInput}</>
+        <div className="flex flex-col gap-2 lg:mx-auto lg:flex-row">
+          <>{currentInput}</>
+          <>{totalInput}</>
+          <>{unitInput}</>
+        </div>
+        <div className="flex flex-col gap-2 lg:flex-row">
+          <>{dateStartedtInput}</>
+          <>{dateCompletedtInput}</>
+        </div>
+        <>
+          <input
+            type="submit"
+            value="Add Progress"
+            className="cursor-pointer rounded-md bg-primary px-4 py-1 text-secondary outline-none"
+          />
+        </>
+      </form>
+    </div>
   );
 }

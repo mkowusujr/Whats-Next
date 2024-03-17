@@ -1,7 +1,4 @@
 import { useState } from 'react';
-
-import { PropTypes } from 'prop-types';
-
 import {
   bookProgressUnits,
   bookTypes,
@@ -9,19 +6,28 @@ import {
   videoMediaTypes
 } from '@/lib/form-fields';
 import useSubsequentEffect from '@/lib/hooks/useSubsequentEffect';
-import Select from '../common/Select';
+import Select from '@/components/common/Select';
 import { deleteProgress, updateProgress } from '@/lib/data/progress';
+
+type ProgressItemProps = {
+  /** The type of media (e.g., book, video) being tracked. */
+  mediaType: string;
+  /** The progress information for the media item. */
+  progress: Progress;
+  /** Function to remove the progress item from the list. */
+  removeFromList: RemoveFromList;
+};
 
 /**
  * Component representing an individual progress tracker item for a media item.
  *
- * @param {Object} props - The properties passed to the component.
- * @param {string} props.mediaType - The type of media (e.g., book, video) being tracked.
- * @param {Object} props.progress - The progress information for the media item.
- * @param {function} props.removeFromList - Function to remove the progress item from the list.
- * @returns {JSX.Element} - The rendered ProgressItem component.
+ * @returns The rendered ProgressItem component.
  */
-export default function ProgressItem({ mediaType, progress, removeFromList }) {
+export default function ProgressItem({
+  mediaType,
+  progress,
+  removeFromList
+}: ProgressItemProps) {
   const [title, setTitle] = useState(progress.title);
   const [current, setCurrent] = useState(progress.current);
   const [total, setTotal] = useState(progress.total);
@@ -64,6 +70,7 @@ export default function ProgressItem({ mediaType, progress, removeFromList }) {
       placeholder="Title"
       onChange={e => setTitle(e.target.value)}
       autoComplete="off"
+      className="w-full rounded-md bg-secondary px-4 py-1 text-primary placeholder-base-100 outline-none"
       required
     />
   );
@@ -76,9 +83,10 @@ export default function ProgressItem({ mediaType, progress, removeFromList }) {
       min={0}
       max={total}
       size={3}
-      disabled={total == ''}
-      onChange={e => setCurrent(e.target.value)}
+      disabled={total === undefined}
+      onChange={e => setCurrent(+e.target.value)}
       autoComplete="off"
+      className="rounded-md bg-secondary px-4 py-1 text-primary placeholder-base-100 outline-none"
       required
     />
   );
@@ -90,13 +98,14 @@ export default function ProgressItem({ mediaType, progress, removeFromList }) {
       value={total}
       min={0}
       size={3}
-      onChange={e => setTotal(e.target.value)}
+      onChange={e => setTotal(+e.target.value)}
       autoComplete="off"
+      className="rounded-md bg-secondary px-4 py-1 text-primary placeholder-base-100 outline-none"
       required
     />
   );
 
-  let unitOptions = [];
+  let unitOptions: any[] = [];
   if (videoMediaTypes.map(i => i.label).includes(mediaType)) {
     unitOptions = mediaProgressUnits;
   } else if (bookTypes.map(i => i.label).includes(mediaType)) {
@@ -119,6 +128,7 @@ export default function ProgressItem({ mediaType, progress, removeFromList }) {
       type="date"
       value={dateStarted}
       onChange={e => setDateStarted(e.target.value)}
+      className="w-full rounded-md bg-secondary px-4 py-1 text-primary placeholder-base-100 outline-none"
       required
     />
   );
@@ -129,26 +139,30 @@ export default function ProgressItem({ mediaType, progress, removeFromList }) {
       type="date"
       value={dateCompleted}
       onChange={e => setDateCompleted(e.target.value)}
+      className="w-full rounded-md bg-secondary px-4 py-1 text-primary placeholder-base-100 outline-none"
     />
   );
 
-  const deleteBtn = removeFromList ? (
-    <div>
-      <button onClick={deleteProgressTracker}>Delete Progress</button>
-    </div>
-  ) : (
-    <></>
+  const deleteBtn = (
+    <button
+      className="cursor-pointer rounded-md bg-base-100 px-4 py-1 text-primary outline-none"
+      onClick={deleteProgressTracker}
+    >
+      Delete Progress
+    </button>
   );
+
   return (
-    <div className="progress-item">
+    <div className="mt-10 flex flex-col gap-4">
+      <hr className="mb-6 border-2 border-primary" />
       <>{titleInput}</>
-      <div className="progress-units">
+      <div className="mx-auto flex gap-2">
         <>{currentInput}</>
-        <>/</>
+        <span className="my-auto text-primary">/</span>
         <>{totalInput}</>
         <>{unitInput}</>
       </div>
-      <div>
+      <div className="flex gap-2">
         <>{dateStartedtInput}</>
         <>{dateCompletedtInput}</>
       </div>
@@ -156,17 +170,3 @@ export default function ProgressItem({ mediaType, progress, removeFromList }) {
     </div>
   );
 }
-
-ProgressItem.propTypes = {
-  mediaType: PropTypes.string.isRequired,
-  progress: PropTypes.shape({
-    id: PropTypes.number,
-    current: PropTypes.number,
-    total: PropTypes.number,
-    unit: PropTypes.string,
-    dateStarted: PropTypes.string,
-    dateCompleted: PropTypes.string,
-    mediaID: PropTypes.number
-  }).isRequired,
-  removeFromList: PropTypes.func
-};

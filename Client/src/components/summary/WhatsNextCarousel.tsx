@@ -16,10 +16,12 @@ export default function WhatsNextCarousel({
   SlideComponent
 }: WhatsNextCarouselProps) {
   return (
-    <div className="">
-      <h2 className="text-center text-3xl font-semibold">{title}</h2>
+    <div className="rounded-md border-2 border-accent bg-base-300 p-2">
+      <h2 className="text-center text-3xl font-semibold text-primary">
+        {title}
+      </h2>
       <Carousel
-      
+        autoplay
         autoplayInterval={5000}
         wrapAround
         pauseOnHover

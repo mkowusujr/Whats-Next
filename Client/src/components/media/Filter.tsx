@@ -1,12 +1,17 @@
 import { useEffect, useState, useRef } from 'react';
 import { scores, sortByOptions, statuses } from '@/lib/form-fields';
 import Select from '@/components/common/Select';
-import { Dialog, DialogContent, DialogTrigger } from '../common/Dialog';
+import {
+  Dialog,
+  DialogContent,
+  DialogTrigger
+} from '@/components/common/Dialog';
 import { FunnelIcon } from '@heroicons/react/24/outline';
+import Checkbox from '../common/Checkbox';
 
 type FilterProps =
   /** A List containing filter state */
-  { filterProps: [] };
+  { filterProps: [Filter, React.Dispatch<React.SetStateAction<Filter>>] };
 /** Functional component for filtering media items. */
 export default function Filter({ filterProps }: FilterProps) {
   const [filters, setFilters] = filterProps;
@@ -19,18 +24,13 @@ export default function Filter({ filterProps }: FilterProps) {
   const [status, setStatus] = useState(filters.status);
   const [sortBy, setSortBy] = useState(filters.sortBy);
   const [isAsc, setIsAsc] = useState(filters.isAsc);
-  const [showFilterOptions, setShowFilterOptions] = useState(false);
-
-  useEffect(() => {
-    setShowFilterOptions(windowWidth.current > 900);
-  }, [windowWidth]);
 
   // Effect to update filters when filter inputs change
   useEffect(() => {
     setFilters({
       name: name,
       mediaTypes: mediaTypes,
-      score: [score],
+      score: score,
       status: status,
       sortBy: sortBy,
       isAsc: isAsc
@@ -41,39 +41,36 @@ export default function Filter({ filterProps }: FilterProps) {
     <div>
       <Dialog>
         <DialogTrigger>
-          <button className="align-center fixed bottom-20 left-4 z-30 flex rounded-md bg-slate-800/80 px-4 py-2 text-2xl font-bold text-white shadow-lg  backdrop-blur-md">
+          <div className="align-center fixed bottom-20 left-4 z-30 flex rounded-md bg-accent px-4 py-2 text-2xl font-bold text-neutral opacity-90 shadow-lg">
             <FunnelIcon className="mr-2 size-8" />
             <span>Filters</span>
-          </button>
+          </div>
         </DialogTrigger>
         <DialogContent>
-          <div className="flex flex-col justify-between gap-4 rounded-md bg-white/80 p-6 text-2xl backdrop-blur-sm">
+          <div className="flex flex-col justify-between gap-4 rounded-md bg-base-300 p-6 text-2xl">
             <div className="">
               <input
-                className="w-full p-1 rounded-md"
+                className="w-full rounded-md bg-secondary px-4 py-1 text-primary placeholder-base-100 outline-none"
                 type="text"
                 value={name}
                 onChange={e => setName(e.target.value)}
                 placeholder="Search Items"
               />
             </div>
-            <div className="flex flex-col md:flex-row gap-4">
+            <div className="flex flex-col gap-4 md:flex-row">
               <Select
-                // label={'Score: '}
                 name={'score'}
                 value={score}
                 options={scores}
-                onChange={e => setScore(+e.target.value)}
+                onChange={e => setScore(e.target.value)}
               />
               <Select
-                // label={'Status: '}
                 name={'status'}
                 value={status}
                 options={statuses}
                 onChange={e => setStatus(e.target.value)}
               />
               <Select
-                // label={'Sort By: '}
                 name={'sortBy'}
                 value={sortBy}
                 options={sortByOptions}
@@ -82,15 +79,11 @@ export default function Filter({ filterProps }: FilterProps) {
                   setIsAsc(['Name'].includes(e.target.value));
                 }}
               />
-              <label className='flex'>
-                <p>ASC</p>
-                <input
-                  type="checkbox"
-                  name="isAsc"
-                  checked={isAsc}
-                  onChange={() => setIsAsc(!isAsc)}
-                />
-              </label>
+              <Checkbox
+                label="ASC"
+                isChecked={isAsc}
+                handleChange={() => setIsAsc(!isAsc)}
+              />
             </div>
           </div>
         </DialogContent>

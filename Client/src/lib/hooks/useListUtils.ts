@@ -1,11 +1,24 @@
 import { useEffect, useState } from 'react';
 
-export const useListUtils = fetchList => {
-  const [list, setList] = useState<any>([]);
+interface WithId {
+  id: number;
+}
+
+type UseListUtilsReturnType<Type> = {
+  list: Type[];
+  addToList: AddToList<Type>;
+  removeFromList: RemoveFromList;
+  updateList: UpdateList<Type>;
+};
+
+export const useListUtils = <Type extends WithId>(
+  fetchList: () => Promise<Type[] | undefined>
+): UseListUtilsReturnType<Type> => {
+  const [list, setList] = useState<Type[]>([]);
 
   useEffect(() => {
     fetchList()
-      .then((l: any[]) => setList(l))
+      .then((l: Type[] | undefined) => setList(l!))
       .catch((err: unknown) => console.error(err));
   }, []);
 
@@ -14,8 +27,8 @@ export const useListUtils = fetchList => {
    *
    * @param {Object} item - The media item to be added.
    */
-  const addToList = (item: any) => {
-    setList((prevList: any) => [item, ...prevList]);
+  const addToList = (item: Type) => {
+    setList((prevList: Type[]) => [item, ...prevList]);
   };
 
   /**
@@ -24,7 +37,7 @@ export const useListUtils = fetchList => {
    * @param {number} id - The ID of the media item to be removed.
    */
   const removeFromList = (id: number) => {
-    setList((prevList: any[]) => prevList.filter(i => i.id !== id));
+    setList((prevList: Type[]) => prevList.filter(i => i.id !== id));
   };
 
   /**
@@ -32,12 +45,17 @@ export const useListUtils = fetchList => {
    *
    * @param {Object} item - The updated media item.
    */
-  const updateList = (item: any) => {
-    setList((prevList: any[]) => [
+  const updateList = (item: Type) => {
+    setList((prevList: Type[]) => [
       item,
       ...prevList.filter(i => i.id !== item.id)
     ]);
   };
 
-  return [list, addToList, removeFromList, updateList];
+  return {
+    list: list,
+    addToList: addToList,
+    removeFromList: removeFromList,
+    updateList: updateList
+  };
 };

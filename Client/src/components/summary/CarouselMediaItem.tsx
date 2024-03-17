@@ -1,5 +1,6 @@
 import { LazyLoadImage } from 'react-lazy-load-image-component';
-import { Link } from 'react-router-dom';
+import { useContext } from 'react';
+import { SummaryPageDialogContext } from '@/pages/WhatsNextPage';
 
 type CarouselMediaItemProps = {
   /** The data item data. */
@@ -8,6 +9,7 @@ type CarouselMediaItemProps = {
 
 /** Component representing a media item in a carousel. */
 export default function CarouselMediaItem({ data }: CarouselMediaItemProps) {
+  const { setContents } = useContext(SummaryPageDialogContext);
   const progressTracking = (
     <>
       {data.pID ? (
@@ -33,25 +35,38 @@ export default function CarouselMediaItem({ data }: CarouselMediaItemProps) {
       style={{
         backgroundImage: `url(${data.img}), url('http://placehold.it/500x500')`
       }}
-      className={`my-4 h-40 rounded-md bg-cover bg-fixed bg-center bg-no-repeat text-white`}
+      className={`my-4 h-40 rounded-md bg-cover bg-fixed bg-center bg-no-repeat text-neutral`}
     >
-      <Link
+      <div
         className="flex h-full rounded-md bg-black/40 px-8 py-4 backdrop-blur-sm"
-        to={'/media?mediaID=' + data.id}
+        // to={'/media?mediaID=' + data.id}
       >
         <LazyLoadImage
           id={`cover-img${data.id}`}
           src={data.img}
-          className="mr-8 hidden w-[90px] rounded-sm sm:block"
+          className="mr-8 hidden w-[80px] rounded-sm sm:block"
         />
         <div className="w-full text-sm sm:text-lg">
-          <h4 className="text-lg font-semibold sm:text-xl">
+          <h4 className="flex text-lg font-semibold sm:text-xl">
             {data.title + (data.subTitle ? ' ' + data.subTitle : '')}
+            {/* <ViewSummary media={data} /> */}
+            <>{data.score ? <p> | Score: {data.score}</p> : <></>}</>
+            {/* <DialogTrigger>
+              <button onClick={() => setContents(<div>Hello World</div>)}>
+                <InformationCircleIcon className="size-5" />
+              </button>
+            </DialogTrigger> */}
           </h4>
-          <>{data.score ? <p>Score: {data.score}</p> : <></>}</>
+          <>
+            {data.status === 'Planned' || data.status === 'Completed' ? (
+              <p className="line-clamp-3">{data.summary}</p>
+            ) : (
+              <></>
+            )}
+          </>
           <>{progressTracking}</>
         </div>
-      </Link>
+      </div>
     </div>
   );
 }

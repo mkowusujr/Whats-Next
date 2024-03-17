@@ -1,6 +1,6 @@
-import { lazy, Suspense, useEffect } from 'react';
+import { useEffect } from 'react';
 import { videoMediaTypes } from '@/lib/form-fields';
-import ListPageSkeleton from '@/components/skeletons/ListPageSkeleton';
+import ListPage from '@/components/common/ListPage';
 
 /**
  * Functional component for the Watch Next page, displaying a list of
@@ -8,14 +8,10 @@ import ListPageSkeleton from '@/components/skeletons/ListPageSkeleton';
  */
 export default function WatchNextPage() {
   const mediaTypes = videoMediaTypes.map(i => i.label);
-  const ListPage = lazy(() => import('../components/common/ListPage'));
+
   useEffect(() => {
     document.title = 'Watch Next?';
   }, []);
 
-  return (
-    <Suspense fallback={<ListPageSkeleton />}>
-      <ListPage mediaTypes={mediaTypes} pageName={'Watch'} />
-    </Suspense>
-  );
+  return <ListPage mediaTypes={mediaTypes} pageName={'Watch'} />;
 }

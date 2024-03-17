@@ -1,81 +1,84 @@
+import { deleteNote, updateNote } from '@/lib/data/notes';
 import { useState } from 'react';
 
-import { PropTypes } from 'prop-types';
+type NoteProps = {
+  /** The note object with id, title, and content. */
+  note: Note;
+  /** The function to remove the note from the list. */
+  removeFromList: RemoveFromList;
+};
 
-/**
- * Component representing a single note with the ability to update and delete.
- *
- * @param {Object} props - The properties passed to the component.
- * @param {Object} props.note - The note object with id, title, and content.
- * @param {function} props.removeFromList - The function to remove the note from the list.
- * @returns {JSX.Element} - The rendered Note component.
- */
-export default function Note({ note, removeFromList }) {
-  const [title, setTitle] = useState(note.title);
-  const [content, setContent] = useState(note.content);
+/** Component representing a single note with the ability to update and delete. */
+export default function Note({ note, removeFromList }: NoteProps) {
+  const [title, setTitle] = useState<string>(note.title);
+  const [content, setContent] = useState<string>(note.content);
 
   /**
    * Handles the form submission to update the note contents.
    *
-   * @param {Event} e - The form submission event.
+   * @param e - The form submission event.
    */
-  const handleSubmit = e => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    const updatedNote = {
+    const updatedNote: UpdatedNote = {
       id: note.id,
       title: title,
       content: content
     };
 
-    import('@/lib/data/notes').then(updateNote => {
-      updateNote(updatedNote).catch(err => console.error(err));
-    });
+    updateNote(updatedNote).catch(err => console.error(err));
   };
 
   const handleDelete = () => {
-    import('@/lib/data/notes').then(deleteNote =>
-      deleteNote(note.id)
-        .then(() => {
-          removeFromList(note.id);
-        })
-        .catch(err => console.error(err))
-    );
+    deleteNote(note.id)
+      .then(() => {
+        removeFromList(note.id);
+      })
+      .catch(err => console.error(err));
   };
 
   return (
     <li className="note">
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          value={title}
-          name="title"
-          onChange={e => setTitle(e.target.value)}
-          autoComplete="off"
-          required
-        />
-        <div className="dates">
+      <form
+        className="text-netural my-10 flex flex-col justify-between gap-4 bg-base-300 lg:w-[700px]"
+        onSubmit={handleSubmit}
+      >
+        <hr className="mb-6 border-2 border-primary" />
+        <div className="text-base italic text-accent">
           <p>Created : {new Date(note.dateCreated).toDateString()}</p>
           <p>Updated : {new Date(note.dateLastUpdated).toDateString()}</p>
         </div>
-        <textarea
-          value={content}
-          name="content"
-          onChange={e => setContent(e.target.value)}
-          required
-        ></textarea>
-        <input type="submit" value="Update Note" />
-        <button onClick={handleDelete}>Delete Note</button>
+        <div className="flex flex-col gap-1">
+          <input
+            type="text"
+            value={title}
+            name="title"
+            onChange={e => setTitle(e.target.value)}
+            className="w-full rounded-t-md bg-secondary px-4 py-1 text-primary placeholder-base-100 outline-none"
+            autoComplete="off"
+            required
+          />
+          <textarea
+            value={content}
+            name="content"
+            onChange={e => setContent(e.target.value)}
+            className="h-[200px] rounded-b-md bg-secondary px-4 py-1 text-base-100 placeholder-base-100 outline-none"
+            required
+          ></textarea>
+        </div>
+        <input
+          className="cursor-pointer rounded-md bg-primary px-4 py-1 text-secondary outline-none"
+          type="submit"
+          value="Update Note"
+        />
+        <button
+          className="cursor-pointer rounded-md bg-base-100 px-4 py-1 text-primary outline-none"
+          onClick={handleDelete}
+        >
+          Delete Note
+        </button>
       </form>
     </li>
   );
 }
-
-Note.propTypes = {
-  note: PropTypes.shape({
-    id: PropTypes.number,
-    title: PropTypes.string,
-    content: PropTypes.string
-  }).isRequired,
-  removeFromList: PropTypes.func
-};

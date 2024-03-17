@@ -7,5 +7,5 @@ const baseUrl = 'http://localhost:3000/summary';
  */
 export const getSummary = () => {
   const apiUrl = `${baseUrl}`;
-  return getRequest(apiUrl);
+  return getRequest<Summary>(apiUrl);
 };

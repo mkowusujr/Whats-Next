@@ -6,7 +6,10 @@ import toast from 'react-hot-toast';
  * @param body - The request body in JSON format.
  * @returns - A promise that resolves to the response data or rejects with an error.
  */
-export const postRequest = async (apiUrl: string, body: Object) => {
+export const postRequest = async <ReturnType, BodyType>(
+  apiUrl: string,
+  body: BodyType
+): Promise<ReturnType | undefined> => {
   try {
     const response = await fetch(apiUrl, {
       method: 'POST',
@@ -15,7 +18,7 @@ export const postRequest = async (apiUrl: string, body: Object) => {
       },
       body: JSON.stringify(body)
     });
-    const data = await response.json();
+    const data = (await response.json()) as ReturnType;
     return data;
   } catch (error) {
     console.error('Error:', error);
@@ -27,10 +30,12 @@ export const postRequest = async (apiUrl: string, body: Object) => {
  * @param apiUrl - The URL of the API endpoint.
  * @returns - A promise that resolves to the response data or rejects with an error.
  */
-export const getRequest = async (apiUrl: string) => {
+export const getRequest = async <Type>(
+  apiUrl: string
+): Promise<Type | undefined> => {
   try {
     const response = await fetch(apiUrl);
-    const data = await response.json();
+    const data = (await response.json()) as Type;
     return data;
   } catch (error) {
     console.error('Error:', error);
@@ -43,7 +48,10 @@ export const getRequest = async (apiUrl: string) => {
  * @param body - The request body in JSON format.
  * @returns - A promise that resolves to the response data or rejects with an error.
  */
-export const updateRquest = async (apiUrl: string, body: Object) => {
+export const updateRquest = async <ReturnType, BodyType>(
+  apiUrl: string,
+  body: BodyType
+): Promise<ReturnType | undefined> => {
   try {
     const response = await fetch(apiUrl, {
       method: 'PUT',
@@ -52,7 +60,7 @@ export const updateRquest = async (apiUrl: string, body: Object) => {
       },
       body: JSON.stringify(body)
     });
-    const data = await response.json();
+    const data = (await response.json()) as ReturnType;
     return data;
   } catch (error) {
     console.error('Error:', error);
@@ -76,12 +84,12 @@ export const deleteRequest = async (apiUrl: string) => {
   }
 };
 
-export const apiToast = (apiCall: Promise<Function>) => {
+export const apiToast = (apiCall: Promise<string>) => {
   toast.promise(
     apiCall,
     {
       loading: 'Loading...',
-      success: msg => msg,
+      success: msgs => msgs,
       error: err => `This just happened: ${err.toString()}`
     },
     {

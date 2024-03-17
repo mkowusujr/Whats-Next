@@ -81,6 +81,7 @@ const getPlanned = () => {
     subTitle, 
     mediaType, 
     storage,
+    status,
     img,
     summary
   FROM media 

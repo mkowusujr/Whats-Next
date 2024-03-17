@@ -1,11 +1,14 @@
 import { useState } from 'react';
-import { sortByOptions } from '../form-fields';
+import { sortByOptions } from '@/lib/form-fields';
 
-export const useFilters = (mediaTypes: string[], list: any) => {
-  const [filters, setFilters] = useState({
+export const useFilters = (
+  mediaTypes: string[],
+  list: Media[]
+): [Filter, React.Dispatch<React.SetStateAction<Filter>>, Media[]] => {
+  const [filters, setFilters] = useState<Filter>({
     name: '',
     mediaTypes: [...mediaTypes],
-    score: 0,
+    score: '0',
     status: '',
     sortBy: 'Date Started',
     isAsc: false

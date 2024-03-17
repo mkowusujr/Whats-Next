@@ -1,3 +1,4 @@
+import { cn } from '@/lib/utils/styles';
 import clsx from 'clsx';
 import React, { useContext, useEffect } from 'react';
 import { ReactNode, createContext, useState } from 'react';
@@ -24,63 +25,68 @@ const Dialog = ({ children }: { children: ReactNode }) => {
   );
 };
 
-/** */
 const DialogOverlay = () => {
   const { isOpen, setIsOpen } = useContext(DialogContext);
 
   useEffect(() => {
     if (isOpen) {
       document.body.classList.add('overflow-y-hidden');
-      window.scrollTo(0, 0);
     } else document.body.classList.remove('overflow-y-hidden');
   }, [isOpen]);
 
   return (
     <div
       id="dialog-overlay"
-      className={clsx('absolute inset-0 z-40', {
+      className={clsx('fixed inset-0 z-40', {
         'pointer-events-none animate-fade-out': !isOpen,
-        'overscro pointer-events-auto animate-fade-in cursor-pointer bg-black/80':
-          isOpen
+        'pointer-events-auto animate-fade-in cursor-pointer bg-black/80': isOpen
       })}
       onClick={() => setIsOpen(false)}
     ></div>
   );
 };
 
-/** */
 const DialogContent = ({
   children,
   className
 }: {
-  children: ReactNode;
+  children?: ReactNode;
+  createChildren?: any;
   className?: string;
 }) => {
-  const { isOpen } = useContext(DialogContext);
+  const { isOpen, setIsOpen } = useContext(DialogContext);
+
+  const handleEscapeKey = (e: KeyboardEvent) => {
+    if (e.key === 'Escape') setIsOpen(false);
+  };
+
+  useEffect(() => {
+    document.addEventListener('keydown', handleEscapeKey);
+  }, []);
+
   return (
     <>
       <DialogOverlay />
       <div
         id="dialog-content"
-        className={clsx(
-          'absolute left-0 right-0 top-1/2 z-40 mx-auto h-fit w-fit sm:top-1/3',
-          className,
-          { hidden: !isOpen }
+        className={cn(
+          'fixed bottom-0 left-0 right-0 top-0 z-50 m-auto h-fit max-h-[440px] w-fit overflow-y-auto overscroll-none rounded-md',
+          { hidden: !isOpen },
+          className
         )}
       >
-        {children}
+        {isOpen && children}
       </div>
     </>
   );
 };
 
-/** */
 const DialogTrigger = ({ children }: { children: ReactNode }) => (
   <DialogContext.Consumer>
     {({ setIsOpen }) => (
       <div
         id="dialog-trigger"
-        className="w-fit cursor-pointer"
+        className=" h-min w-fit cursor-pointer"
         onClick={() => setIsOpen(true)}
       >
         {children}

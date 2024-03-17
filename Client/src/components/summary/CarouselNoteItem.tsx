@@ -24,17 +24,13 @@ export default function CarouselNoteItem({ data }: CarouselNoteItemProps) {
           src={data.img}
           className="mr-8 hidden w-[90px] rounded-sm sm:block"
         />
-        <div className="">
-          <h4 className="text-lg font-semibold">{`${data.title} [${
+        <div className="flex flex-col">
+          <h4 className="truncate text-lg font-semibold">{`${data.title} [${
             data.mediaTitle +
             (data.mediaSubTitle ? ' ' + data.mediaSubTitle : '')
           }]`}</h4>
-          <p className="w-[375px] truncate ">
-            {data.content}
-            {/* {data.content.slice(0, 50) +
-              (data.content.length > 50 ? '...' : '')} */}
-          </p>
-          <p className="text-sm">
+          <p className="line-clamp-3">{data.content}</p>
+          <p className="ml-auto mt-auto text-sm">
             <i>Created on {new Date(data.dateCreated).toDateString()} </i>
           </p>
         </div>

@@ -1,33 +1,29 @@
-import { PropTypes } from 'prop-types';
-
+import { listNotesForMedia } from '@/lib/data/notes';
 import AddNote from './AddNote';
 import NoteList from './NoteList';
+import { useListUtils } from '@/lib/hooks/useListUtils';
+
+type MediaNotesProps = {
+  /** The ID of the associated media item. */
+  mediaID: number;
+};
 
 /**
  * Component for managing notes related to a media item.
  *
- * @param {Object} props - The properties passed to the component.
- * @param {number} props.mediaID - The ID of the associated media item.
- * @param {[Array, function]} props.noteUtils - State and setter function for managing notes.
- * @returns {JSX.Element} - The rendered MediaNotes component.
+ * @returns The rendered MediaNotes component.
  */
-export default function MediaNotes({ mediaID, noteUtils }) {
-  const [notes, setNotes] = noteUtils;
-
-  const addToList = item => {
-    setNotes([item, ...notes]);
-  };
+export default function MediaNotes({ mediaID }: MediaNotesProps) {
+  const {
+    list: notes,
+    addToList,
+    removeFromList
+  } = useListUtils(() => listNotesForMedia(mediaID));
 
   return (
-    <div className="media-item-notes">
-      <h2>Notes</h2>
+    <div>
       <AddNote mediaID={mediaID} addToList={addToList} />
-      <NoteList mediaID={mediaID} noteUtils={noteUtils} />
+      <NoteList notes={notes} removeFromList={removeFromList} />
     </div>
   );
 }
-
-MediaNotes.propTypes = {
-  mediaID: PropTypes.number.isRequired,
-  noteUtils: PropTypes.array.isRequired
-};
