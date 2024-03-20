@@ -121,7 +121,6 @@ const getPlanned = () => {
   FROM media 
   WHERE status='Planned'
   ORDER BY dateCreated
-  LIMIT 10
   `;
   return new Promise((resolve, reject) => {
     db.all(selectStmt, (err, rows) => (_ = err ? reject(err) : resolve(rows)));

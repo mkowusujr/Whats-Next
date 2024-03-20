@@ -63,7 +63,7 @@ export default function WhatsNextPage() {
               `Series ${summary.stats.totalSeriesInProgress}`,
               `Movies ${summary.stats.totalMoviesInProgress}`,
               `Comics ${summary.stats.totalGraphicNovelsInProgress}`,
-              `Books ${summary.stats.totalGraphicNovelsInProgress}`
+              `Books ${summary.stats.totalFictionInProgress}`
             ]}
           />
           <WhatsNextCarousel
