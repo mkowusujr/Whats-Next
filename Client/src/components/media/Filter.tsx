@@ -52,6 +52,7 @@ export default function Filter({ filterProps }: FilterProps) {
           <div className="flex flex-col justify-between gap-4 rounded-md bg-base-300 p-6 text-2xl">
             <div className="">
               <input
+                autoFocus
                 className="w-full rounded-md bg-secondary px-4 py-1 text-primary placeholder-base-100 outline-none"
                 type="text"
                 value={name}
