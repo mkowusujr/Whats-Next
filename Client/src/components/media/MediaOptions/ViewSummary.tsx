@@ -9,7 +9,7 @@ export const ViewSummary = ({ media }: { media: Media }) => (
   <div>
     <Dialog>
       <DialogTrigger>
-        <button>
+        <button className="mb-auto">
           <InformationCircleIcon className="size-5" />
         </button>
       </DialogTrigger>

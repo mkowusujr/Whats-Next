@@ -10,6 +10,7 @@ import {
   SelectMediaStatus
 } from './MediaOptions/MediaSelectInputs';
 import useSubsequentEffect from '@/lib/hooks/useSubsequentEffect';
+import GoogleMedia from './MediaOptions/GoogleMedia';
 
 type MediaCellProps = {
   /** The media object containing information about the item. */
@@ -74,6 +75,7 @@ export default function MediaCell({
           </span>
           <div className="ml-auto flex gap-2">
             <MediaLink />
+            <GoogleMedia name={getMediaFullTitle(mediaData)} />
             <ViewSummary media={mediaData} />
           </div>
         </div>
