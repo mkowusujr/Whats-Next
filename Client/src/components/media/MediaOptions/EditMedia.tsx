@@ -1,33 +1,35 @@
 import { PencilSquareIcon } from '@heroicons/react/24/outline';
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogTrigger
 } from '@/components/common/Dialog';
 import { SetStateAction, useState } from 'react';
 import { updateMedia } from '@/lib/data/media';
-import { scores, statuses, storageTypes } from '@/lib/form-fields';
+import { storageTypes } from '@/lib/form-fields';
 import Select from '@/components/common/Select';
+import { SelectMediaScore, SelectMediaStatus } from './MediaSelectInputs';
 
 export default function EditMedia({
   media,
-  updateList
+  setMediaData
 }: {
   media: Media;
   updateList: any;
+  setMediaData: React.Dispatch<React.SetStateAction<Media>>;
 }) {
   const [title, setTitle] = useState(media.title);
-  const [subTitle, setSubTitle] = useState(media.subTitle);
+  const [subTitle, setSubTitle] = useState(media.subTitle ?? '');
   const [score, setScore] = useState(media.score);
-  const [status, setStatus] = useState(media.status);
-  const [storage, setStorage] = useState(media.storage);
-  const [link, setLink] = useState(media.link);
-  const [imgSrc, setImgSrc] = useState(media.img);
-  const [summary, setSummary] = useState(media.summary);
+  const [status, setStatus] = useState(media.status ?? '');
+  const [storage, setStorage] = useState(media.storage ?? '');
+  const [link, setLink] = useState(media.link ?? '');
+  const [imgSrc, setImgSrc] = useState(media.img ?? '');
+  const [summary, setSummary] = useState(media.summary ?? '');
 
   const handleUpdate = (e: { preventDefault: () => void }) => {
     e.preventDefault();
-
     const updatedMedia = {
       ...media,
       title: title,
@@ -39,9 +41,8 @@ export default function EditMedia({
       img: imgSrc,
       summary: summary
     };
-
     updateMedia(updatedMedia).catch(err => console.error(err));
-    updateList(media);
+    setMediaData(updatedMedia);
   };
 
   return (
@@ -81,22 +82,8 @@ export default function EditMedia({
               />
             </div>
             <div className="flex flex-col gap-2 lg:mx-auto lg:flex-row">
-              <Select
-                name={'score'}
-                value={score}
-                options={scores}
-                onChange={(e: { target: { value: SetStateAction<number> } }) =>
-                  setScore(e.target.value)
-                }
-              />
-              <Select
-                name={'status'}
-                value={status}
-                options={statuses}
-                onChange={(e: { target: { value: SetStateAction<string> } }) =>
-                  setStatus(e.target.value)
-                }
-              />
+              <SelectMediaScore score={score} setScore={setScore} />
+              <SelectMediaStatus status={status} setStatus={setStatus} />
               <Select
                 name={'storage'}
                 value={storage}
@@ -137,15 +124,16 @@ export default function EditMedia({
                 value={summary}
                 onChange={e => setSummary(e.target.value)}
                 placeholder="Add summary"
-                className="w-full rounded-md bg-secondary px-4 py-1 text-primary placeholder-base-100 outline-none"
+                className="w-full resize-none rounded-md bg-secondary px-4 py-1 text-primary placeholder-base-100 outline-none"
                 autoComplete="off"
               ></textarea>
             </label>
-            <input
-              className="cursor-pointer rounded-md bg-primary px-4 py-1 text-secondary outline-none"
-              type="submit"
-              value="Update Media"
-            />
+            <DialogClose
+              className="rounded-md bg-primary px-4 py-1 text-secondary outline-none"
+              onClose={e => handleUpdate(e)}
+            >
+              <div>Update Media</div>
+            </DialogClose>
           </form>
         </DialogContent>
       </Dialog>

@@ -1,2 +1,14 @@
-export const getMediaFullTitle = (media: Media) =>
-  (media.title + ' ' + (media.subTitle ?? '')).trim();
+
+export function getMediaFullTitle(media: Media): string;
+
+export function getMediaFullTitle(title: string, subTitle?: string): string;
+
+export function getMediaFullTitle(mediaOrTitle: Media | string, subTitle?: string): string {
+  if (typeof mediaOrTitle === 'string') {
+    const title = mediaOrTitle;
+    return (title + ' ' + (subTitle ?? '')).trim();
+  } else {
+    const media = mediaOrTitle as Media;
+    return (media.title + ' ' + (media.subTitle ?? '')).trim();
+  }
+}

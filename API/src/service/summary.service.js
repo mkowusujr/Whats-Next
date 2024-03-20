@@ -1,6 +1,40 @@
 const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database(process.env.DB_URL);
 
+
+const getStats = () => {
+  const selectStmt = `
+  SELECT
+  SUM(CASE WHEN status = 'Completed' THEN 1 ELSE 0 END) AS totalMediaCompleted,
+  SUM(CASE WHEN mediaType = 'Series' AND status = 'Completed' THEN 1 ELSE 0 END) AS totalSeriesCompleted,
+  SUM(CASE WHEN mediaType = 'Movie' AND status = 'Completed' THEN 1 ELSE 0 END) AS totalMoviesCompleted,
+  SUM(CASE WHEN mediaType = 'Graphic Novels' AND status = 'Completed' THEN 1 ELSE 0 END) AS totalGraphicNovelsCompleted,
+  SUM(CASE WHEN mediaType = 'Fiction' AND status = 'Completed' THEN 1 ELSE 0 END) AS totalFictionCompleted,
+
+  SUM(CASE WHEN status = 'In Progress' THEN 1 ELSE 0 END) AS totalMediaInProgress,
+  SUM(CASE WHEN mediaType = 'Series' AND status = 'In Progress' THEN 1 ELSE 0 END) AS totalSeriesInProgress,
+  SUM(CASE WHEN mediaType = 'Movie' AND status = 'In Progress' THEN 1 ELSE 0 END) AS totalMoviesInProgress,
+  SUM(CASE WHEN mediaType = 'Graphic Novels' AND status = 'In Progress' THEN 1 ELSE 0 END) AS totalGraphicNovelsInProgress,
+  SUM(CASE WHEN mediaType = 'Fiction' AND status = 'In Progress' THEN 1 ELSE 0 END) AS totalFictionInProgress,
+
+  SUM(CASE WHEN status = 'Planned' THEN 1 ELSE 0 END) AS totalMediaPlanned,
+  SUM(CASE WHEN mediaType = 'Series' AND status = 'Planned' THEN 1 ELSE 0 END) AS totalSeriesPlanned,
+  SUM(CASE WHEN mediaType = 'Movie' AND status = 'Planned' THEN 1 ELSE 0 END) AS totalMoviesPlanned,
+  SUM(CASE WHEN mediaType = 'Graphic Novels' AND status = 'Planned' THEN 1 ELSE 0 END) AS totalGraphicNovelsPlanned,
+  SUM(CASE WHEN mediaType = 'Fiction' AND status = 'Planned' THEN 1 ELSE 0 END) AS totalFictionPlanned,
+
+  SUM(CASE WHEN status = 'On Hold' THEN 1 ELSE 0 END) AS totalMediaOnHold,
+  SUM(CASE WHEN mediaType = 'Series' AND status = 'On Hold' THEN 1 ELSE 0 END) AS totalSeriesOnHold,
+  SUM(CASE WHEN mediaType = 'Movie' AND status = 'On Hold' THEN 1 ELSE 0 END) AS totalMoviesOnHold,
+  SUM(CASE WHEN mediaType = 'Graphic Novels' AND status = 'On Hold' THEN 1 ELSE 0 END) AS totalGraphicNovelsOnHold,
+  SUM(CASE WHEN mediaType = 'Fiction' AND status = 'On Hold' THEN 1 ELSE 0 END) AS totalFictionOnHold
+  FROM media m
+  `;
+  return new Promise((resolve, reject) => {
+    db.get(selectStmt, (err, rows) => (_ = err ? reject(err) : resolve(rows)));
+  });
+}
+
 /**
  * Retrieves information about completed media items from the database.
  * @returns {Promise<Array<Object>>} A promise that resolves with an array of completed media objects.
@@ -135,6 +169,7 @@ const getNotes = () => {
  */
 exports.getSummary = async () => {
   return {
+    stats: await getStats(),
     completed: await getCompleted(),
     inprogress: await getInprogress(),
     planned: await getPlanned(),

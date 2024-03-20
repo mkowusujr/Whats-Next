@@ -100,11 +100,20 @@ export const sortByOptions = [
     }
   },
   {
-    label: 'Date Started',
-    value: 'Date Started',
+    label: 'Date Added',
+    value: 'Date Added',
     sortBy: (a: Media, b: Media) => {
       return (
-        new Date(a.dateStarted).getTime() - new Date(b.dateStarted).getTime()
+        new Date(a.dateCreated).getTime() - new Date(b.dateCreated).getTime()
+      );
+    }
+  },
+  {
+    label: 'Date Released',
+    value: 'Date Released',
+    sortBy: (a: Media, b: Media) => {
+      return (
+        new Date(a.releaseDate).getTime() - new Date(b.releaseDate).getTime()
       );
     }
   }

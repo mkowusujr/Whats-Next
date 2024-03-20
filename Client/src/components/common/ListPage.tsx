@@ -5,6 +5,9 @@ import { useListUtils } from '@/lib/hooks/useListUtils';
 import { useFilters } from '@/lib/hooks/useFilters';
 import MediaCell from '@/components/media/MediaCell';
 import MediaListSkeleton from '@/components/skeletons/MediaListSkeleton';
+import { LazyLoadComponent } from 'react-lazy-load-image-component';
+import MediaCellSkeleton from '../skeletons/MediaCellSkeleton';
+import React, { useEffect } from 'react';
 
 type ListPageProps = {
   /** The name of the page.*/
@@ -24,16 +27,27 @@ export default function ListPage({ mediaTypes, pageName }: ListPageProps) {
 
   const [filters, setFilters, filteredList] = useFilters(mediaTypes, mediaList);
 
-  const MediaItems = () => {
-    return filteredList.map(m => (
-      <MediaCell
-        key={m.id}
-        media={m}
-        removeFromList={removeFromList}
-        updateList={updateList}
-      />
-    ));
-  };
+  const MediaItems = () =>
+    filteredList.map((m, index) => {
+      const MediaCellItem = () => (
+        <MediaCell
+          media={m}
+          removeFromList={removeFromList}
+          updateList={updateList}
+        />
+      );
+      return (
+        <React.Fragment key={index}>
+          {index > 24 ? (
+            <MediaCellItem />
+          ) : (
+            <LazyLoadComponent placeholder={<MediaCellSkeleton />}>
+              <MediaCellItem />
+            </LazyLoadComponent>
+          )}
+        </React.Fragment>
+      );
+    });
 
   return (
     <div className="p-12">

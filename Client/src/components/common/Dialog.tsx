@@ -81,18 +81,46 @@ const DialogContent = ({
   );
 };
 
-const DialogTrigger = ({ children }: { children: ReactNode }) => (
-  <DialogContext.Consumer>
-    {({ setIsOpen }) => (
-      <div
-        id="dialog-trigger"
-        className=" h-min w-fit cursor-pointer"
-        onClick={() => setIsOpen(true)}
-      >
-        {children}
-      </div>
-    )}
-  </DialogContext.Consumer>
-);
+type DialogTriggerProps = {
+  children: ReactNode;
+  onClick?: () => void;
+};
 
-export { Dialog, DialogContent, DialogTrigger };
+const DialogTrigger = ({ children, onClick }: DialogTriggerProps) => {
+  const { setIsOpen } = useContext(DialogContext);
+
+  return (
+    <div
+      id="dialog-trigger"
+      className=" h-min min-w-fit cursor-pointer"
+      onClick={() => {
+        if (onClick) onClick();
+        setIsOpen(true);
+      }}
+    >
+      {children}
+    </div>
+  );
+};
+
+type DialogCloseProps = {
+  children: ReactNode;
+  className: string;
+  onClose: (e: React.FormEvent) => void;
+};
+
+const DialogClose = ({ children, className, onClose }: DialogCloseProps) => {
+  const { setIsOpen } = useContext(DialogContext);
+  const handleClose = (e: React.FormEvent) => {
+    onClose(e);
+    setIsOpen(false);
+  };
+
+  return (
+    <button className={cn(className)} onClick={handleClose}>
+      {children}
+    </button>
+  );
+};
+
+export { Dialog, DialogContent, DialogTrigger, DialogClose };

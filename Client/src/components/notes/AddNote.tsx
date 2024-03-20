@@ -63,7 +63,7 @@ export default function AddNote({ mediaID, addToList }: AddNoteProps) {
         name="content"
         onChange={e => setContent(e.target.value)}
         placeholder="Add Content"
-        className="h-[200px] rounded-b-md bg-secondary px-4 py-1 text-base-100 placeholder-base-100 outline-none"
+        className="h-[200px] resize-none rounded-b-md bg-secondary px-4 py-1 text-base-100 placeholder-base-100 outline-none"
         required
       ></textarea>
       <input

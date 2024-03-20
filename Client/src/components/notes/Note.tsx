@@ -5,7 +5,7 @@ type NoteProps = {
   /** The note object with id, title, and content. */
   note: Note;
   /** The function to remove the note from the list. */
-  removeFromList: RemoveFromList;
+  removeFromList?: RemoveFromList;
 };
 
 /** Component representing a single note with the ability to update and delete. */
@@ -31,6 +31,7 @@ export default function Note({ note, removeFromList }: NoteProps) {
   };
 
   const handleDelete = () => {
+    if (!removeFromList) return;
     deleteNote(note.id)
       .then(() => {
         removeFromList(note.id);
@@ -63,7 +64,7 @@ export default function Note({ note, removeFromList }: NoteProps) {
             value={content}
             name="content"
             onChange={e => setContent(e.target.value)}
-            className="h-[200px] rounded-b-md bg-secondary px-4 py-1 text-base-100 placeholder-base-100 outline-none"
+            className="h-[200px] resize-none rounded-b-md bg-secondary px-4 py-1 text-base-100 placeholder-base-100 outline-none"
             required
           ></textarea>
         </div>
@@ -72,12 +73,14 @@ export default function Note({ note, removeFromList }: NoteProps) {
           type="submit"
           value="Update Note"
         />
-        <button
-          className="cursor-pointer rounded-md bg-base-100 px-4 py-1 text-primary outline-none"
-          onClick={handleDelete}
-        >
-          Delete Note
-        </button>
+        {removeFromList && (
+          <button
+            className="cursor-pointer rounded-md bg-base-100 px-4 py-1 text-primary outline-none"
+            onClick={handleDelete}
+          >
+            Delete Note
+          </button>
+        )}
       </form>
     </li>
   );

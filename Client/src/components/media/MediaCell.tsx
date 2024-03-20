@@ -1,12 +1,15 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { LinkIcon } from '@heroicons/react/24/outline';
-import { scores, statuses } from '@/lib/form-fields';
-import Select from '@/components/common/Select';
 import { updateMedia } from '@/lib/data/media';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { ViewSummary } from './MediaOptions/ViewSummary';
 import { MediaOptions } from './MediaOptions/MediaOptions';
 import { getMediaFullTitle } from '@/lib/utils/media-utils';
+import {
+  SelectMediaScore,
+  SelectMediaStatus
+} from './MediaOptions/MediaSelectInputs';
+import useSubsequentEffect from '@/lib/hooks/useSubsequentEffect';
 
 type MediaCellProps = {
   /** The media object containing information about the item. */
@@ -24,36 +27,23 @@ export default function MediaCell({
   updateList
 }: MediaCellProps) {
   const [mediaData, setMediaData] = useState(media);
+  const [status, setStatus] = useState(media.status);
+  const [score, setScore] = useState(media.score);
 
-  /** Handles changes in input fields and updates the media data. */
-  const handleChange = (e: { target: { name: any; value: any } }) => {
-    const { name, value } = e.target;
-    setMediaData({ ...media, [name]: value });
-    updateMedia({ ...media, [name]: value })
-      .then(m => updateList(m!))
-      .catch(err => console.error(err));
-  };
+  useEffect(() => {
+    setScore(mediaData.score);
+    setStatus(mediaData.status);
+  }, [mediaData]);
 
-  // Selectors for score and status dropdowns
-  const ScoreSelector = () => (
-    <Select
-      name={'score'}
-      value={mediaData.score}
-      options={scores}
-      onChange={handleChange}
-      className="rounded-sm"
-    />
-  );
+  useSubsequentEffect(() => {
+    const updatedMedia = {
+      ...media,
+      score: score,
+      status: status
+    };
 
-  const StatusSelector = () => (
-    <Select
-      name={'status'}
-      value={mediaData.status}
-      options={statuses}
-      onChange={handleChange}
-      className="rounded-sm"
-    />
-  );
+    updateMedia(updatedMedia).catch(err => console.error(err));
+  }, [score, status]);
 
   const MediaLink = () => {
     return (
@@ -68,8 +58,8 @@ export default function MediaCell({
   return (
     <div className="flex h-[155px] rounded-md border-2 border-accent bg-base-300 p-4 text-sm shadow-sm">
       <LazyLoadImage
-        id={`cover-img${media.id}`}
-        src={media.img}
+        id={`cover-img${mediaData.id}`}
+        src={mediaData.img}
         width={80}
         height={120}
         placeholder={
@@ -79,16 +69,27 @@ export default function MediaCell({
       />
       <div className="flex flex-grow flex-col gap-2">
         <div className="inline-flex text-neutral">
-          <span className="mr-2 font-semibold">{getMediaFullTitle(media)}</span>
+          <span className="mr-2 font-semibold">
+            {getMediaFullTitle(mediaData)}
+          </span>
           <div className="ml-auto flex gap-2">
             <MediaLink />
-            <ViewSummary media={media} />
+            <ViewSummary media={mediaData} />
           </div>
         </div>
-        <ScoreSelector />
-        <StatusSelector />
+        <SelectMediaScore
+          score={score}
+          setScore={setScore}
+          className="rounded-sm"
+        />
+        <SelectMediaStatus
+          status={status}
+          setStatus={setStatus}
+          className="rounded-sm"
+        />
         <MediaOptions
-          media={media}
+          media={mediaData}
+          setMediaData={setMediaData}
           updateList={updateList}
           removeFromList={removeFromList}
         />

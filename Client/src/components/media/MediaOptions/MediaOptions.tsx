@@ -13,12 +13,14 @@ type MediaOptionsProps = {
   media: Media;
   updateList: any;
   removeFromList: any;
+  setMediaData: React.Dispatch<React.SetStateAction<Media>>;
 };
 
 export const MediaOptions = ({
   media,
   updateList,
-  removeFromList
+  removeFromList,
+  setMediaData
 }: MediaOptionsProps) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
@@ -31,7 +33,11 @@ export const MediaOptions = ({
       >
         <ViewNotes media={media} />
         <ViewProgress media={media} />
-        <EditMedia media={media} updateList={updateList} />
+        <EditMedia
+          media={media}
+          setMediaData={setMediaData}
+          updateList={updateList}
+        />
         <DeleteMedia media={media} removeFromList={removeFromList} />
       </div>
       <EllipsisVerticalIcon
