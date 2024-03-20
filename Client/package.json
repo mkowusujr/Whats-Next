@@ -25,7 +25,8 @@
     "react-hot-toast": "^2.4.1",
     "react-lazy-load-image-component": "^1.6.0",
     "require": "^2.4.20",
-    "tailwind-merge": "^2.2.2"
+    "tailwind-merge": "^2.2.2",
+    "use-debounce": "^10.0.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.61",

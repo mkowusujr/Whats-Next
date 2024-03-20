@@ -8,6 +8,7 @@ import {
 } from '@/components/common/Dialog';
 import { FunnelIcon } from '@heroicons/react/24/outline';
 import Checkbox from '../common/Checkbox';
+import { useDebounce } from 'use-debounce';
 
 type FilterProps =
   /** A List containing filter state */
@@ -24,18 +25,19 @@ export default function Filter({ filterProps }: FilterProps) {
   const [status, setStatus] = useState(filters.status);
   const [sortBy, setSortBy] = useState(filters.sortBy);
   const [isAsc, setIsAsc] = useState(filters.isAsc);
+  const [debouncedName] = useDebounce(name, 750);
 
   // Effect to update filters when filter inputs change
   useEffect(() => {
     setFilters({
-      name: name,
+      name: debouncedName,
       mediaTypes: mediaTypes,
       score: score,
       status: status,
       sortBy: sortBy,
       isAsc: isAsc
     });
-  }, [name, mediaTypes, score, status, sortBy, isAsc]);
+  }, [debouncedName, mediaTypes, score, status, sortBy, isAsc]);
 
   return (
     <div>
