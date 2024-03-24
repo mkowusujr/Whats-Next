@@ -43,7 +43,7 @@ export default function Filter({ filterProps }: FilterProps) {
     <div>
       <Dialog>
         <DialogTrigger>
-          <div className="align-center fixed bottom-20 left-4 z-30 flex rounded-md bg-accent px-4 py-2 text-2xl font-bold text-neutral opacity-90 shadow-lg">
+          <div className="align-center fixed bottom-8 left-4 z-30 flex rounded-md bg-accent px-4 py-2 text-2xl font-bold text-neutral opacity-90 shadow-lg">
             <FunnelIcon className="mr-2 size-8" />
             <span>Filters</span>
           </div>

@@ -4,6 +4,7 @@ import { Toaster } from 'react-hot-toast';
 import NavBar from '@/components/common/NavBar';
 import ListPageSkeleton from './components/skeletons/ListPageSkeleton';
 import WhatsNextPageSkeleton from './components/skeletons/WhatsNextPageSkeleton';
+import FindNextPage from './pages/FindNextPage';
 
 function App() {
   const ReadNextPage = lazy(() => import('@/pages/ReadNextPage'));
@@ -41,6 +42,7 @@ function App() {
                 </Suspense>
               }
             />
+            <Route path="findnext" element={<FindNextPage />} />
           </Route>
         </Routes>
       </BrowserRouter>

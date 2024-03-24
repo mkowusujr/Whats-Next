@@ -21,7 +21,8 @@
     "movier": "^3.0.1",
     "node-fetch": "^2.6.12",
     "prisma": "^5.10.2",
-    "sqlite3": "^5.1.6"
+    "sqlite3": "^5.1.6",
+    "string-similarity": "^4.0.4"
   },
   "repository": {
     "type": "git",

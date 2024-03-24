@@ -12,9 +12,9 @@ const baseUrl = 'http://localhost:3000/media';
  * @param media - The media object to be added.
  * @returns A promise that resolves to the response data or rejects with an error.
  */
-export const addMedia = (media: CreatedMedia) => {
+export const addMedia = (media: ExternalMedia) => {
   const apiUrl = `${baseUrl}`;
-  return postRequest<Media, CreatedMedia>(apiUrl, media);
+  return postRequest<Media, ExternalMedia>(apiUrl, media);
 };
 
 /**
@@ -35,6 +35,13 @@ export const getMediaInfo = (mediaID: number) => {
 export const listMedia = (mediaTypes: string[]) => {
   let queryParams = '?mediaType=' + mediaTypes.join('&mediaType=');
   const apiUrl = `${baseUrl}${queryParams}`;
+  return getRequest<Media[]>(apiUrl);
+};
+
+export const searchGbooks = (query: string) => {
+  let queryParams = '?q=' + encodeURIComponent(query);
+  console.log(queryParams)
+  const apiUrl = `${baseUrl}/gbooks${queryParams}`;
   return getRequest<Media[]>(apiUrl);
 };
 

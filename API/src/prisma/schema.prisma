@@ -8,10 +8,11 @@ model media {
   title           String
   subTitle        String?
   mediaType       String
+  categories      String?
   score           Float?
   status          String
   storage         String?
-  releaseDate     String?
+  releaseDate     DateTime?
   dateCreated     DateTime
   dateLastUpdated DateTime?
   img             String?

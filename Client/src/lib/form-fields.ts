@@ -29,6 +29,11 @@ export const scores = [
   { label: '(1) Appalling', value: 1 }
 ];
 
+export const externalMediaTypes = [
+  { label: "Movie/Show", value: "Movie/Show" },
+  { label: "Book", value: "Book" }
+]
+
 /**
  * Different storage types for media items.
  */
@@ -73,7 +78,7 @@ export const videoMediaTypes = [
  */
 export const bookTypes = [
   { label: 'Graphic Novels', value: 'Graphic Novels' },
-  { label: 'Fiction', value: 'Fiction' }
+  { label: 'Book', value: 'Book' }
 ];
 
 const collator = new Intl.Collator(undefined, {

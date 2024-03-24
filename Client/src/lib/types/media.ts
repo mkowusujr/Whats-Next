@@ -33,3 +33,15 @@ type Filter = {
 	sortBy: string;
 	isAsc: boolean;
 };
+
+type ExternalMedia = {
+	title: string,
+	subTitle: string,
+	creator: string[],
+	releaseDate: string,
+	summary: string,
+	duration: string,
+	categories: string[],
+	mediaType: string,
+	img: string
+}

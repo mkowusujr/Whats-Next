@@ -52,35 +52,35 @@ export default function AddMedia({ pageName, addToList }: AddMediaProps) {
    *
    * @param {Event} e - The form submission event.
    */
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  // const handleSubmit = (e: React.FormEvent) => {
+  //   e.preventDefault();
 
-    const callAPI = new Promise<string>((res, rej) => {
-      const newMedia: CreatedMedia = {
-        title: title,
-        subTitle: subTitle,
-        mediaType: mediaType,
-        score: score,
-        status: status,
-        link: link
-      };
+  //   const callAPI = new Promise<string>((res, rej) => {
+  //     const newMedia: CreatedMedia = {
+  //       title: title,
+  //       subTitle: subTitle,
+  //       mediaType: mediaType,
+  //       score: score,
+  //       status: status,
+  //       link: link
+  //     };
 
-      addMedia(newMedia)
-        .then(m => {
-          addToList(m);
-          setTitle('');
-          setSubTitle('');
-          setMediaType('');
-          setScore(0);
-          setStatus('');
-          setLink('');
-          res(`Successfully added ${m!.title}`);
-        })
-        .catch(err => rej(err));
-    });
+  //     addMedia(newMedia)
+  //       .then(m => {
+  //         addToList(m);
+  //         setTitle('');
+  //         setSubTitle('');
+  //         setMediaType('');
+  //         setScore(0);
+  //         setStatus('');
+  //         setLink('');
+  //         res(`Successfully added ${m!.title}`);
+  //       })
+  //       .catch(err => rej(err));
+  //   });
 
-    apiToast(callAPI);
-  };
+  //   apiToast(callAPI);
+  // };
 
   return (
     <Dialog>
@@ -93,7 +93,7 @@ export default function AddMedia({ pageName, addToList }: AddMediaProps) {
       <DialogContent>
         <form
           className="flex flex-col justify-between gap-4 rounded-md bg-base-300  p-6 text-2xl"
-          onSubmit={handleSubmit}
+          // onSubmit={handleSubmit}
         >
           <div className="flex flex-col md:flex-row">
             <input

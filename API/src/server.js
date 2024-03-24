@@ -3,7 +3,9 @@ const express = require('express'),
   bodyParser = require('body-parser'),
   morgan = require('morgan');
 
-const mediaRoutes = require('./routes/media.route'),
+const
+  externalMediaRoutes = require('./routes/external-media.route'),
+  mediaRoutes = require('./routes/media.route'),
   notesRoutes = require('./routes/notes.route'),
   summaryRoutes = require('./routes/summary.route'),
   progressRoutes = require('./routes/progress.route');
@@ -21,6 +23,7 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(morgan('dev'));
 
+app.use('/media/external', externalMediaRoutes);
 app.use('/media', mediaRoutes);
 app.use('/notes', notesRoutes);
 app.use('/summary', summaryRoutes);

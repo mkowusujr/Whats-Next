@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const mediaService = require('../service/media.service');
 
+
+
 router.get('', async (req, res) => {
   try {
     const mediaTypes = req.query['mediaType'];
@@ -11,6 +13,18 @@ router.get('', async (req, res) => {
     res.status(400).send(err.message);
   }
 });
+
+// router.get('/gbooks', async (req, res) => {
+//   try {
+//     const query = req.query['q'];
+//     const mediaType = req.query["t"]
+//     const result = await mediaService.searchGbooks(query, mediaType);
+//     res.json(result);
+//   } catch (err) {
+//     res.status(400).send(err.message);
+//   }
+// });
+
 
 router.get('/:mediaID', async (req, res) => {
   try {

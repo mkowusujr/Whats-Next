@@ -51,7 +51,7 @@ export default function ListPage({ mediaTypes, pageName }: ListPageProps) {
 
   return (
     <div className="p-12">
-      <AddMedia pageName={pageName} addToList={addToList} />
+      {/* <AddMedia pageName={pageName} addToList={addToList} /> */}
       <Filter filterProps={[filters, setFilters]} />
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         <>{mediaList.length != 0 ? <MediaItems /> : <MediaListSkeleton />}</>

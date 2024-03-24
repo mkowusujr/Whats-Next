@@ -10,6 +10,9 @@ export default function NavBar() {
         </div>
         <ul className=" ml-auto flex gap-4 text-xl">
           <li className="">
+            <Link to="/findnext">Find Next</Link>
+          </li>
+          <li className="">
             <Link to="/watchnext">Watch Next?</Link>
           </li>
           <li className="">

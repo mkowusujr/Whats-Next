@@ -63,7 +63,7 @@ export default function WhatsNextPage() {
               `Series ${summary.stats.totalSeriesInProgress}`,
               `Movies ${summary.stats.totalMoviesInProgress}`,
               `Comics ${summary.stats.totalGraphicNovelsInProgress}`,
-              `Books ${summary.stats.totalFictionInProgress}`
+              `Books ${summary.stats.totalBookInProgress}`
             ]}
           />
           <WhatsNextCarousel
@@ -88,7 +88,7 @@ export default function WhatsNextPage() {
               `Series ${summary.stats.totalSeriesPlanned}`,
               `Movies ${summary.stats.totalMoviesPlanned}`,
               `Comics ${summary.stats.totalGraphicNovelsPlanned}`,
-              `Books ${summary.stats.totalFictionPlanned}`
+              `Books ${summary.stats.totalBookPlanned}`
             ]}
           />
           <WhatsNextCarousel
@@ -113,7 +113,7 @@ export default function WhatsNextPage() {
               `Series ${summary.stats.totalSeriesOnHold}`,
               `Movies ${summary.stats.totalMoviesOnHold}`,
               `Comics ${summary.stats.totalGraphicNovelsOnHold}`,
-              `Books ${summary.stats.totalFictionOnHold}`
+              `Books ${summary.stats.totalBookOnHold}`
             ]}
           />
         </div>
@@ -134,7 +134,7 @@ export default function WhatsNextPage() {
               `Series ${summary.stats.totalSeriesCompleted}`,
               `Movies ${summary.stats.totalMoviesCompleted}`,
               `Comics ${summary.stats.totalGraphicNovelsCompleted}`,
-              `Books ${summary.stats.totalFictionCompleted}`
+              `Books ${summary.stats.totalBookCompleted}`
             ]}
           />
           <h3 className="text-center text-xl font-semibold text-primary">
