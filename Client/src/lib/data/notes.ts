@@ -1,11 +1,12 @@
 import {
+  apiUrl,
   deleteRequest,
   getRequest,
   postRequest,
   updateRquest
 } from './api-base';
 
-const baseUrl = 'http://localhost:3000/notes';
+const baseUrl = `${apiUrl}/notes`;
 
 /**
  * Adds a new note by making a POST request to the notes API.

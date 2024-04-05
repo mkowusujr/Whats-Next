@@ -1,11 +1,12 @@
 import {
+  apiUrl,
   deleteRequest,
   getRequest,
   postRequest,
   updateRquest
 } from './api-base';
 
-const baseUrl = 'http://localhost:3000/progress';
+const baseUrl = `${apiUrl}/progress`;
 
 /**
  * Adds progress data by making a POST request to the progress API.

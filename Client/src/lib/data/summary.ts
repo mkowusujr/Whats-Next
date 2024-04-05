@@ -1,5 +1,5 @@
-import { getRequest } from './api-base';
-const baseUrl = 'http://localhost:3000/summary';
+import { apiUrl, getRequest } from './api-base';
+const baseUrl = `${apiUrl}/summary`;
 
 /**
  * Retrieves summary information by making a GET request to the summary API.

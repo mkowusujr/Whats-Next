@@ -8,7 +8,8 @@
     "build": "tsc && vite build",
     "lint": "eslint \"**/*.{ts,tsx}\" --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "format": "npx prettier --write ./src"
+    "format": "npx prettier --write ./src",
+    "serve": "serve -s dist -p 3001"
   },
   "dependencies": {
     "@heroicons/react": "^2.1.1",
@@ -29,6 +30,7 @@
     "use-debounce": "^10.0.0"
   },
   "devDependencies": {
+    "@types/node": "^20.11.30",
     "@types/react": "^18.2.61",
     "@types/react-dom": "^18.2.19",
     "@types/react-lazy-load-image-component": "^1.6.3",

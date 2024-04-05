@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "set DB_URL=./src/prisma/whatsnext.db && npx nodemon src/server.js",
+    "dev": "npx nodemon -r dotenv/config src/server.js",
+    "start": "node -r dotenv/config src/server.js",
     "pretty": "npx prettier --write ."
   },
   "devDependencies": {
@@ -15,6 +16,7 @@
     "@chewhx/google-books": "^4.0.1",
     "body-parser": "^1.20.2",
     "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
     "express": "^4.18.2",
     "logops": "^2.1.2",
     "morgan": "^1.10.0",

@@ -1,11 +1,12 @@
 import {
+  apiUrl,
   deleteRequest,
   getRequest,
   postRequest,
   updateRquest
 } from './api-base';
 
-const baseUrl = 'http://localhost:3000/media';
+const baseUrl = `${apiUrl}/media`;
 
 /**
  * Adds new media by making a POST request to the media API.

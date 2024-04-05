@@ -1,6 +1,6 @@
-import { getRequest } from "./api-base";
+import { apiUrl, getRequest } from "./api-base";
 
-const baseUrl = 'http://localhost:3000/media/external';
+const baseUrl = `${apiUrl}/media/external`;
 
 export const searchExternally = (query: string, mediaType: string) => {
 	let queryParams = `?q=${encodeURIComponent(query)}&t=${encodeURIComponent(mediaType)}`;

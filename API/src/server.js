@@ -19,7 +19,7 @@ const app = express(),
  */
 // database.setupDb();
 
-app.use(cors());
+app.use(cors())
 app.use(bodyParser.json());
 app.use(morgan('dev'));
 
@@ -32,6 +32,6 @@ app.use('/progress', progressRoutes);
 /**
  * Start the Express server on the specified port.
  */
-app.listen(port, () => {
+app.listen(port, "0.0.0.0", () => {
   console.log(`Server is running on port ${port}`);
 });

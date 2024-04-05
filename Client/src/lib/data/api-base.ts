@@ -1,5 +1,7 @@
 import toast from 'react-hot-toast';
 
+export const apiUrl = import.meta.env.VITE_API_URI
+
 /**
  * Makes a POST request to the specified API endpoint.
  * @param apiUrl - The URL of the API endpoint.
@@ -12,6 +14,7 @@ export const postRequest = async <ReturnType, BodyType>(
 ): Promise<ReturnType | undefined> => {
   try {
     const response = await fetch(apiUrl, {
+      // mode: "cors",
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -34,6 +37,7 @@ export const getRequest = async <Type>(
   apiUrl: string
 ): Promise<Type | undefined> => {
   try {
+    console.log(apiUrl)
     const response = await fetch(apiUrl);
     const data = (await response.json()) as Type;
     return data;
@@ -54,6 +58,7 @@ export const updateRquest = async <ReturnType, BodyType>(
 ): Promise<ReturnType | undefined> => {
   try {
     const response = await fetch(apiUrl, {
+      // mode: "cors",
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json'
@@ -75,6 +80,7 @@ export const updateRquest = async <ReturnType, BodyType>(
 export const deleteRequest = async (apiUrl: string) => {
   try {
     const response = await fetch(apiUrl, {
+      // mode: "cors",
       method: 'DELETE'
     });
     const data = await response.json();
