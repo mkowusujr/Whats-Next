@@ -1,0 +1,18 @@
+version: '3.8'
+services:
+  backend:
+    build:
+      context: ./API
+      dockerfile: Dockerfile
+    expose: 
+      - "3000"
+  frontend:
+    build:
+      context: ./Client
+      dockerfile: Dockerfile
+      args:
+        VITE_API_URI: http://backend:3000
+    ports:
+      - "3001:3001"
+    expose:
+      - "3001"
