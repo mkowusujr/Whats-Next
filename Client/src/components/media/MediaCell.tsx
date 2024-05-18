@@ -60,7 +60,11 @@ export default function MediaCell({
     <div className="flex h-[155px] rounded-md border-2 border-accent bg-base-300 p-4 text-sm shadow-sm">
       <LazyLoadImage
         id={`cover-img${mediaData.id}`}
-        src={mediaData.img}
+        src={
+          mediaData.img.includes('books.google.com')
+            ? `https://books.google.com/books/content?id=${mediaData.img.split('id=')[1].split('&')[0]}&printsec=frontcover&img=1`
+            : mediaData.img
+        }
         width={80}
         height={120}
         placeholder={

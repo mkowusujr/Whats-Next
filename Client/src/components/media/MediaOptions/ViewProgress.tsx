@@ -4,7 +4,7 @@ import {
   DialogContent,
   DialogTrigger
 } from '@/components/common/Dialog';
-import ProgressTracker from '@/components/Progress/ProgressTracker';
+import ProgressTracker from '@/components/progress/ProgressTracker';
 
 export default function ViewProgress({ media }: { media: Media }) {
   return (

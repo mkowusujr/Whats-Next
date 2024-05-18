@@ -1,0 +1,86 @@
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model media {
+  id          Int        @id @default(autoincrement())
+  title       String
+  subTitle    String?
+  score       Float?
+  storage     String?
+  duration    String?
+  releaseDate DateTime?
+  imgLink     String?
+  creator     String?
+  summary     String?
+  mediaLink   String?
+  isDeleted   Boolean    @default(false)
+  series      series?    @relation(fields: [seriesId], references: [id])
+  seriesId    Int?
+  mediaType   mediaType  @relation(fields: [mediaTypeId], references: [id])
+  mediaTypeId Int
+  notes       note[]
+  progress    progress[]
+  catagories  catagory[]
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+}
+
+model series {
+  id        Int      @id @default(autoincrement())
+  title     String   @unique
+  media     media[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  isDeleted Boolean  @default(false)
+}
+
+model mediaType {
+  id        Int      @id @default(autoincrement())
+  mediaType String   @unique
+  media     media[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  isDeleted Boolean  @default(false)
+}
+
+model catagory {
+  id        Int      @id @default(autoincrement())
+  category  String   @unique
+  media     media[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  isDeleted Boolean  @default(false)
+}
+
+model note {
+  id        Int      @id @default(autoincrement())
+  title     String
+  content   String
+  mediaID   Int
+  media     media    @relation(fields: [mediaID], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  isDeleted Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model progress {
+  id            Int       @id @default(autoincrement())
+  status        String
+  current       Int?
+  total         Int?
+  unit          String?
+  dateStarted   DateTime?
+  dateCompleted DateTime?
+  mediaID       Int
+  title         String    @default(dbgenerated("'First Watch'"))
+  media         media     @relation(fields: [mediaID], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  isDeleted     Boolean   @default(false)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
