@@ -33,18 +33,21 @@ export const getMediaInfo = (mediaID: number) => {
  * @param mediaTypes - An array of media types to filter the results.
  * @returns A promise that resolves to the response data or rejects with an error.
  */
-export const listMedia = (mediaTypes: string[]) => {
-  let queryParams = '?mediaType=' + mediaTypes.join('&mediaType=');
-  const apiUrl = `${baseUrl}${queryParams}`;
-  return getRequest<Media[]>(apiUrl);
+export const listInternalMedia = (page: { pageParam: number }, searchParams: string, mediaTypes: string[]) => {
+  // let queryParams = '?mediaType=' + mediaTypes.join('&mediaType=');
+  const apiUrl = `${baseUrl}/internal?cursor=${page.pageParam}&take=10&${searchParams}`
+  return getRequest<{
+    media: Media[];
+    nextCursor: number;
+  }>(apiUrl);
 };
 
-export const searchGbooks = (query: string) => {
-  let queryParams = '?q=' + encodeURIComponent(query);
-  console.log(queryParams)
-  const apiUrl = `${baseUrl}/gbooks${queryParams}`;
-  return getRequest<Media[]>(apiUrl);
-};
+// export const searchGbooks = (query: string) => {
+//   let queryParams = '?q=' + encodeURIComponent(query);
+//   console.log(queryParams)
+//   const apiUrl = `${baseUrl}/gbooks${queryParams}`;
+//   return getRequest<Media[]>(apiUrl);
+// };
 
 /**
  * Updates media information by making a PUT request to the media API.

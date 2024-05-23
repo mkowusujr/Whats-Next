@@ -1,4 +1,4 @@
-import toast from 'react-hot-toast';
+// import toast from 'react-hot-toast';
 
 export const apiUrl = import.meta.env.VITE_API_URI
 
@@ -90,19 +90,19 @@ export const deleteRequest = async (apiUrl: string) => {
   }
 };
 
-export const apiToast = (apiCall: Promise<string>) => {
-  toast.promise(
-    apiCall,
-    {
-      loading: 'Loading...',
-      success: msgs => msgs,
-      error: err => `This just happened: ${err.toString()}`
-    },
-    {
-      success: {
-        duration: 3000,
-        icon: '🔥'
-      }
-    }
-  );
-};
+// export const apiToast = (apiCall: Promise<string>) => {
+//   toast.promise(
+//     apiCall,
+//     {
+//       loading: 'Loading...',
+//       success: msgs => msgs,
+//       error: err => `This just happened: ${err.toString()}`
+//     },
+//     {
+//       success: {
+//         duration: 3000,
+//         icon: '🔥'
+//       }
+//     }
+//   );
+// };

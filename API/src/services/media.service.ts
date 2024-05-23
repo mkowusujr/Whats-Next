@@ -31,7 +31,7 @@ export const addMedia = async (media: Media): Promise<media> => {
 };
 
 /** Retrieves a list of media entries from the database based on media types. */
-export const getAllMedia = async (params: {
+export const listInternalMedia = async (params: {
   query?: string;
   score?: string;
   status?: string;
@@ -93,7 +93,7 @@ export const getAllMedia = async (params: {
 };
 
 /** Retrieves information for a media entry from the database based on media ID. */
-export const getMediaInfo = async (mediaID: number) => {
+export const getMedia = async (mediaID: number) => {
   const media = await prisma.media.findFirstOrThrow({
     where: { id: mediaID },
     include: {
@@ -113,6 +113,12 @@ export const getMediaInfo = async (mediaID: number) => {
 
 /** Updates a media entry in the database. */
 export const updateMedia = async (media: Media) => {
+  const mostRecentProgressCreationDate = await prisma.progress.findFirstOrThrow({
+    select: { createdAt: true },
+    where: { mediaID: media.id },
+    orderBy: { createdAt: "desc" }
+  }).then(progress => progress.createdAt)
+
   const updatedMedia = await prisma.media.update({
     where: { id: media.id },
     data: {
@@ -122,6 +128,16 @@ export const updateMedia = async (media: Media) => {
         connectOrCreate: {
           where: { mediaType: media.mediaType },
           create: { mediaType: media.mediaType }
+        }
+      },
+      progress: {
+        updateMany: {
+          where: {
+            createdAt: {
+              equals: mostRecentProgressCreationDate
+            }
+          },
+          data: { status: media.status }
         }
       },
       score: media.score,
@@ -173,13 +189,13 @@ const searchForBooks = async (query: string) => {
       creator: bookInfo.authors,
       releaseDate: bookInfo.publishedDate,
       summary: bookInfo.description,
-      industryIdentifiers: bookInfo.industryIdentifiers,
+      // industryIdentifiers: bookInfo.industryIdentifiers,
       duration: `${bookInfo.printedPageCount} pgs`,
       mediaType: bookInfo?.printType.toLowerCase(),
       categories: [
         ...new Set(bookInfo?.categories?.flatMap((g: string) => g.split('/')))
       ],
-      img: imgLink
+      imgLink: imgLink
     };
     return book;
   });
@@ -218,7 +234,7 @@ const searchForMovies = async (query: string) => {
             duration: d.runtime.seconds,
             mediaType: d.mainType,
             categories: d.genres,
-            img: d.posterImage.url ?? null
+            imgLink: d.posterImage.url ?? null
           };
 
           return item;

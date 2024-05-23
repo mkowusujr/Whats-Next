@@ -11,6 +11,7 @@ export type Media = {
   summary: string;
   releaseDate: string;
   mediaLink: string;
+  status: string;
 };
 
 export type GetAllMedia = {

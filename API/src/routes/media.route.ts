@@ -4,14 +4,14 @@ import {
   addMedia,
   deleteMedia,
   findExternalMedia,
-  getAllMedia,
-  getMediaInfo,
+  listInternalMedia,
+  getMedia,
   updateMedia
 } from '../services/media.service';
 
 router.get('/internal', async (req, res) => {
   try {
-    const result = await getAllMedia(req.query as any);
+    const result = await listInternalMedia(req.query as any);
     res.json(result);
   } catch (err: any) {
     res.status(400).send(err.message);
@@ -30,7 +30,7 @@ router.get('/external', async (req, res) => {
 router.get('/:mediaID', async (req, res) => {
   try {
     const mediaID = req.params['mediaID'];
-    const result = await getMediaInfo(Number(mediaID));
+    const result = await getMedia(Number(mediaID));
     res.json(result);
   } catch (err: any) {
     res.status(400).send(err.message);
