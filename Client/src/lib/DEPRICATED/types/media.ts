@@ -1,4 +1,5 @@
 type Media = {
+	imgLink: string;
 	id: number;
 	title: string;
 	subTitle: string;
@@ -8,9 +9,8 @@ type Media = {
 	storage: string;
 	releaseDate: string;
 	creator: string;
-	img: string;
 	mediaType: string;
-	link: string;
+	mediaLink: string;
 	dateStarted: string;
 	dateCompleted: string;
 	dateCreated: string;

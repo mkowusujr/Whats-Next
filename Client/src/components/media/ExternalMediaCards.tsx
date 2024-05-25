@@ -1,6 +1,8 @@
-import { apiToast } from '@/lib/data/api-base';
+// import { apiToast } from '@/lib/data/api-base';
+// import { addMedia } from '@/lib/data/media';
+// import { getMediaFullTitle } from '@/lib/utils/media-utils';
 import { addMedia } from '@/lib/data/media';
-import { getMediaFullTitle } from '@/lib/utils/media-utils';
+import { getMediaFullTitle } from '@/lib/utils';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 type Props = {
@@ -8,22 +10,21 @@ type Props = {
 };
 
 export default function ExternalMediaPreview({ media }: Props) {
-  const addExternalMedia = () => {
-    const callAPI = new Promise<string>((res, rej) => {
-      addMedia(media)
-        .then(m => {
-          res(`Successfully added ${m!.title}`);
-        })
-        .catch(err => rej(err));
-    });
-
-    apiToast(callAPI);
+  const addExternalMedia = async () => {
+    // const callAPI = new Promise<string>((res, rej) => {
+    await addMedia(media)
+      .then(m => {
+        // res(`Successfully added ${m!.title}`);
+      })
+      .catch(err => console.log(err));
+    // });
+    // apiToast(callAPI);
   };
 
   return (
     <div className="mb-6 flex break-inside-avoid-column justify-center gap-4 rounded-md bg-base-300 p-4">
       <LazyLoadImage
-        src={media.img}
+        src={media.imgLink}
         className="my-auto h-32 w-20 rounded-md md:h-72 md:w-48"
         placeholder={
           <div className="h-32 w-20 animate-pulse bg-gray-400 md:h-72 md:w-48"></div>

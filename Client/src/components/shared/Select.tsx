@@ -24,8 +24,8 @@ export default function Select({
 }: Props) {
   return (
     <ShadcnSelect value={value} onValueChange={onValueChange}>
-      <ShadcnSelectTrigger className="w-[180px]">
-        <ShadcnSelectValue placeholder={placeholder} />
+      <ShadcnSelectTrigger className="w-[180px] rounded-lg">
+        <ShadcnSelectValue placeholder={placeholder} className="rounded-lg" />
       </ShadcnSelectTrigger>
       <ShadcnSelectContent>
         <ShadcnSelectGroup>

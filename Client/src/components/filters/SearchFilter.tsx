@@ -21,7 +21,7 @@ export default function SearchFilter() {
   };
 
   return (
-    <label className="input input-bordered flex items-center gap-2">
+    <label className="input input-bordered flex flex-1 items-center gap-2">
       <MagnifyingGlassIcon className="size-5" />
       <input
         type="text"
@@ -31,7 +31,7 @@ export default function SearchFilter() {
         onChange={handleOnChange}
       />
       <XIcon
-        className="size-5 cursor-pointer justify-end"
+        className="size-5 cursor-pointer justify-end hover:brightness-150"
         onClick={handleReset}
       />
     </label>

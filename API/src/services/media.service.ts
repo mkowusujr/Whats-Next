@@ -20,7 +20,7 @@ export const addMedia = async (media: Media): Promise<media> => {
       },
       score: media.score,
       imgLink: media.imgLink,
-      creator: media.creator,
+      creator: JSON.stringify(media.creator),
       summary: media.summary,
       releaseDate: media.releaseDate,
       mediaLink: media.mediaLink
@@ -205,7 +205,9 @@ const searchForBooks = async (query: string) => {
 };
 
 const searchForMovies = async (query: string) => {
+  console.log("movies")
   const imdbInfo = await movier.searchTitleByName(query);
+  console.log("raw", imdbInfo)
   const imdbIds = imdbInfo
     .slice(0, 5)
     .map((i: { source: { sourceId: string } }) => i.source.sourceId);
@@ -234,7 +236,7 @@ const searchForMovies = async (query: string) => {
             duration: d.runtime.seconds,
             mediaType: d.mainType,
             categories: d.genres,
-            imgLink: d.posterImage.url ?? null
+            imgLink: d.posterImage.url ?? 'https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg'
           };
 
           return item;
@@ -247,6 +249,7 @@ const searchForMovies = async (query: string) => {
       (a: { similarity: number }, b: { similarity: number }) =>
         a.similarity - b.similarity
     )
+    .filter(m => m.summary)
     .reverse();
 };
 
@@ -255,6 +258,8 @@ export const findExternalMedia = async (params: {
   query: string;
   mediaType: string;
 }) => {
+  console.log("find")
+  console.log(params.mediaType)
   switch (params.mediaType) {
     case 'Book':
       return await searchForBooks(params.query);

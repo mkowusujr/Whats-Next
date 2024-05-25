@@ -1,4 +1,6 @@
-import { cn } from '@/lib/utils/styles';
+// import { cn } from '@/lib/utils/styles';
+
+import { cn } from '@/lib/utils';
 
 /** The properties passed to the component. */
 type SelectProps = {

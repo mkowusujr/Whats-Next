@@ -21,6 +21,7 @@ router.get('/internal', async (req, res) => {
 router.get('/external', async (req, res) => {
   try {
     const result = await findExternalMedia(req.query as any);
+    console.log(result)
     res.json(result);
   } catch (err: any) {
     res.status(400).send(err.message);

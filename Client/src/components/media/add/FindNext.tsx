@@ -1,13 +1,12 @@
 import Select from '@/components/DEPRICATED/common/Select';
-import ExternalMediaPreview from '@/components/media/ExternalMediaPreview';
-import { searchExternally } from '@/lib/data/external-media';
-import { searchGbooks } from '@/lib/data/media';
-import { externalMediaTypes } from '@/lib/form-fields';
-import React, { useEffect, useState } from 'react';
+import ExternalMediaPreview from '@/components/media/ExternalMediaCards';
+import { externalMediaTypes } from '@/lib/DEPRICATED/form-fields';
+import { searchExternally } from '@/lib/data/media';
+import React, { useState } from 'react';
 
 type Props = {};
 
-export default function FindNextPage({}: Props) {
+export default function FindNext({}: Props) {
   const [mediaList, setMediaList] = useState<ExternalMedia[] | null>(null);
   const [query, setQuery] = useState('');
   const [mediaType, setMediaType] = useState(externalMediaTypes[0].value);
