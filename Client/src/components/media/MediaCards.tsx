@@ -1,6 +1,12 @@
-import { cn, getMediaFullTitle } from '@/lib/utils';
-import { StarIcon } from '@heroicons/react/24/outline';
-import React from 'react';
+import { getMediaFullTitle } from '@/lib/utils';
+import React, { useState } from 'react';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import GoogleMedia from '../DEPRICATED/media/MediaOptions/GoogleMedia';
+import {
+  SelectMediaScore,
+  SelectMediaStatus
+} from '../DEPRICATED/media/MediaOptions/MediaSelectInputs';
+import { ViewSummary } from '../DEPRICATED/media/MediaOptions/ViewSummary';
 
 type Props = { media: Media[] };
 
@@ -15,23 +21,50 @@ export default function MediaCards({ media }: Props) {
 }
 
 const MediaCard = ({ media }: { media: Media }) => {
+  const [mediaData, setMediaData] = useState(media);
+  const [status, setStatus] = useState(media.status);
+  const [score, setScore] = useState(media.score);
   return (
-    <div className="relative flex h-52 w-full flex-col overflow-hidden">
-      <img src={media.imgLink} className="m-auto h-52 w-full object-cover" />
-      <div className="absolute bottom-0 left-0 right-0 z-20 mt-auto flex w-full flex-col bg-black/85 p-2 text-white">
-        <div className="flex justify-between">
-          <div>
-            <span className="font-bold">{media.title}</span>
-            {media.subTitle && <span>: {media.subTitle}</span>}
+    <div className="flex h-[155px] rounded-md border-2 border-accent bg-base-300 p-4 text-sm shadow-sm">
+      <LazyLoadImage
+        id={`cover-img${media.id}`}
+        src={
+          media.imgLink.includes('books.google.com')
+            ? `https://books.google.com/books/content?id=${media.imgLink.split('id=')[1].split('&')[0]}&printsec=frontcover&img=1`
+            : media.imgLink
+        }
+        width={80}
+        height={120}
+        placeholder={
+          <div className="mr-4 h-[120px] w-20 animate-pulse rounded-sm bg-secondary"></div>
+        }
+        className="mr-4 h-[120px] w-20 rounded-sm"
+      />
+      <div className="flex flex-grow flex-col gap-2">
+        <div className="inline-flex text-neutral">
+          <span className="mr-2 font-semibold">{getMediaFullTitle(media)}</span>
+          <div className="ml-auto flex gap-2">
+            {/* <MediaLink /> */}
+            <GoogleMedia name={getMediaFullTitle(media)} />
+            <ViewSummary media={media} />
           </div>
         </div>
-        <div className="flex justify-between">
-          <span>Progress</span>
-          <div className="flex items-center gap-2">
-            <StarIcon className="size-5" />
-            <span>{media.score ?? 'N/A'}</span>
-          </div>
-        </div>
+        <SelectMediaScore
+          score={score}
+          setScore={setScore}
+          className="rounded-sm"
+        />
+        <SelectMediaStatus
+          status={status}
+          setStatus={setStatus}
+          className="rounded-sm"
+        />
+        {/* <MediaOptions
+          media={media}
+          setmedia={setmedia}
+          updateList={updateList}
+          removeFromList={removeFromList}
+        /> */}
       </div>
     </div>
   );

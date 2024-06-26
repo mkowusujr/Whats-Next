@@ -1,5 +1,5 @@
 import Select from '@/components/DEPRICATED/common/Select';
-import { scores, statuses } from '@/lib/form-fields';
+import { statuses, scores } from '@/lib/DEPRICATED/form-fields';
 import { SetStateAction } from 'react';
 
 type SelectMediaStatusProps = {

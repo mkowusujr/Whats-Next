@@ -1,4 +1,4 @@
-import { cn } from '@/lib/utils/styles';
+import { cn } from '@/lib/utils';
 import clsx from 'clsx';
 import React, { useContext, useEffect } from 'react';
 import { ReactNode, createContext, useState } from 'react';
@@ -38,8 +38,8 @@ const DialogOverlay = () => {
     <div
       id="dialog-overlay"
       className={clsx('fixed inset-0 z-40', {
-        'pointer-events-none animate-fade-out': !isOpen,
-        'pointer-events-auto animate-fade-in cursor-pointer bg-black/80': isOpen
+        'animate-fade-out pointer-events-none': !isOpen,
+        'animate-fade-in pointer-events-auto cursor-pointer bg-black/80': isOpen
       })}
       onClick={() => setIsOpen(false)}
     ></div>
