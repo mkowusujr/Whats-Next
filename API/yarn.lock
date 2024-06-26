@@ -306,7 +306,7 @@
     "@types/node" "*"
     form-data "^4.0.0"
 
-"@types/node@*":
+"@types/node@*", "@types/node@^20.12.12":
   version "20.12.12"
   resolved "https://registry.npmjs.org/@types/node/-/node-20.12.12.tgz"
   integrity sha512-eWLDGF/FOSPtAvEqeRAQ4C8LSA7M1I7i0ky1I8U7kD1J5ITyW3AsRhQrKVoWf5pFKZ2kILsEGJhsI9r93PYnOw==
@@ -317,13 +317,6 @@
   version "20.11.24"
   resolved "https://registry.npmjs.org/@types/node/-/node-20.11.24.tgz"
   integrity sha512-Kza43ewS3xoLgCEpQrsT+xRo/EJej1y0kVYGiLFE1NEODXGzTfwiC6tXTLMQskn1X4/Rjlh0MQUvx9W+L9long==
-  dependencies:
-    undici-types "~5.26.4"
-
-"@types/node@^20.12.12":
-  version "20.12.12"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.12.12.tgz#7cbecdf902085cec634fdb362172dfe12b8f2050"
-  integrity sha512-eWLDGF/FOSPtAvEqeRAQ4C8LSA7M1I7i0ky1I8U7kD1J5ITyW3AsRhQrKVoWf5pFKZ2kILsEGJhsI9r93PYnOw==
   dependencies:
     undici-types "~5.26.4"
 
@@ -1762,6 +1755,11 @@ prettier@^2.8.8:
   version "2.8.8"
   resolved "https://registry.npmjs.org/prettier/-/prettier-2.8.8.tgz"
   integrity sha512-tdN8qQGvNjw4CHbY+XXk0JgCXn9QiF21a55rBe5LJAU+kDyC4WQn4+awm2Xfk2lQMk5fKup9XgzTZtGkjBdP9Q==
+
+pretty-seconds@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/pretty-seconds/-/pretty-seconds-3.0.1.tgz#9a2ee225e000033ab491a745d9fd06e571a2eb9c"
+  integrity sha512-mHopAeXGtaJnm6yRlbY1NaYoMufDn6JMgzPtMu6tDOqeGxFirHb7rSfx0xRisjGcu9dmyJ76aw+JC5TKuMFHIA==
 
 prisma@^5.14.0:
   version "5.14.0"

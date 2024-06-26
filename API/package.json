@@ -39,6 +39,7 @@
     "morgan": "^1.10.0",
     "movier": "^3.0.1",
     "node-fetch": "^2.6.12",
+    "pretty-seconds": "^3.0.1",
     "sqlite3": "^5.1.6",
     "string-similarity": "^4.0.4"
   },

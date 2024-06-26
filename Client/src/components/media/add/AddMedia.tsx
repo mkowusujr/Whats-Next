@@ -8,6 +8,7 @@ import {
 } from '@/components/ui/sheet';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import FindNext from '@/components/media/add/FindNext';
+import AddMediaManual from './AddMediaManual';
 
 export default function AddMedia() {
   return (
@@ -33,7 +34,10 @@ export default function AddMedia() {
           <TabsContent value="find-next">
             <FindNext />
           </TabsContent>
-          <TabsContent value="manual-add">Manual</TabsContent>
+          <TabsContent value="manual-add">
+            <></>
+            {/* <AddMediaManual pageName={''} addToList={() => {}} /> */}
+          </TabsContent>
         </Tabs>
       </SheetContent>
     </Sheet>

@@ -1,4 +1,5 @@
 import { cn, getMediaFullTitle } from '@/lib/utils';
+import { StarIcon } from '@heroicons/react/24/outline';
 import React from 'react';
 
 type Props = { media: Media[] };
@@ -26,7 +27,10 @@ const MediaCard = ({ media }: { media: Media }) => {
         </div>
         <div className="flex justify-between">
           <span>Progress</span>
-          <span>Rating</span>
+          <div className="flex items-center gap-2">
+            <StarIcon className="size-5" />
+            <span>{media.score ?? 'N/A'}</span>
+          </div>
         </div>
       </div>
     </div>

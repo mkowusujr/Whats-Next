@@ -1,13 +1,15 @@
 import { prisma } from '@/src/lib/prisma';
-import { GetAllMedia, Media } from '@/src/types/media';
+import { GetAllMedia, Media, ProgressStatuses, ProgressUnits as ProgressUnit, ProgressUnitKeys } from '@/src/types/media';
 import type { media } from '@prisma/client';
 const movier = require('movier');
 const gbookFinder = require('@chewhx/google-books');
 import fetch from 'node-fetch';
 import stringSimilarity from 'string-similarity';
+const prettySeconds = require("pretty-seconds")
 
 /** Adds a new media entry to the database. */
 export const addMedia = async (media: Media): Promise<media> => {
+  const progressUnit = media.mediaType.toUpperCase() as ProgressUnitKeys
   const createdMedia = await prisma.media.create({
     data: {
       title: media.title,
@@ -18,6 +20,13 @@ export const addMedia = async (media: Media): Promise<media> => {
           create: { mediaType: media.mediaType }
         }
       },
+      progress: {
+        create: {
+          status: ProgressStatuses.PLANNED,
+          unit: ProgressUnit[progressUnit]
+        }
+      },
+      duration: String(media.duration),
       score: media.score,
       imgLink: media.imgLink,
       creator: JSON.stringify(media.creator),
@@ -205,11 +214,8 @@ const searchForBooks = async (query: string) => {
 };
 
 const searchForMovies = async (query: string) => {
-  console.log("movies")
   const imdbInfo = await movier.searchTitleByName(query);
-  console.log("raw", imdbInfo)
   const imdbIds = imdbInfo
-    .slice(0, 5)
     .map((i: { source: { sourceId: string } }) => i.source.sourceId);
 
   const fetchPromises = imdbIds.map((id: string) => {
@@ -233,7 +239,7 @@ const searchForMovies = async (query: string) => {
             creator: [d?.directors?.[0]?.name],
             releaseDate: d?.dates?.startDate,
             summary: d.plot,
-            duration: d.runtime.seconds,
+            duration: prettySeconds(d.runtime.seconds),
             mediaType: d.mainType,
             categories: d.genres,
             imgLink: d.posterImage.url ?? 'https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg'
