@@ -8,27 +8,28 @@ generator client {
 }
 
 model media {
-  id          Int        @id @default(autoincrement())
-  title       String
-  subTitle    String?
-  score       Float?
-  storage     String?
-  duration    String?
-  releaseDate DateTime?
-  imgLink     String?
-  creator     String?
-  summary     String?
-  mediaLink   String?
-  isDeleted   Boolean    @default(false)
-  series      series?    @relation(fields: [seriesId], references: [id])
-  seriesId    Int?
-  mediaType   mediaType  @relation(fields: [mediaTypeId], references: [id])
-  mediaTypeId Int
-  notes       note[]
-  progress    progress[]
-  catagories  catagory[]
-  createdAt   DateTime   @default(now())
-  updatedAt   DateTime   @updatedAt
+  id                Int        @id @default(autoincrement())
+  title             String
+  subTitle          String?
+  storage           String?
+  duration          String?
+  releaseDate       DateTime?
+  imgLink           String?
+  creator           String?
+  summary           String?
+  mediaLink         String?
+  isDeleted         Boolean    @default(false)
+  seriesId          Int?
+  series            series?    @relation(fields: [seriesId], references: [id])
+  mediaTypeId       Int
+  mediaType         mediaType  @relation(fields: [mediaTypeId], references: [id])
+  notes             note[]
+  currentProgressId Int?       @unique
+  currentProgress   progress?  @relation("currentProgress", fields: [currentProgressId], references: [id])
+  progressList      progress[]
+  catagories        catagory[]
+  createdAt         DateTime   @default(now())
+  updatedAt         DateTime   @updatedAt
 }
 
 model series {
@@ -71,15 +72,17 @@ model note {
 
 model progress {
   id            Int       @id @default(autoincrement())
+  title         String    @default(dbgenerated("'First Watch'"))
   status        String
+  score         Int?
   current       Int?
   total         Int?
   unit          String?
   dateStarted   DateTime?
   dateCompleted DateTime?
   mediaID       Int
-  title         String    @default(dbgenerated("'First Watch'"))
-  media         media     @relation(fields: [mediaID], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  media         media     @relation(fields: [mediaID], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  mediaCurrent  media?    @relation("currentProgress")
   isDeleted     Boolean   @default(false)
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt

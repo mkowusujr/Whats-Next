@@ -1,20 +1,43 @@
 import { media } from '@prisma/client';
+import { Progress } from './progress';
 
 export type Media = {
   id: number;
   title: string;
   subTitle: string;
-  mediaType: { id: number, mediaType: string };
-  mediaTypeId: number;
-  score: number;
-  imgLink: string;
-  creator: string;
   summary: string;
+  currentProgress: Progress
+  storage: string;
   releaseDate: string;
+  creator: string;
+  mediaType: MediaType;
+  imgLink: string;
   mediaLink: string;
-  status: string;
-  duration: string;
+  dateStarted: string;
+  dateCompleted: string;
+  createdAt: string;
+  updatedAt: string;
 };
+
+export type CreatedMedia = {
+  title: string;
+  subTitle: string;
+  mediaType: string;
+  score: number;
+  status: string;
+  duration?: string
+  imgLink?: string;
+  creator?: string;
+  summary?: string;
+  releaseDate?: string;
+  mediaLink?: string;
+  categories?: string[];
+};
+
+export type MediaType = {
+  id: number;
+  mediaType: string;
+}
 
 export const ProgressUnits = {
   SERIES: "Episodes",

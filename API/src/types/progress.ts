@@ -3,9 +3,12 @@ export type Progress = {
   title: string;
   current: number;
   total: number;
-  status: string;
   unit: string;
+  status: string;
+  score: number;
   dateStarted: string;
   dateCompleted: string;
   mediaID: number;
+  createdAt: string;
+  updatedAt: string;
 };

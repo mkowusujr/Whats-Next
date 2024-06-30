@@ -1,14 +1,14 @@
 type Media = {
-	imgLink: string;
 	id: number;
 	title: string;
 	subTitle: string;
 	summary: string;
-	progress: Progress[]
+	currentProgress: Progress
 	storage: string;
 	releaseDate: string;
 	creator: string;
-	mediaType: string;
+	mediaType: MediaType;
+	imgLink: string;
 	mediaLink: string;
 	dateStarted: string;
 	dateCompleted: string;
@@ -16,13 +16,24 @@ type Media = {
 	updatedAt: string;
 };
 
+type MediaType = {
+	id: number;
+	mediaType: string;
+}
+
 type CreatedMedia = {
 	title: string;
 	subTitle: string;
 	mediaType: string;
 	score: number;
 	status: string;
-	link: string;
+	duration?: string
+	imgLink?: string;
+	creator?: string;
+	summary?: string;
+	releaseDate?: string;
+	mediaLink?: string;
+	categories?: string[];
 };
 
 type Filter = {

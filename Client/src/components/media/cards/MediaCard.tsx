@@ -33,7 +33,7 @@ export default function MediaCard({ media }: MediaCardProps) {
             <ViewSummary mediaSummary={media.summary} />
           </div>
         </div>
-        <MediaCardProgressSection progress={media.progress[0]} />
+        <MediaCardProgressSection progress={media.currentProgress} />
         <MediaOptions media={media} />
       </div>
     </div>

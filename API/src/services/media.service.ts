@@ -1,5 +1,5 @@
 import { prisma } from '@/src/lib/prisma';
-import { GetAllMedia, Media, ProgressStatuses, ProgressUnits as ProgressUnit, ProgressUnitKeys } from '@/src/types/media';
+import { CreatedMedia, GetAllMedia, Media, ProgressStatuses, ProgressUnits as ProgressUnit, ProgressUnitKeys } from '@/src/types/media';
 import type { media } from '@prisma/client';
 const movier = require('movier');
 const gbookFinder = require('@chewhx/google-books');
@@ -8,26 +8,19 @@ import stringSimilarity from 'string-similarity';
 const prettySeconds = require("pretty-seconds")
 
 /** Adds a new media entry to the database. */
-export const addMedia = async (media: Media): Promise<media> => {
-  const progressUnit = media.mediaType.mediaType.toUpperCase() as ProgressUnitKeys
+export const addMedia = async (media: CreatedMedia): Promise<media> => {
   const createdMedia = await prisma.media.create({
     data: {
       title: media.title,
       subTitle: media.subTitle,
       mediaType: {
         connectOrCreate: {
-          where: { mediaType: media.mediaType.mediaType },
-          create: { mediaType: media.mediaType.mediaType }
+          where: { mediaType: media.mediaType },
+          create: { mediaType: media.mediaType }
         }
       },
-      progress: {
-        create: {
-          status: ProgressStatuses.PLANNED,
-          unit: ProgressUnit[progressUnit]
-        }
-      },
+
       duration: String(media.duration),
-      score: media.score,
       imgLink: media.imgLink,
       creator: JSON.stringify(media.creator),
       summary: media.summary,
@@ -36,7 +29,31 @@ export const addMedia = async (media: Media): Promise<media> => {
     }
   });
 
-  return createdMedia;
+  const progressUnit = media.mediaType.toUpperCase() as ProgressUnitKeys
+
+  await prisma.progress.create({
+    data: {
+      status: ProgressStatuses.PLANNED,
+      unit: ProgressUnit[progressUnit],
+      media: {
+        connect: {
+          id: createdMedia.id
+        }
+      },
+      mediaCurrent: {
+        connect: {
+          id: createdMedia.id
+        }
+      }
+    }
+  });
+
+  // Fetch the updated media entry to return
+  const updatedMedia = await prisma.media.findUnique({
+    where: { id: createdMedia.id },
+  });
+
+  return updatedMedia!;
 };
 
 /** Retrieves a list of media entries from the database based on media types. */
@@ -91,12 +108,7 @@ export const listInternalMedia = async (params: {
           mediaType: true,
         }
       },
-      progress: {
-        orderBy: {
-          createdAt: 'desc'
-        },
-        take: 1
-      },
+      currentProgress: true,
       catagories: true
     }
   });
@@ -112,12 +124,7 @@ export const getMedia = async (mediaID: number) => {
   const media = await prisma.media.findFirstOrThrow({
     where: { id: mediaID },
     include: {
-      progress: {
-        orderBy: {
-          createdAt: 'desc'
-        },
-        take: 1
-      },
+      currentProgress: true,
       catagories: true,
       series: true
     }
@@ -139,7 +146,6 @@ export const updateMedia = async (media: Media) => {
           create: { mediaType: media.mediaType.mediaType }
         }
       },
-      score: media.score,
       imgLink: media.imgLink,
       creator: media.creator,
       summary: media.summary,
