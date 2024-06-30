@@ -44,17 +44,9 @@ export const listInternalMedia = (page: { pageParam: number }, searchParams: str
 
 export const searchExternally = (query: string, mediaType: string) => {
   let queryParams = `/external?query=${encodeURIComponent(query)}&mediaType=${encodeURIComponent(mediaType)}`;
-  console.log(queryParams)
   const apiUrl = `${baseUrl}${queryParams}`;
   return getRequest<ExternalMedia[]>(apiUrl);
 };
-
-// export const searchGbooks = (query: string) => {
-//   let queryParams = '?q=' + encodeURIComponent(query);
-//   console.log(queryParams)
-//   const apiUrl = `${baseUrl}/gbooks${queryParams}`;
-//   return getRequest<Media[]>(apiUrl);
-// };
 
 /**
  * Updates media information by making a PUT request to the media API.

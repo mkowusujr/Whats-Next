@@ -25,7 +25,6 @@ export default function MediaPage() {
   }, [inView]);
 
   const media = data ? data.pages.flatMap(page => page?.media) : [];
-  console.log(media);
 
   return (
     <div className="flex flex-col p-4">

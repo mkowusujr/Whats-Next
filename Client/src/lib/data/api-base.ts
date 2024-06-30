@@ -37,7 +37,6 @@ export const getRequest = async <Type>(
   apiUrl: string
 ): Promise<Type | undefined> => {
   try {
-    console.log(apiUrl)
     const response = await fetch(apiUrl);
     const data = (await response.json()) as Type;
     return data;

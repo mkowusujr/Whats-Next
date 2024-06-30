@@ -260,8 +260,6 @@ export const findExternalMedia = async (params: {
   query: string;
   mediaType: string;
 }) => {
-  console.log("find")
-  console.log(params.mediaType)
   switch (params.mediaType) {
     case 'Book':
       return await searchForBooks(params.query);
