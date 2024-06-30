@@ -4,8 +4,7 @@ type Media = {
 	title: string;
 	subTitle: string;
 	summary: string;
-	score: number;
-	status: string;
+	progress: Progress[]
 	storage: string;
 	releaseDate: string;
 	creator: string;
@@ -13,7 +12,8 @@ type Media = {
 	mediaLink: string;
 	dateStarted: string;
 	dateCompleted: string;
-	dateCreated: string;
+	createdAt: string;
+	updatedAt: string;
 };
 
 type CreatedMedia = {

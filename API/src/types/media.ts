@@ -4,7 +4,8 @@ export type Media = {
   id: number;
   title: string;
   subTitle: string;
-  mediaType: string;
+  mediaType: { id: number, mediaType: string };
+  mediaTypeId: number;
   score: number;
   imgLink: string;
   creator: string;

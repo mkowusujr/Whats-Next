@@ -1,5 +1,5 @@
 import Select from '@/components/DEPRICATED/common/Select';
-import ExternalMediaPreview from '@/components/media/ExternalMediaCards';
+import ExternalMediaPreview from '@/components/media/cards/ExternalMediaCards';
 import { externalMediaTypes } from '@/lib/DEPRICATED/form-fields';
 import { searchExternally } from '@/lib/data/media';
 import React, { useState } from 'react';

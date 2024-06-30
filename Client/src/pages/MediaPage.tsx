@@ -1,4 +1,4 @@
-import MediaCards from '@/components/media/MediaCards';
+import MediaCardGrid from '@/components/media/cards/MediaCardGrid';
 import MediaFilters from '@/components/media/MediaFilters';
 import { listInternalMedia } from '@/lib/data/media';
 import { useFilterQueryParams } from '@/lib/hooks/useFilterQueryParams';
@@ -25,12 +25,13 @@ export default function MediaPage() {
   }, [inView]);
 
   const media = data ? data.pages.flatMap(page => page?.media) : [];
+  console.log(media);
 
   return (
     <div className="flex flex-col p-4">
       <MediaFilters />
       <div className="my-8">
-        <MediaCards media={media as Media[]} />
+        <MediaCardGrid media={media as Media[]} />
         {hasNextPage && <div ref={ref} className="h-4 w-full"></div>}
       </div>
     </div>

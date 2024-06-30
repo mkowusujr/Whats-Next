@@ -9,7 +9,10 @@ import { SetStateAction, useState } from 'react';
 import { updateMedia } from '@/lib/data/media';
 import { storageTypes } from '@/lib/form-fields';
 import Select from '@/components/DEPRICATED/common/Select';
-import { SelectMediaScore, SelectMediaStatus } from './MediaSelectInputs';
+import {
+  SelectMediaScore,
+  SelectMediaStatus
+} from '../cards/MediaSelectInputs';
 
 export default function EditMedia({
   media,

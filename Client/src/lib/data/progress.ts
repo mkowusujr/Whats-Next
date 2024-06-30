@@ -4,7 +4,7 @@ import {
   getRequest,
   postRequest,
   updateRquest
-} from '../../data/api-base';
+} from './api-base';
 
 const baseUrl = `${apiUrl}/progress`;
 

@@ -2,15 +2,15 @@ import { useEffect, useState } from 'react';
 import { LinkIcon } from '@heroicons/react/24/outline';
 import { updateMedia } from '@/lib/data/media';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
-import { ViewSummary } from './MediaOptions/ViewSummary';
-import { MediaOptions } from './MediaOptions/MediaOptions';
+import { ViewSummary } from '../../media/options/ViewSummary';
+import { MediaOptions } from '../../media/options/MediaOptions';
 import { getMediaFullTitle } from '@/lib/utils/media-utils';
 import {
   SelectMediaScore,
   SelectMediaStatus
-} from './MediaOptions/MediaSelectInputs';
+} from '../../media/cards/MediaSelectInputs';
 import useSubsequentEffect from '@/lib/hooks/useSubsequentEffect';
-import GoogleMedia from './MediaOptions/GoogleMedia';
+import GoogleMedia from '../../media/options/GoogleMedia';
 
 type MediaCellProps = {
   /** The media object containing information about the item. */

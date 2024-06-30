@@ -5,7 +5,7 @@ import { useState } from 'react';
 import {
   SelectMediaScore,
   SelectMediaStatus
-} from '../media/MediaOptions/MediaSelectInputs';
+} from '../../media/cards/MediaSelectInputs';
 import { DialogClose } from '../DEPRICATED/common/Dialog';
 
 export default function MediaSummary({ media }: { media: Media }) {

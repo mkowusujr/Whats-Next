@@ -2,7 +2,7 @@ import ScoreFilterSelector from '../filters/ScoreFilterSelector';
 import SearchFilter from '../filters/SearchFilter';
 import SortByFilterSelector from '../filters/SortByFilterSelector';
 import StatusFilterSelector from '../filters/StatusFilterSelector';
-import AddMedia from './add/AddMedia';
+import AddMedia from './creation/AddMedia';
 
 export default function MediaFilters() {
   return (

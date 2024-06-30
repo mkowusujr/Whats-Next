@@ -13,7 +13,7 @@ type SelectProps = {
   /** The current selected value.  */
   value: any;
   /** The callback function triggered on value change. */
-  onChange: (e: any) => void;
+  onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
   /** Indicates whether the select element is required. */
   isRequired?: boolean;
   className?: string;

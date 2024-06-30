@@ -9,15 +9,15 @@ const prettySeconds = require("pretty-seconds")
 
 /** Adds a new media entry to the database. */
 export const addMedia = async (media: Media): Promise<media> => {
-  const progressUnit = media.mediaType.toUpperCase() as ProgressUnitKeys
+  const progressUnit = media.mediaType.mediaType.toUpperCase() as ProgressUnitKeys
   const createdMedia = await prisma.media.create({
     data: {
       title: media.title,
       subTitle: media.subTitle,
       mediaType: {
         connectOrCreate: {
-          where: { mediaType: media.mediaType },
-          create: { mediaType: media.mediaType }
+          where: { mediaType: media.mediaType.mediaType },
+          create: { mediaType: media.mediaType.mediaType }
         }
       },
       progress: {
@@ -85,6 +85,12 @@ export const listInternalMedia = async (params: {
     ],
     include: {
       series: true,
+      mediaType: {
+        select: {
+          id: true,
+          mediaType: true,
+        }
+      },
       progress: {
         orderBy: {
           createdAt: 'desc'
@@ -122,12 +128,6 @@ export const getMedia = async (mediaID: number) => {
 
 /** Updates a media entry in the database. */
 export const updateMedia = async (media: Media) => {
-  const mostRecentProgressCreationDate = await prisma.progress.findFirstOrThrow({
-    select: { createdAt: true },
-    where: { mediaID: media.id },
-    orderBy: { createdAt: "desc" }
-  }).then(progress => progress.createdAt)
-
   const updatedMedia = await prisma.media.update({
     where: { id: media.id },
     data: {
@@ -135,18 +135,8 @@ export const updateMedia = async (media: Media) => {
       subTitle: media.subTitle,
       mediaType: {
         connectOrCreate: {
-          where: { mediaType: media.mediaType },
-          create: { mediaType: media.mediaType }
-        }
-      },
-      progress: {
-        updateMany: {
-          where: {
-            createdAt: {
-              equals: mostRecentProgressCreationDate
-            }
-          },
-          data: { status: media.status }
+          where: { mediaType: media.mediaType.mediaType },
+          create: { mediaType: media.mediaType.mediaType }
         }
       },
       score: media.score,

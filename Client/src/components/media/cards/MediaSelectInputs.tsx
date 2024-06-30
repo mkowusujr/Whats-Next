@@ -1,15 +1,14 @@
 import Select from '@/components/DEPRICATED/common/Select';
 import { statuses, scores } from '@/lib/DEPRICATED/form-fields';
-import { SetStateAction } from 'react';
 
 type SelectMediaStatusProps = {
   status: string;
-  setStatus: React.Dispatch<SetStateAction<string>>;
+  onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
   className?: string;
 };
 export const SelectMediaStatus = ({
   status,
-  setStatus,
+  onChange,
   className
 }: SelectMediaStatusProps) => (
   <Select
@@ -17,20 +16,18 @@ export const SelectMediaStatus = ({
     value={status}
     options={statuses}
     className={className}
-    onChange={(e: { target: { value: SetStateAction<string> } }) =>
-      setStatus(e.target.value)
-    }
+    onChange={e => onChange(e)}
   />
 );
 
 type SelectMediaScoreProps = {
   score: number;
-  setScore: React.Dispatch<SetStateAction<number>>;
+  onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
   className?: string;
 };
 export const SelectMediaScore = ({
   score,
-  setScore,
+  onChange,
   className
 }: SelectMediaScoreProps) => (
   <Select
@@ -38,8 +35,6 @@ export const SelectMediaScore = ({
     value={score}
     options={scores}
     className={className}
-    onChange={(e: { target: { value: SetStateAction<number> } }) =>
-      setScore(e.target.value)
-    }
+    onChange={e => onChange(e)}
   />
 );
