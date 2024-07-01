@@ -6,22 +6,14 @@ import clsx from 'clsx';
 import { useState } from 'react';
 import DeleteMedia from './DeleteMedia';
 // import EditMedia from './EditMedia';
-// import ViewProgress from './ViewProgress';
+import ViewProgress from './ViewProgress';
 // import { ViewNotes } from './ViewNotes';
 
 type MediaOptionsProps = {
   media: Media;
-  // updateList: any;
-  // removeFromList: any;
-  // setMediaData: React.Dispatch<React.SetStateAction<Media>>;
 };
 
-export const MediaOptions = ({
-  media
-  // updateList,
-  // removeFromList,
-  // setMediaData
-}: MediaOptionsProps) => {
+export const MediaOptions = ({ media }: MediaOptionsProps) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <div className="mt-auto flex h-5 items-center justify-end gap-2 text-neutral">
@@ -31,8 +23,8 @@ export const MediaOptions = ({
           'animate-fade-in pointer-events-auto visible opacity-100': isOpen
         })}
       >
-        {/* <ViewNotes media={media} />
-        <ViewProgress media={media} /> */}
+        {/* <ViewNotes media={media} /> */}
+        <ViewProgress media={media} />
         {/* <EditMedia
           media={media}
           setMediaData={setMediaData}

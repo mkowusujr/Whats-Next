@@ -1,69 +1,79 @@
 import { useState } from 'react';
-import {
-  bookProgressUnits,
-  bookTypes,
-  mediaProgressUnits,
-  videoMediaTypes
-} from '@/lib/form-fields';
 import Select from '@/components/DEPRICATED/common/Select';
-import { apiToast } from '@/lib/data/api-base';
 import { addProgress } from '@/lib/data/progress';
+import {
+  videoMediaTypes,
+  mediaProgressUnits,
+  bookTypes,
+  bookProgressUnits
+} from '@/lib/utils/form-utils';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 type AddProjectItemProps = {
   /** The ID of the media item being tracked. */
   mediaID: number;
   /** Function to add the new progress to the list. */
-  addToList: AddToList<Progress>;
   /** The type of media (e.g., book, video) being tracked. */
   mediaType: string;
+  progressUnit: string;
 };
 
 /** Component for adding progress tracking information for a media item. */
-export default function AddProjectItem({
+export default function AddProjessItem({
   mediaID,
-  addToList,
-  mediaType
+  mediaType,
+  progressUnit
 }: AddProjectItemProps) {
   const [title, setTitle] = useState('');
   const [current, setCurrent] = useState('');
   const [total, setTotal] = useState('');
-  const [unit, setUnit] = useState('');
+  // const [unit, setUnit] = useState('');
   const [dateStarted, setDateStarted] = useState('');
   const [dateCompleted, setDateCompleted] = useState('');
+
+  const queryClient = useQueryClient();
+  const { mutateAsync: addProgressMutation } = useMutation({
+    mutationFn: (progress: CreatedProgress) => addProgress(progress),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['progress-list'] });
+    }
+  });
 
   /**
    * Handles the form submission, adds progress to the list, and makes an API call.
    *
    * @param {Object} e - The form submission event.
    */
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    const progress = {
+      title: title,
+      current: +current,
+      total: +total,
+      unit: progressUnit,
+      dateStarted: new Date(dateStarted).toISOString(),
+      dateCompleted:
+        dateCompleted === '' ? null : new Date(dateCompleted).toISOString(),
+      mediaID: +mediaID
+    };
+    await addProgressMutation(progress);
 
-    const callAPI = new Promise<string>((res, rej) => {
-      const progress = {
-        title: title,
-        current: +current,
-        total: +total,
-        unit: unit,
-        dateStarted: dateStarted,
-        dateCompleted: dateCompleted,
-        mediaID: +mediaID
-      };
+    // const callAPI = new Promise<string>((res, rej) => {
 
-      addProgress(progress)
-        .then(newProgress => {
-          addToList(newProgress!);
-          setCurrent('');
-          setTotal('');
-          setUnit('');
-          setDateStarted('');
-          setDateCompleted('');
-          res('Successfully added progress');
-        })
-        .catch(err => rej(err));
-    });
+    //   addProgress(progress)
+    //     .then(newProgress => {
+    //       addToList(newProgress!);
+    setCurrent('');
+    setTotal('');
+    // setUnit('');
+    setDateStarted('');
+    setDateCompleted('');
+    //       res('Successfully added progress');
+    //     })
+    //     .catch(err => rej(err));
+    // });
 
-    apiToast(callAPI);
+    // apiToast(callAPI);
   };
 
   const titleInput = (
@@ -84,13 +94,13 @@ export default function AddProjectItem({
       type="number"
       value={current}
       size={5}
-      min={0}
+      // min={0}
       max={total}
       onChange={e => setCurrent(e.target.value)}
       disabled={total == ''}
       autoComplete="off"
-      placeholder="Curr"
-      className="rounded-md bg-secondary px-4 py-1 text-primary placeholder-base-100 outline-none"
+      placeholder="Current"
+      className="min-w-0 flex-1 rounded-md bg-secondary px-4 py-1 text-primary placeholder-base-100 outline-none"
       required
     />
   );
@@ -100,12 +110,12 @@ export default function AddProjectItem({
       name="total"
       type="number"
       value={total}
-      size={5}
+      // size={5}
       min={0}
       onChange={e => setTotal(e.target.value)}
       autoComplete="off"
-      placeholder="Goal"
-      className="rounded-md bg-secondary px-4 py-1 text-primary placeholder-base-100 outline-none"
+      placeholder="Total"
+      className="min-w-0 flex-1 rounded-md bg-secondary px-4 py-1 text-primary placeholder-base-100 outline-none"
       required
     />
   );
@@ -118,13 +128,9 @@ export default function AddProjectItem({
   }
 
   const unitInput = (
-    <Select
-      name={'unit'}
-      value={unit}
-      options={unitOptions}
-      onChange={e => setUnit(e.target.value)}
-      isRequired={true}
-    />
+    <div className="flex flex-1 items-center justify-center">
+      {progressUnit}
+    </div>
   );
 
   const dateStartedtInput = (
@@ -155,7 +161,7 @@ export default function AddProjectItem({
         onSubmit={handleSubmit}
       >
         <>{titleInput}</>
-        <div className="flex flex-col gap-2 lg:mx-auto lg:flex-row">
+        <div className="flex w-full flex-col gap-2 lg:mx-auto lg:flex-row">
           <>{currentInput}</>
           <>{totalInput}</>
           <>{unitInput}</>

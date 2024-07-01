@@ -72,8 +72,8 @@ model note {
 
 model progress {
   id            Int       @id @default(autoincrement())
-  title         String    @default(dbgenerated("'First Watch'"))
-  status        String
+  title         String?
+  status        String?
   score         Int?
   current       Int?
   total         Int?

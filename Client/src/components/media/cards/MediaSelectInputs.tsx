@@ -1,5 +1,5 @@
 import Select from '@/components/DEPRICATED/common/Select';
-import { statuses, scores } from '@/lib/DEPRICATED/form-fields';
+import { scores, statuses } from '@/lib/utils/form-utils';
 
 type SelectMediaStatusProps = {
   status: string;

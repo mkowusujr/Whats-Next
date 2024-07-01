@@ -1,6 +1,6 @@
 import { updateProgress } from '@/lib/data/progress';
 import { useMutation } from '@tanstack/react-query';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { SelectMediaScore, SelectMediaStatus } from './MediaSelectInputs';
 
 type MediaCardProgressSectionProps = { progress: Progress };
@@ -9,9 +9,7 @@ export default function MediaCardProgressSection({
   progress
 }: MediaCardProgressSectionProps) {
   const mutation = useMutation({
-    mutationFn: async (progress: Progress) => {
-      await updateProgress(progress);
-    }
+    mutationFn: (progress: Progress) => updateProgress(progress)
   });
 
   const [status, setStatus] = useState(progress.status);

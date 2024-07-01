@@ -1,4 +1,3 @@
-import { getMediaFullTitle } from './utils/media-utils';
 
 /**
  * Different status options for media items.
@@ -79,47 +78,4 @@ export const videoMediaTypes = [
 export const bookTypes = [
   { label: 'Graphic Novels', value: 'Graphic Novels' },
   { label: 'Book', value: 'Book' }
-];
-
-const collator = new Intl.Collator(undefined, {
-  numeric: true,
-  sensitivity: 'base'
-});
-
-/**
- * Sorting options for media items.
- */
-export const sortByOptions = [
-  {
-    label: 'Name',
-    value: 'Name',
-    sortBy: (a: Media, b: Media) => {
-      return collator.compare(getMediaFullTitle(a), getMediaFullTitle(b));
-    }
-  },
-  {
-    label: 'Score',
-    value: 'Score',
-    sortBy: (a: Media, b: Media) => {
-      return a.score - b.score;
-    }
-  },
-  {
-    label: 'Date Added',
-    value: 'Date Added',
-    sortBy: (a: Media, b: Media) => {
-      return (
-        new Date(a.dateCreated).getTime() - new Date(b.dateCreated).getTime()
-      );
-    }
-  },
-  {
-    label: 'Date Released',
-    value: 'Date Released',
-    sortBy: (a: Media, b: Media) => {
-      return (
-        new Date(a.releaseDate).getTime() - new Date(b.releaseDate).getTime()
-      );
-    }
-  }
 ];

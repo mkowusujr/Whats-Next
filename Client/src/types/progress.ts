@@ -19,7 +19,7 @@ type CreatedProgress = {
 	total: number;
 	unit: string;
 	dateStarted: string;
-	dateCompleted: string;
+	dateCompleted: string | null;
 	mediaID: number;
 };
 

@@ -13,7 +13,7 @@ export const updateProgress = async (progress: Progress) => {
 /** Retrieves progress information from the database based on progress ID. */
 export const getProgress = async (progressID: number) => {
   const progress = await prisma.progress.findFirstOrThrow({
-    where: { id: progressID }
+    where: { id: progressID, isDeleted: false }
   });
   return progress;
 };
@@ -21,7 +21,7 @@ export const getProgress = async (progressID: number) => {
 /** Retrieves progress information from the database based on media ID. */
 export const getMediaProgress = async (mediaID: number) => {
   const notes = await prisma.progress.findMany({
-    where: { mediaID: mediaID },
+    where: { mediaID: mediaID, isDeleted: false },
     orderBy: { createdAt: 'desc' }
   });
   return notes;
@@ -42,6 +42,7 @@ export const addProgress = async (progress: Progress) => {
     data: {
       title: progress.title,
       current: progress.current,
+      total: progress.total,
       unit: progress.unit,
       status: progress.status,
       dateStarted: progress.dateStarted,
