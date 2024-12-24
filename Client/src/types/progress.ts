@@ -11,6 +11,7 @@ type Progress = {
 	mediaID: number;
 	createdAt: string;
 	updatedAt: string;
+	mediaCurrent: Media
 };
 
 type CreatedProgress = {

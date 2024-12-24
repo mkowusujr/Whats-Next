@@ -13,7 +13,6 @@ export default function MediaPage() {
   const { data, fetchNextPage, hasNextPage } = useInfiniteQuery({
     queryKey: ['media', searchParams],
     queryFn: page => listInternalMedia(page, searchParams, []),
-    staleTime: 10000,
     initialPageParam: 0,
     getNextPageParam: lastPage => {
       return lastPage?.nextCursor;

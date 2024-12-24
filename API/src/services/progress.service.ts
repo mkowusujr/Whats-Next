@@ -22,7 +22,10 @@ export const getProgress = async (progressID: number) => {
 export const getMediaProgress = async (mediaID: number) => {
   const notes = await prisma.progress.findMany({
     where: { mediaID: mediaID, isDeleted: false },
-    orderBy: { createdAt: 'desc' }
+    orderBy: { createdAt: 'desc' },
+    include: {
+      mediaCurrent: true
+    }
   });
   return notes;
 };

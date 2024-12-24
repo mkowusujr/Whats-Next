@@ -7,6 +7,7 @@ import { deleteProgress, updateProgress } from '@/lib/data/progress';
 //   bookProgressUnits
 // } from '@/lib/utils/form-utils';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import MediaCardProgressSection from '../media/cards/MediaCardProgressSection';
 
 type ProgressItemProps = {
   /** The type of media (e.g., book, video) being tracked. */
@@ -157,7 +158,16 @@ export default function ProgressItem({
   return (
     <div className="mt-10 flex flex-col gap-4">
       <hr className="mb-6 border-2 border-primary" />
+      <div>
+        <label>Current Progress?</label>
+        <input
+          type="checkbox"
+          defaultChecked={progress.mediaCurrent.id === progress.mediaID}
+          // disable if media how no current progress
+        />
+      </div>
       <>{titleInput}</>
+      <MediaCardProgressSection progress={progress} />
       <div className="mx-auto flex w-full gap-2">
         <>{currentInput}</>
         <>{totalInput}</>

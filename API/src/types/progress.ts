@@ -1,3 +1,5 @@
+import { Media } from "./media";
+
 export type Progress = {
   id: number;
   title: string;
@@ -11,4 +13,5 @@ export type Progress = {
   mediaID: number;
   createdAt: string;
   updatedAt: string;
+  // mediaCurrent?: Media
 };
