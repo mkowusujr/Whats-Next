@@ -20,6 +20,10 @@ export default function SearchFilter() {
   };
 
   return (
-    <SearchInput value={value} handleOnChange={handleOnChange} handleReset={handleReset} />
+    <SearchInput
+      value={value}
+      handleOnChange={handleOnChange}
+      handleReset={handleReset}
+    />
   );
 }

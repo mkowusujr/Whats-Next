@@ -24,9 +24,9 @@ export default function DeleteMedia({ mediaId }: { mediaId: number }) {
     <div>
       <Dialog>
         <IconDialogTrigger HeroIcon={TrashIcon} />
-        <DialogContent className="bg-base-300">
+        <DialogContent className="">
           <span>Are you sure?</span>
-          <button onClick={handleDeletion}>Yes</button>
+          <button className='bg-solid-900 text-interactive-300 rounded-md hover:bg-solid-1000' onClick={handleDeletion}>Yes</button>
         </DialogContent>
       </Dialog>
     </div>

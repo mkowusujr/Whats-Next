@@ -20,16 +20,26 @@ export default function AddMedia() {
       </SheetTrigger>
       <SheetContent
         side="bottom"
-        className="h-full overflow-y-scroll bg-gradient-to-b text-accessible-1200 from-base-200 to-base-100"
+        className="h-full overflow-y-scroll bg-gradient-to-b from-base-200 to-base-100 text-accessible-1200"
       >
         <SheetHeader>
-          <SheetTitle className='text-3xl'>Add Next</SheetTitle>
+          <SheetTitle className="text-3xl">Add Next</SheetTitle>
           <SheetDescription>Add items to your list</SheetDescription>
         </SheetHeader>
         <Tabs className="flex flex-col" defaultValue="find-next">
           <TabsList className="mx-auto bg-interactive-300">
-            <TabsTrigger value="find-next" className='active:bg-interactive-400'>Find Next</TabsTrigger>
-            <TabsTrigger value="manual-add" className='active:bg-interactive-400'>Manually Add</TabsTrigger>
+            <TabsTrigger
+              value="find-next"
+              className="active:bg-interactive-400"
+            >
+              Find Next
+            </TabsTrigger>
+            <TabsTrigger
+              value="manual-add"
+              className="active:bg-interactive-400"
+            >
+              Manually Add
+            </TabsTrigger>
           </TabsList>
           <TabsContent value="find-next">
             <FindNext />

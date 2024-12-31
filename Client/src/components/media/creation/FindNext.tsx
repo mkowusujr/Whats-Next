@@ -3,20 +3,32 @@ import SearchInput from '@/components/shared/SearchInput';
 import Select from '@/components/shared/Select';
 import { searchExternally } from '@/lib/data/media';
 import { externalMediaTypes } from '@/lib/utils/form-utils';
+import { useQuery } from '@tanstack/react-query';
 import React, { useState } from 'react';
 
 type Props = {};
 
 export default function FindNext({}: Props) {
-  const [mediaList, setMediaList] = useState<ExternalMedia[] | null>(null);
+  const {
+    data: mediaList,
+    isPending,
+    refetch
+  } = useQuery({
+    queryKey: ['search-externally'],
+    queryFn: () => searchExternally(query, mediaType),
+    initialData: null
+  });
+
+  // const [mediaList, setMediaList] = useState<ExternalMedia[] | null>(null);
   const [query, setQuery] = useState('');
   const [mediaType, setMediaType] = useState(externalMediaTypes[0].value);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const results = await searchExternally(query, mediaType);
-      setMediaList(results!);
+      refetch();
+      // const results = await searchExternally(query, mediaType);
+      // setMediaList(results!);
     } catch (err) {
       console.error(err);
     }
@@ -29,25 +41,35 @@ export default function FindNext({}: Props) {
         onSubmit={handleSubmit}
       >
         <h2 className="text-primary text-center text-3xl">Find Next</h2>
-        <div className="flex justify-between gap-4 items-center">
+        <div className="flex items-center justify-between gap-4">
           <Select
             options={externalMediaTypes}
             value={mediaType}
             onValueChange={value => setMediaType(value!)}
-            placeholder=''
+            placeholder=""
           />
-          <SearchInput value={query} handleOnChange={(e) => setQuery(e.target.value)} handleReset={()=>setQuery("")}/>
+          <SearchInput
+            value={query}
+            handleOnChange={e => setQuery(e.target.value)}
+            handleReset={() => setQuery('')}
+          />
         </div>
       </form>
-      {mediaList && (
-        <div>
-          <h2 className="mb-4 text-center text-3xl">Results</h2>
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-            {mediaList.map((media, index) => (
-              <ExternalMediaPreview media={media} key={index} />
-            ))}
-          </div>
-        </div>
+      {isPending ? (
+        <div>Loading</div>
+      ) : (
+        <>
+          {mediaList && (
+            <div>
+              <h2 className="mb-4 text-center text-3xl">Results</h2>
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                {mediaList.map((media, index) => (
+                  <ExternalMediaPreview media={media} key={index} />
+                ))}
+              </div>
+            </div>
+          )}
+        </>
       )}
     </div>
   );

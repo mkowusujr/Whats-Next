@@ -11,7 +11,7 @@ type IconButtonProps = {
 
 export default function IconDialogTrigger({ HeroIcon }: IconButtonProps) {
   return (
-    <DialogTrigger>
+    <DialogTrigger asChild>
       <button className="rounded-md border border-borders-600 bg-interactive-300 p-2 text-borders-800 hover:border-solid-1000 hover:bg-interactive-400 hover:text-solid-1000">
         <HeroIcon className="size-4" />
       </button>
