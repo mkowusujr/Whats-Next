@@ -57,7 +57,7 @@ export default function MediaCell({
   };
 
   return (
-    <div className="flex h-[155px] rounded-md border-2 border-accent bg-base-300 p-4 text-sm shadow-sm">
+    <div className="border-accent bg-base-300 flex h-[155px] rounded-md border-2 p-4 text-sm shadow-sm">
       <LazyLoadImage
         id={`cover-img${mediaData.id}`}
         src={
@@ -68,12 +68,12 @@ export default function MediaCell({
         width={80}
         height={120}
         placeholder={
-          <div className="mr-4 h-[120px] w-20 animate-pulse rounded-sm bg-secondary"></div>
+          <div className="bg-secondary mr-4 h-[120px] w-20 animate-pulse rounded-sm"></div>
         }
         className="mr-4 h-[120px] w-20 rounded-sm"
       />
       <div className="flex flex-grow flex-col gap-2">
-        <div className="inline-flex text-neutral">
+        <div className="text-neutral inline-flex">
           <span className="mr-2 font-semibold">
             {getMediaFullTitle(mediaData)}
           </span>

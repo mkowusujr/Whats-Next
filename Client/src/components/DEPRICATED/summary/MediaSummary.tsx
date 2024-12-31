@@ -33,7 +33,7 @@ export default function MediaSummary({ media }: { media: Media }) {
         }
       />
       <form className="my-auto flex flex-col gap-4" onSubmit={handleUpdate}>
-        <h2 className="text-2xl font-semibold text-primary">
+        <h2 className="text-primary text-2xl font-semibold">
           {getMediaFullTitle(media)}
         </h2>
         <div className="flex justify-around gap-4">
@@ -41,12 +41,12 @@ export default function MediaSummary({ media }: { media: Media }) {
           <SelectMediaScore score={score} setScore={setScore} />
         </div>
         <textarea
-          className="min-h-40 resize-none rounded-md bg-secondary p-2 px-4 py-1 text-lg"
+          className="bg-secondary min-h-40 resize-none rounded-md p-2 px-4 py-1 text-lg"
           value={media.summary}
           disabled
         ></textarea>
         <DialogClose
-          className="rounded-md bg-primary px-4 py-1 text-secondary outline-none"
+          className="bg-primary text-secondary rounded-md px-4 py-1 outline-none"
           onClose={e => handleUpdate(e)}
         >
           <div>Update Media</div>

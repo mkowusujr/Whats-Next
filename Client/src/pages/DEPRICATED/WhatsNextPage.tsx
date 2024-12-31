@@ -53,8 +53,8 @@ export default function WhatsNextPage() {
   const InProgressSection = useCallback(
     () =>
       summary && (
-        <div className="mb-4 h-fit break-inside-avoid-column rounded-md border-2 border-accent bg-base-300 p-2">
-          <h2 className="flex justify-center text-3xl font-semibold text-primary">
+        <div className="border-accent bg-base-300 mb-4 h-fit break-inside-avoid-column rounded-md border-2 p-2">
+          <h2 className="text-primary flex justify-center text-3xl font-semibold">
             <span className="my-auto">In Progress</span>
             <Badge label={summary.stats.totalMediaInProgress} />
           </h2>
@@ -78,8 +78,8 @@ export default function WhatsNextPage() {
   const PlannedSection = useCallback(
     () =>
       summary && (
-        <div className="mb-4 h-fit break-inside-avoid-column rounded-md border-2 border-accent bg-base-300 p-2">
-          <h2 className="flex justify-center text-3xl font-semibold text-primary">
+        <div className="border-accent bg-base-300 mb-4 h-fit break-inside-avoid-column rounded-md border-2 p-2">
+          <h2 className="text-primary flex justify-center text-3xl font-semibold">
             <span className="my-auto">{`What's Next?`}</span>
             <Badge label={summary.stats.totalMediaPlanned} />
           </h2>
@@ -103,8 +103,8 @@ export default function WhatsNextPage() {
   const HoldSection = useCallback(
     () =>
       summary && (
-        <div className="mb-4 h-fit break-inside-avoid-column rounded-md border-2 border-accent bg-base-300 p-2">
-          <h2 className="flex justify-center text-3xl font-semibold text-primary">
+        <div className="border-accent bg-base-300 mb-4 h-fit break-inside-avoid-column rounded-md border-2 p-2">
+          <h2 className="text-primary flex justify-center text-3xl font-semibold">
             <span className="my-auto">On Hold</span>
             <Badge label={summary.stats.totalMediaOnHold} />
           </h2>
@@ -124,8 +124,8 @@ export default function WhatsNextPage() {
   const CompletedSection = useCallback(
     () =>
       summary && (
-        <div className="mb-4 h-fit break-inside-avoid-column rounded-md border-2 border-accent bg-base-300 p-2">
-          <h2 className="flex justify-center text-3xl font-semibold text-primary">
+        <div className="border-accent bg-base-300 mb-4 h-fit break-inside-avoid-column rounded-md border-2 p-2">
+          <h2 className="text-primary flex justify-center text-3xl font-semibold">
             <span className="my-auto">Completed</span>
             <Badge label={summary.stats.totalMediaCompleted} />
           </h2>
@@ -137,7 +137,7 @@ export default function WhatsNextPage() {
               `Books ${summary.stats.totalBookCompleted}`
             ]}
           />
-          <h3 className="text-center text-xl font-semibold text-primary">
+          <h3 className="text-primary text-center text-xl font-semibold">
             Recently Commpleted
           </h3>
           <WhatsNextCarousel
@@ -152,8 +152,8 @@ export default function WhatsNextPage() {
   const NotesSection = useCallback(
     () =>
       summary && (
-        <div className="mb-4 h-fit break-inside-avoid-column rounded-md border-2 border-accent bg-base-300 p-2">
-          <h2 className="text-center text-3xl font-semibold text-primary">
+        <div className="border-accent bg-base-300 mb-4 h-fit break-inside-avoid-column rounded-md border-2 p-2">
+          <h2 className="text-primary text-center text-3xl font-semibold">
             {'Recent Notes'}
           </h2>
           <WhatsNextCarousel

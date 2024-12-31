@@ -202,7 +202,7 @@ const CarouselPrevious = React.forwardRef<
       variant={variant}
       size={size}
       className={cn(
-        'size-8 rounded-full p-1 hover:bg-primary hover:text-secondary',
+        'hover:bg-primary hover:text-secondary size-8 rounded-full p-1',
         orientation === 'horizontal' ? '' : 'rotate-90',
         className
       )}
@@ -229,7 +229,7 @@ const CarouselNext = React.forwardRef<
       variant={variant}
       size={size}
       className={cn(
-        'size-8 rounded-full p-1 hover:bg-primary hover:text-secondary',
+        'hover:bg-primary hover:text-secondary size-8 rounded-full p-1',
         orientation === 'horizontal' ? '' : 'rotate-90',
         className
       )}

@@ -76,7 +76,7 @@ export default function WhatsNextCarousel({
           );
         })}
       </CarouselContent>
-      <div className="baseline flex justify-between text-primary">
+      <div className="baseline text-primary flex justify-between">
         <CarouselPrevious />
         <div className="m-auto flex justify-center">
           Slide {current} of {count}

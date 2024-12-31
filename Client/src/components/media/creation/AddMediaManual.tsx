@@ -77,7 +77,7 @@ export default function AddMediaManual({ pageName, addToList }: AddMediaProps) {
   return (
     <>
       <form
-        className="flex flex-col justify-between gap-4 rounded-md bg-base-300  p-6 text-2xl"
+        className="bg-base-300 flex flex-col justify-between gap-4 rounded-md  p-6 text-2xl"
         // onSubmit={handleSubmit}
       >
         <div className="flex flex-col md:flex-row">
@@ -88,7 +88,7 @@ export default function AddMediaManual({ pageName, addToList }: AddMediaProps) {
             onChange={e => setTitle(e.target.value)}
             placeholder="Add Title"
             autoComplete="off"
-            className="rounded-t-md bg-secondary px-4 py-1 text-primary placeholder-base-100 outline-none md:rounded-e-none md:rounded-s-md"
+            className="bg-secondary text-primary rounded-t-md px-4 py-1 placeholder-base-100 outline-none md:rounded-e-none md:rounded-s-md"
             required
           />
           <input
@@ -97,7 +97,7 @@ export default function AddMediaManual({ pageName, addToList }: AddMediaProps) {
             value={subTitle}
             onChange={e => setSubTitle(e.target.value)}
             placeholder="Add Subtitle"
-            className="rounded-b-md bg-secondary px-4 py-1 text-primary placeholder-base-100 outline-none md:rounded-e-md md:rounded-s-none"
+            className="bg-secondary text-primary rounded-b-md px-4 py-1 placeholder-base-100 outline-none md:rounded-e-md md:rounded-s-none"
             autoComplete="off"
           />
         </div>
@@ -131,14 +131,14 @@ export default function AddMediaManual({ pageName, addToList }: AddMediaProps) {
             value={link}
             onChange={e => setLink(e.target.value)}
             placeholder="Add Link"
-            className="w-full rounded-md bg-secondary px-4 py-1 text-primary placeholder-base-100 outline-none"
+            className="bg-secondary text-primary w-full rounded-md px-4 py-1 placeholder-base-100 outline-none"
             autoComplete="off"
           />
         </div>
         <input
           type="submit"
           value="Add Media"
-          className="cursor-pointer rounded-md bg-primary px-4 py-1 text-secondary outline-none"
+          className="bg-primary text-secondary cursor-pointer rounded-md px-4 py-1 outline-none"
         />
       </form>
     </>

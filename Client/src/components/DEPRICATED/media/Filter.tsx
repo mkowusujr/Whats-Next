@@ -43,17 +43,17 @@ export default function Filter({ filterProps }: FilterProps) {
     <div>
       <Dialog>
         <DialogTrigger>
-          <div className="align-center fixed bottom-8 left-4 z-30 flex rounded-md bg-accent px-4 py-2 text-2xl font-bold text-neutral opacity-90 shadow-lg">
+          <div className="align-center bg-accent text-neutral fixed bottom-8 left-4 z-30 flex rounded-md px-4 py-2 text-2xl font-bold opacity-90 shadow-lg">
             <FunnelIcon className="mr-2 size-8" />
             <span>Filters</span>
           </div>
         </DialogTrigger>
         <DialogContent>
-          <div className="flex flex-col justify-between gap-4 rounded-md bg-base-300 p-6 text-2xl">
+          <div className="bg-base-300 flex flex-col justify-between gap-4 rounded-md p-6 text-2xl">
             <div className="">
               <input
                 autoFocus
-                className="w-full rounded-md bg-secondary px-4 py-1 text-primary placeholder-base-100 outline-none"
+                className="bg-secondary text-primary w-full rounded-md px-4 py-1 placeholder-base-100 outline-none"
                 type="text"
                 value={name}
                 onChange={e => setName(e.target.value)}

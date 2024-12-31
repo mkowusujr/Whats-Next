@@ -14,22 +14,22 @@ export default function AddMedia() {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <button className="ml-auto w-fit rounded-md border border-gray-400 px-8">
+        <button className="ml-auto w-fit rounded-md bg-solid-900 px-8 text-interactive-300 hover:bg-solid-1000">
           Add
         </button>
       </SheetTrigger>
       <SheetContent
         side="bottom"
-        className="h-full overflow-y-scroll bg-slate-500 text-white"
+        className="h-full overflow-y-scroll bg-gradient-to-b text-accessible-1200 from-base-200 to-base-100"
       >
         <SheetHeader>
-          <SheetTitle>Add Next</SheetTitle>
-          <SheetDescription>Add items to your list.</SheetDescription>
+          <SheetTitle className='text-3xl'>Add Next</SheetTitle>
+          <SheetDescription>Add items to your list</SheetDescription>
         </SheetHeader>
         <Tabs className="flex flex-col" defaultValue="find-next">
-          <TabsList className="mx-auto">
-            <TabsTrigger value="find-next">Find Next</TabsTrigger>
-            <TabsTrigger value="manual-add">Manually Add</TabsTrigger>
+          <TabsList className="mx-auto bg-interactive-300">
+            <TabsTrigger value="find-next" className='active:bg-interactive-400'>Find Next</TabsTrigger>
+            <TabsTrigger value="manual-add" className='active:bg-interactive-400'>Manually Add</TabsTrigger>
           </TabsList>
           <TabsContent value="find-next">
             <FindNext />

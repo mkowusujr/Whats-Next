@@ -5,14 +5,16 @@ import Providers from './components/shared/Providers';
 
 function App() {
   return (
-    <BrowserRouter>
-      <Providers>
-        <Routes>
-          {/* <Route path="/" element={<NavBar />}> */}
-          <Route path="/" element={<MediaPage />} />
-        </Routes>
-      </Providers>
-    </BrowserRouter>
+    <div className="font-lato">
+      <BrowserRouter>
+        <Providers>
+          <Routes>
+            {/* <Route path="/" element={<NavBar />}> */}
+            <Route path="/" element={<MediaPage />} />
+          </Routes>
+        </Providers>
+      </BrowserRouter>
+    </div>
   );
 }
 

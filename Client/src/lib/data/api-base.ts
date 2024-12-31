@@ -1,6 +1,6 @@
 // import toast from 'react-hot-toast';
 
-export const apiUrl = import.meta.env.VITE_API_URI
+export const apiUrl = import.meta.env.VITE_API_URI;
 
 /**
  * Makes a POST request to the specified API endpoint.

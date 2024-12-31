@@ -7,7 +7,7 @@ type AddNoteProps = {
   /** The ID of the associated media item. */
   mediaID: number;
   /** The function to add a new note to the list. */
-  addToList: (note: Note) => void;
+  // addToList: (note: Note) => void;
 };
 
 /** Component for adding notes to a media item. */
@@ -55,7 +55,7 @@ export default function AddNote({ mediaID, addToList }: AddNoteProps) {
         onChange={e => setTitle(e.target.value)}
         placeholder="Add Title"
         autoComplete="off"
-        className="w-full rounded-t-md bg-secondary px-4 py-1 text-primary placeholder-base-100 outline-none"
+        className="bg-secondary text-primary w-full rounded-t-md px-4 py-1 placeholder-base-100 outline-none"
         required
       />
       <textarea
@@ -63,11 +63,11 @@ export default function AddNote({ mediaID, addToList }: AddNoteProps) {
         name="content"
         onChange={e => setContent(e.target.value)}
         placeholder="Add Content"
-        className="h-[200px] resize-none rounded-b-md bg-secondary px-4 py-1 text-base-100 placeholder-base-100 outline-none"
+        className="bg-secondary h-[200px] resize-none rounded-b-md px-4 py-1 text-base-100 placeholder-base-100 outline-none"
         required
       ></textarea>
       <input
-        className="cursor-pointer rounded-md bg-primary px-4 py-1 text-secondary outline-none"
+        className="bg-primary text-secondary cursor-pointer rounded-md px-4 py-1 outline-none"
         type="submit"
         value="Add Note"
       />

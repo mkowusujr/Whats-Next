@@ -15,8 +15,8 @@ export default function Checkbox({
     <label className="inline-flex cursor-pointer items-center">
       <div
         className={clsx(
-          'mr-2 flex items-center justify-center rounded-md border-2 border-primary',
-          isChecked && 'border-base-100 bg-primary',
+          'border-primary mr-2 flex items-center justify-center rounded-md border-2',
+          isChecked && 'bg-primary border-base-100',
           !isChecked && 'bg-secondary text-primary'
         )}
       >

@@ -1,5 +1,5 @@
 import { listProgressForMedia } from '@/lib/data/progress';
-import AddProjessItem from './AddProgressItem';
+import AddProgressItem from './AddProgressItem';
 import ProgressItem from './ProgressItem';
 import { useQuery } from '@tanstack/react-query';
 
@@ -11,7 +11,7 @@ type ProgressTrackerProps = {
 /** Component representing a progress tracker for a media item. */
 export default function ProgressTracker({ media }: ProgressTrackerProps) {
   const { data: progressList, isPending } = useQuery({
-    queryKey: ['progress-list'],
+    queryKey: [`progress-list-${media.id}`],
     queryFn: () => listProgressForMedia(media.id)
   });
 
@@ -30,10 +30,10 @@ export default function ProgressTracker({ media }: ProgressTrackerProps) {
 
   return (
     <div className="media-item-progress-tracker">
-      <h2 className="sticky top-0 z-50 w-full bg-base-300 py-2 text-center font-semibold text-primary">
+      <h2 className="bg-base-300 text-primary sticky top-0 z-50 w-full py-2 text-center font-semibold">
         Progress Tracker
       </h2>
-      <AddProjessItem
+      <AddProgressItem
         mediaID={media.id}
         mediaType={media.mediaType.mediaType}
         progressUnit={media.currentProgress.unit}

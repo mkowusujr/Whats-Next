@@ -6,7 +6,7 @@ export default function Badge({ label, className }: BadgeProps) {
   return (
     <span
       className={cn(
-        'mx-2 my-auto inline-flex h-6 min-w-10 items-center justify-center rounded-full bg-secondary px-3 text-lg text-primary',
+        'bg-secondary text-primary mx-2 my-auto inline-flex h-6 min-w-10 items-center justify-center rounded-full px-3 text-lg',
         className
       )}
     >

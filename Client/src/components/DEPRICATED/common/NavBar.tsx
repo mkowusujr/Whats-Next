@@ -4,7 +4,7 @@ import { Link, Outlet } from 'react-router-dom';
 export default function NavBar() {
   return (
     <>
-      <nav className="sticky top-0 z-20 flex w-full border-accent bg-base-300 p-2 px-2 text-primary shadow-lg">
+      <nav className="border-accent bg-base-300 text-primary sticky top-0 z-20 flex w-full p-2 px-2 shadow-lg">
         <div className="flex-1 ">
           <Link className="text-2xl" to="/">{`What's Next?`}</Link>
         </div>

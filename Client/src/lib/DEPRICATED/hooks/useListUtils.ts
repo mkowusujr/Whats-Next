@@ -46,14 +46,12 @@ export const useListUtils = <Type extends WithId>(
    * @param {Object} item - The updated media item.
    */
   const updateList = (item: Type) => {
-
     setList((prevList: Type[]) => {
-      const copyList = [...prevList]
-      let oldItem = copyList.find(i => i.id === item.id)
-      oldItem = item
-      return copyList
-    }
-    );
+      const copyList = [...prevList];
+      let oldItem = copyList.find(i => i.id === item.id);
+      oldItem = item;
+      return copyList;
+    });
   };
 
   return {

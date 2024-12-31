@@ -62,7 +62,7 @@ export default function ProgressItem({
         await updateProgressItem({ ...progress, title: e.target.value });
       }}
       autoComplete="off"
-      className="w-full rounded-md bg-secondary px-4 py-1 text-primary placeholder-base-100 outline-none"
+      className="bg-secondary text-primary w-full rounded-md px-4 py-1 placeholder-base-100 outline-none"
       required
     />
   );
@@ -81,7 +81,7 @@ export default function ProgressItem({
         await updateProgressItem({ ...progress, current: +e.target.value });
       }}
       autoComplete="off"
-      className="min-w-0 flex-1 rounded-md bg-secondary px-4 py-1 text-primary placeholder-base-100 outline-none"
+      className="bg-secondary text-primary min-w-0 flex-1 rounded-md px-4 py-1 placeholder-base-100 outline-none"
       required
     />
   );
@@ -98,7 +98,7 @@ export default function ProgressItem({
         await updateProgressItem({ ...progress, total: +e.target.value });
       }}
       autoComplete="off"
-      className="min-w-0 flex-1 rounded-md bg-secondary px-4 py-1 text-primary placeholder-base-100 outline-none"
+      className="bg-secondary text-primary min-w-0 flex-1 rounded-md px-4 py-1 placeholder-base-100 outline-none"
       required
     />
   );
@@ -125,7 +125,7 @@ export default function ProgressItem({
         setDateStarted(e.target.value);
         await updateProgressItem({ ...progress, dateStarted: e.target.value });
       }}
-      className="w-full rounded-md bg-secondary px-4 py-1 text-primary placeholder-base-100 outline-none"
+      className="bg-secondary text-primary w-full rounded-md px-4 py-1 placeholder-base-100 outline-none"
       required
     />
   );
@@ -142,13 +142,13 @@ export default function ProgressItem({
           dateCompleted: e.target.value
         });
       }}
-      className="w-full rounded-md bg-secondary px-4 py-1 text-primary placeholder-base-100 outline-none"
+      className="bg-secondary text-primary w-full rounded-md px-4 py-1 placeholder-base-100 outline-none"
     />
   );
 
   const deleteBtn = (
     <button
-      className="cursor-pointer rounded-md bg-base-100 px-4 py-1 text-primary outline-none"
+      className="text-primary cursor-pointer rounded-md bg-base-100 px-4 py-1 outline-none"
       onClick={async () => await deleteProgressMutation()}
     >
       Delete Progress
@@ -157,7 +157,7 @@ export default function ProgressItem({
 
   return (
     <div className="mt-10 flex flex-col gap-4">
-      <hr className="mb-6 border-2 border-primary" />
+      <hr className="border-primary mb-6 border-2" />
       <div>
         <label>Current Progress?</label>
         <input

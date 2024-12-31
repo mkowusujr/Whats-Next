@@ -12,34 +12,31 @@ export default function MediaCardProgressSection({
     mutationFn: (progress: Progress) => updateProgress(progress)
   });
 
-  const [status, setStatus] = useState(progress.status);
-  const [score, setScore] = useState(progress.score ?? '');
-
+  const [status, setStatus] = useState<string | null>(progress.status);
+  const [score, setScore] = useState<number | null>(progress.score);
   return (
     <>
       <SelectMediaScore
         score={score}
-        onChange={async e => {
-          const newScore = Number(e.target.value);
+        onChange={async value => {
+          const newScore = Number(value);
           setScore(newScore);
           await mutation.mutateAsync({
             ...progress,
             score: newScore
           });
         }}
-        className="rounded-sm"
       />
       <SelectMediaStatus
         status={status}
-        onChange={async e => {
-          const newStatus = e.target.value;
+        onChange={async value => {
+          const newStatus = value;
           setStatus(newStatus);
           await mutation.mutateAsync({
             ...progress,
             status: newStatus
           });
         }}
-        className="rounded-sm"
       />
     </>
   );

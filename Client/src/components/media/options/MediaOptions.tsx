@@ -16,7 +16,7 @@ type MediaOptionsProps = {
 export const MediaOptions = ({ media }: MediaOptionsProps) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
-    <div className="mt-auto flex h-5 items-center justify-end gap-2 text-neutral">
+    <div className="text-neutral mt-auto flex h-5 items-center justify-end gap-2">
       <div
         className={clsx('flex gap-1 align-middle opacity-0', {
           'animate-fade-out pointer-events-auto hidden opacity-0': !isOpen,

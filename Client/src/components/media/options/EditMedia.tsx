@@ -58,7 +58,7 @@ export default function EditMedia({
         </DialogTrigger>
         <DialogContent>
           <form
-            className="text-netural flex flex-col justify-between gap-4 rounded-md bg-base-300 p-6 text-2xl"
+            className="text-netural bg-base-300 flex flex-col justify-between gap-4 rounded-md p-6 text-2xl"
             onSubmit={handleUpdate}
           >
             <div className="flex flex-col md:flex-row">
@@ -70,7 +70,7 @@ export default function EditMedia({
                 onChange={e => setTitle(e.target.value)}
                 placeholder="Add Title"
                 autoComplete="off"
-                className="flex-grow rounded-t-md bg-secondary px-4 py-1 text-primary placeholder-base-100 outline-none md:rounded-e-none md:rounded-s-md"
+                className="bg-secondary text-primary flex-grow rounded-t-md px-4 py-1 placeholder-base-100 outline-none md:rounded-e-none md:rounded-s-md"
                 required
               />
               <input
@@ -80,7 +80,7 @@ export default function EditMedia({
                 size={subTitle?.length ?? 3}
                 onChange={e => setSubTitle(e.target.value)}
                 placeholder="Add Subtitle"
-                className="rounded-b-md bg-secondary px-4 py-1 text-primary placeholder-base-100 outline-none md:rounded-e-md md:rounded-s-none"
+                className="bg-secondary text-primary rounded-b-md px-4 py-1 placeholder-base-100 outline-none md:rounded-e-md md:rounded-s-none"
                 autoComplete="off"
               />
             </div>
@@ -96,7 +96,7 @@ export default function EditMedia({
                 }
               />
             </div>
-            <label className="text-base text-primary">
+            <label className="text-primary text-base">
               Media Link
               <input
                 type="text"
@@ -104,11 +104,11 @@ export default function EditMedia({
                 value={link}
                 onChange={e => setLink(e.target.value)}
                 placeholder="Add Link"
-                className="w-full rounded-md bg-secondary px-4 py-1 text-primary placeholder-base-100 outline-none"
+                className="bg-secondary text-primary w-full rounded-md px-4 py-1 placeholder-base-100 outline-none"
                 autoComplete="off"
               />
             </label>
-            <label className="text-base text-primary">
+            <label className="text-primary text-base">
               Image Source
               <input
                 type="text"
@@ -116,23 +116,23 @@ export default function EditMedia({
                 value={imgSrc}
                 onChange={e => setImgSrc(e.target.value)}
                 placeholder="Add Img Src"
-                className="w-full rounded-md bg-secondary px-4 py-1 text-primary placeholder-base-100 outline-none"
+                className="bg-secondary text-primary w-full rounded-md px-4 py-1 placeholder-base-100 outline-none"
                 autoComplete="off"
               />
             </label>
-            <label className="text-base text-primary">
+            <label className="text-primary text-base">
               Summary
               <textarea
                 name="summary"
                 value={summary}
                 onChange={e => setSummary(e.target.value)}
                 placeholder="Add summary"
-                className="w-full resize-none rounded-md bg-secondary px-4 py-1 text-primary placeholder-base-100 outline-none"
+                className="bg-secondary text-primary w-full resize-none rounded-md px-4 py-1 placeholder-base-100 outline-none"
                 autoComplete="off"
               ></textarea>
             </label>
             <DialogClose
-              className="rounded-md bg-primary px-4 py-1 text-secondary outline-none"
+              className="bg-primary text-secondary rounded-md px-4 py-1 outline-none"
               onClose={e => handleUpdate(e)}
             >
               <div>Update Media</div>

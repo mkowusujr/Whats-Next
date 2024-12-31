@@ -33,9 +33,13 @@ export const getMediaInfo = (mediaID: number) => {
  * @param mediaTypes - An array of media types to filter the results.
  * @returns A promise that resolves to the response data or rejects with an error.
  */
-export const listInternalMedia = (page: { pageParam: number }, searchParams: string, mediaTypes: string[]) => {
+export const listInternalMedia = (
+  page: { pageParam: number },
+  searchParams: string,
+  mediaTypes: string[]
+) => {
   // let queryParams = '?mediaType=' + mediaTypes.join('&mediaType=');
-  const apiUrl = `${baseUrl}/internal?cursor=${page.pageParam}&take=10&${searchParams}`
+  const apiUrl = `${baseUrl}/internal?cursor=${page.pageParam}&take=10&${searchParams}`;
   return getRequest<{
     media: Media[];
     nextCursor: number;

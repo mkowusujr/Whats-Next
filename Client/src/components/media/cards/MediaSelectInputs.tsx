@@ -1,40 +1,34 @@
-import Select from '@/components/DEPRICATED/common/Select';
+import Select from '@/components/shared/Select';
 import { scores, statuses } from '@/lib/utils/form-utils';
 
 type SelectMediaStatusProps = {
-  status: string;
-  onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
-  className?: string;
+  status: string | null;
+  onChange: (e: string | null) => void;
 };
 export const SelectMediaStatus = ({
   status,
-  onChange,
-  className
+  onChange
 }: SelectMediaStatusProps) => (
   <Select
-    name={'status'}
-    value={status}
+    value={status ?? undefined}
     options={statuses}
-    className={className}
-    onChange={e => onChange(e)}
+    onValueChange={value => onChange(value)}
+    placeholder={'Set Status'}
   />
 );
 
 type SelectMediaScoreProps = {
-  score: number;
-  onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
-  className?: string;
+  score: number | null;
+  onChange: (e: string | null) => void;
 };
 export const SelectMediaScore = ({
   score,
-  onChange,
-  className
+  onChange
 }: SelectMediaScoreProps) => (
   <Select
-    name={'score'}
-    value={score}
+    value={score ? score.toString() : undefined}
     options={scores}
-    className={className}
-    onChange={e => onChange(e)}
+    onValueChange={value => onChange(value)}
+    placeholder={'Set Score'}
   />
 );

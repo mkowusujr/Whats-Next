@@ -1,22 +1,15 @@
 import { BookOpenIcon } from '@heroicons/react/24/outline';
-import {
-  Dialog,
-  DialogContent,
-  DialogTrigger
-} from '@/components/DEPRICATED/common/Dialog';
-import MediaNotes from '@/components/DEPRICATED/common/notes/MediaNotes';
+import MediaNotes from '@/components/notes/MediaNotes';
+import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
+import IconDialogTrigger from '@/components/shared/IconDialogTrigger';
 
 export const ViewNotes = ({ media }: { media: Media }) => {
   return (
     <div>
       <Dialog>
-        <DialogTrigger>
-          <button>
-            <BookOpenIcon className="size-4" />
-          </button>
-        </DialogTrigger>
+        <IconDialogTrigger HeroIcon={BookOpenIcon} />
         <DialogContent>
-          <div className="flex flex-col justify-between gap-4 rounded-md bg-base-300 p-6 text-2xl text-neutral">
+          <div className="bg-base-300 text-neutral flex flex-col justify-between gap-4 rounded-md p-6 text-2xl">
             <MediaNotes mediaID={media.id} />
           </div>
         </DialogContent>

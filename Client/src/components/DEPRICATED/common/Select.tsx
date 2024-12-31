@@ -36,7 +36,7 @@ export default function Select({
       onChange={onChange}
       required={isRequired}
       className={cn(
-        'cursor-pointer rounded-md bg-secondary px-4 py-1 text-primary',
+        'bg-secondary text-primary cursor-pointer rounded-md px-4 py-1',
         className
       )}
     >

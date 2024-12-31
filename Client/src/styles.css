@@ -13,29 +13,30 @@
   }
 }
 
-html[data-theme='light-purple'] {
-  --color-primary: #b19cd9;
-  --color-secondary: #dabeff;
-  --color-accent: #a06ed7;
-  --color-neutral: #f4f1f9;
-  --color-base-100: #ffffff;
-  --color-base-300: #ebe5f1;
-}
-
 html[data-theme='dark-purple'] {
-  --color-primary: #e59cf2;
-  --color-scondary: #4c2553;
-  --color-accent: #4c2553;
-  --color-neutral: #fff;
-  --color-base-100: #150818;
-  --color-base-300: #230d27;
+  --color-base-100: #110c12;
+  --color-base-200: #1d131f;
+  --color-interactive-300: #311b35;
+  --color-interactive-400: #411f47;
+  --color-interactive-500: #4d2754;
+  --color-borders-600: #5a3361;
+  --color-borders-700: #6f4377;
+  --color-borders-800: #8f5799;
+  --color-solid-900: #e59cf2;
+  --color-solid-1000: #da91e7;
+  --color-accessible-1100: #e39af0;
+  --color-accessible-1200: #f0d6f5;
 }
 
-html[data-theme='hot-pink-light'] {
-  --color-primary: #a250b1;
-  --color-scondary: #cea2d5;
-  --color-accent: #cea2d5;
-  --color-neutral: #fff;
-  --color-base-100: #ead8ee;
-  --color-base-300: #dcbde1;
+html,
+body,
+#root {
+  height: 100%;
+}
+
+#root {
+  @apply bg-gradient-to-b;
+  @apply from-base-200;
+  @apply to-base-100;
+  @apply scroll-smooth;
 }

@@ -19,7 +19,7 @@ type AddProjectItemProps = {
 };
 
 /** Component for adding progress tracking information for a media item. */
-export default function AddProjessItem({
+export default function AddProgressItem({
   mediaID,
   mediaType,
   progressUnit
@@ -35,7 +35,7 @@ export default function AddProjessItem({
   const { mutateAsync: addProgressMutation } = useMutation({
     mutationFn: (progress: CreatedProgress) => addProgress(progress),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['progress-list'] });
+      queryClient.invalidateQueries({ queryKey: [`progress-list-${mediaID}`] });
     }
   });
 
@@ -84,7 +84,7 @@ export default function AddProjessItem({
       onChange={e => setTitle(e.target.value)}
       autoComplete="off"
       required
-      className="w-full rounded-md bg-secondary px-4 py-1 text-primary placeholder-base-100 outline-none"
+      className="bg-secondary text-primary w-full rounded-md px-4 py-1 placeholder-base-100 outline-none"
     />
   );
 
@@ -100,7 +100,7 @@ export default function AddProjessItem({
       disabled={total == ''}
       autoComplete="off"
       placeholder="Current"
-      className="min-w-0 flex-1 rounded-md bg-secondary px-4 py-1 text-primary placeholder-base-100 outline-none"
+      className="bg-secondary text-primary min-w-0 flex-1 rounded-md px-4 py-1 placeholder-base-100 outline-none"
       required
     />
   );
@@ -115,7 +115,7 @@ export default function AddProjessItem({
       onChange={e => setTotal(e.target.value)}
       autoComplete="off"
       placeholder="Total"
-      className="min-w-0 flex-1 rounded-md bg-secondary px-4 py-1 text-primary placeholder-base-100 outline-none"
+      className="bg-secondary text-primary min-w-0 flex-1 rounded-md px-4 py-1 placeholder-base-100 outline-none"
       required
     />
   );
@@ -140,7 +140,7 @@ export default function AddProjessItem({
       value={dateStarted}
       onChange={e => setDateStarted(e.target.value)}
       required
-      className="w-full rounded-md bg-secondary px-4 py-1 text-primary placeholder-base-100 outline-none"
+      className="bg-secondary text-primary w-full rounded-md px-4 py-1 placeholder-base-100 outline-none"
     />
   );
 
@@ -150,7 +150,7 @@ export default function AddProjessItem({
       type="date"
       value={dateCompleted}
       onChange={e => setDateCompleted(e.target.value)}
-      className="w-full rounded-md bg-secondary px-4 py-1 text-primary placeholder-base-100 outline-none"
+      className="bg-secondary text-primary w-full rounded-md px-4 py-1 placeholder-base-100 outline-none"
     />
   );
 
@@ -174,7 +174,7 @@ export default function AddProjessItem({
           <input
             type="submit"
             value="Add Progress"
-            className="cursor-pointer rounded-md bg-primary px-4 py-1 text-secondary outline-none"
+            className="bg-primary text-secondary cursor-pointer rounded-md px-4 py-1 outline-none"
           />
         </>
       </form>

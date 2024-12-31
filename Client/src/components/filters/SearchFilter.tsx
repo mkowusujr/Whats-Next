@@ -1,8 +1,7 @@
-import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
-import { XIcon } from 'lucide-react';
 import { useState } from 'react';
 import { StringParam, useQueryParam } from 'use-query-params';
 import { useDebounceCallback } from 'usehooks-ts';
+import SearchInput from '../shared/SearchInput';
 
 export default function SearchFilter() {
   const [query, setQuery] = useQueryParam('query', StringParam);
@@ -21,19 +20,6 @@ export default function SearchFilter() {
   };
 
   return (
-    <label className="input input-bordered flex flex-1 items-center gap-2">
-      <MagnifyingGlassIcon className="size-5" />
-      <input
-        type="text"
-        className="grow"
-        placeholder="Search"
-        value={value}
-        onChange={handleOnChange}
-      />
-      <XIcon
-        className="size-5 cursor-pointer justify-end hover:brightness-150"
-        onClick={handleReset}
-      />
-    </label>
+    <SearchInput value={value} handleOnChange={handleOnChange} handleReset={handleReset} />
   );
 }

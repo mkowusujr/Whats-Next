@@ -1,9 +1,7 @@
-
 /**
  * Different status options for media items.
  */
 export const statuses = [
-  { label: 'Status', value: '' },
   { label: 'Planned', value: 'Planned' },
   { label: 'In Progress', value: 'In Progress' },
   { label: 'Completed', value: 'Completed' },
@@ -15,7 +13,6 @@ export const statuses = [
  * Different score options for media items.
  */
 export const scores = [
-  { label: 'Score', value: 0 },
   { label: '(10) Masterpiece', value: 10 },
   { label: '(9) Great', value: 9 },
   { label: '(8) Very Good', value: 8 },
@@ -29,9 +26,9 @@ export const scores = [
 ];
 
 export const externalMediaTypes = [
-  { label: "Movie/Show", value: "Movie/Show" },
-  { label: "Book", value: "Book" }
-]
+  { label: 'Movie/Show', value: 'Movie/Show' },
+  { label: 'Book', value: 'Book' }
+];
 
 /**
  * Different storage types for media items.
