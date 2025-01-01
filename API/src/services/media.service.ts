@@ -1,11 +1,18 @@
 import { prisma } from '@/src/lib/prisma';
-import { CreatedMedia, GetAllMedia, Media, ProgressStatuses, ProgressUnits as ProgressUnit, ProgressUnitKeys } from '@/src/types/media';
+import {
+  CreatedMedia,
+  GetAllMedia,
+  Media,
+  ProgressStatuses,
+  ProgressUnits as ProgressUnit,
+  ProgressUnitKeys
+} from '@/src/types/media';
 import type { media } from '@prisma/client';
 const movier = require('movier');
 const gbookFinder = require('@chewhx/google-books');
 import fetch from 'node-fetch';
 import stringSimilarity from 'string-similarity';
-const prettySeconds = require("pretty-seconds")
+const prettySeconds = require('pretty-seconds');
 
 /** Adds a new media entry to the database. */
 export const addMedia = async (media: CreatedMedia): Promise<media> => {
@@ -29,7 +36,7 @@ export const addMedia = async (media: CreatedMedia): Promise<media> => {
     }
   });
 
-  const progressUnit = media.mediaType.toUpperCase() as ProgressUnitKeys
+  const progressUnit = media.mediaType.toUpperCase() as ProgressUnitKeys;
 
   await prisma.progress.create({
     data: {
@@ -50,7 +57,7 @@ export const addMedia = async (media: CreatedMedia): Promise<media> => {
 
   // Fetch the updated media entry to return
   const updatedMedia = await prisma.media.findUnique({
-    where: { id: createdMedia.id },
+    where: { id: createdMedia.id }
   });
 
   return updatedMedia!;
@@ -59,6 +66,7 @@ export const addMedia = async (media: CreatedMedia): Promise<media> => {
 /** Retrieves a list of media entries from the database based on media types. */
 export const listInternalMedia = async (params: {
   query?: string;
+  mediaType?: string | string[];
   score?: string;
   status?: string;
   series?: string;
@@ -75,6 +83,16 @@ export const listInternalMedia = async (params: {
     ...(cursor && { cursor: { id: cursor } }),
     where: {
       isDeleted: false,
+      ...(params.mediaType && {
+        mediaType: {
+          mediaType: {
+            in:
+              typeof params.mediaType == 'string'
+                ? [params.mediaType]
+                : params.mediaType
+          }
+        }
+      }),
       ...(params.score && { score: Number(params.score) }),
       ...(params.status && {
         progress: { some: { status: params.status } }
@@ -105,7 +123,7 @@ export const listInternalMedia = async (params: {
       mediaType: {
         select: {
           id: true,
-          mediaType: true,
+          mediaType: true
         }
       },
       currentProgress: true,
@@ -183,8 +201,9 @@ const searchForBooks = async (query: string) => {
       bookInfo?.imageLinks?.small ??
       null;
     imgLink = imgLink
-      ? `https://books.google.com/books/content?id=${imgLink.split('id=')[1].split('&')[0]
-      }&printsec=frontcover&img=1`
+      ? `https://books.google.com/books/content?id=${
+          imgLink.split('id=')[1].split('&')[0]
+        }&printsec=frontcover&img=1`
       : 'https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg';
 
     const book = {
@@ -211,8 +230,9 @@ const searchForBooks = async (query: string) => {
 
 const searchForMovies = async (query: string) => {
   const imdbInfo = await movier.searchTitleByName(query);
-  const imdbIds = imdbInfo
-    .map((i: { source: { sourceId: string } }) => i.source.sourceId);
+  const imdbIds = imdbInfo.map(
+    (i: { source: { sourceId: string } }) => i.source.sourceId
+  );
 
   const fetchPromises = imdbIds.map((id: string) => {
     return movier
@@ -238,7 +258,9 @@ const searchForMovies = async (query: string) => {
             duration: prettySeconds(d.runtime.seconds),
             mediaType: d.mainType,
             categories: d.genres,
-            imgLink: d.posterImage.url ?? 'https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg'
+            imgLink:
+              d.posterImage.url ??
+              'https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg'
           };
 
           return item;

@@ -39,7 +39,8 @@ export const listInternalMedia = (
   mediaTypes: string[]
 ) => {
   // let queryParams = '?mediaType=' + mediaTypes.join('&mediaType=');
-  const apiUrl = `${baseUrl}/internal?cursor=${page.pageParam}&take=10&${searchParams}`;
+  const mediaTypeFilter = mediaTypes.map(t => `mediaType=${t}`).join('&');
+  const apiUrl = `${baseUrl}/internal?${mediaTypeFilter}&cursor=${page.pageParam}&take=10&${searchParams}`;
   return getRequest<{
     media: Media[];
     nextCursor: number;

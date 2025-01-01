@@ -62,7 +62,7 @@ export default function ProgressItem({
         await updateProgressItem({ ...progress, title: e.target.value });
       }}
       autoComplete="off"
-      className="bg-interactive-300 text-solid-900 w-full rounded-md px-4 py-1 placeholder-base-100 outline-none"
+      className="w-full rounded-md bg-interactive-300 px-4 py-1 text-solid-900 placeholder-base-100 outline-none"
       required
     />
   );
@@ -81,7 +81,7 @@ export default function ProgressItem({
         await updateProgressItem({ ...progress, current: +e.target.value });
       }}
       autoComplete="off"
-      className="bg-interactive-300 text-solid-900 min-w-0 flex-1 rounded-md px-4 py-1 placeholder-base-100 outline-none"
+      className="min-w-0 flex-1 rounded-md bg-interactive-300 px-4 py-1 text-solid-900 placeholder-base-100 outline-none"
       required
     />
   );
@@ -98,7 +98,7 @@ export default function ProgressItem({
         await updateProgressItem({ ...progress, total: +e.target.value });
       }}
       autoComplete="off"
-      className="bg-interactive-300 text-solid-900 min-w-0 flex-1 rounded-md px-4 py-1 placeholder-base-100 outline-none"
+      className="min-w-0 flex-1 rounded-md bg-interactive-300 px-4 py-1 text-solid-900 placeholder-base-100 outline-none"
       required
     />
   );
@@ -125,7 +125,7 @@ export default function ProgressItem({
         setDateStarted(e.target.value);
         await updateProgressItem({ ...progress, dateStarted: e.target.value });
       }}
-      className="border border-borders-600 bg-interactive-300 text-solid-900 w-full rounded-md px-4 py-1 placeholder-base-100 outline-none"
+      className="w-full rounded-md border border-borders-600 bg-interactive-300 px-4 py-1 text-solid-900 placeholder-base-100 outline-none"
       required
     />
   );
@@ -142,13 +142,13 @@ export default function ProgressItem({
           dateCompleted: e.target.value
         });
       }}
-      className="border border-borders-600 bg-interactive-300 text-solid-900 w-full rounded-md px-4 py-1 placeholder-base-100 outline-none"
+      className="w-full rounded-md border border-borders-600 bg-interactive-300 px-4 py-1 text-solid-900 placeholder-base-100 outline-none"
     />
   );
 
   const deleteBtn = (
     <button
-      className="border border-borders-600 text-solid-900 cursor-pointer rounded-md bg-base-100 px-4 py-1 outline-none"
+      className="cursor-pointer rounded-md border border-borders-600 bg-base-100 px-4 py-1 text-solid-900 outline-none"
       onClick={async () => await deleteProgressMutation()}
     >
       Delete Progress

@@ -6,7 +6,7 @@ export type Media = {
   title: string;
   subTitle: string;
   summary: string;
-  currentProgress: Progress
+  currentProgress: Progress;
   storage: string;
   releaseDate: string;
   creator: string;
@@ -25,7 +25,7 @@ export type CreatedMedia = {
   mediaType: string;
   score: number;
   status: string;
-  duration?: string
+  duration?: string;
   imgLink?: string;
   creator?: string;
   summary?: string;
@@ -37,21 +37,22 @@ export type CreatedMedia = {
 export type MediaType = {
   id: number;
   mediaType: string;
-}
+};
 
 export const ProgressUnits = {
-  SERIES: "Episodes",
-  MOVIE: "Minutes",
-  BOOK: "Chapters",
+  SERIES: 'Episodes',
+  MOVIE: 'Minutes',
+  BOOK: 'Chapters'
 } as const;
-export type ProgressUnitsType = typeof ProgressUnits[keyof typeof ProgressUnits];
+export type ProgressUnitsType =
+  (typeof ProgressUnits)[keyof typeof ProgressUnits];
 export type ProgressUnitKeys = keyof typeof ProgressUnits;
 
 export enum ProgressStatuses {
-  PLANNED = "Planned",
-  INPROGRESS = "In Progress",
-  COMPLETED = "Completed",
-  ONHOLD = "On Hold"
+  PLANNED = 'Planned',
+  INPROGRESS = 'In Progress',
+  COMPLETED = 'Completed',
+  ONHOLD = 'On Hold'
 }
 
 export type GetAllMedia = {

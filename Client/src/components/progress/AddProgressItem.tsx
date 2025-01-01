@@ -84,11 +84,9 @@ export default function AddProgressItem({
       onChange={e => setTitle(e.target.value)}
       autoComplete="off"
       required
-      className="border border-borders-600 bg-interactive-300 text-solid-900 w-full rounded-md px-4 py-1 placeholder-accessible-1200 outline-none"
+      className="w-full rounded-md border border-borders-600 bg-interactive-300 px-4 py-1 text-solid-900 placeholder-accessible-1200 outline-none"
     />
   );
-
-  
 
   const currentInput = (
     <input
@@ -102,7 +100,7 @@ export default function AddProgressItem({
       disabled={total == ''}
       autoComplete="off"
       placeholder="Current"
-      className="border border-borders-600 bg-interactive-300 text-solid-900 min-w-0 flex-1 rounded-md px-4 py-1 placeholder-accessible-1200 outline-none"
+      className="min-w-0 flex-1 rounded-md border border-borders-600 bg-interactive-300 px-4 py-1 text-solid-900 placeholder-accessible-1200 outline-none"
       required
     />
   );
@@ -117,7 +115,7 @@ export default function AddProgressItem({
       onChange={e => setTotal(e.target.value)}
       autoComplete="off"
       placeholder="Total"
-      className="border border-borders-600 bg-interactive-300 text-solid-900 min-w-0 flex-1 rounded-md px-4 py-1 placeholder-accessible-1200 outline-none"
+      className="min-w-0 flex-1 rounded-md border border-borders-600 bg-interactive-300 px-4 py-1 text-solid-900 placeholder-accessible-1200 outline-none"
       required
     />
   );
@@ -142,7 +140,7 @@ export default function AddProgressItem({
       value={dateStarted}
       onChange={e => setDateStarted(e.target.value)}
       required
-      className="border border-borders-600 bg-interactive-300 text-solid-900 w-full rounded-md px-4 py-1 placeholder-accessible-1200 outline-none"
+      className="w-full rounded-md border border-borders-600 bg-interactive-300 px-4 py-1 text-solid-900 placeholder-accessible-1200 outline-none"
     />
   );
 
@@ -152,7 +150,7 @@ export default function AddProgressItem({
       type="date"
       value={dateCompleted}
       onChange={e => setDateCompleted(e.target.value)}
-      className="border border-borders-600 bg-interactive-300 text-solid-900 w-full rounded-md px-4 py-1 placeholder-accessible-1200 outline-none"
+      className="w-full rounded-md border border-borders-600 bg-interactive-300 px-4 py-1 text-solid-900 placeholder-accessible-1200 outline-none"
     />
   );
 
@@ -176,7 +174,7 @@ export default function AddProgressItem({
           <input
             type="submit"
             value="Add Progress"
-            className="bg-solid-900 text-interactive-300 cursor-pointer rounded-md px-4 py-1 outline-none"
+            className="cursor-pointer rounded-md bg-solid-900 px-4 py-1 text-interactive-300 outline-none"
           />
         </>
       </form>

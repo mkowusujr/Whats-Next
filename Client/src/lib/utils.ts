@@ -19,3 +19,6 @@ export function getMediaFullTitle(
     return (media.title + ' ' + (media.subTitle ?? '')).trim();
   }
 }
+
+export const WATCH_NEXT_FILTER = ['series', 'movie'];
+export const READ_NEXT_FILTER = ['book'];

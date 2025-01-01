@@ -4,18 +4,21 @@
 import { addMedia } from '@/lib/data/media';
 import { getMediaFullTitle } from '@/lib/utils';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useContext } from 'react';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
+import { MediaTypesContext } from '../MediaTypesProvider';
 
 type Props = {
   media: ExternalMedia;
 };
 
 export default function ExternalMediaPreview({ media }: Props) {
+  const mediaTypes = useContext(MediaTypesContext);
   const queryClient = useQueryClient();
   const { mutateAsync: addMediaMutation } = useMutation({
     mutationFn: (media: ExternalMedia) => addMedia(media),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['media'] });
+      queryClient.invalidateQueries({ queryKey: [`${mediaTypes.join('')}-media`] });
     }
   });
 

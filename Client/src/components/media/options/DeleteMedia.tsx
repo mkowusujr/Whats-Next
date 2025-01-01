@@ -3,15 +3,18 @@ import { deleteMedia } from '@/lib/data/media';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import IconDialogTrigger from '@/components/shared/IconDialogTrigger';
+import { useContext } from 'react';
+import { MediaTypesContext } from '../MediaTypesProvider';
 
 export default function DeleteMedia({ mediaId }: { mediaId: number }) {
+  const mediaTypes = useContext(MediaTypesContext);
   const queryClient = useQueryClient();
   const mutation = useMutation({
     mutationFn: async (mediaId: number) => {
       await deleteMedia(mediaId);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['media'] });
+      queryClient.invalidateQueries({ queryKey: [`${mediaTypes.join('')}-media`] });
     }
   });
 
@@ -26,7 +29,12 @@ export default function DeleteMedia({ mediaId }: { mediaId: number }) {
         <IconDialogTrigger HeroIcon={TrashIcon} />
         <DialogContent className="">
           <span>Are you sure?</span>
-          <button className='bg-solid-900 text-interactive-300 rounded-md hover:bg-solid-1000' onClick={handleDeletion}>Yes</button>
+          <button
+            className="rounded-md bg-solid-900 text-interactive-300 hover:bg-solid-1000"
+            onClick={handleDeletion}
+          >
+            Yes
+          </button>
         </DialogContent>
       </Dialog>
     </div>
