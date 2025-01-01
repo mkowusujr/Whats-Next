@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import MediaPage from './pages/MediaPage';
 import {} from 'use-query-params';
 import Providers from './components/shared/Providers';
-import NavBar from './components/DEPRICATED/common/NavBar';
+import NavBar from './components/shared/NavBar';
 import { READ_NEXT_FILTER, WATCH_NEXT_FILTER } from './lib/utils';
 
 function App() {
