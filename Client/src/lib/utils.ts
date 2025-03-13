@@ -5,10 +5,10 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export function getMediaFullTitle(media: Media | ExternalMedia): string;
+export function getMediaFullTitle(media: Media | CreatedMedia): string;
 export function getMediaFullTitle(title: string, subTitle?: string): string;
 export function getMediaFullTitle(
-  mediaOrTitle: Media | ExternalMedia | string,
+  mediaOrTitle: Media | CreatedMedia | string,
   subTitle?: string
 ): string {
   if (typeof mediaOrTitle === 'string') {

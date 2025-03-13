@@ -8,6 +8,7 @@ import { deleteProgress, updateProgress } from '@/lib/data/progress';
 // } from '@/lib/utils/form-utils';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import MediaCardProgressSection from '../media/cards/MediaCardProgressSection';
+import DateInput from '../shared/DateInput';
 
 type ProgressItemProps = {
   /** The type of media (e.g., book, video) being tracked. */
@@ -116,24 +117,23 @@ export default function ProgressItem({
     </div>
   );
 
-  const dateStartedtInput = (
-    <input
+  const dateStartedInput = (
+    <DateInput
+      label="Date Started"
       name="dateStarted"
-      type="date"
       value={dateStarted}
       onChange={async e => {
         setDateStarted(e.target.value);
         await updateProgressItem({ ...progress, dateStarted: e.target.value });
       }}
-      className="w-full rounded-md border border-borders-600 bg-interactive-300 px-4 py-1 text-solid-900 placeholder-base-100 outline-none"
       required
     />
   );
 
-  const dateCompletedtInput = (
-    <input
+  const dateCompletedInput = (
+    <DateInput
+      label="Date Completed"
       name="dateCompleted"
-      type="date"
       value={dateCompleted}
       onChange={async e => {
         setDateCompleted(e.target.value);
@@ -142,7 +142,6 @@ export default function ProgressItem({
           dateCompleted: e.target.value
         });
       }}
-      className="w-full rounded-md border border-borders-600 bg-interactive-300 px-4 py-1 text-solid-900 placeholder-base-100 outline-none"
     />
   );
 
@@ -174,8 +173,8 @@ export default function ProgressItem({
         <>{unitInput}</>
       </div>
       <div className="flex gap-2">
-        <>{dateStartedtInput}</>
-        <>{dateCompletedtInput}</>
+        <>{dateStartedInput}</>
+        <>{dateCompletedInput}</>
       </div>
       <>{deleteBtn}</>
     </div>

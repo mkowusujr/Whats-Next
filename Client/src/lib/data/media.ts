@@ -13,9 +13,9 @@ const baseUrl = `${apiUrl}/media`;
  * @param media - The media object to be added.
  * @returns A promise that resolves to the response data or rejects with an error.
  */
-export const addMedia = (media: ExternalMedia) => {
+export const addMedia = (media: CreatedMedia) => {
   const apiUrl = `${baseUrl}`;
-  return postRequest<Media, ExternalMedia>(apiUrl, media);
+  return postRequest<Media, CreatedMedia>(apiUrl, media);
 };
 
 /**
@@ -50,7 +50,7 @@ export const listInternalMedia = (
 export const searchExternally = (query: string, mediaType: string) => {
   let queryParams = `/external?query=${encodeURIComponent(query)}&mediaType=${encodeURIComponent(mediaType)}`;
   const apiUrl = `${baseUrl}${queryParams}`;
-  return getRequest<ExternalMedia[]>(apiUrl);
+  return getRequest<CreatedMedia[]>(apiUrl);
 };
 
 /**

@@ -34,10 +34,10 @@ export default function MediaPage({ mediaTypes }: MediaPageProps) {
     <div className="flex flex-col p-4">
       <MediaFilters />
       <MediaTypesProvider mediaTypes={mediaTypes}>
-      <div className="my-8">
-        <MediaCardGrid media={media as Media[]} />
-        {hasNextPage && <div ref={ref} className="h-4 w-full"></div>}
-      </div>
+        <div className="my-8">
+          <MediaCardGrid media={media as Media[]} />
+          {hasNextPage && <div ref={ref} className="h-4 w-full"></div>}
+        </div>
       </MediaTypesProvider>
     </div>
   );

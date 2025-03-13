@@ -14,7 +14,9 @@ export default function DeleteMedia({ mediaId }: { mediaId: number }) {
       await deleteMedia(mediaId);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [`${mediaTypes.join('')}-media`] });
+      queryClient.invalidateQueries({
+        queryKey: [`${mediaTypes.join('')}-media`]
+      });
     }
   });
 

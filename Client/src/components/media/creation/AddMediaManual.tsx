@@ -1,146 +1,189 @@
-import { useState } from 'react';
-
+import { ChangeEvent, useState } from 'react';
+import { videoMediaTypes, bookTypes } from '@/lib/utils/form-utils';
+import Select from '@/components/shared/Select';
 import {
-  bookTypes,
-  videoMediaTypes,
-  statuses,
-  scores
-} from '@/lib/form-fields';
-import Select from '@/components/DEPRICATED/common/Select';
+  SelectMediaScore,
+  SelectMediaStatus
+} from '../cards/MediaSelectInputs';
+import { addMedia } from '@/lib/data/media';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { WATCH_NEXT_FILTER, READ_NEXT_FILTER } from '@/lib/utils';
+import DateInput from '@/components/shared/DateInput';
+import TextInput from '@/components/shared/TextInput';
 
-type AddMediaProps = {
-  /** The type of media to be added ('Watch' or 'Read'). */
-  pageName: string;
-  /** Callback function to add a new media item to the list. */
-  addToList: Function;
-};
+type AddMediaProps = {};
 
 /** Functional component for adding new media items. */
-export default function AddMediaManual({ pageName, addToList }: AddMediaProps) {
+export default function AddMediaManual({}: AddMediaProps) {
   // State variables for form inputs
-  const [title, setTitle] = useState('');
-  const [subTitle, setSubTitle] = useState('');
-  const [mediaType, setMediaType] = useState('');
-  const [score, setScore] = useState(0);
-  const [status, setStatus] = useState('');
-  const [link, setLink] = useState('');
+  const [title, setTitle] = useState<string | undefined>(undefined);
+  const [subTitle, setSubTitle] = useState<string | undefined>(undefined);
+  const [mediaType, setMediaType] = useState<string | undefined>(undefined);
+  const [duration, setDuration] = useState<string | undefined>(undefined);
+  const [score, setScore] = useState<number | null>(0);
+  const [status, setStatus] = useState<string | null>(null);
+  const [mediaLink, setMediaLink] = useState<string | undefined>(undefined);
+  const [imgLink, setImgLink] = useState<string | undefined>(undefined);
+  const [creator, setCreator] = useState<string | undefined>(undefined);
+  const [releaseDate, setReleaseDate] = useState<string | undefined>(undefined);
+  const [dateStarted, setDateStarted] = useState<string | undefined>(undefined);
+  const [dateCompleted, setDateCompleted] = useState<string | undefined>(
+    undefined
+  );
 
   // Options for the media type dropdown
-  let allowedMediaOptions: { label: string; value: string }[] = [];
-  const defaultMediaType = { label: 'MediaType', value: '' };
+  let allowedMediaOptions: { label: string; value: string }[] = [
+    ...videoMediaTypes,
+    ...bookTypes
+  ];
 
-  switch (pageName) {
-    case 'Watch':
-      allowedMediaOptions = [defaultMediaType, ...videoMediaTypes];
-      break;
-    case 'Read':
-      allowedMediaOptions = [defaultMediaType, ...bookTypes];
-      break;
-  }
+  const queryClient = useQueryClient();
+  const mutation = useMutation({
+    mutationFn: (createdMedia: CreatedMedia) => addMedia(createdMedia),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: [
+          `${WATCH_NEXT_FILTER.join('')}-media`,
+          `${READ_NEXT_FILTER.join('')}-media`
+        ]
+      });
+    }
+  });
 
-  /**
-   * Handles the form submission and calls the API to add a new media item.
-   * Displays a toast notification based on API response.
-   *
-   * @param {Event} e - The form submission event.
-   */
-  // const handleSubmit = (e: React.FormEvent) => {
-  //   e.preventDefault();
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
 
-  //   const callAPI = new Promise<string>((res, rej) => {
-  //     const newMedia: CreatedMedia = {
-  //       title: title,
-  //       subTitle: subTitle,
-  //       mediaType: mediaType,
-  //       score: score,
-  //       status: status,
-  //       link: link
-  //     };
+    const newMedia: CreatedMedia = {
+      title: title!,
+      subTitle: subTitle!,
+      mediaType: mediaType!,
+      score: score!,
+      status: status!,
+      mediaLink: mediaLink,
+      duration: duration,
+      releaseDate: releaseDate,
+      imgLink: imgLink,
+      creator: creator,
+      dateStarted: dateStarted,
+      dateCompleted: dateCompleted
+    };
 
-  //     addMedia(newMedia)
-  //       .then(m => {
-  //         addToList(m);
-  //         setTitle('');
-  //         setSubTitle('');
-  //         setMediaType('');
-  //         setScore(0);
-  //         setStatus('');
-  //         setLink('');
-  //         res(`Successfully added ${m!.title}`);
-  //       })
-  //       .catch(err => rej(err));
-  //   });
-
-  //   apiToast(callAPI);
-  // };
+    await mutation
+      .mutateAsync(newMedia)
+      .then(m => {
+        setTitle('');
+        setSubTitle('');
+        setMediaType('');
+        setScore(null);
+        setStatus('');
+        setMediaLink('');
+        setCreator('');
+        setImgLink('');
+        setReleaseDate('');
+        setDateStarted('');
+        setDateCompleted('');
+        setDuration('');
+      })
+      .catch(err => {});
+  };
 
   return (
-    <>
-      <form
-        className="bg-base-300 flex flex-col justify-between gap-4 rounded-md  p-6 text-2xl"
-        // onSubmit={handleSubmit}
-      >
-        <div className="flex flex-col md:flex-row">
-          <input
-            type="text"
-            name="title"
-            value={title}
-            onChange={e => setTitle(e.target.value)}
-            placeholder="Add Title"
-            autoComplete="off"
-            className="bg-secondary text-primary rounded-t-md px-4 py-1 placeholder-base-100 outline-none md:rounded-e-none md:rounded-s-md"
-            required
-          />
-          <input
-            type="text"
-            name="subTitle"
-            value={subTitle}
-            onChange={e => setSubTitle(e.target.value)}
-            placeholder="Add Subtitle"
-            className="bg-secondary text-primary rounded-b-md px-4 py-1 placeholder-base-100 outline-none md:rounded-e-md md:rounded-s-none"
-            autoComplete="off"
-          />
-        </div>
-        <div className="mx-auto flex flex-col gap-4 md:flex-row">
-          <Select
-            name={'mediaType'}
-            value={mediaType}
-            options={allowedMediaOptions}
-            onChange={e => setMediaType(e.target.value)}
-            className="rounded-md"
-            isRequired={true}
-          />
-          <Select
-            name={'score'}
-            value={score}
-            options={scores}
-            onChange={e => setScore(e.target.value)}
-            className="rounded-md"
-          />
-          <Select
-            name={'status'}
-            value={status}
-            options={statuses}
-            onChange={e => setStatus(e.target.value)}
-            className="rounded-md"
-          />
-        </div>
-        <div>
-          <input
-            name="link"
-            value={link}
-            onChange={e => setLink(e.target.value)}
-            placeholder="Add Link"
-            className="bg-secondary text-primary w-full rounded-md px-4 py-1 placeholder-base-100 outline-none"
-            autoComplete="off"
-          />
-        </div>
-        <input
-          type="submit"
-          value="Add Media"
-          className="bg-primary text-secondary cursor-pointer rounded-md px-4 py-1 outline-none"
+    <form
+      className="flex flex-col justify-between gap-4 rounded-md p-6 text-2xl"
+      onSubmit={handleSubmit}
+    >
+      <div className="flex flex-col md:flex-row">
+        <TextInput
+          name="title"
+          value={title}
+          onChange={e => setTitle(e.target.value)}
+          placeholder="Add Title"
+          className="rounded-t-md"
+          required
         />
-      </form>
-    </>
+        <TextInput
+          name="subTitle"
+          value={subTitle}
+          onChange={e => setSubTitle(e.target.value)}
+          placeholder="Add Subtitle"
+          className="rounded-b-md"
+        />
+      </div>
+      <div className="w-full">
+        <TextInput
+          name="creator"
+          value={creator}
+          onChange={e => setCreator(e.target.value)}
+          placeholder="Add Creator"
+        />
+      </div>
+      <div className="w-full">
+        <TextInput
+          name="duration"
+          value={duration}
+          onChange={e => setDuration(e.target.value)}
+          placeholder="Duration"
+        />
+      </div>
+      <div className="mx-auto flex flex-col gap-4 md:flex-row">
+        <Select
+          value={mediaType}
+          options={allowedMediaOptions}
+          onValueChange={value => setMediaType(value!)}
+          placeholder={'Set Media Type'}
+          required
+        />
+      </div>
+      <div className="mx-auto flex gap-4 md:flex-row">
+        <SelectMediaScore
+          score={score}
+          onChange={val => setScore(Number(val))}
+        />
+        <SelectMediaStatus status={status} onChange={val => setStatus(val)} />
+      </div>
+      <div>
+        <DateInput
+          label="Release Date"
+          name="releaseDate"
+          value={releaseDate}
+          onChange={e => setReleaseDate(e.target.value)}
+        />
+      </div>
+      <div className="flex gap-4">
+        <DateInput
+          label="Date Started"
+          name="dateStarted"
+          value={dateStarted}
+          onChange={e => setDateStarted(e.target.value)}
+        />
+        <DateInput
+          label="Date Completed"
+          name="dateCompleted"
+          value={dateCompleted}
+          onChange={e => setDateCompleted(e.target.value)}
+        />
+      </div>
+      <div className="w-full">
+        <TextInput
+          name="title"
+          value={mediaLink}
+          onChange={e => setMediaLink(e.target.value)}
+          placeholder="Add Link"
+        />
+      </div>
+      <div className="w-full">
+        <TextInput
+          name="imgLink"
+          value={imgLink}
+          onChange={e => setImgLink(e.target.value)}
+          placeholder="Add Image Link"
+        />
+      </div>
+      <input
+        type="submit"
+        value="Add Media"
+        className="cursor-pointer rounded-md bg-solid-900 px-4 py-1 text-interactive-300 outline-none"
+      />
+    </form>
   );
 }

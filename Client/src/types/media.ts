@@ -23,7 +23,7 @@ type MediaType = {
 
 type CreatedMedia = {
   title: string;
-  subTitle: string;
+  subTitle?: string;
   mediaType: string;
   score: number;
   status: string;
@@ -34,6 +34,8 @@ type CreatedMedia = {
   releaseDate?: string;
   mediaLink?: string;
   categories?: string[];
+  dateStarted?: string;
+  dateCompleted?: string;
 };
 
 type Filter = {
@@ -43,16 +45,4 @@ type Filter = {
   status: string;
   sortBy: string;
   isAsc: boolean;
-};
-
-type ExternalMedia = {
-  title: string;
-  subTitle: string;
-  creator: string[];
-  releaseDate: string;
-  summary: string;
-  duration: string;
-  categories: string[];
-  mediaType: string;
-  img: string;
 };

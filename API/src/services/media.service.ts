@@ -31,7 +31,9 @@ export const addMedia = async (media: CreatedMedia): Promise<media> => {
       imgLink: media.imgLink,
       creator: JSON.stringify(media.creator),
       summary: media.summary,
-      releaseDate: media.releaseDate,
+      releaseDate: media.releaseDate
+        ? new Date(media.releaseDate).toISOString()
+        : null,
       mediaLink: media.mediaLink
     }
   });

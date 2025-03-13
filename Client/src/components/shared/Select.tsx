@@ -14,16 +14,22 @@ type Props = {
   onValueChange: (value: string | null) => void;
   options: SelectOption[];
   placeholder?: string;
+  required?: boolean;
 };
 
 export default function Select({
   value,
   onValueChange,
   options,
-  placeholder
+  placeholder,
+  required = false
 }: Props) {
   return (
-    <ShadcnSelect value={value} onValueChange={onValueChange}>
+    <ShadcnSelect
+      value={value}
+      onValueChange={onValueChange}
+      required={required}
+    >
       <ShadcnSelectTrigger className="h-[42px] w-[180px] rounded-md border border-borders-600 bg-interactive-300 text-solid-900 hover:border-solid-1000 hover:bg-interactive-400 hover:text-solid-1000 focus:border-none focus:outline-none focus:ring-0">
         <ShadcnSelectValue placeholder={placeholder} className="rounded-lg" />
       </ShadcnSelectTrigger>

@@ -9,16 +9,18 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { MediaTypesContext } from '../MediaTypesProvider';
 
 type Props = {
-  media: ExternalMedia;
+  media: CreatedMedia;
 };
 
 export default function ExternalMediaPreview({ media }: Props) {
   const mediaTypes = useContext(MediaTypesContext);
   const queryClient = useQueryClient();
   const { mutateAsync: addMediaMutation } = useMutation({
-    mutationFn: (media: ExternalMedia) => addMedia(media),
+    mutationFn: (media: CreatedMedia) => addMedia(media),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [`${mediaTypes.join('')}-media`] });
+      queryClient.invalidateQueries({
+        queryKey: [`${mediaTypes.join('')}-media`]
+      });
     }
   });
 
@@ -48,7 +50,7 @@ export default function ExternalMediaPreview({ media }: Props) {
           <h2 className="text-primary text-xl font-semibold">
             {getMediaFullTitle(media)}
           </h2>
-          <div>{new Date(media.releaseDate).toLocaleDateString()}</div>
+          <div>{new Date(media.releaseDate!).toLocaleDateString()}</div>
         </div>
         <div className="flex flex-col justify-around md:flex-row">
           <div className="flex justify-between">

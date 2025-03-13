@@ -65,14 +65,14 @@ export const mediaProgressUnits = [
  * Different video media types.
  */
 export const videoMediaTypes = [
-  { label: 'Movie', value: 'Movie' },
-  { label: 'Series', value: 'Series' }
+  { label: 'Movie', value: 'movie' },
+  { label: 'Series', value: 'series' }
 ];
 
 /**
  * Different book types.
  */
 export const bookTypes = [
-  { label: 'Graphic Novels', value: 'Graphic Novels' },
-  { label: 'Book', value: 'Book' }
+  { label: 'Graphic Novels', value: 'graphic novels' },
+  { label: 'Book', value: 'book' }
 ];

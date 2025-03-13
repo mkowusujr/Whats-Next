@@ -30,13 +30,13 @@ export default function AddMedia() {
           <TabsList className="mx-auto bg-interactive-300">
             <TabsTrigger
               value="find-next"
-              className="active:bg-interactive-400"
+              className="data-[state=active]:bg-interactive-400"
             >
               Find Next
             </TabsTrigger>
             <TabsTrigger
               value="manual-add"
-              className="active:bg-interactive-400"
+              className="data-[state=active]:bg-interactive-400"
             >
               Manually Add
             </TabsTrigger>
@@ -45,8 +45,7 @@ export default function AddMedia() {
             <FindNext />
           </TabsContent>
           <TabsContent value="manual-add">
-            <></>
-            {/* <AddMediaManual pageName={''} addToList={() => {}} /> */}
+            <AddMediaManual />
           </TabsContent>
         </Tabs>
       </SheetContent>
